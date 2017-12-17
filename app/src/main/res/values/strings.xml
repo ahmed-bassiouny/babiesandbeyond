@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">BabiesAndBeyond</string>
+
+    <string name="email">E-mail</string>
+    <string name="invalid_email">Invalid E-mail</string>
+
+    <string name="password">Password</string>
+    <string name="invalid_password">Invalid Password</string>
+
+    <string name="sign_in">Sing In</string>
+    <string name="sign_up">Sing Up</string>
+
+    <string name="name">Name</string>
+    <string name="invalid_name">Your name must be greater than 6 character</string>
+    <string name="phone">Phone</string>
+    <string name="invalid_phone">Invalid Phone</string>
+
+    <string name="confirm_password">Confirm Password</string>
+    <string name="invalid_confirm_password">Password Don\'t Match</string>
+
+    <string name="forget_password">Forget Password</string>
+</resources>
