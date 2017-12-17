@@ -1,6 +1,7 @@
 package tech.ntam.babiesandbeyond.view.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.controller.fragments.SignInController;
+import tech.ntam.babiesandbeyond.view.activities.ForgetPasswordActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -74,7 +76,7 @@ public class SignInFragment extends Fragment {
         tvForgetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(getContext(), ForgetPasswordActivity.class));
             }
         });
     }
