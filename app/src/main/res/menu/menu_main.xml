@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="tech.ntam.babiesandbeyond.view.activities.MainActivity">
+    tools:context="tech.ntam.babiesandbeyond.view.activities.UserHomeActivity">
     <item
         android:id="@+id/service"
         android:title="@string/services"

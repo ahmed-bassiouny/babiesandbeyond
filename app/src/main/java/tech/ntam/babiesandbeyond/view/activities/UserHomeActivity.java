@@ -23,7 +23,7 @@ import android.widget.TextView;
 
 import tech.ntam.babiesandbeyond.R;
 
-public class MainActivity extends AppCompatActivity {
+public class UserHomeActivity extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private BottomNavigationView bottomNavigation;

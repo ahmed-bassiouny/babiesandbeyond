@@ -18,7 +18,7 @@
             android:name=".view.activities.ForgetPasswordActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".view.activities.MainActivity"
+            android:name=".view.activities.UserHomeActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
