@@ -1,0 +1,42 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="tech.ntam.babiesandbeyond.view.activities.MainActivity">
+    <item
+        android:id="@+id/service"
+        android:title="@string/services"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:icon="@drawable/services">
+    </item>
+    <item
+        android:id="@+id/event"
+        android:title="@string/events"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:icon="@drawable/events">
+    </item>
+    <item
+        android:id="@+id/workshop"
+        android:title="@string/Workshops"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:icon="@drawable/workshop">
+    </item>
+    <item
+        android:id="@+id/message"
+        android:title="@string/message"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:icon="@drawable/messages">
+    </item>
+
+    <item
+        android:id="@+id/about_us"
+        android:title="@string/about_us"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:icon="@drawable/about">
+    </item>
+
+</menu>

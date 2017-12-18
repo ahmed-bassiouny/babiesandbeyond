@@ -22,4 +22,11 @@
     <string name="hint">We Just Need Your Registered Email To Sent \n
     Your Password on It</string>
     <string name="send">Send</string>
+    <string name="title_activity_main">HomeActivity</string>
+    <string name="services">Services</string>
+    <string name="events">Events</string>
+    <string name="Workshops">Workshops</string>
+    <string name="message">Messages</string>
+    <string name="about_us">About Us</string>
+
 </resources>
