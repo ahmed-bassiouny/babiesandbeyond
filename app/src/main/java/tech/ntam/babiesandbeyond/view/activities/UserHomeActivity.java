@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import tech.ntam.babiesandbeyond.R;
+import tech.ntam.babiesandbeyond.view.fragments.ServiceFragment;
 
 public class UserHomeActivity extends AppCompatActivity {
 
@@ -112,13 +113,7 @@ public class UserHomeActivity extends AppCompatActivity {
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
+
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -144,13 +139,18 @@ public class UserHomeActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            switch (position) {
+                case 0:
+                    return ServiceFragment.newInstance();
+                default:
+                    return null;
+            }
         }
 
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 5;
+            return 1;
         }
     }
 }

@@ -1,0 +1,51 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="20dp"
+    tools:context="tech.ntam.babiesandbeyond.view.fragments.ServiceFragment">
+
+    <com.github.sundeepk.compactcalendarview.CompactCalendarView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/compactcalendar_view"
+        android:layout_width="fill_parent"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:layout_height="250dp"
+        app:compactCalendarTargetHeight="250dp"
+        app:compactCalendarTextSize="12sp"
+        app:compactCalendarBackgroundColor="#fff"
+        app:compactCalendarTextColor="#000"
+        app:compactCalendarCurrentSelectedDayBackgroundColor="@color/colorAccent"
+        app:compactCalendarCurrentDayBackgroundColor="#fff"
+        app:compactCalendarMultiEventIndicatorColor="#000" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/confirmation_with_payment"
+        android:drawablePadding="5dp"
+        android:textSize="17sp"
+        android:drawableLeft="@drawable/gray_bold_oval"/>
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/confirmation_without_payment"
+        android:drawablePadding="5dp"
+        android:textSize="17sp"
+        android:drawableLeft="@drawable/gray_oval"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pending"
+        android:drawablePadding="5dp"
+        android:textSize="17sp"
+        android:drawableLeft="@drawable/pending_oval"/>
+
+</LinearLayout>
