@@ -36,5 +36,11 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="send_request">Send Request</string>
+    <string name="choose_service">Choose Service</string>
+    <string name="choose_date_from">Choose Date From</string>
+    <string name="choose_date_to">Choose Date To</string>
+    <string name="location">Location</string>
+    <string name="type_here">Type Here</string>
+
 
 </resources>

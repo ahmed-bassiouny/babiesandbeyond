@@ -4,15 +4,14 @@ package tech.ntam.babiesandbeyond.view.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -24,22 +23,23 @@ import tech.ntam.mylibrary.Utils;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ServiceFragment extends Fragment {
+public class UserServiceFragment extends Fragment {
 
-    private static ServiceFragment serviceFragment;
+    private static UserServiceFragment userServiceFragment;
     private CompactCalendarView compactCalendarView;
     private TextView tvDate;
+    private Button btnSendRequest;
     private Calendar cal;
     private int year, month; // get current year and get current month
 
-    public ServiceFragment() {
+    public UserServiceFragment() {
         // Required empty public constructor
     }
 
-    public static ServiceFragment newInstance() {
-        if (serviceFragment == null)
-            serviceFragment = new ServiceFragment();
-        return serviceFragment;
+    public static UserServiceFragment newInstance() {
+        if (userServiceFragment == null)
+            userServiceFragment = new UserServiceFragment();
+        return userServiceFragment;
     }
 
     @Override
@@ -54,7 +54,7 @@ public class ServiceFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         compactCalendarView = view.findViewById(R.id.compactcalendar_view);
         tvDate = view.findViewById(R.id.tv_date);
-
+        btnSendRequest = view.findViewById(R.id.btn_send_request);
         initObject();
         onClick();
 
@@ -77,6 +77,11 @@ public class ServiceFragment extends Fragment {
             @Override
             public void onMonthScroll(Date firstDayOfNewMonth) {
                 setDate(firstDayOfNewMonth);
+            }
+        });
+        btnSendRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
             }
         });
     }

@@ -1,0 +1,72 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="tech.ntam.babiesandbeyond.view.fragments.UserSendRequestFragment">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:fontFamily="@font/museosans"
+        android:text="@string/choose_service"
+        android:textSize="18sp" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/museosans"
+        android:id="@+id/sp_service"
+        android:layout_margin="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:fontFamily="@font/museosans"
+        android:text="@string/choose_date_from"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/et_choose_date_from"
+        android:layout_width="match_parent"
+        android:focusableInTouchMode="false"
+        android:focusable="false"
+        android:fontFamily="@font/museosans"
+        android:drawableEnd="@drawable/ic_access_time_black_24dp"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:fontFamily="@font/museosans"
+        android:text="@string/choose_date_to"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/et_choose_date_to"
+        android:layout_width="match_parent"
+        android:focusableInTouchMode="false"
+        android:focusable="false"
+        android:fontFamily="@font/museosans"
+        android:drawableEnd="@drawable/ic_access_time_black_24dp"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:fontFamily="@font/museosans"
+        android:text="@string/location"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/et_location"
+        android:layout_width="match_parent"
+        android:focusableInTouchMode="false"
+        android:focusable="false"
+        android:fontFamily="@font/museosans"
+        android:hint="@string/type_here"
+        android:layout_height="wrap_content" />
+</LinearLayout>

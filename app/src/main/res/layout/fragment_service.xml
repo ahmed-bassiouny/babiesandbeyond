@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context="tech.ntam.babiesandbeyond.view.fragments.ServiceFragment">
+    tools:context="tech.ntam.babiesandbeyond.view.fragments.UserServiceFragment">
 
     <TextView
         android:id="@+id/tv_date"
@@ -71,7 +71,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="40dp"
         android:textAllCaps="false"
-        android:id="@+id/btn_sign_in"
+        android:id="@+id/btn_send_request"
         android:fontFamily="@font/museosans"
         android:background="@color/colorButton"
         android:text="@string/send_request" />

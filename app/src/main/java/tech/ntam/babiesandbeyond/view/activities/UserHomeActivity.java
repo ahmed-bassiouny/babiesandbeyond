@@ -2,11 +2,7 @@ package tech.ntam.babiesandbeyond.view.activities;
 
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.TabLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,7 +10,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +17,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import tech.ntam.babiesandbeyond.R;
-import tech.ntam.babiesandbeyond.view.fragments.ServiceFragment;
+import tech.ntam.babiesandbeyond.view.fragments.UserSendRequestFragment;
+import tech.ntam.babiesandbeyond.view.fragments.UserServiceFragment;
 
 public class UserHomeActivity extends AppCompatActivity {
 
@@ -141,7 +137,9 @@ public class UserHomeActivity extends AppCompatActivity {
             // Return a PlaceholderFragment (defined as a static inner class below).
             switch (position) {
                 case 0:
-                    return ServiceFragment.newInstance();
+                    return UserServiceFragment.newInstance();
+                case 1:
+                    return new UserSendRequestFragment();
                 default:
                     return null;
             }
@@ -150,7 +148,7 @@ public class UserHomeActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 1;
+            return 2;
         }
     }
 }
