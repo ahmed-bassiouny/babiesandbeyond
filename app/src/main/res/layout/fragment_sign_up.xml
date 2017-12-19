@@ -15,6 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:lines="1"
+            android:fontFamily="@font/museosans"
             android:inputType="textPersonName"
             android:hint="@string/name" />
     </android.support.design.widget.TextInputLayout>
@@ -28,6 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:lines="1"
+            android:fontFamily="@font/museosans"
             android:inputType="phone"
             android:hint="@string/phone" />
     </android.support.design.widget.TextInputLayout>
@@ -41,6 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:lines="1"
+            android:fontFamily="@font/museosans"
             android:inputType="textEmailAddress"
             android:hint="@string/email" />
     </android.support.design.widget.TextInputLayout>
@@ -54,6 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:lines="1"
+            android:fontFamily="@font/museosans"
             android:inputType="textPassword"
             android:hint="@string/password" />
     </android.support.design.widget.TextInputLayout>
@@ -67,6 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:lines="1"
+            android:fontFamily="@font/museosans"
             android:inputType="textPassword"
             android:hint="@string/confirm_password" />
     </android.support.design.widget.TextInputLayout>
@@ -77,6 +82,7 @@
         android:layout_marginTop="40dp"
         android:textAllCaps="false"
         android:id="@+id/btn_sign_in"
+        android:fontFamily="@font/museosans"
         android:background="@color/colorButton"
         android:text="@string/sign_up" />
 </LinearLayout>

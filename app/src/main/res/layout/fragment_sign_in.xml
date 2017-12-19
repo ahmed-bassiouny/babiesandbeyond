@@ -15,6 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="1"
+            android:fontFamily="@font/museosans"
             android:id="@+id/et_email"
             android:inputType="textEmailAddress"
             android:hint="@string/email" />
@@ -31,6 +32,7 @@
             android:layout_height="wrap_content"
             android:maxLines="1"
             android:id="@+id/et_password"
+            android:fontFamily="@font/museosans"
             android:inputType="textEmailAddress"
             android:hint="@string/password" />
     </android.support.design.widget.TextInputLayout>
@@ -41,6 +43,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="40dp"
         android:textAllCaps="false"
+        android:fontFamily="@font/museosans"
         android:id="@+id/btn_sign_in"
         android:background="@color/colorButton"
         android:text="@string/sign_in" />
@@ -50,6 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:id="@+id/tv_forget_password"
+        android:fontFamily="@font/museosans"
         android:layout_marginTop="20dp"
         android:text="@string/forget_password" />
 </LinearLayout>
