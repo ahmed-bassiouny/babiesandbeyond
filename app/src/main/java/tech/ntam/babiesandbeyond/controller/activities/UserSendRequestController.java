@@ -1,4 +1,4 @@
-package tech.ntam.babiesandbeyond.controller.fragments;
+package tech.ntam.babiesandbeyond.controller.activities;
 
 import android.app.Activity;
 

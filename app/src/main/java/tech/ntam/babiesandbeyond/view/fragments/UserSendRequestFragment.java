@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +14,8 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
-import java.util.Calendar;
-
 import tech.ntam.babiesandbeyond.R;
-import tech.ntam.babiesandbeyond.controller.fragments.UserSendRequestController;
+import tech.ntam.babiesandbeyond.controller.activities.UserSendRequestController;
 
 
 /**
@@ -59,14 +56,6 @@ public class UserSendRequestFragment extends Fragment implements
         etChooseDateFrom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              /*  Calendar now = Calendar.getInstance();
-                DatePickerDialog dpd = com.wdullaer.materialdatetimepicker.date.DatePickerDialog.newInstance(
-                        UserSendRequestFragment.this,
-                        now.get(Calendar.YEAR),
-                        now.get(Calendar.MONTH),
-                        now.get(Calendar.DAY_OF_MONTH)
-                );*/
-                //dpd.show(getActivity().getFragmentManager()   , "Datepickerdialog");
                 getController().showDateTime(UserSendRequestFragment.this,getActivity().getFragmentManager());
             }
         });
@@ -81,14 +70,11 @@ public class UserSendRequestFragment extends Fragment implements
 
     @Override
     public void onDateSet(com.wdullaer.materialdatetimepicker.date.DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-        Log.e("onDateSet: ", "year" + year);
-        Log.e("onDateSet: ", "month" + monthOfYear);
-        Log.e("onDateSet: ", "dayOfMonth" + dayOfMonth);
+
     }
 
     @Override
     public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
-        Log.e("onTimeSet: ", "hourOfDay = " + hourOfDay);
-        Log.e("onTimeSet: ", "minute = " + minute);
+
     }
 }
