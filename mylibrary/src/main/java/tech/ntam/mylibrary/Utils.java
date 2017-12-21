@@ -7,6 +7,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by bassiouny on 17/12/17.
@@ -29,8 +34,17 @@ public class Utils {
             fragmentTransaction.addToBackStack("back");
         fragmentTransaction.commit();
     }
-    public static String getMonthString(int month){
+
+    public static String getMonthString(int month) {
         String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
         return monthNames[month];
+    }
+
+    public static void setDate(TextView textView, Date date) {
+        // this method take date and put it in text view
+        // ex 20-11-2017 => novmcer 2017
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        textView.setText(Utils.getMonthString(cal.get(Calendar.MONTH)) + " " + cal.get(Calendar.YEAR));
     }
 }

@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".view.activities.SignIn_UpActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.activities.ForgetPasswordActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -25,7 +25,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.activities.UserSendRequestActivity"></activity>
+        <activity android:name=".view.activities.UserSendRequestActivity" />
+        <activity android:name=".view.activities.EventDialogActivity"
+            android:theme="@style/AppThemeDialog"></activity>
     </application>
 
 </manifest>
