@@ -19,6 +19,7 @@ import android.widget.TextView;
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.view.fragments.UserEventsFragment;
 import tech.ntam.babiesandbeyond.view.fragments.UserServiceFragment;
+import tech.ntam.babiesandbeyond.view.fragments.UserWorkshopFragment;
 
 public class UserHomeActivity extends AppCompatActivity {
 
@@ -140,6 +141,8 @@ public class UserHomeActivity extends AppCompatActivity {
                     return UserServiceFragment.newInstance();
                 case 1:
                     return UserEventsFragment.newInstance();
+                case 2:
+                    return UserWorkshopFragment.newInstance();
                 default:
                     return null;
             }
@@ -147,7 +150,7 @@ public class UserHomeActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 2;
+            return 3;
         }
     }
 }

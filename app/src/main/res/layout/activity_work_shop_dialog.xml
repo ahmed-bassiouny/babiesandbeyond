@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/museosans"
-        android:text="@string/events"
+        android:text="@string/workshop"
         android:textSize="20sp"
         android:layout_gravity="center_horizontal"/>
 
@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/museosans"
-        android:text="@string/event_name"
+        android:text="@string/workshop_name"
         android:textStyle="bold"
         android:textColor="@color/black"/>
 
@@ -28,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/museosans"
-        android:id="@+id/tv_event_name"
+        android:id="@+id/tv_workshop_name"
         android:textColor="@color/black"/>
 
 
@@ -36,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/museosans"
-        android:text="@string/event_date_time_from"
+        android:text="@string/workshop_date_time_from"
         android:textStyle="bold"
         android:textColor="@color/black"/>
 
@@ -44,7 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/museosans"
-        android:id="@+id/tv_event_date_time_from"
+        android:id="@+id/tv_workshop_date_time_from"
         android:textColor="@color/black"/>
 
 
@@ -52,7 +52,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/museosans"
-        android:text="@string/event_date_time_to"
+        android:text="@string/workshop_date_time_to"
         android:textStyle="bold"
         android:textColor="@color/black"/>
 
@@ -61,7 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/museosans"
-        android:id="@+id/tv_event_date_time_to"
+        android:id="@+id/tv_workshop_date_time_to"
         android:textColor="@color/black"/>
 
     <TextView
@@ -136,6 +136,6 @@
         android:fontFamily="@font/museosans"
         android:id="@+id/btn_coming"
         android:background="@color/colorButton"
-        android:text="@string/coming" />
+        android:text="@string/send_request" />
 
 </LinearLayout>

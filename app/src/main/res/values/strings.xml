@@ -43,14 +43,20 @@
     <string name="type_here">Type Here</string>
     <string name="any">Any</string>
     <string name="coming">Coming</string>
+    <string name="workshop">Workshop</string>
+
     <string name="event_name">Event Name</string>
     <string name="event_date_time_to">Event Date Time To</string>
     <string name="event_date_time_from">Event Date Time From</string>
 
+    <string name="workshop_name">Workshop Name</string>
+    <string name="workshop_date_time_to">Workshop Date Time To</string>
+    <string name="workshop_date_time_from">Workshop Date Time From</string>
+
     <string name="speaker_bio">Speaker Bio</string>
     <string name="speaker_name">Speaker Name</string>
     <string name="status">Status</string>
-
+    <string name="event_description">Description</string>
 
 
 </resources>
