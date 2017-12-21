@@ -1,6 +1,7 @@
 package tech.ntam.babiesandbeyond.view.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import tech.ntam.babiesandbeyond.R;
+import tech.ntam.babiesandbeyond.view.activities.UserSendRequestActivity;
 import tech.ntam.mylibrary.Utils;
 
 /**
@@ -82,6 +84,7 @@ public class UserServiceFragment extends Fragment {
         btnSendRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                startActivity(new Intent(getActivity(),UserSendRequestActivity.class));
             }
         });
     }

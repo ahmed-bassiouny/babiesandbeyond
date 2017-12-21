@@ -41,6 +41,6 @@
     <string name="choose_date_to">Choose Date To</string>
     <string name="location">Location</string>
     <string name="type_here">Type Here</string>
-
+    <string name="any">Any</string>
 
 </resources>

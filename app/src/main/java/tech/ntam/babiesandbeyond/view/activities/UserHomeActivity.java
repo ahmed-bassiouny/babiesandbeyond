@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import tech.ntam.babiesandbeyond.R;
-import tech.ntam.babiesandbeyond.view.fragments.UserSendRequestFragment;
 import tech.ntam.babiesandbeyond.view.fragments.UserServiceFragment;
 
 public class UserHomeActivity extends AppCompatActivity {
@@ -138,8 +137,6 @@ public class UserHomeActivity extends AppCompatActivity {
             switch (position) {
                 case 0:
                     return UserServiceFragment.newInstance();
-                case 1:
-                    return new UserSendRequestFragment();
                 default:
                     return null;
             }
@@ -148,7 +145,7 @@ public class UserHomeActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 2;
+            return 1;
         }
     }
 }
