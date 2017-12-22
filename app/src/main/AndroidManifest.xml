@@ -31,7 +31,8 @@
             android:theme="@style/AppThemeDialog" />
         <activity
             android:name=".view.activities.WorkShopDialogActivity"
-            android:theme="@style/AppThemeDialog"></activity>
+            android:theme="@style/AppThemeDialog" />
+        <activity android:name=".view.activities.NotificationActivity"></activity>
     </application>
 
 </manifest>
