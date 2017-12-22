@@ -61,6 +61,11 @@
     <string name="most_popular">Most Popular</string>
     <string name="my_groups">My Groups</string>
     <string name="create_groups">Create Groups</string>
+    <string name="upload_photo">Upload Photo</string>
+    <string name="change_password">Change Password</string>
+    <string name="view_history">View History</string>
+    <string name="view_qr_code">View QR Code</string>
+
 
 
 </resources>

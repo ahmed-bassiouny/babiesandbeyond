@@ -13,14 +13,12 @@ import android.widget.TextView;
 
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
 import tech.ntam.babiesandbeyond.R;
-import tech.ntam.babiesandbeyond.view.activities.EventDialogActivity;
-import tech.ntam.babiesandbeyond.view.activities.UserSendRequestActivity;
+import tech.ntam.babiesandbeyond.view.dialog.EventDialogActivity;
 import tech.ntam.mylibrary.Utils;
 
 /**

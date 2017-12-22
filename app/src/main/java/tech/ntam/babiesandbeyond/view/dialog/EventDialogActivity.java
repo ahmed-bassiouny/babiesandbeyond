@@ -1,4 +1,4 @@
-package tech.ntam.babiesandbeyond.view.activities;
+package tech.ntam.babiesandbeyond.view.dialog;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

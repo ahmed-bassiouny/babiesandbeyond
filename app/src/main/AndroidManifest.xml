@@ -27,12 +27,13 @@
         </activity>
         <activity android:name=".view.activities.UserSendRequestActivity" />
         <activity
-            android:name=".view.activities.EventDialogActivity"
+            android:name=".view.dialog.EventDialogActivity"
             android:theme="@style/AppThemeDialog" />
         <activity
-            android:name=".view.activities.WorkShopDialogActivity"
+            android:name=".view.dialog.WorkShopDialogActivity"
             android:theme="@style/AppThemeDialog" />
-        <activity android:name=".view.activities.NotificationActivity"></activity>
+        <activity android:name=".view.activities.NotificationActivity" />
+        <activity android:name=".view.activities.ProfileActivity"></activity>
     </application>
 
 </manifest>

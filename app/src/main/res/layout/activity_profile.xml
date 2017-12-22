@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context="tech.ntam.babiesandbeyond.view.activities.ProfileActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="20dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/iv_profile_photo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/person"
+            app:civ_border_color="@color/gray_bold"
+            app:civ_border_width="2dp" />
+
+        <TextView
+            android:id="@+id/tv_upload_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/museosans"
+            android:text="@string/upload_photo"
+            android:textColor="@color/gray_bold"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/museosans"
+            android:text="@string/name" />
+
+        <EditText
+            android:id="@+id/et_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:inputType="textPersonName"
+            android:fontFamily="@font/museosans"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/museosans"
+            android:text="@string/phone" />
+
+        <EditText
+            android:id="@+id/et_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:inputType="text"
+            android:fontFamily="@font/museosans"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btn_change_password"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp"
+            android:background="@color/colorButton"
+            android:fontFamily="@font/museosans"
+            android:text="@string/change_password"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btn_view_history"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorButton"
+            android:fontFamily="@font/museosans"
+            android:text="@string/view_history"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btn_view_qr_code"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorButton"
+            android:fontFamily="@font/museosans"
+            android:text="@string/view_qr_code"
+            android:textAllCaps="false"
+            android:layout_marginBottom="30dp"/>
+    </LinearLayout>
+</ScrollView>

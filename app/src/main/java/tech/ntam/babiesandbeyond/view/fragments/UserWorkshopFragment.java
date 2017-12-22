@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
@@ -19,9 +18,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import tech.ntam.babiesandbeyond.R;
-import tech.ntam.babiesandbeyond.view.activities.EventDialogActivity;
-import tech.ntam.babiesandbeyond.view.activities.UserSendRequestActivity;
-import tech.ntam.babiesandbeyond.view.activities.WorkShopDialogActivity;
+import tech.ntam.babiesandbeyond.view.dialog.WorkShopDialogActivity;
 import tech.ntam.mylibrary.Utils;
 
 /**
