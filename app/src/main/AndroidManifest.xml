@@ -33,7 +33,10 @@
             android:name=".view.dialog.WorkShopDialogActivity"
             android:theme="@style/AppThemeDialog" />
         <activity android:name=".view.activities.NotificationActivity" />
-        <activity android:name=".view.activities.ProfileActivity"></activity>
+        <activity android:name=".view.activities.ProfileActivity" />
+        <activity
+            android:name=".view.dialog.ChangePasswordDialogActivity"
+            android:theme="@style/AppThemeDialog"></activity>
     </application>
 
 </manifest>

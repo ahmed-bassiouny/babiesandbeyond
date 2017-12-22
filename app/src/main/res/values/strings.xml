@@ -65,7 +65,8 @@
     <string name="change_password">Change Password</string>
     <string name="view_history">View History</string>
     <string name="view_qr_code">View QR Code</string>
-
+    <string name="submit">Submit</string>
+    <string name="cancel">Cancel</string>
 
 
 </resources>
