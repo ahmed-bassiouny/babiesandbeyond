@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.view.fragments.UserEventsFragment;
+import tech.ntam.babiesandbeyond.view.fragments.UserGroupsFragment;
 import tech.ntam.babiesandbeyond.view.fragments.UserServiceFragment;
 import tech.ntam.babiesandbeyond.view.fragments.UserWorkshopFragment;
 
@@ -94,35 +95,6 @@ public class UserHomeActivity extends AppCompatActivity {
 
 
     /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        public PlaceholderFragment() {
-        }
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText("fdsfds");
-            return rootView;
-        }
-    }
-
-    /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
@@ -143,6 +115,8 @@ public class UserHomeActivity extends AppCompatActivity {
                     return UserEventsFragment.newInstance();
                 case 2:
                     return UserWorkshopFragment.newInstance();
+                case 3:
+                    return UserGroupsFragment.newInstance();
                 default:
                     return null;
             }
@@ -150,7 +124,7 @@ public class UserHomeActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 3;
+            return 4;
         }
     }
 }

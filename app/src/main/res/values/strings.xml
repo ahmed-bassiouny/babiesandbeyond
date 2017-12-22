@@ -57,6 +57,10 @@
     <string name="speaker_name">Speaker Name</string>
     <string name="status">Status</string>
     <string name="event_description">Description</string>
+    <string name="all_groups">All Groups</string>
+    <string name="most_popular">Most Popular</string>
+    <string name="my_groups">My Groups</string>
+    <string name="create_groups">Create Groups</string>
 
 
 </resources>

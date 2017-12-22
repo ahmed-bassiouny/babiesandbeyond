@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/BabiesAndBeyond.iml" filepath="$PROJECT_DIR$/BabiesAndBeyond.iml" />
       <module fileurl="file://$PROJECT_DIR$/adminapp/adminapp.iml" filepath="$PROJECT_DIR$/adminapp/adminapp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/babiesandbeyond.iml" filepath="$PROJECT_DIR$/babiesandbeyond.iml" />
       <module fileurl="file://$PROJECT_DIR$/mylibrary/mylibrary.iml" filepath="$PROJECT_DIR$/mylibrary/mylibrary.iml" />
     </modules>
   </component>
