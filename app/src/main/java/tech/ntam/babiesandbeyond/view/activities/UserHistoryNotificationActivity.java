@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 
 import tech.ntam.babiesandbeyond.R;
 
-public class UserNotificationActivity extends AppCompatActivity {
+public class UserHistoryNotificationActivity extends AppCompatActivity {
 
     private RecyclerView recycleView;
     @Override

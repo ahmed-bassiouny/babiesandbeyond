@@ -33,7 +33,7 @@
             android:name=".view.dialog.WorkShopDialogActivity"
             android:theme="@style/AppThemeDialog" />
         <activity
-            android:name=".view.activities.UserNotificationActivity"
+            android:name=".view.activities.UserHistoryNotificationActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.activities.UserProfileActivity"
