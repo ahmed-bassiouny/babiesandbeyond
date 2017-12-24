@@ -10,7 +10,7 @@ import android.widget.TextView;
 import de.hdodenhof.circleimageview.CircleImageView;
 import tech.ntam.babiesandbeyond.R;
 
-public class ProfileActivity extends AppCompatActivity {
+public class UserProfileActivity extends AppCompatActivity {
 
     private CircleImageView ivProfilePhoto;
     private TextView tvUploadPhoto;

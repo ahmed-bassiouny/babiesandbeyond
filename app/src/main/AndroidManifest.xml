@@ -13,7 +13,7 @@
             android:name=".view.activities.SignIn_UpActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".view.activities.ForgetPasswordActivity"
+            android:name=".view.activities.UserForgetPasswordActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.activities.UserHomeActivity"
@@ -32,11 +32,18 @@
         <activity
             android:name=".view.dialog.WorkShopDialogActivity"
             android:theme="@style/AppThemeDialog" />
-        <activity android:name=".view.activities.NotificationActivity" />
-        <activity android:name=".view.activities.ProfileActivity" />
+        <activity
+            android:name=".view.activities.UserNotificationActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".view.activities.UserProfileActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.dialog.ChangePasswordDialogActivity"
-            android:theme="@style/AppThemeDialog"></activity>
+            android:theme="@style/AppThemeDialog" />
+        <activity
+            android:name=".view.activities.NurseHomeActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

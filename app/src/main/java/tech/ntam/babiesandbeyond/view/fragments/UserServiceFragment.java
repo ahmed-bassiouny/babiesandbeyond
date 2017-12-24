@@ -65,7 +65,6 @@ public class UserServiceFragment extends Fragment {
         compactCalendarView.setLocale(TimeZone.getDefault(), Locale.getDefault());
         Date date = new Date();
         Utils.setDate(tvDate,date);
-
     }
 
     private void onClick() {

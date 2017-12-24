@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import tech.ntam.babiesandbeyond.R;
 
-public class ForgetPasswordActivity extends AppCompatActivity {
+public class UserForgetPasswordActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

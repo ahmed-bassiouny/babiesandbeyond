@@ -47,4 +47,11 @@ public class Utils {
         cal.setTime(date);
         textView.setText(Utils.getMonthString(cal.get(Calendar.MONTH)) + " " + cal.get(Calendar.YEAR));
     }
+
+    public static void setCurrentDate(TextView textView) {
+        // this method take date and put it in text view
+        // ex 20-11-2017 => novmcer 2017
+        Date date = new Date();
+        setDate(textView, date);
+    }
 }
