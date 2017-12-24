@@ -1,0 +1,46 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="tech.ntam.adminapp.view.fragments.NurseFragment">
+
+    <info.hoang8f.android.segmented.SegmentedGroup xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/segmented2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/gray_bold"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        segmentedgroup:sc_border_width="2dp"
+        segmentedgroup:sc_checked_text_color="@color/gray_bold"
+        segmentedgroup:sc_corner_radius="5dp"
+        segmentedgroup:sc_tint_color="@color/white">
+
+        <RadioButton
+            android:id="@+id/btn_request"
+            style="@style/RadioButton"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:fontFamily="@font/museosans"
+            android:text="@string/nurse_request"
+            android:textSize="12sp" />
+
+        <RadioButton
+            android:id="@+id/btn_calendar"
+            style="@style/RadioButton"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/museosans"
+            android:padding="5dp"
+            android:text="@string/nurse_calendar" />
+    </info.hoang8f.android.segmented.SegmentedGroup>
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

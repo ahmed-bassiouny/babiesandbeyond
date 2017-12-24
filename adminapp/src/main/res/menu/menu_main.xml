@@ -1,0 +1,34 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="tech.ntam.babiesandbeyond.view.activities.UserHomeActivity">
+    <item
+        android:id="@+id/nurse"
+        android:title="@string/nurse"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:icon="@drawable/services">
+    </item>
+    <item
+        android:id="@+id/midwife"
+        android:title="@string/midwife"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:icon="@drawable/midwife">
+    </item>
+    <item
+        android:id="@+id/babysitter"
+        android:title="@string/babysitter"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:icon="@drawable/workshop">
+    </item>
+    <item
+        android:id="@+id/workshop"
+        android:title="@string/workshop"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:icon="@drawable/workshop">
+    </item>
+
+</menu>
