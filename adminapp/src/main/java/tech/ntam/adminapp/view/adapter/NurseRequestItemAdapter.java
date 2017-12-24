@@ -16,6 +16,11 @@ import tech.ntam.adminapp.R;
  */
 
 public class NurseRequestItemAdapter extends RecyclerView.Adapter<NurseRequestItemAdapter.MyViewHolder> {
+    boolean showActionButton;
+
+    public NurseRequestItemAdapter(boolean showActionButton) {
+        this.showActionButton = showActionButton;
+    }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 

@@ -1,4 +1,4 @@
-package tech.ntam.adminapp.view.fragments;
+package tech.ntam.adminapp.view.fragments.nurse;
 
 
 import android.os.Bundle;

@@ -11,7 +11,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import tech.ntam.adminapp.R;
-import tech.ntam.adminapp.view.fragments.NurseFragment;
+import tech.ntam.adminapp.view.fragments.nurse.NurseFragment;
 
 public class HomeActivity extends AppCompatActivity {
 

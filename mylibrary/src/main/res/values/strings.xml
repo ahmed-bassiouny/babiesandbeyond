@@ -74,9 +74,8 @@
     <string name="nurse_request">Nurse Request</string>
 
     <string name="nurse_calendar">Nurse Calendar</string>
+    <string name="choose_nurse">Choose Nurse</string>
     <string name="view_details">View Details</string>
-
-
-
+    <string name="nurses_tasks">Nurses Tasks</string>
 
 </resources>
