@@ -77,5 +77,21 @@
     <string name="choose_nurse">Choose Nurse</string>
     <string name="view_details">View Details</string>
     <string name="nurses_tasks">Nurses Tasks</string>
+    <string name="client_name">Client Name</string>
+    <string name="choose_midwife">Choose MidWife</string>
+    <string name="choose_babysitter">Choose Babysitter</string>
+
+
+    <string name="nurse_assignment">Nurse Assignment</string>
+    <string name="babysitter_assignment">Babysitter Assignment</string>
+    <string name="midwife_assignment">Midwife Assignment</string>
+
+    <string name="date_time_from">Date Time From</string>
+    <string name="date_time_to">Date Time To</string>
+    <string name="create_invoice">Create Invoice</string>
+
+
+
+
 
 </resources>

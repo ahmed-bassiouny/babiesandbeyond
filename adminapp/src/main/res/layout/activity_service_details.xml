@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="20dp"
+    tools:context="tech.ntam.adminapp.view.dialog.ServiceDetailsActivity">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="@font/museosans"
+        android:textSize="20sp"
+        tools:text="Nurse Assigment" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/museosans"
+        android:textStyle="bold"
+        android:layout_marginTop="5dp"
+        tools:text="@string/client_name" />
+
+    <TextView
+        android:id="@+id/tv_client_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/museosans"
+        android:layout_marginTop="5dp"
+        tools:text="@string/client_name" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/museosans"
+        android:textStyle="bold"
+        android:layout_marginTop="5dp"
+        tools:text="@string/location" />
+
+    <TextView
+        android:id="@+id/tv_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/museosans"
+        android:layout_marginTop="5dp"
+        tools:text="@string/location" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/museosans"
+        android:textStyle="bold"
+        android:layout_marginTop="5dp"
+        tools:text="@string/date_time_from" />
+
+    <TextView
+        android:id="@+id/tv_date_time_from"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/museosans"
+        android:layout_marginTop="5dp"
+        tools:text="@string/date_time_from" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/museosans"
+        android:textStyle="bold"
+        android:layout_marginTop="5dp"
+        tools:text="@string/date_time_to" />
+
+    <TextView
+        android:id="@+id/tv_date_time_to"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/museosans"
+        android:layout_marginTop="5dp"
+        tools:text="@string/date_time_to" />
+
+    <TextView
+        android:id="@+id/tv_choose_service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/museosans"
+        android:textStyle="bold"
+        android:layout_marginTop="5dp"
+        tools:text="@string/choose_service" />
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:id="@+id/sp_service" />
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:textAllCaps="false"
+        android:fontFamily="@font/museosans"
+        android:id="@+id/btn_create_invoice"
+        android:background="@color/colorButton"
+        android:text="@string/create_invoice" />
+</LinearLayout>
