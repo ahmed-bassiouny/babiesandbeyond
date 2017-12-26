@@ -1,6 +1,7 @@
 package tech.ntam.babiesandbeyond.view.fragments;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -20,6 +21,7 @@ import java.util.TimeZone;
 
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.view.activities.UserSendRequestActivity;
+import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 import tech.ntam.mylibrary.DummyClass;
 import tech.ntam.mylibrary.Utils;
 
@@ -58,8 +60,22 @@ public class UserServiceFragment extends Fragment {
         btnSendRequest = view.findViewById(R.id.btn_send_request);
         initObject();
         onClick();
+    }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        MyToolbar.TitleToolbar titleToolbar = (MyToolbar.TitleToolbar) getActivity();
+        titleToolbar.setTitleToolbar(getString(R.string.services));
+    }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(getContext() !=null && isVisibleToUser){
+            MyToolbar.TitleToolbar titleToolbar = (MyToolbar.TitleToolbar) getActivity();
+            titleToolbar.setTitleToolbar(getString(R.string.services));
+        }
     }
 
     private void initObject() {

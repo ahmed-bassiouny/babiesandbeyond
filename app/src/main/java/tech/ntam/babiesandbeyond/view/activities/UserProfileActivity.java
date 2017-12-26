@@ -1,5 +1,6 @@
 package tech.ntam.babiesandbeyond.view.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,8 +10,12 @@ import android.widget.TextView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import tech.ntam.babiesandbeyond.R;
+import tech.ntam.babiesandbeyond.view.dialog.ChangePasswordDialogActivity;
+import tech.ntam.babiesandbeyond.view.dialog.QrCodeActivity;
+import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
+import tech.ntam.mylibrary.DummyClass;
 
-public class UserProfileActivity extends AppCompatActivity {
+public class UserProfileActivity extends MyToolbar {
 
     private CircleImageView ivProfilePhoto;
     private TextView tvUploadPhoto;
@@ -23,25 +28,29 @@ public class UserProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         findViewById();
         onClick();
+        setupToolbar(this,false,true);
+        DummyClass.setTitleText(etName);
+        etPhone.setText("4646464863");
     }
 
     private void onClick() {
         btnChangePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                startActivity(new Intent(UserProfileActivity.this, ChangePasswordDialogActivity.class));
 
             }
         });
         btnViewHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(UserProfileActivity.this, UserHistoryNotificationActivity.class));
             }
         });
         btnViewQrCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(UserProfileActivity.this, QrCodeActivity.class));
             }
         });
     }

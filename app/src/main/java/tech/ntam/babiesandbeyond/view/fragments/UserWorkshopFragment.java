@@ -18,7 +18,9 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import tech.ntam.babiesandbeyond.R;
+import tech.ntam.babiesandbeyond.view.activities.UserHomeActivity;
 import tech.ntam.babiesandbeyond.view.dialog.WorkShopDialogActivity;
+import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 import tech.ntam.mylibrary.Utils;
 
 /**
@@ -55,6 +57,15 @@ public class UserWorkshopFragment extends Fragment {
         tvDate = view.findViewById(R.id.tv_date);
         initObject();
         onClick();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(isVisibleToUser){
+            MyToolbar.TitleToolbar titleToolbar = (MyToolbar.TitleToolbar) getActivity();
+            titleToolbar.setTitleToolbar(getString(R.string.workshop));
+        }
     }
 
     private void initObject() {

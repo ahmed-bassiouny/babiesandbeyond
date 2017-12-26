@@ -3,16 +3,37 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:subtitleTextColor="@color/white"
-    android:background="@color/colorPrimary"
-    android:minHeight="?attr/actionBarSize">
+    android:background="@color/gray_bold"
+    android:id="@+id/my_toolbar"
+    android:minHeight="?attr/actionBarSize"
+    app:subtitleTextColor="@color/white">
+
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_gravity="start"
+        android:id="@+id/iv_back"
+        android:src="@drawable/ic_arrow_back_black_24dp" />
 
     <TextView
         android:id="@+id/toolbar_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textColor="@color/white"
-        android:text="Toolbar Title" />
+        android:textColor="@color/white" />
+    <ImageView
+        android:layout_width="25dp"
+        android:id="@+id/iv_profile"
+        android:layout_height="25dp"
+        android:layout_gravity="start"
+        android:src="@drawable/profile"/>
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_gravity="end"
+        android:id="@+id/iv_notification"
+        android:src="@drawable/notification"/>
 </android.support.v7.widget.Toolbar>
 

@@ -18,6 +18,7 @@ import java.util.List;
 import info.hoang8f.android.segmented.SegmentedGroup;
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.view.adapter.GroupItemAdapter;
+import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 import tech.ntam.mylibrary.DummyGroupModel;
 
 /**
@@ -63,6 +64,15 @@ public class UserGroupsFragment extends Fragment {
         recycleView = view.findViewById(R.id.recycle_view);
         setData();
     }
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(isVisibleToUser){
+            MyToolbar.TitleToolbar titleToolbar = (MyToolbar.TitleToolbar) getActivity();
+            titleToolbar.setTitleToolbar(getString(R.string.groups));
+        }
+    }
+
 
     private void setData() {
         dummyGroupModels = new ArrayList<>();

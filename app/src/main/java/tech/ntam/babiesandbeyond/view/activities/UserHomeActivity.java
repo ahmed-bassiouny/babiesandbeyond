@@ -21,13 +21,14 @@ import tech.ntam.babiesandbeyond.view.fragments.UserEventsFragment;
 import tech.ntam.babiesandbeyond.view.fragments.UserGroupsFragment;
 import tech.ntam.babiesandbeyond.view.fragments.UserServiceFragment;
 import tech.ntam.babiesandbeyond.view.fragments.UserWorkshopFragment;
+import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 
-public class UserHomeActivity extends AppCompatActivity {
+public class UserHomeActivity extends MyToolbar implements MyToolbar.TitleToolbar{
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private BottomNavigationView bottomNavigation;
     private ViewPager mViewPager;
-
+    static TextView v;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +37,7 @@ public class UserHomeActivity extends AppCompatActivity {
         findViewById();
         initObject();
         onClick();
+        setupToolbar(this,true,false);
     }
 
     private void initObject() {
@@ -91,6 +93,11 @@ public class UserHomeActivity extends AppCompatActivity {
     private void findViewById() {
         mViewPager = findViewById(R.id.container);
         bottomNavigation = findViewById(R.id.bottom_navigation);
+    }
+
+    @Override
+    public void setTitleToolbar(String title) {
+        tvTitle.setText(title);
     }
 
 

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context="tech.ntam.babiesandbeyond.view.dialog.QrCodeActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textSize="20sp"
+        android:textColor="@color/gray_bold"
+        android:textStyle="bold"
+        android:layout_marginTop="15sp"
+        android:text="@string/view_qr_code"/>
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/qr" />
+
+    <Button
+        android:id="@+id/btn_cancel"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:background="@color/colorButton"
+        android:fontFamily="@font/museosans"
+        android:text="@string/cancel"
+        android:layout_marginBottom="10dp"
+        android:textAllCaps="false" />
+</LinearLayout>

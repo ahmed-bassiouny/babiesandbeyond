@@ -43,7 +43,9 @@
             android:theme="@style/AppThemeDialog" />
         <activity
             android:name=".view.activities.NurseHomeActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".view.dialog.QrCodeActivity"
+            android:theme="@style/AppThemeDialog"></activity>
     </application>
 
 </manifest>

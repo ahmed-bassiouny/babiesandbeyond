@@ -10,13 +10,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_margin="20dp">
+        android:orientation="vertical">
 
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/toolbar"
+            android:id="@+id/my_toolbar"/>
         <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/iv_profile_photo"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:layout_marginTop="15dp"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/person"
             app:civ_border_color="@color/gray_bold"
@@ -37,6 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
             android:fontFamily="@font/museosans"
             android:text="@string/name" />
 
@@ -45,6 +51,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:enabled="false"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
             android:inputType="textPersonName"
             android:fontFamily="@font/museosans"
             android:textSize="18sp" />
@@ -53,6 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
             android:fontFamily="@font/museosans"
             android:text="@string/phone" />
 
@@ -61,6 +70,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:enabled="false"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:inputType="text"
             android:fontFamily="@font/museosans"
             android:textSize="18sp" />

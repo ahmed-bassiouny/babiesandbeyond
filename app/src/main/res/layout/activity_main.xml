@@ -9,8 +9,14 @@
     android:fitsSystemWindows="true"
     tools:context="tech.ntam.babiesandbeyond.view.activities.UserHomeActivity">
 
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/toolbar"
+        android:id="@+id/my_toolbar"/>
     <android.support.v4.view.ViewPager
         android:id="@+id/container"
+        android:layout_below="@+id/my_toolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bottom_navigation"
@@ -21,9 +27,10 @@
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:itemTextColor="@color/white"
-        android:background="@color/gray"
+        app:itemTextColor="@color/gray_bold"
+        android:background="@color/off_white"
         app:menu="@menu/menu_main"
+        app:itemIconTint="@color/gray_bold"
         android:layout_alignParentBottom="true">
     </android.support.design.widget.BottomNavigationView>
 </RelativeLayout>
