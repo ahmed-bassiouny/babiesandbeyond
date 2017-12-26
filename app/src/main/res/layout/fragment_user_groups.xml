@@ -15,37 +15,44 @@
         android:orientation="horizontal"
         segmentedgroup:sc_tint_color="@color/gray_bold"
         segmentedgroup:sc_checked_text_color="@color/white"
-        segmentedgroup:sc_border_width="2dp"
+        segmentedgroup:sc_border_width="1dp"
         segmentedgroup:sc_corner_radius="10dp">
 
         <RadioButton
             android:id="@+id/btn_all_groups"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="@string/all_groups"
             android:checked="true"
             android:fontFamily="@font/museosans"
             android:padding="5dp"
+            android:textSize="12sp"
             style="@style/RadioButton" />
 
         <RadioButton
             android:id="@+id/btn_most_popular"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="@string/most_popular"
             android:padding="5dp"
+            android:textSize="12sp"
             android:fontFamily="@font/museosans"
             style="@style/RadioButton" />
 
         <RadioButton
             android:id="@+id/btn_my_groups"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="@string/my_groups"
             android:padding="5dp"
+            android:textSize="12sp"
             android:fontFamily="@font/museosans"
             style="@style/RadioButton" />
     </info.hoang8f.android.segmented.SegmentedGroup>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/off_white"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -53,13 +60,17 @@
         android:textSize="18sp"
         android:layout_marginStart="10dp"
         android:fontFamily="@font/museosans"
+        android:layout_marginTop="10dp"
         android:drawablePadding="10dp"
         android:drawableStart="@drawable/ic_group_24dp"/>
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/off_white"/>
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
         android:layout_height="match_parent"
-        android:paddingTop="10dp"
-        android:layout_margin="10dp"
         android:id="@+id/recycle_view"/>
 </LinearLayout>

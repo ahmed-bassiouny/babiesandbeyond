@@ -22,9 +22,11 @@
         android:layout_height="220dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
+        android:layout_margin="20dp"
         app:compactCalendarBackgroundColor="#fff"
         app:compactCalendarCurrentDayBackgroundColor="#fff"
-        app:compactCalendarCurrentSelectedDayBackgroundColor="@color/colorAccent"
+        app:compactCalendarCurrentSelectedDayBackgroundColor="@color/gray_bold"
+        app:compactCalendarCurrentSelectedDayTextColor="@color/white"
         app:compactCalendarMultiEventIndicatorColor="#000"
         app:compactCalendarTargetHeight="250dp"
         app:compactCalendarTextColor="#000"
@@ -39,10 +41,10 @@
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/gray_bold_oval"
         android:drawablePadding="5dp"
-        android:layout_margin="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
         android:fontFamily="@font/museosans"
-        android:text="@string/confirmation_with_payment"
-        android:textSize="17sp" />
+        android:text="@string/confirmation_with_payment" />
 
 
     <TextView
@@ -50,10 +52,10 @@
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/gray_oval"
         android:drawablePadding="5dp"
-        android:layout_margin="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
         android:fontFamily="@font/museosans"
-        android:text="@string/confirmation_without_payment"
-        android:textSize="17sp" />
+        android:text="@string/confirmation_without_payment" />
 
 
     <TextView
@@ -61,10 +63,10 @@
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/pending_oval"
         android:drawablePadding="5dp"
-        android:layout_margin="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
         android:fontFamily="@font/museosans"
-        android:text="@string/pending"
-        android:textSize="17sp" />
+        android:text="@string/pending" />
     <Button
         android:layout_width="300dp"
         android:layout_height="wrap_content"

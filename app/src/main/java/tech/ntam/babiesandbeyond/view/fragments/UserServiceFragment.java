@@ -20,6 +20,7 @@ import java.util.TimeZone;
 
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.view.activities.UserSendRequestActivity;
+import tech.ntam.mylibrary.DummyClass;
 import tech.ntam.mylibrary.Utils;
 
 /**
@@ -65,6 +66,7 @@ public class UserServiceFragment extends Fragment {
         compactCalendarView.setLocale(TimeZone.getDefault(), Locale.getDefault());
         Date date = new Date();
         Utils.setDate(tvDate,date);
+        DummyClass.setDaySelected(compactCalendarView);
     }
 
     private void onClick() {

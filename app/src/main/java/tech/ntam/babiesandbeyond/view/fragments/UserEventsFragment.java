@@ -2,16 +2,19 @@ package tech.ntam.babiesandbeyond.view.fragments;
 
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
+import com.github.sundeepk.compactcalendarview.domain.Event;
 
 import java.util.Date;
 import java.util.Locale;
@@ -19,6 +22,7 @@ import java.util.TimeZone;
 
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.view.dialog.EventDialogActivity;
+import tech.ntam.mylibrary.DummyClass;
 import tech.ntam.mylibrary.Utils;
 
 /**
@@ -62,6 +66,7 @@ public class UserEventsFragment extends Fragment {
     private void initObject() {
         compactCalendarView.setLocale(TimeZone.getDefault(), Locale.getDefault());
         Utils.setCurrentDate(tvDate);
+        DummyClass.setDaySelected(compactCalendarView);
     }
 
     private void onClick() {

@@ -8,18 +8,24 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.List;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import tech.ntam.babiesandbeyond.R;
+import tech.ntam.mylibrary.DummyGroupModel;
 
 /**
  * Created by bassiouny on 22/12/17.
  */
 
 public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyViewHolder> {
+    List<DummyGroupModel> dummyGroupModels;
+
+    public GroupItemAdapter(List<DummyGroupModel> dummyGroupModels) {
+        this.dummyGroupModels = dummyGroupModels;
+    }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-
-
         private CircleImageView ivGroupImage;
         private TextView ivGroupStatus;
         private TextView tvGroupName;
@@ -51,11 +57,16 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-
+        DummyGroupModel dummyGroupModel = dummyGroupModels.get(position);
+        holder.ivGroupStatus.setText(dummyGroupModel.status);
+        holder.tvGroupName.setText(dummyGroupModel.name);
+        holder.tvGroupCreatedBy.setText(dummyGroupModel.createdBy);
+        holder.tvDescription.setText(dummyGroupModel.description);
+        holder.tvDate.setText(dummyGroupModel.date);
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return dummyGroupModels.size();
     }
 }
