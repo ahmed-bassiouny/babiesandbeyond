@@ -11,20 +11,19 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".view.activities.SignIn_UpActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".view.activities.UserForgetPasswordActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.activities.UserHomeActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".view.activities.UserSendRequestActivity" />
         <activity
             android:name=".view.dialog.EventDialogActivity"
@@ -43,8 +42,12 @@
             android:theme="@style/AppThemeDialog" />
         <activity
             android:name=".view.activities.NurseHomeActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".view.dialog.QrCodeActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".view.dialog.QrCodeActivity"
+            android:theme="@style/AppThemeDialog" />
+        <activity
+            android:name=".view.dialog.RateUserDialogActivity"
             android:theme="@style/AppThemeDialog"></activity>
     </application>
 

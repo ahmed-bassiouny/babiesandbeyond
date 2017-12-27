@@ -26,6 +26,7 @@
         android:layout_marginTop="16dp"
         android:fontFamily="@font/museosans"
         android:textStyle="bold"
+        android:textSize="12sp"
         app:layout_constraintStart_toEndOf="@+id/iv_group_image"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="task date time" />
@@ -35,9 +36,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="5dp"
         android:fontFamily="@font/museosans"
         android:textStyle="bold"
+        android:textColor="@color/gray_bold"
+        android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/iv_group_image"
         app:layout_constraintTop_toBottomOf="@+id/iv_task_date_time"
         tools:text="task name" />
@@ -48,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="5dp"
         android:fontFamily="@font/museosans"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -58,8 +61,8 @@
 
     <Button
         android:id="@+id/btn_task_action"
-        android:layout_width="wrap_content"
-        android:layout_height="43dp"
+        android:layout_width="80dp"
+        android:layout_height="35dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"

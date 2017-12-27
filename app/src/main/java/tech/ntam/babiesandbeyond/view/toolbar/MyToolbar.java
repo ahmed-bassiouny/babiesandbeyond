@@ -23,7 +23,7 @@ public class MyToolbar extends AppCompatActivity {
     protected TextView tvTitle;
     private Context context;
 
-    protected void setupToolbar(final Context context, boolean showProfile, boolean showBack) {
+    protected void setupToolbar(final Context context, boolean showProfile, boolean showBack,boolean showNotification) {
         this.context = context;
         toolbar = findViewById(R.id.my_toolbar);
         ivProfile = findViewById(R.id.iv_profile);
@@ -41,6 +41,11 @@ public class MyToolbar extends AppCompatActivity {
             ivProfile.setVisibility(View.VISIBLE);
         } else {
             ivProfile.setVisibility(View.GONE);
+        }
+        if(showNotification){
+            ivNotification.setVisibility(View.VISIBLE);
+        }else {
+            ivNotification.setVisibility(View.GONE);
         }
         ivProfile.setOnClickListener(new View.OnClickListener() {
             @Override

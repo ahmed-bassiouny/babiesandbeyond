@@ -39,7 +39,7 @@ public class UserHomeActivity extends MyToolbar implements MyToolbar.TitleToolba
         findViewById();
         initObject();
         onClick();
-        setupToolbar(this, true, false);
+        setupToolbar(this, true, false,true);
     }
 
     private void initObject() {

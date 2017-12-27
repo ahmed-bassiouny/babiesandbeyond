@@ -24,9 +24,9 @@ public class UserHistoryNotificationActivity extends MyToolbar {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
         recycleView = findViewById(R.id.recycle_view);
-        setupToolbar(this, false, true);
         recycleView.setLayoutManager(new LinearLayoutManager(this));
         if (getIntent().getBooleanExtra("history", false)) {
+            setupToolbar(this, false, true,true);
             tvTitle.setText("History");
             List<DummyHistoryModel> dummyHistoryModels = new ArrayList<>();
             DummyHistoryModel dummyHistoryModel1 = new DummyHistoryModel("Nurse", "location about nurse", "2 Oct - 5 Oct", "60$");
@@ -40,6 +40,7 @@ public class UserHistoryNotificationActivity extends MyToolbar {
             HistoryItemAdapter historyItemAdapter = new HistoryItemAdapter(dummyHistoryModels);
             recycleView.setAdapter(historyItemAdapter);
         } else {
+            setupToolbar(this, false, true,false);
             tvTitle.setText("Notification");
             List<DummyNotificationItem> dummyNotificationItems = new ArrayList<>();
             DummyNotificationItem dummyNotificationItem1 = new DummyNotificationItem("Your Payment Request is Done","Just now","13$");

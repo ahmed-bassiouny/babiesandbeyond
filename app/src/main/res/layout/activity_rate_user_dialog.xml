@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="20dp"
+    tools:context="tech.ntam.babiesandbeyond.view.dialog.RateUserDialogActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rate"
+        android:textSize="20sp"
+        android:textColor="@color/gray_bold"
+        android:layout_gravity="center_horizontal"/>
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:rating="3"
+        android:layout_gravity="center_horizontal"
+        android:theme="@style/RatingBar"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rate_customer"
+        android:textSize="12sp"
+        android:layout_gravity="center_horizontal"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/write_note"
+        android:layout_marginTop="20dp"
+        android:textSize="15sp"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:textAllCaps="false"
+        android:fontFamily="@font/museosans"
+        android:background="@color/colorButton"
+        android:text="@string/submit" />
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        android:textAllCaps="false"
+        android:fontFamily="@font/museosans"
+        android:background="@color/colorButton"
+        android:text="@string/cancel" />
+</LinearLayout>

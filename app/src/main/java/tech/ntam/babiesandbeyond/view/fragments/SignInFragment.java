@@ -29,8 +29,8 @@ public class SignInFragment extends Fragment {
     private SignInController controller;
     private static SignInFragment signInFragment;
 
-    public static SignInFragment newInstance(){
-        if(signInFragment==null){
+    public static SignInFragment newInstance() {
+        if (signInFragment == null) {
             signInFragment = new SignInFragment();
         }
         return signInFragment;
@@ -57,11 +57,12 @@ public class SignInFragment extends Fragment {
         tvForgetPassword = view.findViewById(R.id.tv_forget_password);
         onClick();
     }
+
     private void onClick() {
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (etEmail.getText().toString().trim().isEmpty()) {
+                /*if (etEmail.getText().toString().trim().isEmpty()) {
                     etEmail.setError(getString(R.string.invalid_email));
                 } else if (etPassword.getText().toString().trim().isEmpty()) {
                     etPassword.setError(getString(R.string.invalid_password));
@@ -70,7 +71,9 @@ public class SignInFragment extends Fragment {
                     // call sign in method Controller
                     getController().SignIn(etEmail.getText().toString()
                             ,etPassword.getText().toString());
-                }
+                }*/
+                getController().SignIn(etEmail.getText().toString()
+                        , etPassword.getText().toString());
             }
         });
         tvForgetPassword.setOnClickListener(new View.OnClickListener() {

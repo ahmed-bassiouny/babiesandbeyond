@@ -28,7 +28,7 @@ public class UserProfileActivity extends MyToolbar {
         setContentView(R.layout.activity_profile);
         findViewById();
         onClick();
-        setupToolbar(this, false, true);
+        setupToolbar(this, false, true,true);
         DummyClass.setTitleText(etName);
         etPhone.setText("4646464863");
     }
