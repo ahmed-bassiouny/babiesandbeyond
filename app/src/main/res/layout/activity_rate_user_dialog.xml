@@ -1,58 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_margin="20dp"
     tools:context="tech.ntam.babiesandbeyond.view.dialog.RateUserDialogActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/rate"
-        android:textSize="20sp"
-        android:textColor="@color/gray_bold"
-        android:layout_gravity="center_horizontal"/>
-    <RatingBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_gravity="center_horizontal"
-        android:theme="@style/RatingBar"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/rate_customer"
-        android:textSize="12sp"
-        android:layout_gravity="center_horizontal"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/write_note"
-        android:layout_marginTop="20dp"
-        android:textSize="15sp"/>
-    <EditText
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <Button
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="40dp"
-        android:textAllCaps="false"
-        android:fontFamily="@font/museosans"
-        android:background="@color/colorButton"
-        android:text="@string/submit" />
-    <Button
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="5dp"
-        android:textAllCaps="false"
-        android:fontFamily="@font/museosans"
-        android:background="@color/colorButton"
-        android:text="@string/cancel" />
-</LinearLayout>
+        android:layout_height="400dp"
+        android:layout_margin="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/rate"
+            android:textColor="@color/gray_bold"
+            android:textSize="20sp" />
+
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
+            android:theme="@style/RatingBar" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/rate_customer"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/write_note"
+            android:textSize="15sp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:background="@color/colorButton"
+            android:fontFamily="@font/museosans"
+            android:text="@string/submit"
+            android:textAllCaps="false" />
+
+        <Button
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorButton"
+            android:fontFamily="@font/museosans"
+            android:text="@string/cancel"
+            android:textAllCaps="false" />
+    </LinearLayout>
+</ScrollView>

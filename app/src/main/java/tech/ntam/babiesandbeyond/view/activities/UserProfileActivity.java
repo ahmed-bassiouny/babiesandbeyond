@@ -3,10 +3,14 @@ package tech.ntam.babiesandbeyond.view.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import tech.ntam.babiesandbeyond.R;
@@ -28,8 +32,9 @@ public class UserProfileActivity extends MyToolbar {
         setContentView(R.layout.activity_profile);
         findViewById();
         onClick();
-        setupToolbar(this, false, true,true);
+        setupToolbar(this, false, true,false);
         DummyClass.setTitleText(etName);
+        tvTitle.setText("Profile");
         etPhone.setText("4646464863");
     }
 
@@ -65,5 +70,19 @@ public class UserProfileActivity extends MyToolbar {
         btnChangePassword = findViewById(R.id.btn_change_password);
         btnViewHistory = findViewById(R.id.btn_view_history);
         btnViewQrCode = findViewById(R.id.btn_view_qr_code);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.profile, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId()== R.id.edit){
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

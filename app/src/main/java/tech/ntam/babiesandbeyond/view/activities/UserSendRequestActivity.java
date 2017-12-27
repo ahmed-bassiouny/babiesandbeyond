@@ -13,8 +13,9 @@ import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.controller.activities.UserSendRequestController;
+import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 
-public class UserSendRequestActivity extends AppCompatActivity {
+public class UserSendRequestActivity extends MyToolbar {
 
 
     private Spinner spService;
@@ -29,6 +30,8 @@ public class UserSendRequestActivity extends AppCompatActivity {
         findViewById();
         onClick();
         getController().loadServiceType(spService);
+        setupToolbar(this, false, true,true);
+        tvTitle.setText("Request");
     }
 
     private void findViewById() {

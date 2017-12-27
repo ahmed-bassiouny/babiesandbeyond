@@ -24,7 +24,9 @@
             android:name=".view.activities.UserHomeActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".view.activities.UserSendRequestActivity" />
+        <activity
+            android:name=".view.activities.UserSendRequestActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".view.dialog.EventDialogActivity"
             android:theme="@style/AppThemeDialog" />
