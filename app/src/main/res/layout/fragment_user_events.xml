@@ -42,7 +42,7 @@
         android:drawableLeft="@drawable/gray_bold_oval"
         android:drawablePadding="5dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="@font/museosans"
         android:text="@string/coming" />
 </LinearLayout>
