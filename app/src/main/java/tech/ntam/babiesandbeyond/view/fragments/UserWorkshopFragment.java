@@ -1,6 +1,7 @@
 package tech.ntam.babiesandbeyond.view.fragments;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -60,9 +61,16 @@ public class UserWorkshopFragment extends Fragment {
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        MyToolbar.TitleToolbar titleToolbar = (MyToolbar.TitleToolbar) getActivity();
+        titleToolbar.setTitleToolbar(getString(R.string.workshop));
+    }
+
+    @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(isVisibleToUser){
+        if(getContext()!=null && isVisibleToUser){
             MyToolbar.TitleToolbar titleToolbar = (MyToolbar.TitleToolbar) getActivity();
             titleToolbar.setTitleToolbar(getString(R.string.workshop));
         }

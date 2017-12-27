@@ -8,8 +8,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.List;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import tech.ntam.babiesandbeyond.R;
+import tech.ntam.mylibrary.DummyHistoryModel;
 
 /**
  * Created by bassiouny on 22/12/17.
@@ -17,9 +20,13 @@ import tech.ntam.babiesandbeyond.R;
 
 public class HistoryItemAdapter extends RecyclerView.Adapter<HistoryItemAdapter.MyViewHolder> {
 
+    List<DummyHistoryModel> dummyHistoryModels;
+
+    public HistoryItemAdapter(List<DummyHistoryModel> dummyHistoryModels) {
+        this.dummyHistoryModels = dummyHistoryModels;
+    }
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
-
-
         private TextView ivServiceName;
         private TextView tvServiceLocation;
         private TextView tvServiceDateTime;
@@ -43,11 +50,15 @@ public class HistoryItemAdapter extends RecyclerView.Adapter<HistoryItemAdapter.
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-
+        DummyHistoryModel dummyHistoryModel = dummyHistoryModels.get(position);
+        holder.ivServiceName.setText(dummyHistoryModel.name);
+        holder.tvServiceDateTime.setText(dummyHistoryModel.date);
+        holder.tvServiceLocation.setText(dummyHistoryModel.location);
+        holder.tvServicePrice.setText(dummyHistoryModel.price);
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return dummyHistoryModels.size();
     }
 }

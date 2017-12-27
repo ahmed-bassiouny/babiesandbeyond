@@ -1,6 +1,7 @@
 package tech.ntam.babiesandbeyond.view.fragments;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -65,9 +66,16 @@ public class UserGroupsFragment extends Fragment {
         setData();
     }
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        MyToolbar.TitleToolbar titleToolbar = (MyToolbar.TitleToolbar) getActivity();
+        titleToolbar.setTitleToolbar(getString(R.string.groups));
+    }
+
+    @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(isVisibleToUser){
+        if(getContext()!=null && isVisibleToUser){
             MyToolbar.TitleToolbar titleToolbar = (MyToolbar.TitleToolbar) getActivity();
             titleToolbar.setTitleToolbar(getString(R.string.groups));
         }

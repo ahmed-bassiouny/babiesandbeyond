@@ -8,14 +8,23 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.List;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import tech.ntam.babiesandbeyond.R;
+import tech.ntam.mylibrary.DummyNotificationItem;
 
 /**
  * Created by bassiouny on 22/12/17.
  */
 
 public class NotificationItemAdapter extends RecyclerView.Adapter<NotificationItemAdapter.MyViewHolder> {
+
+    List<DummyNotificationItem> dummyNotificationItems;
+
+    public NotificationItemAdapter(List<DummyNotificationItem> dummyNotificationItems) {
+        this.dummyNotificationItems = dummyNotificationItems;
+    }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
@@ -42,11 +51,23 @@ public class NotificationItemAdapter extends RecyclerView.Adapter<NotificationIt
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
+        DummyNotificationItem dummyNotificationItem = dummyNotificationItems.get(position);
+        holder.tvNotificationTitle.setText(dummyNotificationItem.title);
+        holder.tvNotificationDateTime.setText(dummyNotificationItem.date);
+        if (dummyNotificationItem.price.isEmpty()) {
+            holder.btnPay.setVisibility(View.VISIBLE);
+            holder.tvPrice.setVisibility(View.INVISIBLE);
 
+        } else {
+            holder.btnPay.setVisibility(View.INVISIBLE);
+            holder.tvPrice.setVisibility(View.VISIBLE);
+            holder.tvPrice.setText(dummyNotificationItem.price);
+
+        }
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return dummyNotificationItems.size();
     }
 }

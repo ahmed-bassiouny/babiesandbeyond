@@ -1,6 +1,7 @@
 package tech.ntam.babiesandbeyond.view.fragments;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -63,11 +64,17 @@ public class UserEventsFragment extends Fragment {
         initObject();
         onClick();
     }
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        MyToolbar.TitleToolbar titleToolbar = (MyToolbar.TitleToolbar) getActivity();
+        titleToolbar.setTitleToolbar(getString(R.string.events));
+    }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(isVisibleToUser){
+        if(getContext()!=null && isVisibleToUser){
             MyToolbar.TitleToolbar titleToolbar = (MyToolbar.TitleToolbar) getActivity();
             titleToolbar.setTitleToolbar(getString(R.string.events));
         }

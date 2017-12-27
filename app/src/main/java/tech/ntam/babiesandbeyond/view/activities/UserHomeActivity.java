@@ -17,18 +17,20 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import tech.ntam.babiesandbeyond.R;
+import tech.ntam.babiesandbeyond.view.fragments.UserAboutUsFragment;
 import tech.ntam.babiesandbeyond.view.fragments.UserEventsFragment;
 import tech.ntam.babiesandbeyond.view.fragments.UserGroupsFragment;
 import tech.ntam.babiesandbeyond.view.fragments.UserServiceFragment;
 import tech.ntam.babiesandbeyond.view.fragments.UserWorkshopFragment;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 
-public class UserHomeActivity extends MyToolbar implements MyToolbar.TitleToolbar{
+public class UserHomeActivity extends MyToolbar implements MyToolbar.TitleToolbar {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private BottomNavigationView bottomNavigation;
     private ViewPager mViewPager;
     static TextView v;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +39,7 @@ public class UserHomeActivity extends MyToolbar implements MyToolbar.TitleToolba
         findViewById();
         initObject();
         onClick();
-        setupToolbar(this,true,false);
+        setupToolbar(this, true, false);
     }
 
     private void initObject() {
@@ -97,7 +99,8 @@ public class UserHomeActivity extends MyToolbar implements MyToolbar.TitleToolba
 
     @Override
     public void setTitleToolbar(String title) {
-        tvTitle.setText(title);
+        if (tvTitle != null && title != null)
+            tvTitle.setText(title);
     }
 
 
@@ -124,6 +127,8 @@ public class UserHomeActivity extends MyToolbar implements MyToolbar.TitleToolba
                     return UserWorkshopFragment.newInstance();
                 case 3:
                     return UserGroupsFragment.newInstance();
+                case 4:
+                    return UserAboutUsFragment.newInstance();
                 default:
                     return null;
             }
@@ -131,7 +136,7 @@ public class UserHomeActivity extends MyToolbar implements MyToolbar.TitleToolba
 
         @Override
         public int getCount() {
-            return 4;
+            return 5;
         }
     }
 }

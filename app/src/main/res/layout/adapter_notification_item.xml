@@ -1,26 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="wrap_content">
+    android:layout_marginTop="10dp"
+    android:layout_height="wrap_content"
+    android:id="@+id/relativeLayout">
 
     <TextView
         android:id="@+id/tv_notification_title"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:fontFamily="@font/museosans"
         android:textColor="@color/gray_bold"
-        tools:text="title"
+        android:textSize="12sp"
         android:textStyle="bold"
-        android:textSize="18sp" />
+        app:layout_constraintEnd_toStartOf="@+id/btn_pay"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="title" />
 
     <TextView
         android:id="@+id/tv_notification_date_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_notification_title"
-        tools:text="time"
-        android:fontFamily="@font/museosans" />
+        android:layout_width="0dp"
+        android:layout_height="22dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/museosans"
+        app:layout_constraintEnd_toStartOf="@+id/btn_pay"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_notification_title"
+        tools:text="time" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,17 +39,21 @@
         tools:text="price"
         android:textStyle="bold"
         android:textColor="@color/gray_bold"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:fontFamily="@font/museosans"
         android:id="@+id/btn_pay"
-        tools:text="pay now"
-        android:visibility="gone"
+        android:text="pay now"
+        android:visibility="invisible"
+        android:textSize="12sp"
         android:background="@color/colorButton"
         android:textColor="@color/gray_bold"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"/>
-</RelativeLayout>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

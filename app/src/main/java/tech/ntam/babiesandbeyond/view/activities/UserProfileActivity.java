@@ -28,7 +28,7 @@ public class UserProfileActivity extends MyToolbar {
         setContentView(R.layout.activity_profile);
         findViewById();
         onClick();
-        setupToolbar(this,false,true);
+        setupToolbar(this, false, true);
         DummyClass.setTitleText(etName);
         etPhone.setText("4646464863");
     }
@@ -44,7 +44,9 @@ public class UserProfileActivity extends MyToolbar {
         btnViewHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(UserProfileActivity.this, UserHistoryNotificationActivity.class));
+                Intent intent = new Intent(UserProfileActivity.this, UserHistoryNotificationActivity.class);
+                intent.putExtra("history", true);
+                startActivity(intent);
             }
         });
         btnViewQrCode.setOnClickListener(new View.OnClickListener() {
