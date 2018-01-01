@@ -62,7 +62,7 @@ public class SignInFragment extends Fragment {
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*if (etEmail.getText().toString().trim().isEmpty()) {
+                if (etEmail.getText().toString().trim().isEmpty()) {
                     etEmail.setError(getString(R.string.invalid_email));
                 } else if (etPassword.getText().toString().trim().isEmpty()) {
                     etPassword.setError(getString(R.string.invalid_password));
@@ -70,10 +70,8 @@ public class SignInFragment extends Fragment {
                     // valid email and password
                     // call sign in method Controller
                     getController().SignIn(etEmail.getText().toString()
-                            ,etPassword.getText().toString());
-                }*/
-                getController().SignIn(etEmail.getText().toString()
-                        , etPassword.getText().toString());
+                            , etPassword.getText().toString());
+                }
             }
         });
         tvForgetPassword.setOnClickListener(new View.OnClickListener() {

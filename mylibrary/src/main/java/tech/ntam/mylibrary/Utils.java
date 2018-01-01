@@ -54,4 +54,10 @@ public class Utils {
         Date date = new Date();
         setDate(textView, date);
     }
+
+    public static String getValueFromString(String item) {
+        if (item == null)
+            item = "";
+        return item;
+    }
 }

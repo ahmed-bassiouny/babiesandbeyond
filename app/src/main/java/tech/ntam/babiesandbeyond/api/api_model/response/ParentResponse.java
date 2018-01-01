@@ -1,4 +1,4 @@
-package tech.ntam.babiesandbeyond.api.api_model;
+package tech.ntam.babiesandbeyond.api.api_model.response;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -6,10 +6,9 @@ import com.google.gson.annotations.SerializedName;
  * Created by bassiouny on 31/12/17.
  */
 
-public class ParentResponse {
+public class ParentResponse{
 
-    public static String DATA_KEY = "data";
-
+    public final static String DATA_KEY = "data";
     @SerializedName("status")
     private Boolean status;
     @SerializedName("message")
