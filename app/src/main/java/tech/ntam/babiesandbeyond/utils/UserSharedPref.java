@@ -14,6 +14,8 @@ public class UserSharedPref {
     private final static String sharedPrefName = "BabiesAndBeyond";
     private final static String USER_TOKEN = "user_token";
     private final static String USER_EMAIL = "user_email";
+    private final static String TOKEN_HEADER_KEY = "Bearer ";
+
 
     private static SharedPreferences sharedPref;
 
@@ -22,11 +24,20 @@ public class UserSharedPref {
             sharedPref = context.getSharedPreferences(sharedPrefName, Context.MODE_PRIVATE);
     }
 
-    public static void setUserInfo(Context context, String userToken,String userEmail) {
+    public static void setUserInfo(Context context, String userToken, String userEmail) {
         getSharedPref(context);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(USER_TOKEN, userToken);
         editor.putString(USER_EMAIL, userEmail);
         editor.apply();
+    }
+
+    public static String getEmail(Context context) {
+        getSharedPref(context);
+        return sharedPref.getString(USER_EMAIL, "");
+    }
+    public static String getTokenWithHeader(Context context) {
+        getSharedPref(context);
+        return TOKEN_HEADER_KEY+sharedPref.getString(USER_TOKEN, "");
     }
 }

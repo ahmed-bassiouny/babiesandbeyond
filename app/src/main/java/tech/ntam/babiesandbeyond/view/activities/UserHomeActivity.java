@@ -148,7 +148,7 @@ public class UserHomeActivity extends MyToolbar implements MyToolbar.TitleToolba
     }
 
     private void loadEvents() {
-        RequestAndResponse.getEvents(new BaseResponseInterface<List<Event>>() {
+        RequestAndResponse.getEvents(this,new BaseResponseInterface<List<Event>>() {
             @Override
             public void onSuccess(List<Event> events) {
             }

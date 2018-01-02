@@ -33,7 +33,7 @@
             android:maxLines="1"
             android:id="@+id/et_password"
             android:fontFamily="@font/museosans"
-            android:inputType="textEmailAddress"
+            android:inputType="textPassword"
             android:hint="@string/password" />
     </android.support.design.widget.TextInputLayout>
 

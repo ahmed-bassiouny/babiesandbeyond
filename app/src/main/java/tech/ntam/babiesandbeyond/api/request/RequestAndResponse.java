@@ -1,5 +1,7 @@
 package tech.ntam.babiesandbeyond.api.request;
 
+import android.content.Context;
+
 import java.util.List;
 
 import retrofit2.Call;
@@ -13,6 +15,7 @@ import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.model.Event;
 import tech.ntam.babiesandbeyond.model.User;
 import tech.ntam.babiesandbeyond.model.UserData;
+import tech.ntam.babiesandbeyond.utils.UserSharedPref;
 
 /**
  * Created by bassiouny on 31/12/17.
@@ -84,8 +87,8 @@ public class RequestAndResponse {
             }
         });
     }
-    public static void getEvents(final BaseResponseInterface<List<Event>> anInterface){
-        Call<EventsResponse> response = baseRequestInterface.getEvents("test@gmail.com");
+    public static void getEvents(Context context, final BaseResponseInterface<List<Event>> anInterface){
+        Call<EventsResponse> response = baseRequestInterface.getEvents(UserSharedPref.getTokenWithHeader(context),UserSharedPref.getEmail(context));
         response.enqueue(new Callback<EventsResponse>() {
             @Override
             public void onResponse(Call<EventsResponse> call, Response<EventsResponse> response) {
