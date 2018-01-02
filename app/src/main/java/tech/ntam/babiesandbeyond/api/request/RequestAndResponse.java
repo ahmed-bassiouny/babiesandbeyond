@@ -8,6 +8,7 @@ import tech.ntam.babiesandbeyond.api.api_model.response.ParentResponse;
 import tech.ntam.babiesandbeyond.api.config.ApiConfig;
 import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.model.User;
+import tech.ntam.babiesandbeyond.model.UserData;
 
 /**
  * Created by bassiouny on 31/12/17.
@@ -34,7 +35,7 @@ public class RequestAndResponse {
         }
     }
 
-    public static void login(String email, String password, final BaseResponseInterface<User> anInterface) {
+    public static void login(String email, String password, final BaseResponseInterface<UserData> anInterface) {
         Call<LoginResponse> response = baseRequestInterface.login(email, password);
         response.enqueue(new Callback<LoginResponse>() {
             @Override

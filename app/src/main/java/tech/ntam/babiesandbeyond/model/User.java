@@ -10,6 +10,10 @@ import tech.ntam.mylibrary.Utils;
 
 public class User {
 
+    public static final String USER = "1";
+    public static final String ADMIN = "2";
+    public static final String STAFF = "2";
+
     @SerializedName("id")
     private int id;
     @SerializedName("name")
