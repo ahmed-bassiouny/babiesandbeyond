@@ -8,6 +8,7 @@ import tech.ntam.babiesandbeyond.api.api_model.request.LoginRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.RegisterRequest;
 import tech.ntam.babiesandbeyond.api.api_model.response.LoginResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.ParentResponse;
+import tech.ntam.babiesandbeyond.api.api_model.response.RegisterResponse;
 
 /**
  * Created by bassiouny on 31/12/17.
@@ -34,8 +35,8 @@ public interface BaseRequestInterface {
 
     @FormUrlEncoded
     @POST(REGISTER)
-    Call<ParentResponse> register(@Field(RegisterRequest.NAME) String name,
-                                  @Field(RegisterRequest.EMAIL) String email,
-                                  @Field(RegisterRequest.PASSWORD) String password,
-                                  @Field(RegisterRequest.PHONE) String phone);
+    Call<RegisterResponse> register(@Field(RegisterRequest.NAME) String name,
+                                    @Field(RegisterRequest.EMAIL) String email,
+                                    @Field(RegisterRequest.PASSWORD) String password,
+                                    @Field(RegisterRequest.PHONE) String phone);
 }

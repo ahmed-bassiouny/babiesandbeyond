@@ -5,6 +5,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import tech.ntam.babiesandbeyond.api.api_model.response.LoginResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.ParentResponse;
+import tech.ntam.babiesandbeyond.api.api_model.response.RegisterResponse;
 import tech.ntam.babiesandbeyond.api.config.ApiConfig;
 import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.model.User;
@@ -51,17 +52,17 @@ public class RequestAndResponse {
         });
     }
 
-    public static void register(String email, String password, String name, String phone, final BaseResponseInterface<ParentResponse> anInterface) {
-        Call<ParentResponse> response = baseRequestInterface.register(name, email, password, phone);
-        response.enqueue(new Callback<ParentResponse>() {
+    public static void register(String email, String password, String name, String phone, final BaseResponseInterface<RegisterResponse> anInterface) {
+        Call<RegisterResponse> response = baseRequestInterface.register(name, email, password, phone);
+        response.enqueue(new Callback<RegisterResponse>() {
             @Override
-            public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {
+            public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
                 checkValidResult(response.code(), response.body().getStatus()
-                        , response.body(), response.body().getMessage(), anInterface);
+                        , response.body().getUser(), response.body().getMessage(), anInterface);
             }
 
             @Override
-            public void onFailure(Call<ParentResponse> call, Throwable t) {
+            public void onFailure(Call<RegisterResponse> call, Throwable t) {
                 anInterface.onFailed(t.getLocalizedMessage());
             }
         });

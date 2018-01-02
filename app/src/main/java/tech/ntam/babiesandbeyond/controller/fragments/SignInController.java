@@ -1,5 +1,6 @@
 package tech.ntam.babiesandbeyond.controller.fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
@@ -9,6 +10,7 @@ import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.babiesandbeyond.model.User;
 import tech.ntam.babiesandbeyond.model.UserData;
+import tech.ntam.babiesandbeyond.utils.UserSharedPref;
 import tech.ntam.babiesandbeyond.view.activities.NurseHomeActivity;
 import tech.ntam.babiesandbeyond.view.activities.UserHomeActivity;
 import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
@@ -19,31 +21,34 @@ import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
 
 public class SignInController {
 
-    private Context context;
+    private Activity activity;
 
-    public SignInController(Context context) {
-        this.context = context;
+    public SignInController(Activity activity) {
+        this.activity = activity;
     }
 
     public void SignIn(String email, String password) {
-        MyDialog.showMyDialog(context);
+        MyDialog.showMyDialog(activity);
         RequestAndResponse.login(email, password, new BaseResponseInterface<UserData>() {
             @Override
             public void onSuccess(UserData userData) {
                 MyDialog.dismissMyDialog();
                 if (userData.getUser().getUserTypeId().equals(User.USER)) {
-                    context.startActivity(new Intent(context, UserHomeActivity.class));
+                    UserSharedPref.setUserInfo(activity, userData.getUser().getUser_token(),userData.getUser().getEmail());
+                    activity.startActivity(new Intent(activity, UserHomeActivity.class));
+                    activity.finish();
                 } else if (userData.getUser().getUserTypeId().equals(User.USER)) {
-                    context.startActivity(new Intent(context, NurseHomeActivity.class));
+                    activity.startActivity(new Intent(activity, NurseHomeActivity.class));
+                    activity.finish();
                 } else {
-                    Toast.makeText(context, R.string.user_not_found, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity, R.string.user_not_found, Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailed(String errorMessage) {
                 MyDialog.dismissMyDialog();
-                Toast.makeText(context, R.string.user_not_found, Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, R.string.user_not_found, Toast.LENGTH_SHORT).show();
             }
         });
     }

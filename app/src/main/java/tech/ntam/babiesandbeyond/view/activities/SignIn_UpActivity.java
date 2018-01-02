@@ -15,7 +15,6 @@ public class SignIn_UpActivity extends AppCompatActivity {
 
     private TextView tvSignIn;
     private TextView tvSignUp;
-    private boolean showSignUpPage = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +33,6 @@ public class SignIn_UpActivity extends AppCompatActivity {
         tvSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showSignUpPage = false;
                 tvSignUp.setBackground(null);
                 tvSignIn.setBackground(getResources().getDrawable(R.drawable.line));
                 Utils.goToFragment(R.id.frame_fragment,SignIn_UpActivity.this,SignInFragment.newInstance(),false,null);
@@ -43,7 +41,6 @@ public class SignIn_UpActivity extends AppCompatActivity {
         tvSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showSignUpPage = true;
                 tvSignIn.setBackground(null);
                 tvSignUp.setBackground(getResources().getDrawable(R.drawable.line));
                 Utils.goToFragment(R.id.frame_fragment,SignIn_UpActivity.this, SignUpFragment.newInstance(),false,null);
@@ -54,17 +51,5 @@ public class SignIn_UpActivity extends AppCompatActivity {
     private void findViewById() {
         tvSignIn = findViewById(R.id.tv_sign_in);
         tvSignUp = findViewById(R.id.tv_sign_up);
-    }
-
-    @Override
-    public void onBackPressed() {
-        if(showSignUpPage){
-            showSignUpPage = false;
-            tvSignUp.setBackground(null);
-            tvSignIn.setBackground(getResources().getDrawable(R.drawable.line));
-            Utils.goToFragment(R.id.frame_fragment,SignIn_UpActivity.this,SignInFragment.newInstance(),false,null);
-        }else {
-            super.onBackPressed();
-        }
     }
 }

@@ -1,13 +1,13 @@
 package tech.ntam.babiesandbeyond.controller.fragments;
 
 import android.app.Activity;
-import android.content.Context;
-import android.widget.EditText;
 import android.widget.Toast;
 
-import tech.ntam.babiesandbeyond.api.api_model.response.ParentResponse;
+import tech.ntam.babiesandbeyond.api.api_model.response.RegisterResponse;
 import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
+import tech.ntam.babiesandbeyond.utils.UserSharedPref;
+import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
 
 /**
  * Created by bassiouny on 17/12/17.
@@ -21,26 +21,24 @@ public class SignUpController {
         this.activity = activity;
     }
 
-    public void SignUp(final EditText email,final EditText name,final EditText phone,final EditText password) {
+    public void SignUp(String email, String name, String phone, String password) {
+        MyDialog.showMyDialog(activity);
         RequestAndResponse
-                .register(email.getText().toString(),
-                        password.getText().toString(),
-                        name.getText().toString(),
-                        phone.getText().toString(), new BaseResponseInterface<ParentResponse>() {
+                .register(email, password, name, phone, new BaseResponseInterface<RegisterResponse>() {
                     @Override
-                    public void onSuccess(ParentResponse parentResponse) {
-                        if(parentResponse.getStatus()){
-                            Toast.makeText(activity, parentResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                            email.setText("");
-                            password.setText("");
-                            name.setText("");
-                            phone.setText("");
-                            activity.onBackPressed();
+                    public void onSuccess(RegisterResponse registerResponse) {
+                        if (registerResponse != null) {
+                            MyDialog.dismissMyDialog();
+                            UserSharedPref.setUserInfo(activity, registerResponse.getUser().getUser_token(),registerResponse.getUser().getEmail());
+                            Toast.makeText(activity, registerResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                            activity.finish();
                         }
+
                     }
 
                     @Override
                     public void onFailed(String errorMessage) {
+                        MyDialog.dismissMyDialog();
                         Toast.makeText(activity, errorMessage, Toast.LENGTH_SHORT).show();
                     }
                 });

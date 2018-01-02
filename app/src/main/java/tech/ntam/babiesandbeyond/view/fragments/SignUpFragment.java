@@ -12,6 +12,7 @@ import android.widget.Button;
 
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.controller.fragments.SignUpController;
+import tech.ntam.mylibrary.Utils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -71,10 +72,14 @@ public class SignUpFragment extends Fragment {
                     etEmail.setError(getString(R.string.invalid_email));
                 } else if (!etPassword.getText().toString().equals(etConfirmPassword.getText().toString())) {
                     etConfirmPassword.setError(getString(R.string.invalid_confirm_password));
+                } else if (!Utils.validate(etEmail.getText().toString())) {
                 } else {
                     // valid name , phone , etEmail and password
                     // call sign up method Controller
-                    getController().SignUp(etEmail, etName, etPhone, etPassword);
+                    getController().SignUp(etEmail.getText().toString(),
+                            etName.getText().toString(),
+                            etPhone.getText().toString(),
+                            etPassword.getText().toString());
                 }
             }
         });
