@@ -15,8 +15,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.List;
 
 import tech.ntam.babiesandbeyond.R;
+import tech.ntam.babiesandbeyond.api.api_model.response.EventsResponse;
+import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
+import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
+import tech.ntam.babiesandbeyond.model.Event;
 import tech.ntam.babiesandbeyond.view.fragments.UserAboutUsFragment;
 import tech.ntam.babiesandbeyond.view.fragments.UserEventsFragment;
 import tech.ntam.babiesandbeyond.view.fragments.UserGroupsFragment;
@@ -29,7 +36,6 @@ public class UserHomeActivity extends MyToolbar implements MyToolbar.TitleToolba
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private BottomNavigationView bottomNavigation;
     private ViewPager mViewPager;
-    static TextView v;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +46,7 @@ public class UserHomeActivity extends MyToolbar implements MyToolbar.TitleToolba
         initObject();
         onClick();
         setupToolbar(this, true, false,true);
+        loadEvents();
     }
 
     private void initObject() {
@@ -138,5 +145,17 @@ public class UserHomeActivity extends MyToolbar implements MyToolbar.TitleToolba
         public int getCount() {
             return 5;
         }
+    }
+
+    private void loadEvents() {
+        RequestAndResponse.getEvents(new BaseResponseInterface<List<Event>>() {
+            @Override
+            public void onSuccess(List<Event> events) {
+            }
+
+            @Override
+            public void onFailed(String errorMessage) {
+            }
+        });
     }
 }

@@ -73,6 +73,7 @@ public class SignUpFragment extends Fragment {
                 } else if (!etPassword.getText().toString().equals(etConfirmPassword.getText().toString())) {
                     etConfirmPassword.setError(getString(R.string.invalid_confirm_password));
                 } else if (!Utils.validate(etEmail.getText().toString())) {
+                    etEmail.setError(getString(R.string.invalid_email));
                 } else {
                     // valid name , phone , etEmail and password
                     // call sign up method Controller

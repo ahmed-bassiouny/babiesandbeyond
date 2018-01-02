@@ -84,7 +84,7 @@ public class SignInFragment extends Fragment {
 
     private SignInController getController() {
         if (controller == null) {
-            controller = new SignInController(getContext());
+            controller = new SignInController(getActivity());
         }
         return controller;
     }

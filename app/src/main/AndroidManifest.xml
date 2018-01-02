@@ -13,10 +13,7 @@
         <activity
             android:name=".view.activities.SignIn_UpActivity"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity
             android:name=".view.activities.UserForgetPasswordActivity"
@@ -24,7 +21,12 @@
         <activity
             android:name=".view.activities.UserHomeActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".view.activities.UserSendRequestActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>

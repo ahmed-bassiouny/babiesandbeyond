@@ -3,9 +3,10 @@ package tech.ntam.babiesandbeyond.controller.fragments;
 import android.app.Activity;
 import android.widget.Toast;
 
-import tech.ntam.babiesandbeyond.api.api_model.response.RegisterResponse;
+import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
+import tech.ntam.babiesandbeyond.model.User;
 import tech.ntam.babiesandbeyond.utils.UserSharedPref;
 import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
 
@@ -24,20 +25,20 @@ public class SignUpController {
     public void SignUp(String email, String name, String phone, String password) {
         MyDialog.showMyDialog(activity);
         RequestAndResponse
-                .register(email, password, name, phone, new BaseResponseInterface<RegisterResponse>() {
+                .register(email, password, name, phone, new BaseResponseInterface<User>() {
                     @Override
-                    public void onSuccess(RegisterResponse registerResponse) {
-                        if (registerResponse != null) {
+                    public void onSuccess(User user) {
+                        if (user != null) {
                             MyDialog.dismissMyDialog();
-                            UserSharedPref.setUserInfo(activity, registerResponse.getUser().getUser_token(),registerResponse.getUser().getEmail());
-                            Toast.makeText(activity, registerResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                            UserSharedPref.setUserInfo(activity, user.getUser_token(), user.getEmail());
+                            Toast.makeText(activity, activity.getString(R.string.nurse_request), Toast.LENGTH_SHORT).show();
                             activity.finish();
                         }
-
                     }
 
                     @Override
                     public void onFailed(String errorMessage) {
+
                         MyDialog.dismissMyDialog();
                         Toast.makeText(activity, errorMessage, Toast.LENGTH_SHORT).show();
                     }
