@@ -74,10 +74,7 @@ public class SignUpFragment extends Fragment {
                 } else {
                     // valid name , phone , etEmail and password
                     // call sign up method Controller
-                    getController().SignUp(etEmail.getText().toString(),
-                            etName.getText().toString(),
-                            etPhone.getText().toString(),
-                            etPassword.getText().toString());
+                    getController().SignUp(etEmail, etName, etPhone, etPassword);
                 }
             }
         });
@@ -85,7 +82,7 @@ public class SignUpFragment extends Fragment {
 
     private SignUpController getController() {
         if (signUpController == null) {
-            signUpController = new SignUpController(getContext());
+            signUpController = new SignUpController(getActivity());
         }
         return signUpController;
     }

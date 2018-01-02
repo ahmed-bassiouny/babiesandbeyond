@@ -20,7 +20,7 @@ public class RequestAndResponse {
     // base request
     private static BaseRequestInterface baseRequestInterface = ApiConfig.getRetrofit().create(BaseRequestInterface.class);
 
-    private static  <T> void checkValidResult(int responseCode, boolean responseStatus, T object, String errorMsg, BaseResponseInterface baseResponseInterface) {
+    private static <T> void checkValidResult(int responseCode, boolean responseStatus, T object, String errorMsg, BaseResponseInterface baseResponseInterface) {
         // get response to check if request valid or not
         // get result object to pass it to base response interface
         if (responseCode == 200) {
@@ -46,6 +46,22 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
+                anInterface.onFailed(t.getLocalizedMessage());
+            }
+        });
+    }
+
+    public static void register(String email, String password, String name, String phone, final BaseResponseInterface<ParentResponse> anInterface) {
+        Call<ParentResponse> response = baseRequestInterface.register(name, email, password, phone);
+        response.enqueue(new Callback<ParentResponse>() {
+            @Override
+            public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {
+                checkValidResult(response.code(), response.body().getStatus()
+                        , response.body(), response.body().getMessage(), anInterface);
+            }
+
+            @Override
+            public void onFailure(Call<ParentResponse> call, Throwable t) {
                 anInterface.onFailed(t.getLocalizedMessage());
             }
         });
