@@ -28,8 +28,10 @@ import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.database.ServiceDatabase;
 import tech.ntam.babiesandbeyond.model.Service;
 import tech.ntam.babiesandbeyond.view.activities.UserSendRequestActivity;
+import tech.ntam.babiesandbeyond.view.dialog.ServiceDialogActivity;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 import tech.ntam.mylibrary.DummyClass;
+import tech.ntam.mylibrary.IntentDataKey;
 import tech.ntam.mylibrary.Utils;
 
 /**
@@ -108,8 +110,11 @@ public class UserServiceFragment extends Fragment {
             public void onDayClick(Date dateClicked) {
                 if (compactCalendarView.getEvents(dateClicked).size() > 0) {
                     Event event = compactCalendarView.getEvents(dateClicked).get(0);
-                    Service service = (Service) event.getData();
                     compactCalendarView.setCurrentSelectedDayBackgroundColor(R.color.gray_bold);
+                    Service service = (Service) event.getData();
+                    Intent intent = new Intent(getActivity(), ServiceDialogActivity.class);
+                    intent.putExtra(IntentDataKey.SHOW_SERVICE_DATA_KEY,service);
+                    startActivity(intent);
                 }else {
                     compactCalendarView.setCurrentSelectedDayBackgroundColor(Color.WHITE);
                 }

@@ -3,6 +3,7 @@
     package="tech.ntam.babiesandbeyond">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -15,6 +16,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -24,11 +26,10 @@
         <activity
             android:name=".view.activities.UserHomeActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".view.activities.UserSendRequestActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.dialog.EventDialogActivity"
             android:theme="@style/AppThemeDialog" />
@@ -46,12 +47,15 @@
             android:theme="@style/AppThemeDialog" />
         <activity
             android:name=".view.activities.NurseHomeActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.dialog.QrCodeActivity"
             android:theme="@style/AppThemeDialog" />
         <activity
             android:name=".view.dialog.RateUserDialogActivity"
+            android:theme="@style/AppThemeDialog" />
+        <activity
+            android:name=".view.dialog.ServiceDialogActivity"
             android:theme="@style/AppThemeDialog"></activity>
     </application>
 

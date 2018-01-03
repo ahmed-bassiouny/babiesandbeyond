@@ -100,6 +100,8 @@
 
     <string name="request_save">Request Saved</string>
     <string name="invalid_Date">Invalid Date</string>
+    <string name="service_type">Service Type</string>
+    <string name="pay">Pay</string>
 
 
 

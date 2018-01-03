@@ -1,38 +1,31 @@
 package tech.ntam.babiesandbeyond.view.dialog;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
+import dmax.dialog.SpotsDialog;
+
 /**
  * Created by bassiouny on 02/01/18.
  */
 
-public class MyDialog extends Dialog {
+public class MyDialog {
 
-    public static MyDialog myDialog;
+    public static AlertDialog dialog;
 
-    public MyDialog(@NonNull Context context) {
-        super(context);
-        ProgressBar progressBar = new ProgressBar(context);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-        addContentView(progressBar, layoutParams);
-    }
-
-    @Override
-    public void onBackPressed() {
-    }
 
     public static void showMyDialog(Context context) {
-        myDialog = new MyDialog(context);
-        myDialog.show();
+        dialog = new SpotsDialog(context);
+        dialog.show();
     }
 
     public static void dismissMyDialog() {
-        if (myDialog != null && myDialog.isShowing()) {
-            myDialog.dismiss();
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
         }
     }
 }

@@ -111,6 +111,7 @@ public class UserSendRequestController {
 
     public int getIdFromSpinner(String text) {
         int result = 0;
+        // TODO :i will copy that to service Type database
         for (ServiceType item : ServiceTypeDatabase.getServiceTypes()) {
             if (item.getName().equals(text)) {
                 result = item.getId();
