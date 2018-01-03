@@ -6,10 +6,12 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import tech.ntam.babiesandbeyond.api.api_model.request.AskServiceRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.LoginRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.RegisterRequest;
 import tech.ntam.babiesandbeyond.api.api_model.response.EventsResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.LoginResponse;
+import tech.ntam.babiesandbeyond.api.api_model.response.MyServiceResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.ParentResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.RegisterResponse;
 import tech.ntam.babiesandbeyond.utils.UserSharedPref;
@@ -34,6 +36,8 @@ public interface BaseRequestInterface {
     String LOGIN = "login";
     String REGISTER = "register";
     String EVENTS = "all_events";
+    String REQUEST_SERVICE = "send_service_request";
+    String SERVICE ="services";
 
     @FormUrlEncoded
     @POST(LOGIN)
@@ -51,5 +55,23 @@ public interface BaseRequestInterface {
     @FormUrlEncoded
     @Headers(HEADER_KEY)
     @POST(EVENTS)
-    Call<EventsResponse> getEvents(@Header(AUTHORIZATION) String token, @Field(RegisterRequest.EMAIL) String email);
+    Call<EventsResponse> getEvents(@Header(AUTHORIZATION) String token,
+                                   @Field(RegisterRequest.EMAIL) String email);
+
+    @FormUrlEncoded
+    @Headers(HEADER_KEY)
+    @POST(REQUEST_SERVICE)
+    Call<ParentResponse> requestService(@Header(AUTHORIZATION) String token,
+                                          @Field(AskServiceRequest.USER_ID) int userId,
+                                          @Field(AskServiceRequest.USER_TYPE_ID) String userTypeId,
+                                          @Field(AskServiceRequest.START_DATE) String startDate,
+                                          @Field(AskServiceRequest.END_DATE) String endDate,
+                                          @Field(AskServiceRequest.LOCATION) String location);
+
+
+    @FormUrlEncoded
+    @Headers(HEADER_KEY)
+    @POST(SERVICE)
+    Call<MyServiceResponse> getMyService(@Header(AUTHORIZATION) String token,
+                                       @Field(RegisterRequest.EMAIL) String email);
 }

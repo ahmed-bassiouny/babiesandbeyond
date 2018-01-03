@@ -11,6 +11,9 @@ import java.util.List;
 
 public class UserService {
 
+    @SerializedName("services")
+    private List<Service> services;
+
     @SerializedName("service_types")
     private List<ServiceType> serviceTypes;
 
@@ -18,5 +21,11 @@ public class UserService {
         if (serviceTypes == null)
             serviceTypes = new ArrayList<>();
         return serviceTypes;
+    }
+
+    public List<Service> getServices() {
+        if (services == null)
+            services = new ArrayList<>();
+        return services;
     }
 }

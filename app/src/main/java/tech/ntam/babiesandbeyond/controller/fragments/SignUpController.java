@@ -30,8 +30,8 @@ public class SignUpController {
                     public void onSuccess(User user) {
                         if (user != null) {
                             MyDialog.dismissMyDialog();
-                            UserSharedPref.setUserInfo(activity, user.getUser_token(), user.getEmail());
-                            Toast.makeText(activity, activity.getString(R.string.nurse_request), Toast.LENGTH_SHORT).show();
+                            UserSharedPref.setUserInfo(activity, user.getUser_token(), user.getEmail(),user.getId());
+                            Toast.makeText(activity, activity.getString(R.string.register_successful), Toast.LENGTH_SHORT).show();
                             activity.finish();
                         }
                     }

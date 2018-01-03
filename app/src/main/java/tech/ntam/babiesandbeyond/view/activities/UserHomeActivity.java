@@ -23,7 +23,10 @@ import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.api.api_model.response.EventsResponse;
 import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
+import tech.ntam.babiesandbeyond.database.ServiceTypeDatabase;
 import tech.ntam.babiesandbeyond.model.Event;
+import tech.ntam.babiesandbeyond.model.UserService;
+import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
 import tech.ntam.babiesandbeyond.view.fragments.UserAboutUsFragment;
 import tech.ntam.babiesandbeyond.view.fragments.UserEventsFragment;
 import tech.ntam.babiesandbeyond.view.fragments.UserGroupsFragment;
@@ -148,7 +151,8 @@ public class UserHomeActivity extends MyToolbar implements MyToolbar.TitleToolba
     }
 
     private void loadEvents() {
-        RequestAndResponse.getEvents(this,new BaseResponseInterface<List<Event>>() {
+        MyDialog.showMyDialog(this);
+       /* RequestAndResponse.getEvents(this,new BaseResponseInterface<List<Event>>() {
             @Override
             public void onSuccess(List<Event> events) {
             }
@@ -156,6 +160,21 @@ public class UserHomeActivity extends MyToolbar implements MyToolbar.TitleToolba
             @Override
             public void onFailed(String errorMessage) {
             }
-        });
+        });*/
+       RequestAndResponse.getMyService(this, new BaseResponseInterface<UserService>() {
+           @Override
+           public void onSuccess(UserService userService) {
+               if(userService!=null){
+                   ServiceTypeDatabase.setServiceTypes(userService.getServiceTypes());
+                   MyDialog.dismissMyDialog();
+               }
+           }
+
+           @Override
+           public void onFailed(String errorMessage) {
+               MyDialog.dismissMyDialog();
+               Toast.makeText(UserHomeActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+           }
+       });
     }
 }

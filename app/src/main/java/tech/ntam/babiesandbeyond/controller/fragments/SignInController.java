@@ -8,6 +8,7 @@ import android.widget.Toast;
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
+import tech.ntam.babiesandbeyond.database.ServiceTypeDatabase;
 import tech.ntam.babiesandbeyond.model.User;
 import tech.ntam.babiesandbeyond.model.UserData;
 import tech.ntam.babiesandbeyond.utils.UserSharedPref;
@@ -29,15 +30,16 @@ public class SignInController {
 
     public void SignIn(String email, String password) {
         MyDialog.showMyDialog(activity);
-        RequestAndResponse.login(email, password, new BaseResponseInterface<UserData>() {
+        RequestAndResponse.login(email, password, new BaseResponseInterface<User>() {
             @Override
-            public void onSuccess(UserData userData) {
+            public void onSuccess(User user) {
                 MyDialog.dismissMyDialog();
-                if (userData.getUser().getUserTypeId().equals(User.USER)) {
-                    UserSharedPref.setUserInfo(activity, userData.getUser().getUser_token(),userData.getUser().getEmail());
+                if (user.getUserTypeId().equals(User.USER)) {
+                    // save user information in sharedpref
+                    UserSharedPref.setUserInfo(activity, user.getUser_token(),user.getEmail(),user.getId());
                     activity.startActivity(new Intent(activity, UserHomeActivity.class));
                     activity.finish();
-                } else if (userData.getUser().getUserTypeId().equals(User.USER)) {
+                } else if (user.getUserTypeId().equals(User.USER)) {
                     activity.startActivity(new Intent(activity, NurseHomeActivity.class));
                     activity.finish();
                 } else {

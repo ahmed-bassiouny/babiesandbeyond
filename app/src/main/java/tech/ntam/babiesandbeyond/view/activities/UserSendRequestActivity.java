@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
@@ -30,7 +31,7 @@ public class UserSendRequestActivity extends MyToolbar {
         findViewById();
         onClick();
         getController().loadServiceType(spService);
-        setupToolbar(this, false, true,true);
+        setupToolbar(this, false, true, true);
         tvTitle.setText("Request");
     }
 
@@ -58,7 +59,7 @@ public class UserSendRequestActivity extends MyToolbar {
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                getDataFromViewAndSendToService();
             }
         });
     }
@@ -68,5 +69,18 @@ public class UserSendRequestActivity extends MyToolbar {
             userSendRequestController = new UserSendRequestController(this);
         }
         return userSendRequestController;
+    }
+
+    private void getDataFromViewAndSendToService() {
+        if (etChooseDateFrom.getText().toString().trim().isEmpty()) {
+            etChooseDateFrom.setError(getString(R.string.select_date));
+        } else if (etChooseDateTo.getText().toString().trim().isEmpty()) {
+            etChooseDateTo.setError(getString(R.string.select_date));
+        } else if (etLocation.getText().toString().trim().length() < 10) {
+            etLocation.setError(getString(R.string.enter_location));
+        } else {
+            Toast.makeText(this, getController().getIdFromSpinner(spService.getSelectedItem().toString())+"", Toast.LENGTH_SHORT).show();
+            //getController().saveData();
+        }
     }
 }
