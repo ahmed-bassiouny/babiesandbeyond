@@ -27,7 +27,7 @@ public class SignUpController {
     public void SignUp(String email, String name, String phone, String password) {
         MyDialog.showMyDialog(activity);
         RequestAndResponse
-                .register(email, password, name, phone, new BaseResponseInterface<User>() {
+                .register(activity, email, password, name, phone, new BaseResponseInterface<User>() {
                     @Override
                     public void onSuccess(User user) {
                         if (user != null) {

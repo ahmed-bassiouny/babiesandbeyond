@@ -7,6 +7,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.api.api_model.response.EventsResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.LoginResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.MyServiceResponse;
@@ -76,7 +77,7 @@ public class RequestAndResponse {
         });
     }
 
-    public static void register(String email, String password, String name, String phone, final BaseResponseInterface<User> anInterface) {
+    public static void register(final Context context, String email, String password, String name, String phone, final BaseResponseInterface<User> anInterface) {
         Call<RegisterResponse> response = baseRequestInterface.register(name, email, password, phone);
         response.enqueue(new Callback<RegisterResponse>() {
             @Override
@@ -87,7 +88,7 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<RegisterResponse> call, Throwable t) {
-                anInterface.onFailed(t.getLocalizedMessage());
+                anInterface.onFailed(context.getString(R.string.email_already_taken));
             }
         });
     }
