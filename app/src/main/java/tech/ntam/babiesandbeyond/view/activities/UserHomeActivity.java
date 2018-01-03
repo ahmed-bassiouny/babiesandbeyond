@@ -23,6 +23,7 @@ import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.api.api_model.response.EventsResponse;
 import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
+import tech.ntam.babiesandbeyond.database.ServiceDatabase;
 import tech.ntam.babiesandbeyond.database.ServiceTypeDatabase;
 import tech.ntam.babiesandbeyond.model.Event;
 import tech.ntam.babiesandbeyond.model.UserService;
@@ -44,11 +45,14 @@ public class UserHomeActivity extends MyToolbar implements MyToolbar.TitleToolba
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         findViewById();
-        initObject();
         onClick();
-        setupToolbar(this, true, false,true);
+        setupToolbar(this, true, false, true);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         loadEvents();
     }
 
@@ -161,20 +165,22 @@ public class UserHomeActivity extends MyToolbar implements MyToolbar.TitleToolba
             public void onFailed(String errorMessage) {
             }
         });*/
-       RequestAndResponse.getMyService(this, new BaseResponseInterface<UserService>() {
-           @Override
-           public void onSuccess(UserService userService) {
-               if(userService!=null){
-                   ServiceTypeDatabase.setServiceTypes(userService.getServiceTypes());
-                   MyDialog.dismissMyDialog();
-               }
-           }
+        RequestAndResponse.getMyService(this, new BaseResponseInterface<UserService>() {
+            @Override
+            public void onSuccess(UserService userService) {
+                if (userService != null) {
+                    ServiceTypeDatabase.setServiceTypes(userService.getServiceTypes());
+                    ServiceDatabase.setServices(userService.getServices());
+                    MyDialog.dismissMyDialog();
+                    initObject();
+                }
+            }
 
-           @Override
-           public void onFailed(String errorMessage) {
-               MyDialog.dismissMyDialog();
-               Toast.makeText(UserHomeActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
-           }
-       });
+            @Override
+            public void onFailed(String errorMessage) {
+                MyDialog.dismissMyDialog();
+                Toast.makeText(UserHomeActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

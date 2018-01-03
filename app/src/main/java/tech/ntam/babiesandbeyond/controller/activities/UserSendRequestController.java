@@ -64,7 +64,7 @@ public class UserSendRequestController {
         timePickerDialog = TimePickerDialog.newInstance(new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
-                editText.setText(year + "-" + monthOfYear + "-" + dayOfMonth + "-" + hourOfDay + ":" + minute);
+                editText.setText(year + "-" + getValueDateDigit(monthOfYear + 1) + "-" + getValueDateDigit(dayOfMonth) + " " + getValueDateDigit(hourOfDay) + ":" + getValueDateDigit(minute) + ":" + getValueDateDigit(second));
             }
         }, now.get(Calendar.HOUR_OF_DAY), now.get(Calendar.MINUTE), now.get(Calendar.SECOND), true);
 
@@ -90,7 +90,7 @@ public class UserSendRequestController {
         spinner.setAdapter(dataAdapter);
     }
 
-    public void saveData(String serviceTypeId, String startDate, String endDate, String location) {
+    public void saveData(int serviceTypeId, String startDate, String endDate, String location) {
         MyDialog.showMyDialog(activity);
         // send new request to service to save it
         RequestAndResponse.requestService(activity, serviceTypeId, startDate, endDate, location, new BaseResponseInterface<ParentResponse>() {
@@ -118,5 +118,12 @@ public class UserSendRequestController {
             }
         }
         return result;
+    }
+
+    private String getValueDateDigit(int value) {
+        if (value < 10)
+            return "0" + value;
+        else
+            return String.valueOf(value);
     }
 }

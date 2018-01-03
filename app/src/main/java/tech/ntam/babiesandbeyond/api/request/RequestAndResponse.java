@@ -108,7 +108,7 @@ public class RequestAndResponse {
         });
     }
 
-    public static void requestService(Context context, String serviceTypeId, String startDate, String endDate, String location, final BaseResponseInterface<ParentResponse> anInterface) {
+    public static void requestService(Context context, int serviceTypeId, String startDate, String endDate, String location, final BaseResponseInterface<ParentResponse> anInterface) {
         Call<ParentResponse> response = baseRequestInterface.requestService(
                 UserSharedPref.getTokenWithHeader(context),
                 UserSharedPref.getId(context),

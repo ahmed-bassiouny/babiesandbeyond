@@ -63,7 +63,7 @@ public interface BaseRequestInterface {
     @POST(REQUEST_SERVICE)
     Call<ParentResponse> requestService(@Header(AUTHORIZATION) String token,
                                           @Field(AskServiceRequest.USER_ID) int userId,
-                                          @Field(AskServiceRequest.USER_TYPE_ID) String userTypeId,
+                                          @Field(AskServiceRequest.USER_TYPE_ID) int userTypeId,
                                           @Field(AskServiceRequest.START_DATE) String startDate,
                                           @Field(AskServiceRequest.END_DATE) String endDate,
                                           @Field(AskServiceRequest.LOCATION) String location);

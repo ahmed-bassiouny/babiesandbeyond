@@ -83,7 +83,7 @@ public class UserEventsFragment extends Fragment {
     private void initObject() {
         compactCalendarView.setLocale(TimeZone.getDefault(), Locale.getDefault());
         Utils.setCurrentDate(tvDate);
-        DummyClass.setDaySelected(compactCalendarView);
+        //DummyClass.setDaySelected(compactCalendarView);
     }
 
     private void onClick() {

@@ -1,6 +1,7 @@
 package tech.ntam.mylibrary;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,8 +11,12 @@ import android.support.v4.app.FragmentTransaction;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,6 +28,7 @@ public class Utils {
 
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+    public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
     // value => i will send string from activity to another
     public static void goToFragment(int container, FragmentActivity fragmentActivity,
@@ -69,5 +75,15 @@ public class Utils {
     public static boolean validate(String emailStr) {
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
         return matcher.find();
+    }
+
+    public static Date convertStringToDate(String date) {
+
+        DateFormat format = new SimpleDateFormat(DATE_FORMAT, Locale.ENGLISH);
+        try {
+            return format.parse(date);
+        } catch (ParseException e) {
+            return new Date();
+        }
     }
 }

@@ -1,6 +1,7 @@
 package tech.ntam.babiesandbeyond.controller.fragments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.widget.Toast;
 
 import tech.ntam.babiesandbeyond.R;
@@ -8,6 +9,7 @@ import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.babiesandbeyond.model.User;
 import tech.ntam.babiesandbeyond.utils.UserSharedPref;
+import tech.ntam.babiesandbeyond.view.activities.UserHomeActivity;
 import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
 
 /**
@@ -33,6 +35,7 @@ public class SignUpController {
                             UserSharedPref.setUserInfo(activity, user.getUser_token(), user.getEmail(),user.getId());
                             Toast.makeText(activity, activity.getString(R.string.register_successful), Toast.LENGTH_SHORT).show();
                             activity.finish();
+                            activity.startActivity(new Intent(activity, UserHomeActivity.class));
                         }
                     }
 

@@ -39,7 +39,7 @@ public class SignInController {
                     UserSharedPref.setUserInfo(activity, user.getUser_token(),user.getEmail(),user.getId());
                     activity.startActivity(new Intent(activity, UserHomeActivity.class));
                     activity.finish();
-                } else if (user.getUserTypeId().equals(User.USER)) {
+                } else if (user.getUserTypeId().equals(User.STAFF)) {
                     activity.startActivity(new Intent(activity, NurseHomeActivity.class));
                     activity.finish();
                 } else {

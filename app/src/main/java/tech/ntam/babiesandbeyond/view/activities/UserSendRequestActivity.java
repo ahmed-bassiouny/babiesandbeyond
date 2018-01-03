@@ -15,6 +15,7 @@ import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.controller.activities.UserSendRequestController;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
+import tech.ntam.mylibrary.Utils;
 
 public class UserSendRequestActivity extends MyToolbar {
 
@@ -78,9 +79,11 @@ public class UserSendRequestActivity extends MyToolbar {
             etChooseDateTo.setError(getString(R.string.select_date));
         } else if (etLocation.getText().toString().trim().length() < 10) {
             etLocation.setError(getString(R.string.enter_location));
-        } else {
-            Toast.makeText(this, getController().getIdFromSpinner(spService.getSelectedItem().toString())+"", Toast.LENGTH_SHORT).show();
-            //getController().saveData();
+        } else if(Utils.convertStringToDate(etChooseDateTo.getText().toString()).before(Utils.convertStringToDate(etChooseDateFrom.getText().toString()))){
+            Toast.makeText(this, R.string.invalid_Date, Toast.LENGTH_SHORT).show();
+        }else {
+            getController().saveData(getController().getIdFromSpinner(spService.getSelectedItem().toString())
+                    ,etChooseDateFrom.getText().toString(),etChooseDateTo.getText().toString(),etLocation.getText().toString());
         }
     }
 }

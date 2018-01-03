@@ -12,12 +12,12 @@ import com.github.sundeepk.compactcalendarview.domain.Event;
 
 public class DummyClass {
 
-    public static void setDaySelected(CompactCalendarView compactCalendarView){
+  /*  public static void setDaySelected(CompactCalendarView compactCalendarView){
 
         long l = System.currentTimeMillis();
         Event ev1 = new Event(Color.GREEN,l , "fds");
         compactCalendarView.addEvent(ev1,false);
-    }
+    }*/
     public static void setShortText(TextView shortText){
         shortText.setText("Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..." +
                 "There is no one who loves pain itself, who seeks after it and wants to have it, simply because it is pain..." );
