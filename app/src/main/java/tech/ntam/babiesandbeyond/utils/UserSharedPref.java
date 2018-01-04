@@ -57,6 +57,6 @@ public class UserSharedPref {
     }
     public static String getNotificationToken(Context context) {
         getSharedPref(context);
-        return sharedPref.getString(NOTIFICATION_TOKEN, "");
+        return "ahmed";//sharedPref.getString(NOTIFICATION_TOKEN, " ");
     }
 }
