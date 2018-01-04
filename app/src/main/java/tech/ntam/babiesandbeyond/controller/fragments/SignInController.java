@@ -30,7 +30,7 @@ public class SignInController {
 
     public void SignIn(String email, String password) {
         MyDialog.showMyDialog(activity);
-        RequestAndResponse.login(email, password, new BaseResponseInterface<User>() {
+        RequestAndResponse.login(activity,email, password, new BaseResponseInterface<User>() {
             @Override
             public void onSuccess(User user) {
                 MyDialog.dismissMyDialog();
@@ -50,7 +50,7 @@ public class SignInController {
             @Override
             public void onFailed(String errorMessage) {
                 MyDialog.dismissMyDialog();
-                Toast.makeText(activity, R.string.user_not_found, Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, errorMessage, Toast.LENGTH_SHORT).show();
             }
         });
     }

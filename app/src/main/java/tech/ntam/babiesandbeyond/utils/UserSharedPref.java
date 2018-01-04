@@ -15,6 +15,7 @@ public class UserSharedPref {
     private final static String USER_TOKEN = "user_token";
     private final static String USER_EMAIL = "user_email";
     private final static String USER_ID = "user_id";
+    private final static String NOTIFICATION_TOKEN = "notification_token";
     private final static String TOKEN_HEADER_KEY = "Bearer ";
 
 
@@ -33,6 +34,12 @@ public class UserSharedPref {
         editor.putInt(USER_ID, id);
         editor.apply();
     }
+    public static void setNotificationToken(Context context, String notificationToken) {
+        getSharedPref(context);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(NOTIFICATION_TOKEN, notificationToken);
+        editor.apply();
+    }
 
     public static String getEmail(Context context) {
         getSharedPref(context);
@@ -47,5 +54,9 @@ public class UserSharedPref {
     public static int getId(Context context) {
         getSharedPref(context);
         return sharedPref.getInt(USER_ID, 0);
+    }
+    public static String getNotificationToken(Context context) {
+        getSharedPref(context);
+        return sharedPref.getString(NOTIFICATION_TOKEN, "");
     }
 }

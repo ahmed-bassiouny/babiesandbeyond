@@ -7,4 +7,5 @@ package tech.ntam.babiesandbeyond.api.api_model.request;
 public class LoginRequest {
     public final static String EMAIL = "email";
     public final static String PASSWORD = "password";
+    public static final String NOTIFICATION_TOKEN = "notification_token";
 }

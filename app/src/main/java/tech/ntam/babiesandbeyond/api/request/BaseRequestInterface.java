@@ -9,12 +9,12 @@ import retrofit2.http.POST;
 import tech.ntam.babiesandbeyond.api.api_model.request.AskServiceRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.LoginRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.RegisterRequest;
+import tech.ntam.babiesandbeyond.api.api_model.request.StatusEvent;
 import tech.ntam.babiesandbeyond.api.api_model.response.EventsResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.LoginResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.MyServiceResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.ParentResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.RegisterResponse;
-import tech.ntam.babiesandbeyond.utils.UserSharedPref;
 
 /**
  * Created by bassiouny on 31/12/17.
@@ -37,19 +37,21 @@ public interface BaseRequestInterface {
     String REGISTER = "register";
     String EVENTS = "all_events";
     String REQUEST_SERVICE = "send_service_request";
-    String SERVICE ="services";
+    String SERVICE = "services";
 
     @FormUrlEncoded
     @POST(LOGIN)
     Call<LoginResponse> login(@Field(LoginRequest.EMAIL) String email,
-                              @Field(LoginRequest.PASSWORD) String password);
+                              @Field(LoginRequest.PASSWORD) String password,
+                              @Field(LoginRequest.NOTIFICATION_TOKEN) String notificationToken);
 
     @FormUrlEncoded
     @POST(REGISTER)
     Call<RegisterResponse> register(@Field(RegisterRequest.NAME) String name,
                                     @Field(RegisterRequest.EMAIL) String email,
                                     @Field(RegisterRequest.PASSWORD) String password,
-                                    @Field(RegisterRequest.PHONE) String phone);
+                                    @Field(RegisterRequest.PHONE) String phone,
+                                    @Field(LoginRequest.NOTIFICATION_TOKEN) String notificationToken);
 
 
     @FormUrlEncoded
@@ -62,16 +64,25 @@ public interface BaseRequestInterface {
     @Headers(HEADER_KEY)
     @POST(REQUEST_SERVICE)
     Call<ParentResponse> requestService(@Header(AUTHORIZATION) String token,
-                                          @Field(AskServiceRequest.USER_ID) int userId,
-                                          @Field(AskServiceRequest.USER_TYPE_ID) int userTypeId,
-                                          @Field(AskServiceRequest.START_DATE) String startDate,
-                                          @Field(AskServiceRequest.END_DATE) String endDate,
-                                          @Field(AskServiceRequest.LOCATION) String location);
+                                        @Field(AskServiceRequest.USER_ID) int userId,
+                                        @Field(AskServiceRequest.USER_TYPE_ID) int userTypeId,
+                                        @Field(AskServiceRequest.START_DATE) String startDate,
+                                        @Field(AskServiceRequest.END_DATE) String endDate,
+                                        @Field(AskServiceRequest.LOCATION) String location);
 
 
     @FormUrlEncoded
     @Headers(HEADER_KEY)
     @POST(SERVICE)
     Call<MyServiceResponse> getMyService(@Header(AUTHORIZATION) String token,
-                                       @Field(RegisterRequest.EMAIL) String email);
+                                         @Field(RegisterRequest.EMAIL) String email);
+
+
+    @FormUrlEncoded
+    @Headers(HEADER_KEY)
+    @POST(SERVICE)
+    Call<ParentResponse> sendStatusEvent(@Header(AUTHORIZATION) String token,
+                                            @Field(StatusEvent.USER_ID) int userId,
+                                            @Field(StatusEvent.IS_COMING) int isComing,
+                                            @Field(StatusEvent.EVENT_ID) int eventId);
 }

@@ -5,8 +5,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import tech.ntam.babiesandbeyond.R;
+import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
+import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.babiesandbeyond.model.Event;
 import tech.ntam.mylibrary.DummyClass;
 import tech.ntam.mylibrary.IntentDataKey;
@@ -21,6 +24,8 @@ public class EventDialogActivity extends AppCompatActivity {
     private TextView tvSpeakerBio;
     private TextView tvEventDescription;
     private Button btnComing;
+    private boolean isComing = false;
+    private Event event;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,20 +36,21 @@ public class EventDialogActivity extends AppCompatActivity {
     }
 
     private void setData() {
-        Event event = getIntent().getParcelableExtra(IntentDataKey.SHOW_EVENT_DATA_KEY);
+        event = getIntent().getParcelableExtra(IntentDataKey.SHOW_EVENT_DATA_KEY);
         tvEventName.setText(event.getName());
         tvEventDateTimeFrom.setText(event.getStartDate());
         tvEventDateTimeTo.setText(event.getEndDate());
-        DummyClass.setTitleText(tvStatus);
         tvSpeakerName.setText(event.getSpeakerName());
         tvSpeakerBio.setText(event.getSpeakerBio());
         tvEventDescription.setText(event.getDescription());
-        if(event.isComing()){
+        if (event.isComing()) {
             tvStatus.setText(R.string.coming);
-            btnComing.setVisibility(View.INVISIBLE);
-        }else {
+            btnComing.setText(R.string.coming);
+            isComing = true;
+        } else {
             tvStatus.setText(R.string.not_coming);
-            btnComing.setVisibility(View.VISIBLE);
+            btnComing.setText(R.string.not_coming);
+            isComing = false;
         }
     }
 
@@ -60,7 +66,24 @@ public class EventDialogActivity extends AppCompatActivity {
         btnComing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (event == null)
+                    return;
+                MyDialog.showMyDialog(EventDialogActivity.this);
+                isComing = !isComing;
+                RequestAndResponse.sendStatusEvent(EventDialogActivity.this, event.getId(), isComing, new BaseResponseInterface<String>() {
+                    @Override
+                    public void onSuccess(String s) {
+                        Toast.makeText(EventDialogActivity.this, s, Toast.LENGTH_SHORT).show();
+                        MyDialog.dismissMyDialog();
+                    }
 
+                    @Override
+                    public void onFailed(String errorMessage) {
+                        Toast.makeText(EventDialogActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                        MyDialog.dismissMyDialog();
+                        isComing = !isComing;
+                    }
+                });
             }
         });
     }

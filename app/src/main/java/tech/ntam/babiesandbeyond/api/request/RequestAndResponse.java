@@ -46,23 +46,8 @@ public class RequestAndResponse {
         }
     }
 
-    private static <T> void checkValidListResult(int responseCode, boolean responseStatus, List<T> object, String errorMsg, BaseResponseInterface baseResponseInterface) {
-        // get response to check if request valid or not
-        // get result object to pass it to base response interface
-        if (responseCode == 200) {
-            if (responseStatus) {
-                baseResponseInterface.onSuccess(object);
-            } else {
-                baseResponseInterface.onFailed(errorMsg);
-            }
-        } else {
-            // this case mean response code not equal 200
-            baseResponseInterface.onFailed(errorMsg);
-        }
-    }
-
-    public static void login(String email, String password, final BaseResponseInterface<User> anInterface) {
-        Call<LoginResponse> response = baseRequestInterface.login(email, password);
+    public static void login(Context context,String email, String password, final BaseResponseInterface<User> anInterface) {
+        Call<LoginResponse> response = baseRequestInterface.login(email, password,UserSharedPref.getNotificationToken(context));
         response.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
@@ -78,7 +63,7 @@ public class RequestAndResponse {
     }
 
     public static void register(final Context context, String email, String password, String name, String phone, final BaseResponseInterface<User> anInterface) {
-        Call<RegisterResponse> response = baseRequestInterface.register(name, email, password, phone);
+        Call<RegisterResponse> response = baseRequestInterface.register(name, email, password, phone,UserSharedPref.getNotificationToken(context));
         response.enqueue(new Callback<RegisterResponse>() {
             @Override
             public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
@@ -128,7 +113,7 @@ public class RequestAndResponse {
         });
     }
 
-    public static void getMyService(Context context,final BaseResponseInterface<UserService> anInterface) {
+    public static void getMyService(Context context, final BaseResponseInterface<UserService> anInterface) {
         Call<MyServiceResponse> response = baseRequestInterface.getMyService(
                 UserSharedPref.getTokenWithHeader(context),
                 UserSharedPref.getEmail(context));
@@ -146,4 +131,26 @@ public class RequestAndResponse {
         });
     }
 
+    public static void sendStatusEvent(Context context, int eventId, boolean isComing, final BaseResponseInterface<String> anInterface) {
+        int coming = 0;
+        if (isComing) {
+            coming = 1;
+        }
+        Call<ParentResponse> response = baseRequestInterface.sendStatusEvent(
+                UserSharedPref.getTokenWithHeader(context),
+                UserSharedPref.getId(context),
+                coming, eventId);
+        response.enqueue(new Callback<ParentResponse>() {
+            @Override
+            public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {
+                checkValidResult(response.code(), response.body().getStatus()
+                        , response.body().getMessage(), response.body().getMessage(), anInterface);
+            }
+
+            @Override
+            public void onFailure(Call<ParentResponse> call, Throwable t) {
+                anInterface.onFailed(t.getLocalizedMessage());
+            }
+        });
+    }
 }
