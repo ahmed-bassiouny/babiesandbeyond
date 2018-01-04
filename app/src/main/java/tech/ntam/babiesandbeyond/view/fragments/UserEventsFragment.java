@@ -17,14 +17,20 @@ import android.widget.TextView;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
 import tech.ntam.babiesandbeyond.R;
+import tech.ntam.babiesandbeyond.database.EventsDatabase;
+import tech.ntam.babiesandbeyond.database.ServiceDatabase;
+import tech.ntam.babiesandbeyond.model.Service;
 import tech.ntam.babiesandbeyond.view.dialog.EventDialogActivity;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 import tech.ntam.mylibrary.DummyClass;
+import tech.ntam.mylibrary.IntentDataKey;
 import tech.ntam.mylibrary.Utils;
 
 /**
@@ -64,6 +70,17 @@ public class UserEventsFragment extends Fragment {
         initObject();
         onClick();
     }
+
+    private void setEventInCalendar() {
+        List<Event> events = new ArrayList<>();
+        for (tech.ntam.babiesandbeyond.model.Event item : EventsDatabase.getEvents()) {
+            events.add(new Event(R.color.gray_bold, Utils.convertStringToDate(item.getStartDate()).getTime(), item));
+        }
+        if (compactCalendarView != null)
+            compactCalendarView.removeAllEvents();
+        compactCalendarView.addEvents(events);
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -77,20 +94,29 @@ public class UserEventsFragment extends Fragment {
         if(getContext()!=null && isVisibleToUser){
             MyToolbar.TitleToolbar titleToolbar = (MyToolbar.TitleToolbar) getActivity();
             titleToolbar.setTitleToolbar(getString(R.string.events));
+            setEventInCalendar();
         }
     }
 
     private void initObject() {
         compactCalendarView.setLocale(TimeZone.getDefault(), Locale.getDefault());
         Utils.setCurrentDate(tvDate);
-        //DummyClass.setDaySelected(compactCalendarView);
     }
 
     private void onClick() {
         compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
             public void onDayClick(Date dateClicked) {
-                startActivity(new Intent(getActivity(), EventDialogActivity.class));
+                if (compactCalendarView.getEvents(dateClicked).size() > 0) {
+                    Event event = compactCalendarView.getEvents(dateClicked).get(0);
+                    compactCalendarView.setCurrentSelectedDayBackgroundColor(R.color.gray_bold);
+                    tech.ntam.babiesandbeyond.model.Event myEvent = (tech.ntam.babiesandbeyond.model.Event) event.getData();
+                    Intent intent = new Intent(getActivity(), EventDialogActivity.class);
+                    intent.putExtra(IntentDataKey.SHOW_EVENT_DATA_KEY,myEvent);
+                    startActivity(intent);
+                }else {
+                    compactCalendarView.setCurrentSelectedDayBackgroundColor(Color.WHITE);
+                }
             }
 
             @Override

@@ -43,6 +43,8 @@
     <string name="type_here">Type Here</string>
     <string name="any">Any</string>
     <string name="coming">Coming</string>
+    <string name="not_coming">Not Coming</string>
+
     <string name="workshop">Workshop</string>
 
     <string name="event_name">Event Name</string>
@@ -103,7 +105,6 @@
     <string name="service_type">Service Type</string>
     <string name="pay">Pay</string>
     <string name="email_already_taken">The email has already been taken</string>
-
 
 
 </resources>

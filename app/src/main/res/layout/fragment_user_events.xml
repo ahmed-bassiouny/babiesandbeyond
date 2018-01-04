@@ -16,21 +16,10 @@
         android:fontFamily="@font/museosans"
         android:textSize="20sp" />
 
-    <com.github.sundeepk.compactcalendarview.CompactCalendarView xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/compactcalendar_view"
+    <include
+        layout="@layout/my_calendar"
         android:layout_width="match_parent"
-        android:layout_height="220dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        app:compactCalendarBackgroundColor="#fff"
-        app:compactCalendarCurrentDayBackgroundColor="#fff"
-        app:compactCalendarCurrentSelectedDayBackgroundColor="@color/gray_bold"
-        app:compactCalendarCurrentSelectedDayTextColor="@color/white"
-        app:compactCalendarMultiEventIndicatorColor="#000"
-        app:compactCalendarTargetHeight="250dp"
-        app:compactCalendarTextColor="#000"
-        android:layout_margin="20dp"
-        app:compactCalendarTextSize="12sp" />
+        android:layout_height="220dp" />
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"

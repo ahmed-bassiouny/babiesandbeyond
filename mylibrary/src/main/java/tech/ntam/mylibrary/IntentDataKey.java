@@ -6,4 +6,6 @@ package tech.ntam.mylibrary;
 
 public class IntentDataKey {
     public static final String SHOW_SERVICE_DATA_KEY = "service";
+    public static final String SHOW_EVENT_DATA_KEY = "event";
+
 }

@@ -23,6 +23,7 @@ import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.api.api_model.response.EventsResponse;
 import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
+import tech.ntam.babiesandbeyond.database.EventsDatabase;
 import tech.ntam.babiesandbeyond.database.ServiceDatabase;
 import tech.ntam.babiesandbeyond.database.ServiceTypeDatabase;
 import tech.ntam.babiesandbeyond.model.Event;
@@ -156,15 +157,16 @@ public class UserHomeActivity extends MyToolbar implements MyToolbar.TitleToolba
 
     private void loadEvents() {
         MyDialog.showMyDialog(this);
-       /* RequestAndResponse.getEvents(this,new BaseResponseInterface<List<Event>>() {
+        RequestAndResponse.getEvents(this, new BaseResponseInterface<List<Event>>() {
             @Override
             public void onSuccess(List<Event> events) {
+                EventsDatabase.setEvents(events);
             }
 
             @Override
             public void onFailed(String errorMessage) {
             }
-        });*/
+        });
         RequestAndResponse.getMyService(this, new BaseResponseInterface<UserService>() {
             @Override
             public void onSuccess(UserService userService) {
