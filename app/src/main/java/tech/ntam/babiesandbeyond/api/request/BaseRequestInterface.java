@@ -38,6 +38,7 @@ public interface BaseRequestInterface {
     String EVENTS = "all_events";
     String REQUEST_SERVICE = "send_service_request";
     String SERVICE = "services";
+    String SEND_STATUS_EVENT="comming_or_not_comming_to_event";
 
     @FormUrlEncoded
     @POST(LOGIN)
@@ -80,7 +81,7 @@ public interface BaseRequestInterface {
 
     @FormUrlEncoded
     @Headers(HEADER_KEY)
-    @POST(SERVICE)
+    @POST(SEND_STATUS_EVENT)
     Call<ParentResponse> sendStatusEvent(@Header(AUTHORIZATION) String token,
                                             @Field(StatusEvent.USER_ID) int userId,
                                             @Field(StatusEvent.IS_COMING) int isComing,

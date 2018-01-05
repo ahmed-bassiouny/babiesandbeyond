@@ -57,7 +57,8 @@
             android:theme="@style/AppThemeDialog" />
         <activity
             android:name=".view.dialog.ServiceDialogActivity"
-            android:theme="@style/AppThemeDialog"></activity>
+            android:theme="@style/AppThemeDialog"
+            ></activity>
     </application>
 
 </manifest>

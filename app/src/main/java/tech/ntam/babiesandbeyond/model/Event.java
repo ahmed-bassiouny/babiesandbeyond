@@ -68,6 +68,9 @@ public class Event implements Parcelable {
         return coming;
     }
 
+    public void setComing(boolean coming) {
+        this.coming = coming;
+    }
 
     @Override
     public int describeContents() {

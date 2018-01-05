@@ -43,15 +43,7 @@ public class EventDialogActivity extends AppCompatActivity {
         tvSpeakerName.setText(event.getSpeakerName());
         tvSpeakerBio.setText(event.getSpeakerBio());
         tvEventDescription.setText(event.getDescription());
-        if (event.isComing()) {
-            tvStatus.setText(R.string.coming);
-            btnComing.setText(R.string.coming);
-            isComing = true;
-        } else {
-            tvStatus.setText(R.string.not_coming);
-            btnComing.setText(R.string.not_coming);
-            isComing = false;
-        }
+        checkEventStatus();
     }
 
     private void findViewById() {
@@ -69,22 +61,33 @@ public class EventDialogActivity extends AppCompatActivity {
                 if (event == null)
                     return;
                 MyDialog.showMyDialog(EventDialogActivity.this);
-                isComing = !isComing;
-                RequestAndResponse.sendStatusEvent(EventDialogActivity.this, event.getId(), isComing, new BaseResponseInterface<String>() {
+                RequestAndResponse.sendStatusEvent(EventDialogActivity.this, event.getId(), !isComing, new BaseResponseInterface<String>() {
                     @Override
                     public void onSuccess(String s) {
-                        Toast.makeText(EventDialogActivity.this, s, Toast.LENGTH_SHORT).show();
+                        event.setComing(!isComing);
                         MyDialog.dismissMyDialog();
+                        checkEventStatus();
                     }
 
                     @Override
                     public void onFailed(String errorMessage) {
                         Toast.makeText(EventDialogActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
                         MyDialog.dismissMyDialog();
-                        isComing = !isComing;
                     }
                 });
             }
         });
+    }
+
+    private void checkEventStatus() {
+        if (event.isComing()) {
+            tvStatus.setText(R.string.coming);
+            btnComing.setText(R.string.not_coming);
+            isComing = true;
+        } else {
+            tvStatus.setText(R.string.not_coming);
+            btnComing.setText(R.string.coming);
+            isComing = false;
+        }
     }
 }
