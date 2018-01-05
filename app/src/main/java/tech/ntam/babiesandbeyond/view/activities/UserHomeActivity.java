@@ -49,6 +49,7 @@ public class UserHomeActivity extends MyToolbar implements MyToolbar.TitleToolba
         findViewById();
         onClick();
         setupToolbar(this, true, false, true);
+        tvTitle.setText(R.string.services);
     }
 
     @Override

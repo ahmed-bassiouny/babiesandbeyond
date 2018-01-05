@@ -81,12 +81,6 @@ public class UserEventsFragment extends Fragment {
         compactCalendarView.addEvents(events);
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        MyToolbar.TitleToolbar titleToolbar = (MyToolbar.TitleToolbar) getActivity();
-        titleToolbar.setTitleToolbar(getString(R.string.events));
-    }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
