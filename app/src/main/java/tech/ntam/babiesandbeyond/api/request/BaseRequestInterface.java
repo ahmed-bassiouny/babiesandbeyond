@@ -11,25 +11,18 @@ import tech.ntam.babiesandbeyond.api.api_model.request.LoginRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.RegisterRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.StatusEvent;
 import tech.ntam.babiesandbeyond.api.api_model.response.EventsResponse;
+import tech.ntam.babiesandbeyond.api.api_model.response.GroupResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.LoginResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.MyServiceResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.ParentResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.RegisterResponse;
+import tech.ntam.babiesandbeyond.model.Group;
 
 /**
  * Created by bassiouny on 31/12/17.
  */
 
 public interface BaseRequestInterface {
-
-    /*
-    * example
-    *  @FormUrlEncoded
-    @POST(ALL_POST)
-    Call<PostListResponse> getAllPost(@Field(ParentRequest.USER_ID_KEY) int userId,
-                                      @Field(ParentRequest.PAGE_NUMBER_KEY) int pageNumber,
-                                      @Field(ParentRequest.EVENT_KEY) int event_id);
-    * */
 
     String HEADER_KEY = "Accept:application/json";
     String AUTHORIZATION = "Authorization";
@@ -39,6 +32,7 @@ public interface BaseRequestInterface {
     String REQUEST_SERVICE = "send_service_request";
     String SERVICE = "services";
     String SEND_STATUS_EVENT="comming_or_not_comming_to_event";
+    String GROUP = "all_groups";
 
     @FormUrlEncoded
     @POST(LOGIN)
@@ -86,4 +80,11 @@ public interface BaseRequestInterface {
                                             @Field(StatusEvent.USER_ID) int userId,
                                             @Field(StatusEvent.IS_COMING) int isComing,
                                             @Field(StatusEvent.EVENT_ID) int eventId);
+
+
+    @FormUrlEncoded
+    @Headers(HEADER_KEY)
+    @POST(GROUP)
+    Call<GroupResponse> getGroups(@Header(AUTHORIZATION) String token,
+                                  @Field(RegisterRequest.EMAIL) String email);
 }

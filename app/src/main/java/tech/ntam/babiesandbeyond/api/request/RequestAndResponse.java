@@ -9,6 +9,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.api.api_model.response.EventsResponse;
+import tech.ntam.babiesandbeyond.api.api_model.response.GroupResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.LoginResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.MyServiceResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.ParentResponse;
@@ -16,6 +17,7 @@ import tech.ntam.babiesandbeyond.api.api_model.response.RegisterResponse;
 import tech.ntam.babiesandbeyond.api.config.ApiConfig;
 import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.model.Event;
+import tech.ntam.babiesandbeyond.model.Group;
 import tech.ntam.babiesandbeyond.model.User;
 import tech.ntam.babiesandbeyond.model.UserData;
 import tech.ntam.babiesandbeyond.model.UserService;
@@ -133,9 +135,7 @@ public class RequestAndResponse {
 
     public static void sendStatusEvent(Context context, int eventId, boolean isComing, final BaseResponseInterface<String> anInterface) {
         int coming = 0;
-        if (isComing) {
-            coming = 1;
-        }
+        if (isComing) coming = 1;
         Call<ParentResponse> response = baseRequestInterface.sendStatusEvent(
                 UserSharedPref.getTokenWithHeader(context),
                 UserSharedPref.getId(context),
@@ -153,4 +153,22 @@ public class RequestAndResponse {
             }
         });
     }
+    public static void getGroups(Context context, final BaseResponseInterface<List<Group>> anInterface) {
+        Call<GroupResponse> response = baseRequestInterface.getGroups(
+                UserSharedPref.getTokenWithHeader(context),
+                UserSharedPref.getEmail(context));
+        response.enqueue(new Callback<GroupResponse>() {
+            @Override
+            public void onResponse(Call<GroupResponse> call, Response<GroupResponse> response) {
+                checkValidResult(response.code(), response.body().getStatus()
+                        , response.body().getGroups(), response.message(), anInterface);
+            }
+
+            @Override
+            public void onFailure(Call<GroupResponse> call, Throwable t) {
+                anInterface.onFailed(t.getLocalizedMessage());
+            }
+        });
+    }
+
 }

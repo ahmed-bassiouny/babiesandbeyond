@@ -12,17 +12,17 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import tech.ntam.babiesandbeyond.R;
-import tech.ntam.mylibrary.DummyGroupModel;
+import tech.ntam.babiesandbeyond.model.Group;
 
 /**
  * Created by bassiouny on 22/12/17.
  */
 
 public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyViewHolder> {
-    List<DummyGroupModel> dummyGroupModels;
+    List<Group> groups;
 
-    public GroupItemAdapter(List<DummyGroupModel> dummyGroupModels) {
-        this.dummyGroupModels = dummyGroupModels;
+    public GroupItemAdapter(List<Group> groups) {
+        this.groups = groups;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -57,16 +57,16 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        DummyGroupModel dummyGroupModel = dummyGroupModels.get(position);
-        holder.ivGroupStatus.setText(dummyGroupModel.status);
-        holder.tvGroupName.setText(dummyGroupModel.name);
-        holder.tvGroupCreatedBy.setText(dummyGroupModel.createdBy);
-        holder.tvDescription.setText(dummyGroupModel.description);
-        holder.tvDate.setText(dummyGroupModel.date);
+        Group group = groups.get(position);
+        holder.ivGroupStatus.setText(group.getStatus());
+        holder.tvGroupName.setText(group.getName());
+        holder.tvGroupCreatedBy.setText(group.getCreatedBy());
+        holder.tvDescription.setText(group.getDescription());
+        holder.tvDate.setText(group.getDate());
     }
 
     @Override
     public int getItemCount() {
-        return dummyGroupModels.size();
+        return groups.size();
     }
 }

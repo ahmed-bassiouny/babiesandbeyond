@@ -24,9 +24,11 @@ import tech.ntam.babiesandbeyond.api.api_model.response.EventsResponse;
 import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.babiesandbeyond.database.EventsDatabase;
+import tech.ntam.babiesandbeyond.database.GroupsDatabase;
 import tech.ntam.babiesandbeyond.database.ServiceDatabase;
 import tech.ntam.babiesandbeyond.database.ServiceTypeDatabase;
 import tech.ntam.babiesandbeyond.model.Event;
+import tech.ntam.babiesandbeyond.model.Group;
 import tech.ntam.babiesandbeyond.model.UserService;
 import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
 import tech.ntam.babiesandbeyond.view.fragments.UserAboutUsFragment;
@@ -166,6 +168,17 @@ public class UserHomeActivity extends MyToolbar implements MyToolbar.TitleToolba
 
             @Override
             public void onFailed(String errorMessage) {
+            }
+        });
+        RequestAndResponse.getGroups(this, new BaseResponseInterface<List<Group>>() {
+            @Override
+            public void onSuccess(List<Group> groups) {
+                GroupsDatabase.setGroups(groups);
+            }
+
+            @Override
+            public void onFailed(String errorMessage) {
+                Toast.makeText(UserHomeActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
             }
         });
         RequestAndResponse.getMyService(this, new BaseResponseInterface<UserService>() {

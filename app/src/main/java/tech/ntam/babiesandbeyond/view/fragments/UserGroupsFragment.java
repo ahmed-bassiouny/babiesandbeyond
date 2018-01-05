@@ -1,7 +1,6 @@
 package tech.ntam.babiesandbeyond.view.fragments;
 
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,9 +17,10 @@ import java.util.List;
 
 import info.hoang8f.android.segmented.SegmentedGroup;
 import tech.ntam.babiesandbeyond.R;
+import tech.ntam.babiesandbeyond.database.GroupsDatabase;
+import tech.ntam.babiesandbeyond.model.Group;
 import tech.ntam.babiesandbeyond.view.adapter.GroupItemAdapter;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
-import tech.ntam.mylibrary.DummyGroupModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,7 +35,7 @@ public class UserGroupsFragment extends Fragment {
     private RadioButton btnMyGroups;
     private RecyclerView recycleView;
     private static UserGroupsFragment userGroupsFragment;
-    private List<DummyGroupModel> dummyGroupModels;
+
 
     public UserGroupsFragment() {
         // Required empty public constructor
@@ -77,16 +77,7 @@ public class UserGroupsFragment extends Fragment {
 
 
     private void setData() {
-        dummyGroupModels = new ArrayList<>();
-        DummyGroupModel dummyGroupModel1 = new DummyGroupModel("Approved","Group 1","Admin 1","description About Group 1","2 nov",false);
-        dummyGroupModels.add(dummyGroupModel1);
-        DummyGroupModel dummyGroupModel2 = new DummyGroupModel("Pending","Group 2","Admin 2","description About Group 2","5 nov",true);
-        dummyGroupModels.add(dummyGroupModel2);
-        DummyGroupModel dummyGroupModel3 = new DummyGroupModel("Pending","Group 3","User 1","description About Group 3","7 nov",true);
-        dummyGroupModels.add(dummyGroupModel3);
-        DummyGroupModel dummyGroupModel4 = new DummyGroupModel("Approved","Group 4","User 2","description About Group 4","9 nov",false);
-        dummyGroupModels.add(dummyGroupModel4);
         recycleView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recycleView.setAdapter(new GroupItemAdapter(dummyGroupModels));
+        recycleView.setAdapter(new GroupItemAdapter(GroupsDatabase.getGroups()));
     }
 }
