@@ -13,6 +13,7 @@ import tech.ntam.babiesandbeyond.api.api_model.response.GroupResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.LoginResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.MyServiceResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.ParentResponse;
+import tech.ntam.babiesandbeyond.api.api_model.response.ProfileResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.RegisterResponse;
 import tech.ntam.babiesandbeyond.api.config.ApiConfig;
 import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
@@ -48,8 +49,8 @@ public class RequestAndResponse {
         }
     }
 
-    public static void login(Context context,String email, String password, final BaseResponseInterface<User> anInterface) {
-        Call<LoginResponse> response = baseRequestInterface.login(email, password,UserSharedPref.getNotificationToken(context));
+    public static void login(Context context, String email, String password, final BaseResponseInterface<User> anInterface) {
+        Call<LoginResponse> response = baseRequestInterface.login(email, password, UserSharedPref.getNotificationToken(context));
         response.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
@@ -65,7 +66,7 @@ public class RequestAndResponse {
     }
 
     public static void register(final Context context, String email, String password, String name, String phone, final BaseResponseInterface<User> anInterface) {
-        Call<RegisterResponse> response = baseRequestInterface.register(name, email, password, phone,UserSharedPref.getNotificationToken(context));
+        Call<RegisterResponse> response = baseRequestInterface.register(name, email, password, phone, UserSharedPref.getNotificationToken(context));
         response.enqueue(new Callback<RegisterResponse>() {
             @Override
             public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
@@ -153,6 +154,7 @@ public class RequestAndResponse {
             }
         });
     }
+
     public static void getGroups(Context context, final BaseResponseInterface<List<Group>> anInterface) {
         Call<GroupResponse> response = baseRequestInterface.getGroups(
                 UserSharedPref.getTokenWithHeader(context),
@@ -166,6 +168,42 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<GroupResponse> call, Throwable t) {
+                anInterface.onFailed(t.getLocalizedMessage());
+            }
+        });
+    }
+
+    public static void getProfile(Context context, final BaseResponseInterface<User> anInterface) {
+        Call<ProfileResponse> response = baseRequestInterface.getProfile(
+                UserSharedPref.getTokenWithHeader(context),
+                UserSharedPref.getEmail(context));
+        response.enqueue(new Callback<ProfileResponse>() {
+            @Override
+            public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
+                checkValidResult(response.code(), response.body().getStatus()
+                        , response.body().getUser(), response.message(), anInterface);
+            }
+
+            @Override
+            public void onFailure(Call<ProfileResponse> call, Throwable t) {
+                anInterface.onFailed(t.getLocalizedMessage());
+            }
+        });
+    }
+    public static void updatePassword(Context context,String password, final BaseResponseInterface<String> anInterface) {
+        Call<ParentResponse> response = baseRequestInterface.updatePassword(
+                UserSharedPref.getTokenWithHeader(context),
+                UserSharedPref.getId(context),
+                password);
+        response.enqueue(new Callback<ParentResponse>() {
+            @Override
+            public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {
+                checkValidResult(response.code(), response.body().getStatus()
+                        , response.body().getMessage(), response.message(), anInterface);
+            }
+
+            @Override
+            public void onFailure(Call<ParentResponse> call, Throwable t) {
                 anInterface.onFailed(t.getLocalizedMessage());
             }
         });

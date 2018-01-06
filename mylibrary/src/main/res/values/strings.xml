@@ -105,6 +105,6 @@
     <string name="service_type">Service Type</string>
     <string name="pay">Pay</string>
     <string name="email_already_taken">The email has already been taken</string>
-
+    <string name="profile">Profile</string>
 
 </resources>

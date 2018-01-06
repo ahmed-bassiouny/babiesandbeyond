@@ -1,5 +1,6 @@
 package tech.ntam.mylibrary;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.DateFormat;
@@ -85,5 +87,8 @@ public class Utils {
         } catch (ParseException e) {
             return new Date();
         }
+    }
+    public static void MyGlide(Activity activity , ImageView imageView , String url){
+
     }
 }

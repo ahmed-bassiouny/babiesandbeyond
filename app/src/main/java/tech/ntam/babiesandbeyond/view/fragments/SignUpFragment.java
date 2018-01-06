@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.controller.fragments.SignUpController;
@@ -70,6 +71,8 @@ public class SignUpFragment extends Fragment {
                     etPhone.setError(getString(R.string.invalid_phone));
                 } else if (etEmail.getText().toString().trim().isEmpty()) {
                     etEmail.setError(getString(R.string.invalid_email));
+                }else if(etPassword.getText().toString().length() <6){
+                    etPassword.setError(getString(R.string.invalid_password));
                 } else if (!etPassword.getText().toString().equals(etConfirmPassword.getText().toString())) {
                     etConfirmPassword.setError(getString(R.string.invalid_confirm_password));
                 } else if (!Utils.validate(etEmail.getText().toString())) {

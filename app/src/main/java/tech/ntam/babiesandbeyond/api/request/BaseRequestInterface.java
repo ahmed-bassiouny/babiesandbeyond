@@ -10,11 +10,13 @@ import tech.ntam.babiesandbeyond.api.api_model.request.AskServiceRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.LoginRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.RegisterRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.StatusEvent;
+import tech.ntam.babiesandbeyond.api.api_model.request.UpdatePasswordRequest;
 import tech.ntam.babiesandbeyond.api.api_model.response.EventsResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.GroupResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.LoginResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.MyServiceResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.ParentResponse;
+import tech.ntam.babiesandbeyond.api.api_model.response.ProfileResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.RegisterResponse;
 import tech.ntam.babiesandbeyond.model.Group;
 
@@ -31,8 +33,10 @@ public interface BaseRequestInterface {
     String EVENTS = "all_events";
     String REQUEST_SERVICE = "send_service_request";
     String SERVICE = "services";
-    String SEND_STATUS_EVENT="comming_or_not_comming_to_event";
+    String SEND_STATUS_EVENT = "comming_or_not_comming_to_event";
     String GROUP = "all_groups";
+    String PROFILE = "user_profile";
+    String UPDATE_PASSWORD = "change_password";
 
     @FormUrlEncoded
     @POST(LOGIN)
@@ -77,14 +81,26 @@ public interface BaseRequestInterface {
     @Headers(HEADER_KEY)
     @POST(SEND_STATUS_EVENT)
     Call<ParentResponse> sendStatusEvent(@Header(AUTHORIZATION) String token,
-                                            @Field(StatusEvent.USER_ID) int userId,
-                                            @Field(StatusEvent.IS_COMING) int isComing,
-                                            @Field(StatusEvent.EVENT_ID) int eventId);
-
+                                         @Field(StatusEvent.USER_ID) int userId,
+                                         @Field(StatusEvent.IS_COMING) int isComing,
+                                         @Field(StatusEvent.EVENT_ID) int eventId);
 
     @FormUrlEncoded
     @Headers(HEADER_KEY)
     @POST(GROUP)
     Call<GroupResponse> getGroups(@Header(AUTHORIZATION) String token,
                                   @Field(RegisterRequest.EMAIL) String email);
+
+    @FormUrlEncoded
+    @Headers(HEADER_KEY)
+    @POST(PROFILE)
+    Call<ProfileResponse> getProfile(@Header(AUTHORIZATION) String token,
+                                     @Field(RegisterRequest.EMAIL) String email);
+
+    @FormUrlEncoded
+    @Headers(HEADER_KEY)
+    @POST(UPDATE_PASSWORD)
+    Call<ParentResponse> updatePassword(@Header(AUTHORIZATION) String token,
+                                         @Field(UpdatePasswordRequest.USER_ID) int userId,
+                                         @Field(UpdatePasswordRequest.PASSWORD) String password);
 }

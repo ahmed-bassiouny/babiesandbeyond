@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import tech.ntam.babiesandbeyond.R;
+import tech.ntam.babiesandbeyond.controller.activities.UserProfileController;
 import tech.ntam.babiesandbeyond.view.dialog.ChangePasswordDialogActivity;
 import tech.ntam.babiesandbeyond.view.dialog.QrCodeActivity;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
@@ -25,6 +26,8 @@ public class UserProfileActivity extends MyToolbar {
     private TextView tvUploadPhoto;
     private EditText etName, etPhone;
     private Button btnChangePassword, btnViewHistory, btnViewQrCode;
+    private UserProfileController userProfileController;
+    private boolean editable = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +36,8 @@ public class UserProfileActivity extends MyToolbar {
         findViewById();
         onClick();
         setupToolbar(this, false, true,false);
-        DummyClass.setTitleText(etName);
-        tvTitle.setText("Profile");
-        etPhone.setText("4646464863");
+        tvTitle.setText(R.string.profile);
+        getUserProfileController().getProfileData(etName,etPhone,ivProfilePhoto);
     }
 
     private void onClick() {
@@ -82,7 +84,25 @@ public class UserProfileActivity extends MyToolbar {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId()== R.id.edit){
+            if(editable){
+                // here i will save new data
+                etName.setEnabled(false);
+                etPhone.setEnabled(false);
+                item.setIcon(R.drawable.ic_edit_24dp);
+                editable=false;
+            }else {
+                // here make edit text editable
+                item.setIcon(R.drawable.ic_check_24dp);
+                etName.setEnabled(true);
+                etPhone.setEnabled(true);
+                editable=true;
+            }
         }
         return super.onOptionsItemSelected(item);
+    }
+    public UserProfileController getUserProfileController(){
+        if(userProfileController == null)
+            userProfileController = new UserProfileController(this);
+        return userProfileController;
     }
 }
