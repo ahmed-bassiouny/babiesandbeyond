@@ -10,6 +10,7 @@ import retrofit2.Response;
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.api.api_model.response.EventsResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.GroupResponse;
+import tech.ntam.babiesandbeyond.api.api_model.response.HistoryResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.LoginResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.MyServiceResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.ParentResponse;
@@ -19,6 +20,7 @@ import tech.ntam.babiesandbeyond.api.config.ApiConfig;
 import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.model.Event;
 import tech.ntam.babiesandbeyond.model.Group;
+import tech.ntam.babiesandbeyond.model.History;
 import tech.ntam.babiesandbeyond.model.User;
 import tech.ntam.babiesandbeyond.model.UserData;
 import tech.ntam.babiesandbeyond.model.UserService;
@@ -190,7 +192,8 @@ public class RequestAndResponse {
             }
         });
     }
-    public static void updatePassword(Context context,String password, final BaseResponseInterface<String> anInterface) {
+
+    public static void updatePassword(Context context, String password, final BaseResponseInterface<String> anInterface) {
         Call<ParentResponse> response = baseRequestInterface.updatePassword(
                 UserSharedPref.getTokenWithHeader(context),
                 UserSharedPref.getId(context),
@@ -204,6 +207,24 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<ParentResponse> call, Throwable t) {
+                anInterface.onFailed(t.getLocalizedMessage());
+            }
+        });
+    }
+
+    public static void getHistory(Context context, final BaseResponseInterface<List<History>> anInterface) {
+        Call<HistoryResponse> response = baseRequestInterface.getHistory(
+                UserSharedPref.getTokenWithHeader(context),
+                UserSharedPref.getId(context));
+        response.enqueue(new Callback<HistoryResponse>() {
+            @Override
+            public void onResponse(Call<HistoryResponse> call, Response<HistoryResponse> response) {
+                checkValidResult(response.code(), response.body().getStatus()
+                        , response.body().getHistoryList(), response.message(), anInterface);
+            }
+
+            @Override
+            public void onFailure(Call<HistoryResponse> call, Throwable t) {
                 anInterface.onFailed(t.getLocalizedMessage());
             }
         });

@@ -4,15 +4,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 import tech.ntam.babiesandbeyond.R;
-import tech.ntam.mylibrary.DummyHistoryModel;
+import tech.ntam.babiesandbeyond.model.History;
 
 /**
  * Created by bassiouny on 22/12/17.
@@ -20,10 +17,10 @@ import tech.ntam.mylibrary.DummyHistoryModel;
 
 public class HistoryItemAdapter extends RecyclerView.Adapter<HistoryItemAdapter.MyViewHolder> {
 
-    List<DummyHistoryModel> dummyHistoryModels;
+    List<History> historyList;
 
-    public HistoryItemAdapter(List<DummyHistoryModel> dummyHistoryModels) {
-        this.dummyHistoryModels = dummyHistoryModels;
+    public HistoryItemAdapter(List<History> historyList) {
+        this.historyList = historyList;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -50,15 +47,15 @@ public class HistoryItemAdapter extends RecyclerView.Adapter<HistoryItemAdapter.
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        DummyHistoryModel dummyHistoryModel = dummyHistoryModels.get(position);
-        holder.ivServiceName.setText(dummyHistoryModel.name);
-        holder.tvServiceDateTime.setText(dummyHistoryModel.date);
-        holder.tvServiceLocation.setText(dummyHistoryModel.location);
-        holder.tvServicePrice.setText(dummyHistoryModel.price);
+        History history = historyList.get(position);
+        holder.ivServiceName.setText(history.getName());
+        holder.tvServiceDateTime.setText(history.getStartDate()+" "+history.getEndDate());
+        holder.tvServiceLocation.setText(history.getLocation());
+        holder.tvServicePrice.setText(history.getPrice());
     }
 
     @Override
     public int getItemCount() {
-        return dummyHistoryModels.size();
+        return historyList.size();
     }
 }

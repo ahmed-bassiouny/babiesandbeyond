@@ -1,18 +1,21 @@
 package tech.ntam.babiesandbeyond.view.activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import tech.ntam.babiesandbeyond.R;
+import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
+import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
+import tech.ntam.babiesandbeyond.model.History;
 import tech.ntam.babiesandbeyond.view.adapter.HistoryItemAdapter;
 import tech.ntam.babiesandbeyond.view.adapter.NotificationItemAdapter;
+import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
-import tech.ntam.mylibrary.DummyHistoryModel;
 import tech.ntam.mylibrary.DummyNotificationItem;
 
 public class UserHistoryNotificationActivity extends MyToolbar {
@@ -27,18 +30,8 @@ public class UserHistoryNotificationActivity extends MyToolbar {
         recycleView.setLayoutManager(new LinearLayoutManager(this));
         if (getIntent().getBooleanExtra("history", false)) {
             setupToolbar(this, false, true,true);
-            tvTitle.setText("History");
-            List<DummyHistoryModel> dummyHistoryModels = new ArrayList<>();
-            DummyHistoryModel dummyHistoryModel1 = new DummyHistoryModel("Nurse", "location about nurse", "2 Oct - 5 Oct", "60$");
-            dummyHistoryModels.add(dummyHistoryModel1);
-            DummyHistoryModel dummyHistoryModel2 = new DummyHistoryModel("Midwife", "location about midwife", "9 Oct - 10 Oct", "120$");
-            dummyHistoryModels.add(dummyHistoryModel2);
-            DummyHistoryModel dummyHistoryModel3 = new DummyHistoryModel("Workshop", "location about workshop", "2 Nov - 5 Nov", "300$");
-            dummyHistoryModels.add(dummyHistoryModel3);
-            DummyHistoryModel dummyHistoryModel4 = new DummyHistoryModel("Nurse", "location about nurse", "2 Dec - 5 Dec", "90$");
-            dummyHistoryModels.add(dummyHistoryModel4);
-            HistoryItemAdapter historyItemAdapter = new HistoryItemAdapter(dummyHistoryModels);
-            recycleView.setAdapter(historyItemAdapter);
+            tvTitle.setText(R.string.history);
+            loadHistory();
         } else {
             setupToolbar(this, false, true,false);
             tvTitle.setText("Notification");
@@ -52,5 +45,23 @@ public class UserHistoryNotificationActivity extends MyToolbar {
             NotificationItemAdapter notificationItemAdapter = new NotificationItemAdapter(dummyNotificationItems);
             recycleView.setAdapter(notificationItemAdapter);
         }
+    }
+    private void loadHistory(){
+        MyDialog.showMyDialog(this);
+        RequestAndResponse.getHistory(this, new BaseResponseInterface<List<History>>() {
+            @Override
+            public void onSuccess(List<History> historyList) {
+                HistoryItemAdapter historyItemAdapter = new HistoryItemAdapter(historyList);
+                recycleView.setAdapter(historyItemAdapter);
+                MyDialog.dismissMyDialog();
+            }
+
+            @Override
+            public void onFailed(String errorMessage) {
+                MyDialog.dismissMyDialog();
+                Toast.makeText(UserHistoryNotificationActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        });
     }
 }

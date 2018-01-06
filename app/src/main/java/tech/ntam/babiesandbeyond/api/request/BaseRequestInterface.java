@@ -13,6 +13,7 @@ import tech.ntam.babiesandbeyond.api.api_model.request.StatusEvent;
 import tech.ntam.babiesandbeyond.api.api_model.request.UpdatePasswordRequest;
 import tech.ntam.babiesandbeyond.api.api_model.response.EventsResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.GroupResponse;
+import tech.ntam.babiesandbeyond.api.api_model.response.HistoryResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.LoginResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.MyServiceResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.ParentResponse;
@@ -37,6 +38,7 @@ public interface BaseRequestInterface {
     String GROUP = "all_groups";
     String PROFILE = "user_profile";
     String UPDATE_PASSWORD = "change_password";
+    String HISTORY = "history";
 
     @FormUrlEncoded
     @POST(LOGIN)
@@ -103,4 +105,10 @@ public interface BaseRequestInterface {
     Call<ParentResponse> updatePassword(@Header(AUTHORIZATION) String token,
                                          @Field(UpdatePasswordRequest.USER_ID) int userId,
                                          @Field(UpdatePasswordRequest.PASSWORD) String password);
+
+    @FormUrlEncoded
+    @Headers(HEADER_KEY)
+    @POST(HISTORY)
+    Call<HistoryResponse> getHistory(@Header(AUTHORIZATION) String token,
+                                     @Field(UpdatePasswordRequest.USER_ID) int userId);
 }
