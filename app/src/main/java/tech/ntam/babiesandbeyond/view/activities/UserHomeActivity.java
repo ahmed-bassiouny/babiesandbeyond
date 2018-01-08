@@ -63,6 +63,7 @@ public class UserHomeActivity extends MyToolbar implements MyToolbar.TitleToolba
     private void initObject() {
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setOffscreenPageLimit(5);
     }
 
     private void onClick() {

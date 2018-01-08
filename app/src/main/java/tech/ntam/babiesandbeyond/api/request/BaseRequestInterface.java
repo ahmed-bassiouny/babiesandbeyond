@@ -9,6 +9,7 @@ import retrofit2.http.POST;
 import tech.ntam.babiesandbeyond.api.api_model.request.AskServiceRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.CreateGroupRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.LoginRequest;
+import tech.ntam.babiesandbeyond.api.api_model.request.ParentRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.RegisterRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.StatusEvent;
 import tech.ntam.babiesandbeyond.api.api_model.request.UpdatePasswordRequest;
@@ -21,6 +22,7 @@ import tech.ntam.babiesandbeyond.api.api_model.response.MyServiceResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.ParentResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.ProfileResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.RegisterResponse;
+import tech.ntam.babiesandbeyond.api.api_model.response.WorkshopResponse;
 import tech.ntam.babiesandbeyond.model.Group;
 
 /**
@@ -43,6 +45,7 @@ public interface BaseRequestInterface {
     String HISTORY = "history";
     String UPDATE_PROFILE = "update_profile";
     String CREATE_GROUP = "create_group";
+    String WORKSHOPS = "all_workshops";
 
     @FormUrlEncoded
     @POST(LOGIN)
@@ -131,8 +134,14 @@ public interface BaseRequestInterface {
     @Headers(HEADER_KEY)
     @POST(CREATE_GROUP)
     Call<ParentResponse> createGroup(@Header(AUTHORIZATION) String token,
-                                       @Field(CreateGroupRequest.USER_ID) int userId,
-                                       @Field(CreateGroupRequest.GROUP_NAME) String name,
-                                       @Field(CreateGroupRequest.GROUP_DESCRIPTION) String description,
-                                       @Field(CreateGroupRequest.GROUP_PHOTO) String photo);
+                                     @Field(CreateGroupRequest.USER_ID) int userId,
+                                     @Field(CreateGroupRequest.GROUP_NAME) String name,
+                                     @Field(CreateGroupRequest.GROUP_DESCRIPTION) String description,
+                                     @Field(CreateGroupRequest.GROUP_PHOTO) String photo);
+
+    @FormUrlEncoded
+    @Headers(HEADER_KEY)
+    @POST(WORKSHOPS)
+    Call<WorkshopResponse> getWorkshops(@Header(AUTHORIZATION) String token,
+                                        @Field(ParentRequest.USER_ID) int userId);
 }

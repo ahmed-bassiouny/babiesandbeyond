@@ -5,8 +5,6 @@ package tech.ntam.babiesandbeyond.api.api_model.request;
  */
 
 public class UpdateProfileRequest extends ParentRequest {
-
-    public final static String USER_ID = "user_id";
     public final static String NAME = "name";
     public final static String PHOTO = "photo";
     public final static String PHONE = "phone";

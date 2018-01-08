@@ -16,6 +16,7 @@ import tech.ntam.babiesandbeyond.api.api_model.response.MyServiceResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.ParentResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.ProfileResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.RegisterResponse;
+import tech.ntam.babiesandbeyond.api.api_model.response.WorkshopResponse;
 import tech.ntam.babiesandbeyond.api.config.ApiConfig;
 import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.model.Event;
@@ -24,6 +25,7 @@ import tech.ntam.babiesandbeyond.model.History;
 import tech.ntam.babiesandbeyond.model.User;
 import tech.ntam.babiesandbeyond.model.UserData;
 import tech.ntam.babiesandbeyond.model.UserService;
+import tech.ntam.babiesandbeyond.model.Workshop;
 import tech.ntam.babiesandbeyond.utils.UserSharedPref;
 
 /**
@@ -248,6 +250,7 @@ public class RequestAndResponse {
             }
         });
     }
+
     public static void createGroup(Context context, String name, String description, String photo, final BaseResponseInterface<String> anInterface) {
         Call<ParentResponse> response = baseRequestInterface.createGroup(
                 UserSharedPref.getTokenWithHeader(context),
@@ -267,5 +270,22 @@ public class RequestAndResponse {
         });
     }
 
+    public static void getWorkshops(Context context, final BaseResponseInterface<List<Workshop>> anInterface) {
+        Call<WorkshopResponse> response = baseRequestInterface.getWorkshops(
+                UserSharedPref.getTokenWithHeader(context),
+                UserSharedPref.getId(context));
+        response.enqueue(new Callback<WorkshopResponse>() {
+            @Override
+            public void onResponse(Call<WorkshopResponse> call, Response<WorkshopResponse> response) {
+                checkValidResult(response.code(), response.body().getStatus()
+                        , response.body().getWorkshops(), response.message(), anInterface);
+            }
+
+            @Override
+            public void onFailure(Call<WorkshopResponse> call, Throwable t) {
+                anInterface.onFailed(t.getLocalizedMessage());
+            }
+        });
+    }
 
 }

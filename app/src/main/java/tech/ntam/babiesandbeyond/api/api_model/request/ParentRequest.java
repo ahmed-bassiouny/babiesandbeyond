@@ -5,4 +5,5 @@ package tech.ntam.babiesandbeyond.api.api_model.request;
  */
 
 public class ParentRequest {
+    public final static String USER_ID = "user_id";
 }
