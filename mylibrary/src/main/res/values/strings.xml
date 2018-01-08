@@ -112,5 +112,6 @@
     <string name="group_name">Group Name</string>
     <string name="group_description">Group Description</string>
     <string name="fill_data">Please Fill Data</string>
+    <string name="new_group">New Group</string>
 
 </resources>

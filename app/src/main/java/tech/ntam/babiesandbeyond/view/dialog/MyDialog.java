@@ -20,6 +20,7 @@ public class MyDialog {
 
     public static void showMyDialog(Context context) {
         dialog = new SpotsDialog(context);
+        dialog.setCancelable(false);
         dialog.show();
     }
 

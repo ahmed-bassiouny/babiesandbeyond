@@ -60,6 +60,7 @@
         android:textSize="18sp"
         android:layout_marginStart="10dp"
         android:fontFamily="@font/museosans"
+        android:id="@+id/tv_greate_group"
         android:layout_marginTop="10dp"
         android:drawablePadding="10dp"
         android:drawableStart="@drawable/ic_group_24dp"/>

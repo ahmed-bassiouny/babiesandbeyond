@@ -3,6 +3,7 @@
     package="tech.ntam.babiesandbeyond">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -57,7 +58,9 @@
         <activity
             android:name=".view.dialog.ServiceDialogActivity"
             android:theme="@style/AppThemeDialog" />
-        <activity android:name=".view.activities.CreateGroupActivity"></activity>
+        <activity
+            android:name=".view.activities.CreateGroupActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

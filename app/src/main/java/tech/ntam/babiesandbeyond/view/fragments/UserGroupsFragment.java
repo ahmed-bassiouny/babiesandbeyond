@@ -1,6 +1,7 @@
 package tech.ntam.babiesandbeyond.view.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +21,7 @@ import info.hoang8f.android.segmented.SegmentedGroup;
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.database.GroupsDatabase;
 import tech.ntam.babiesandbeyond.model.Group;
+import tech.ntam.babiesandbeyond.view.activities.CreateGroupActivity;
 import tech.ntam.babiesandbeyond.view.adapter.GroupItemAdapter;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 
@@ -33,6 +36,7 @@ public class UserGroupsFragment extends Fragment {
     private RadioButton btnAllGroups;
     private RadioButton btnMostPopular;
     private RadioButton btnMyGroups;
+    private TextView tvGreateGroup;
     private RecyclerView recycleView;
     private static UserGroupsFragment userGroupsFragment;
 
@@ -63,6 +67,7 @@ public class UserGroupsFragment extends Fragment {
         btnMostPopular = view.findViewById(R.id.btn_most_popular);
         btnMyGroups = view.findViewById(R.id.btn_my_groups);
         recycleView = view.findViewById(R.id.recycle_view);
+        tvGreateGroup = view.findViewById(R.id.tv_greate_group);
         setData();
     }
 
@@ -79,5 +84,11 @@ public class UserGroupsFragment extends Fragment {
     private void setData() {
         recycleView.setLayoutManager(new LinearLayoutManager(getContext()));
         recycleView.setAdapter(new GroupItemAdapter(GroupsDatabase.getGroups()));
+        tvGreateGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), CreateGroupActivity.class));
+            }
+        });
     }
 }

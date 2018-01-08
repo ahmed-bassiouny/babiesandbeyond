@@ -230,4 +230,23 @@ public class RequestAndResponse {
         });
     }
 
+    public static void updateProfile(Context context, String name, String phone, String photo, final BaseResponseInterface<String> anInterface) {
+        Call<ParentResponse> response = baseRequestInterface.updateProfile(
+                UserSharedPref.getTokenWithHeader(context),
+                UserSharedPref.getId(context),
+                name, photo, phone);
+        response.enqueue(new Callback<ParentResponse>() {
+            @Override
+            public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {
+                checkValidResult(response.code(), response.body().getStatus()
+                        , response.body().getMessage(), response.message(), anInterface);
+            }
+
+            @Override
+            public void onFailure(Call<ParentResponse> call, Throwable t) {
+                anInterface.onFailed(t.getLocalizedMessage());
+            }
+        });
+    }
+
 }

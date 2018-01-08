@@ -23,7 +23,7 @@ public class CreateGroupActivity extends MyToolbar {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_group);
         setupToolbar(this, false, true, false);
-        tvTitle.setText(R.string.create_group);
+        tvTitle.setText(R.string.new_group);
         findViewById();
         onCLick();
     }

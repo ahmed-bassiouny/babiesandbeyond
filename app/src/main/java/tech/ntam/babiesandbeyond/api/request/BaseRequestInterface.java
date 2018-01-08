@@ -11,6 +11,7 @@ import tech.ntam.babiesandbeyond.api.api_model.request.LoginRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.RegisterRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.StatusEvent;
 import tech.ntam.babiesandbeyond.api.api_model.request.UpdatePasswordRequest;
+import tech.ntam.babiesandbeyond.api.api_model.request.UpdateProfileRequest;
 import tech.ntam.babiesandbeyond.api.api_model.response.EventsResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.GroupResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.HistoryResponse;
@@ -39,6 +40,7 @@ public interface BaseRequestInterface {
     String PROFILE = "user_profile";
     String UPDATE_PASSWORD = "change_password";
     String HISTORY = "history";
+    String UPDATE_PROFILE = "update_profile";
 
     @FormUrlEncoded
     @POST(LOGIN)
@@ -103,12 +105,22 @@ public interface BaseRequestInterface {
     @Headers(HEADER_KEY)
     @POST(UPDATE_PASSWORD)
     Call<ParentResponse> updatePassword(@Header(AUTHORIZATION) String token,
-                                         @Field(UpdatePasswordRequest.USER_ID) int userId,
-                                         @Field(UpdatePasswordRequest.PASSWORD) String password);
+                                        @Field(UpdatePasswordRequest.USER_ID) int userId,
+                                        @Field(UpdatePasswordRequest.PASSWORD) String password);
 
     @FormUrlEncoded
     @Headers(HEADER_KEY)
     @POST(HISTORY)
     Call<HistoryResponse> getHistory(@Header(AUTHORIZATION) String token,
                                      @Field(UpdatePasswordRequest.USER_ID) int userId);
+
+
+    @FormUrlEncoded
+    @Headers(HEADER_KEY)
+    @POST(UPDATE_PROFILE)
+    Call<ParentResponse> updateProfile(@Header(AUTHORIZATION) String token,
+                                       @Field(UpdateProfileRequest.USER_ID) int userId,
+                                       @Field(UpdateProfileRequest.NAME) String userName,
+                                       @Field(UpdateProfileRequest.PHOTO) String userPhoto,
+                                       @Field(UpdateProfileRequest.PHONE) String userPhone);
 }

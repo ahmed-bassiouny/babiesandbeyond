@@ -2,6 +2,7 @@ package tech.ntam.mylibrary;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,10 +10,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Base64;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.ByteArrayOutputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -90,5 +94,21 @@ public class Utils {
     }
     public static void MyGlide(Activity activity , ImageView imageView , String url){
 
+    }
+    public static void convertImageFromBitmapToStringBase64(final Bitmap bitmap , final ProcessInterface processInterface){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+                byte[] byteArray = byteArrayOutputStream.toByteArray();
+                final String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
+                processInterface.completed(encoded);
+            }
+        }).start();
+
+    }
+    public interface ProcessInterface{
+        void completed(String item);
     }
 }

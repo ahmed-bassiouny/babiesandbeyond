@@ -23,7 +23,7 @@ public class UserProfileController {
         this.activity = activity;
     }
 
-    public void getProfileData(final EditText etName, final EditText etPhone , final CircleImageView ivProfilePhoto){
+    public void getProfileData(final EditText etName, final EditText etPhone, final CircleImageView ivProfilePhoto) {
         MyDialog.showMyDialog(activity);
         RequestAndResponse.getProfile(activity, new BaseResponseInterface<User>() {
             @Override
@@ -31,13 +31,30 @@ public class UserProfileController {
                 MyDialog.dismissMyDialog();
                 etName.setText(user.getName());
                 etPhone.setText(user.getPhone());
-                Utils.MyGlide(activity,ivProfilePhoto,user.getPhoto());
+                Utils.MyGlide(activity, ivProfilePhoto, user.getPhoto());
             }
 
             @Override
             public void onFailed(String errorMessage) {
                 MyDialog.dismissMyDialog();
                 Toast.makeText(activity, errorMessage, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void updateProfile(String photo ,EditText etName,EditText etPhone) {
+        MyDialog.showMyDialog(activity);
+        RequestAndResponse.updateProfile(activity, etName.getText().toString(), etPhone.getText().toString(), photo, new BaseResponseInterface<String>() {
+            @Override
+            public void onSuccess(String s) {
+                Toast.makeText(activity, s, Toast.LENGTH_SHORT).show();
+                MyDialog.dismissMyDialog();
+            }
+
+            @Override
+            public void onFailed(String errorMessage) {
+                Toast.makeText(activity, errorMessage, Toast.LENGTH_SHORT).show();
+                MyDialog.dismissMyDialog();
             }
         });
     }
