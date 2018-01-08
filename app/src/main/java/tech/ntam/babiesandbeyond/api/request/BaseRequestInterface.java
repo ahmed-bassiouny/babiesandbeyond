@@ -7,6 +7,7 @@ import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import tech.ntam.babiesandbeyond.api.api_model.request.AskServiceRequest;
+import tech.ntam.babiesandbeyond.api.api_model.request.CreateGroupRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.LoginRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.RegisterRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.StatusEvent;
@@ -41,6 +42,7 @@ public interface BaseRequestInterface {
     String UPDATE_PASSWORD = "change_password";
     String HISTORY = "history";
     String UPDATE_PROFILE = "update_profile";
+    String CREATE_GROUP = "create_group";
 
     @FormUrlEncoded
     @POST(LOGIN)
@@ -123,4 +125,14 @@ public interface BaseRequestInterface {
                                        @Field(UpdateProfileRequest.NAME) String userName,
                                        @Field(UpdateProfileRequest.PHOTO) String userPhoto,
                                        @Field(UpdateProfileRequest.PHONE) String userPhone);
+
+
+    @FormUrlEncoded
+    @Headers(HEADER_KEY)
+    @POST(CREATE_GROUP)
+    Call<ParentResponse> createGroup(@Header(AUTHORIZATION) String token,
+                                       @Field(CreateGroupRequest.USER_ID) int userId,
+                                       @Field(CreateGroupRequest.GROUP_NAME) String name,
+                                       @Field(CreateGroupRequest.GROUP_DESCRIPTION) String description,
+                                       @Field(CreateGroupRequest.GROUP_PHOTO) String photo);
 }
