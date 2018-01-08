@@ -1,11 +1,13 @@
 package tech.ntam.babiesandbeyond.view.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import tech.ntam.babiesandbeyond.R;
+import tech.ntam.babiesandbeyond.utils.UserSharedPref;
 import tech.ntam.babiesandbeyond.view.fragments.SignInFragment;
 import tech.ntam.babiesandbeyond.view.fragments.SignUpFragment;
 import tech.ntam.mylibrary.Utils;
@@ -22,7 +24,15 @@ public class SignIn_UpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in__up);
         findViewById();
         onClick();
+        checkIfUserLoggedIn();
         initObject();
+    }
+
+    private void checkIfUserLoggedIn() {
+        if(!UserSharedPref.getEmail(this).isEmpty()){
+            startActivity(new Intent(SignIn_UpActivity.this,UserHomeActivity.class));
+            finish();
+        }
     }
 
     private void initObject() {

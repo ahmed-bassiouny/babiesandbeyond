@@ -42,7 +42,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.activities.UserProfileActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".view.dialog.ChangePasswordDialogActivity"
             android:theme="@style/AppThemeDialog" />

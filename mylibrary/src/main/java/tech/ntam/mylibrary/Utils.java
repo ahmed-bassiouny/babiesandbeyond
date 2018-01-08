@@ -16,6 +16,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.io.ByteArrayOutputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -92,10 +94,12 @@ public class Utils {
             return new Date();
         }
     }
-    public static void MyGlide(Activity activity , ImageView imageView , String url){
 
+    public static void MyGlide(Activity activity, ImageView imageView, String url) {
+        Glide.with(activity).load(url).into(imageView);
     }
-    public static void convertImageFromBitmapToStringBase64(final Bitmap bitmap , final ProcessInterface processInterface){
+
+    public static void convertImageFromBitmapToStringBase64(final Bitmap bitmap, final ProcessInterface processInterface) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -108,7 +112,8 @@ public class Utils {
         }).start();
 
     }
-    public interface ProcessInterface{
+
+    public interface ProcessInterface {
         void completed(String item);
     }
 }

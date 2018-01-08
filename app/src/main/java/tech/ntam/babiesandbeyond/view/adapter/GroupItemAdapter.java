@@ -1,5 +1,7 @@
 package tech.ntam.babiesandbeyond.view.adapter;
 
+import android.app.Activity;
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,16 +15,20 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.model.Group;
+import tech.ntam.mylibrary.Utils;
 
 /**
  * Created by bassiouny on 22/12/17.
  */
 
 public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyViewHolder> {
-    List<Group> groups;
 
-    public GroupItemAdapter(List<Group> groups) {
+    private List<Group> groups;
+    private Activity activity;
+
+    public GroupItemAdapter(List<Group> groups, Activity activity) {
         this.groups = groups;
+        this.activity = activity;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -63,6 +69,8 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
         holder.tvGroupCreatedBy.setText(group.getCreatedBy());
         holder.tvDescription.setText(group.getDescription());
         holder.tvDate.setText(group.getDate());
+        if (!group.getPhoto().isEmpty())
+            Utils.MyGlide(activity,holder.ivGroupImage,group.getPhoto());
     }
 
     @Override

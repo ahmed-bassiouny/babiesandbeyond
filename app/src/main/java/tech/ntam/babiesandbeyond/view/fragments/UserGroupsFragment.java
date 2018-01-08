@@ -83,7 +83,7 @@ public class UserGroupsFragment extends Fragment {
 
     private void setData() {
         recycleView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recycleView.setAdapter(new GroupItemAdapter(GroupsDatabase.getGroups()));
+        recycleView.setAdapter(new GroupItemAdapter(GroupsDatabase.getGroups(),getActivity()));
         tvGreateGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
