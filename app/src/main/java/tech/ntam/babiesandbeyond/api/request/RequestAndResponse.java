@@ -59,7 +59,7 @@ public class RequestAndResponse {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 checkValidResult(response.code(), response.body().getStatus()
-                        , response.body().getUserData().getUser(), response.message(), anInterface);
+                        , response.body().getUserData().getUser(), response.body().getMessage(), anInterface);
             }
 
             @Override
@@ -128,7 +128,7 @@ public class RequestAndResponse {
             @Override
             public void onResponse(Call<MyServiceResponse> call, Response<MyServiceResponse> response) {
                 checkValidResult(response.code(), response.body().getStatus()
-                        , response.body().getUserService(), response.message(), anInterface);
+                        , response.body().getUserService(),response.body().getMessage(), anInterface);
             }
 
             @Override
@@ -167,7 +167,7 @@ public class RequestAndResponse {
             @Override
             public void onResponse(Call<GroupResponse> call, Response<GroupResponse> response) {
                 checkValidResult(response.code(), response.body().getStatus()
-                        , response.body().getGroups(), response.message(), anInterface);
+                        , response.body().getGroups(), response.body().getMessage(), anInterface);
             }
 
             @Override
@@ -185,7 +185,7 @@ public class RequestAndResponse {
             @Override
             public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
                 checkValidResult(response.code(), response.body().getStatus()
-                        , response.body().getUser(), response.message(), anInterface);
+                        , response.body().getUser(), response.body().getMessage(), anInterface);
             }
 
             @Override
@@ -204,7 +204,7 @@ public class RequestAndResponse {
             @Override
             public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {
                 checkValidResult(response.code(), response.body().getStatus()
-                        , response.body().getMessage(), response.message(), anInterface);
+                        , response.body().getMessage(), response.body().getMessage(), anInterface);
             }
 
             @Override
@@ -222,7 +222,7 @@ public class RequestAndResponse {
             @Override
             public void onResponse(Call<HistoryResponse> call, Response<HistoryResponse> response) {
                 checkValidResult(response.code(), response.body().getStatus()
-                        , response.body().getHistoryList(), response.message(), anInterface);
+                        , response.body().getHistoryList(), response.body().getMessage(), anInterface);
             }
 
             @Override
@@ -241,7 +241,7 @@ public class RequestAndResponse {
             @Override
             public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {
                 checkValidResult(response.code(), response.body().getStatus()
-                        , response.body().getMessage(), response.message(), anInterface);
+                        , response.body().getMessage(), response.body().getMessage(), anInterface);
             }
 
             @Override
@@ -260,7 +260,7 @@ public class RequestAndResponse {
             @Override
             public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {
                 checkValidResult(response.code(), response.body().getStatus()
-                        , response.body().getMessage(), response.message(), anInterface);
+                        , response.body().getMessage(), response.body().getMessage(), anInterface);
             }
 
             @Override
@@ -278,7 +278,7 @@ public class RequestAndResponse {
             @Override
             public void onResponse(Call<WorkshopResponse> call, Response<WorkshopResponse> response) {
                 checkValidResult(response.code(), response.body().getStatus()
-                        , response.body().getWorkshops(), response.message(), anInterface);
+                        , response.body().getWorkshops(), response.body().getMessage(), anInterface);
             }
 
             @Override
@@ -288,4 +288,39 @@ public class RequestAndResponse {
         });
     }
 
+    public static void joinGroup(Context context, int groupId, final BaseResponseInterface<String> anInterface) {
+        Call<ParentResponse> response = baseRequestInterface.joinGroup(
+                UserSharedPref.getTokenWithHeader(context),
+                UserSharedPref.getId(context), groupId);
+        response.enqueue(new Callback<ParentResponse>() {
+            @Override
+            public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {
+                checkValidResult(response.code(), response.body().getStatus()
+                        , response.body().getMessage(), response.body().getMessage(), anInterface);
+            }
+
+            @Override
+            public void onFailure(Call<ParentResponse> call, Throwable t) {
+                anInterface.onFailed(t.getLocalizedMessage());
+            }
+        });
+    }
+
+    public static void leaveGroup(Context context, int groupId, final BaseResponseInterface<String> anInterface) {
+        Call<ParentResponse> response = baseRequestInterface.leaveGroup(
+                UserSharedPref.getTokenWithHeader(context),
+                UserSharedPref.getId(context), groupId);
+        response.enqueue(new Callback<ParentResponse>() {
+            @Override
+            public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {
+                checkValidResult(response.code(), response.body().getStatus()
+                        , response.body().getMessage(), response.body().getMessage(), anInterface);
+            }
+
+            @Override
+            public void onFailure(Call<ParentResponse> call, Throwable t) {
+                anInterface.onFailed(t.getLocalizedMessage());
+            }
+        });
+    }
 }

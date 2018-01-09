@@ -6,6 +6,6 @@ package tech.ntam.babiesandbeyond.interfaces;
 
 public interface GroupOption {
 
-    void JoinGroup(int GroupId);
-    void LeaveGroup(int GroupId);
+    void JoinGroup(int groupId,int position);
+    void LeaveGroup(int groupId,int position);
 }

@@ -8,6 +8,7 @@ import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import tech.ntam.babiesandbeyond.api.api_model.request.AskServiceRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.CreateGroupRequest;
+import tech.ntam.babiesandbeyond.api.api_model.request.GroupOptionRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.LoginRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.ParentRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.RegisterRequest;
@@ -46,6 +47,8 @@ public interface BaseRequestInterface {
     String UPDATE_PROFILE = "update_profile";
     String CREATE_GROUP = "create_group";
     String WORKSHOPS = "all_workshops";
+    String JOIN_GROUP= "join_group";
+    String LEAVE_GROUP= "leave_group";
 
     @FormUrlEncoded
     @POST(LOGIN)
@@ -144,4 +147,18 @@ public interface BaseRequestInterface {
     @POST(WORKSHOPS)
     Call<WorkshopResponse> getWorkshops(@Header(AUTHORIZATION) String token,
                                         @Field(ParentRequest.USER_ID) int userId);
+
+    @FormUrlEncoded
+    @Headers(HEADER_KEY)
+    @POST(JOIN_GROUP)
+    Call<ParentResponse> joinGroup(@Header(AUTHORIZATION) String token,
+                                        @Field(ParentRequest.USER_ID) int userId,
+                                        @Field(GroupOptionRequest.GROUP_ID) int groupId);
+
+    @FormUrlEncoded
+    @Headers(HEADER_KEY)
+    @POST(LEAVE_GROUP)
+    Call<ParentResponse> leaveGroup(@Header(AUTHORIZATION) String token,
+                                   @Field(ParentRequest.USER_ID) int userId,
+                                   @Field(GroupOptionRequest.GROUP_ID) int groupId);
 }

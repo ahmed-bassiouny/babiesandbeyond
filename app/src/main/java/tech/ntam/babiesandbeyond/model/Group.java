@@ -26,6 +26,8 @@ public class Group {
     private String approvedBy;
     @SerializedName("created_at")
     private String date;
+    @SerializedName("is_member")
+    private boolean isMember;
 
     public String getName() {
         return Utils.getValueFromString(name);
@@ -60,9 +62,9 @@ public class Group {
         date = date.split(" ")[0];
         return date;
     }
-    public boolean isInGroup(){
-        // this method show if in my group or not
-        return false;
+
+    public boolean isMember() {
+        return isMember;
     }
 
     public int getId() {

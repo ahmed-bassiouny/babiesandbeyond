@@ -68,7 +68,7 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
     }
 
     @Override
-    public void onBindViewHolder(final MyViewHolder holder, int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
         final Group group = groups.get(position);
         holder.ivGroupStatus.setText(group.getStatusString());
         holder.tvGroupName.setText(group.getName());
@@ -94,12 +94,12 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
         } else {
             holder.ivMore.setVisibility(View.INVISIBLE);
         }
-        if (group.isInGroup()) {
+        if (group.isMember()) {
             holder.btnAddLeaveGroup.setText(R.string.leave_group);
             holder.btnAddLeaveGroup.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    groupOption.LeaveGroup(group.getId());
+                    groupOption.LeaveGroup(group.getId(),position);
                 }
             });
         } else {
@@ -107,7 +107,7 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
             holder.btnAddLeaveGroup.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    groupOption.JoinGroup(group.getId());
+                    groupOption.JoinGroup(group.getId(),position);
                 }
             });
         }

@@ -17,17 +17,19 @@ import android.widget.Toast;
 
 import info.hoang8f.android.segmented.SegmentedGroup;
 import tech.ntam.babiesandbeyond.R;
+import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
+import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.babiesandbeyond.database.GroupsDatabase;
 import tech.ntam.babiesandbeyond.interfaces.GroupOption;
 import tech.ntam.babiesandbeyond.view.activities.CreateGroupActivity;
 import tech.ntam.babiesandbeyond.view.adapter.GroupItemAdapter;
+import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class UserGroupsFragment extends Fragment implements GroupOption{
-
+public class UserGroupsFragment extends Fragment implements GroupOption {
 
 
     private SegmentedGroup segmentedGroup;
@@ -36,6 +38,7 @@ public class UserGroupsFragment extends Fragment implements GroupOption{
     private RadioButton btnMyGroups;
     private TextView tvCreateGroup;
     private RecyclerView recycleView;
+    private GroupItemAdapter groupItemAdapter;
     private static UserGroupsFragment userGroupsFragment;
 
 
@@ -44,12 +47,13 @@ public class UserGroupsFragment extends Fragment implements GroupOption{
     }
 
 
-    public static UserGroupsFragment newInstance(){
-        if(userGroupsFragment == null){
+    public static UserGroupsFragment newInstance() {
+        if (userGroupsFragment == null) {
             userGroupsFragment = new UserGroupsFragment();
         }
         return userGroupsFragment;
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -72,7 +76,7 @@ public class UserGroupsFragment extends Fragment implements GroupOption{
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(getContext()!=null && isVisibleToUser){
+        if (getContext() != null && isVisibleToUser) {
             MyToolbar.TitleToolbar titleToolbar = (MyToolbar.TitleToolbar) getActivity();
             titleToolbar.setTitleToolbar(getString(R.string.groups));
         }
@@ -81,7 +85,8 @@ public class UserGroupsFragment extends Fragment implements GroupOption{
 
     private void setData() {
         recycleView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recycleView.setAdapter(new GroupItemAdapter(GroupsDatabase.getGroups(),this));
+        groupItemAdapter = new GroupItemAdapter(GroupsDatabase.getGroups(), this);
+        recycleView.setAdapter(groupItemAdapter);
         tvCreateGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,12 +96,41 @@ public class UserGroupsFragment extends Fragment implements GroupOption{
     }
 
     @Override
-    public void JoinGroup(int GroupId) {
-        Toast.makeText(getActivity(), GroupId+"", Toast.LENGTH_SHORT).show();
+    public void JoinGroup(int groupId, final int position) {
+        MyDialog.showMyDialog(getContext());
+        RequestAndResponse.joinGroup(getContext(), groupId, new BaseResponseInterface<String>() {
+            @Override
+            public void onSuccess(String s) {
+                Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
+                groupItemAdapter.notifyItemChanged(position);
+                MyDialog.dismissMyDialog();
+
+            }
+
+            @Override
+            public void onFailed(String errorMessage) {
+                Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
+                MyDialog.dismissMyDialog();
+            }
+        });
     }
 
     @Override
-    public void LeaveGroup(int GroupId) {
-        Toast.makeText(getActivity(), GroupId+"", Toast.LENGTH_SHORT).show();
+    public void LeaveGroup(int groupId, final int position) {
+        MyDialog.showMyDialog(getContext());
+        RequestAndResponse.joinGroup(getContext(), groupId, new BaseResponseInterface<String>() {
+            @Override
+            public void onSuccess(String s) {
+                Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
+                groupItemAdapter.notifyItemChanged(position);
+                MyDialog.dismissMyDialog();
+            }
+
+            @Override
+            public void onFailed(String errorMessage) {
+                Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
+                MyDialog.dismissMyDialog();
+            }
+        });
     }
 }
