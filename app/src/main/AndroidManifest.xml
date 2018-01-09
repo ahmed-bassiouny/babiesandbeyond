@@ -27,7 +27,7 @@
         <activity
             android:name=".view.activities.UserHomeActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.activities.UserSendRequestActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -43,7 +43,7 @@
         <activity
             android:name=".view.activities.UserProfileActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden"/>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".view.dialog.ChangePasswordDialogActivity"
             android:theme="@style/AppThemeDialog" />
@@ -61,7 +61,8 @@
             android:theme="@style/AppThemeDialog" />
         <activity
             android:name=".view.activities.CreateGroupActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".view.activities.ChatActivity"></activity>
     </application>
 
 </manifest>

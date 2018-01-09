@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
@@ -24,10 +25,11 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import tech.ntam.babiesandbeyond.R;
-import tech.ntam.babiesandbeyond.database.EventsDatabase;
-import tech.ntam.babiesandbeyond.database.ServiceDatabase;
+import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
+import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.babiesandbeyond.model.Service;
 import tech.ntam.babiesandbeyond.view.dialog.EventDialogActivity;
+import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 import tech.ntam.mylibrary.DummyClass;
 import tech.ntam.mylibrary.IntentDataKey;
@@ -45,6 +47,12 @@ public class UserEventsFragment extends Fragment {
 
     public UserEventsFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadEvents();
     }
 
     public static UserEventsFragment newInstance() {
@@ -71,9 +79,9 @@ public class UserEventsFragment extends Fragment {
         onClick();
     }
 
-    private void setEventInCalendar() {
+    private void setEventInCalendar(List<tech.ntam.babiesandbeyond.model.Event> eventList) {
         List<Event> events = new ArrayList<>();
-        for (tech.ntam.babiesandbeyond.model.Event item : EventsDatabase.getEvents()) {
+        for (tech.ntam.babiesandbeyond.model.Event item : eventList) {
             events.add(new Event(R.color.gray_bold, Utils.convertStringToDate(item.getStartDate()).getTime(), item));
         }
         if (compactCalendarView != null)
@@ -88,7 +96,6 @@ public class UserEventsFragment extends Fragment {
         if(getContext()!=null && isVisibleToUser){
             MyToolbar.TitleToolbar titleToolbar = (MyToolbar.TitleToolbar) getActivity();
             titleToolbar.setTitleToolbar(getString(R.string.events));
-            setEventInCalendar();
         }
     }
 
@@ -116,6 +123,22 @@ public class UserEventsFragment extends Fragment {
             @Override
             public void onMonthScroll(Date firstDayOfNewMonth) {
                 Utils.setDate(tvDate, firstDayOfNewMonth);
+            }
+        });
+    }
+    private void loadEvents(){
+        MyDialog.showMyDialog(getContext());
+        RequestAndResponse.getEvents(getContext(), new BaseResponseInterface<List<tech.ntam.babiesandbeyond.model.Event>>() {
+            @Override
+            public void onSuccess(List<tech.ntam.babiesandbeyond.model.Event> events) {
+                setEventInCalendar(events);
+                MyDialog.dismissMyDialog();
+            }
+
+            @Override
+            public void onFailed(String errorMessage) {
+                Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
+                MyDialog.dismissMyDialog();
             }
         });
     }

@@ -2,10 +2,7 @@ package tech.ntam.babiesandbeyond.controller.activities;
 
 import android.app.Activity;
 
-import android.app.AlertDialog;
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.content.Context;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -22,7 +19,7 @@ import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.api.api_model.response.ParentResponse;
 import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
-import tech.ntam.babiesandbeyond.database.ServiceTypeDatabase;
+import tech.ntam.babiesandbeyond.model.ServiceTypeList;
 import tech.ntam.babiesandbeyond.model.ServiceType;
 import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
 
@@ -81,7 +78,7 @@ public class UserSendRequestController {
 
         /* this list temp*/
         List<String> list = new ArrayList<String>();
-        for (ServiceType item : ServiceTypeDatabase.getServiceTypes()) {
+        for (ServiceType item : ServiceTypeList.getServiceTypes()) {
             list.add(item.getName());
         }
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(activity,
@@ -112,7 +109,7 @@ public class UserSendRequestController {
     public int getIdFromSpinner(String text) {
         int result = 0;
         // TODO :i will copy that to service Type database
-        for (ServiceType item : ServiceTypeDatabase.getServiceTypes()) {
+        for (ServiceType item : ServiceTypeList.getServiceTypes()) {
             if (item.getName().equals(text)) {
                 result = item.getId();
                 break;

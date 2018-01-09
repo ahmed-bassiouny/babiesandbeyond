@@ -5,9 +5,8 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import tech.ntam.babiesandbeyond.R;
-import tech.ntam.babiesandbeyond.database.ServiceTypeDatabase;
+import tech.ntam.babiesandbeyond.model.ServiceTypeList;
 import tech.ntam.babiesandbeyond.model.Service;
-import tech.ntam.babiesandbeyond.model.ServiceType;
 import tech.ntam.mylibrary.IntentDataKey;
 
 public class ServiceDialogActivity extends AppCompatActivity {
@@ -37,6 +36,6 @@ public class ServiceDialogActivity extends AppCompatActivity {
         tvServiceDateTimeTo.setText(service.getEndDate());
         tvLocation.setText(service.getLocation());
         tvStatus.setText("Pending");
-        tvServiceType.setText(ServiceTypeDatabase.getServiceTypeNameFromId(service.getServiceTypeId()));
+        tvServiceType.setText(ServiceTypeList.getServiceTypeNameFromId(service.getServiceTypeId()));
     }
 }

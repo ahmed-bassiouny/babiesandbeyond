@@ -118,4 +118,10 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
     public int getItemCount() {
         return groups.size();
     }
+
+    public void updateMyStatus(boolean isMember , int position){
+        Group group = groups.get(position);
+        group.setMember(isMember);
+        notifyItemChanged(position);
+    }
 }

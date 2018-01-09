@@ -1,7 +1,6 @@
 package tech.ntam.babiesandbeyond.view.fragments;
 
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -18,19 +17,21 @@ import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
 import tech.ntam.babiesandbeyond.R;
-import tech.ntam.babiesandbeyond.database.ServiceDatabase;
+import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
+import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
+import tech.ntam.babiesandbeyond.model.ServiceTypeList;
 import tech.ntam.babiesandbeyond.model.Service;
+import tech.ntam.babiesandbeyond.model.UserService;
 import tech.ntam.babiesandbeyond.view.activities.UserSendRequestActivity;
+import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
 import tech.ntam.babiesandbeyond.view.dialog.ServiceDialogActivity;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
-import tech.ntam.mylibrary.DummyClass;
 import tech.ntam.mylibrary.IntentDataKey;
 import tech.ntam.mylibrary.Utils;
 
@@ -69,12 +70,11 @@ public class UserServiceFragment extends Fragment {
         btnSendRequest = view.findViewById(R.id.btn_send_request);
         initObject();
         onClick();
-        setServiceInCalendar();
     }
 
-    private void setServiceInCalendar() {
+    private void setServiceInCalendar(List<Service> serviceList) {
         List<Event> events = new ArrayList<>();
-        for (Service item : ServiceDatabase.getServices()) {
+        for (Service item : serviceList) {
             events.add(new Event(R.color.gray_bold, Utils.convertStringToDate(item.getStartDate()).getTime(), item));
         }
         if (compactCalendarView != null)
@@ -97,6 +97,12 @@ public class UserServiceFragment extends Fragment {
         Utils.setDate(tvDate, date);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadService();
+    }
+
     private void onClick() {
         compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
@@ -106,9 +112,9 @@ public class UserServiceFragment extends Fragment {
                     compactCalendarView.setCurrentSelectedDayBackgroundColor(R.color.gray_bold);
                     Service service = (Service) event.getData();
                     Intent intent = new Intent(getActivity(), ServiceDialogActivity.class);
-                    intent.putExtra(IntentDataKey.SHOW_SERVICE_DATA_KEY,service);
+                    intent.putExtra(IntentDataKey.SHOW_SERVICE_DATA_KEY, service);
                     startActivity(intent);
-                }else {
+                } else {
                     compactCalendarView.setCurrentSelectedDayBackgroundColor(Color.WHITE);
                 }
             }
@@ -122,6 +128,26 @@ public class UserServiceFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), UserSendRequestActivity.class));
+            }
+        });
+    }
+
+    private void loadService() {
+        MyDialog.showMyDialog(getActivity());
+        RequestAndResponse.getMyService(getContext(), new BaseResponseInterface<UserService>() {
+            @Override
+            public void onSuccess(UserService userService) {
+                if (userService != null) {
+                    ServiceTypeList.setServiceTypes(userService.getServiceTypes());
+                    setServiceInCalendar(userService.getServices());
+                    MyDialog.dismissMyDialog();
+                }
+            }
+
+            @Override
+            public void onFailed(String errorMessage) {
+                MyDialog.dismissMyDialog();
+                Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
             }
         });
     }

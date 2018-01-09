@@ -1,16 +1,13 @@
 package tech.ntam.babiesandbeyond.controller.fragments;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
-import tech.ntam.babiesandbeyond.database.ServiceTypeDatabase;
 import tech.ntam.babiesandbeyond.model.User;
-import tech.ntam.babiesandbeyond.model.UserData;
 import tech.ntam.babiesandbeyond.utils.UserSharedPref;
 import tech.ntam.babiesandbeyond.view.activities.NurseHomeActivity;
 import tech.ntam.babiesandbeyond.view.activities.UserHomeActivity;

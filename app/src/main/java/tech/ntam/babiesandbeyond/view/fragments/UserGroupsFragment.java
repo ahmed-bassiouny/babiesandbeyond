@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +16,16 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+
 import info.hoang8f.android.segmented.SegmentedGroup;
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
-import tech.ntam.babiesandbeyond.database.GroupsDatabase;
 import tech.ntam.babiesandbeyond.interfaces.GroupOption;
+import tech.ntam.babiesandbeyond.model.Group;
 import tech.ntam.babiesandbeyond.view.activities.CreateGroupActivity;
+import tech.ntam.babiesandbeyond.view.activities.UserHomeActivity;
 import tech.ntam.babiesandbeyond.view.adapter.GroupItemAdapter;
 import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
@@ -45,8 +49,6 @@ public class UserGroupsFragment extends Fragment implements GroupOption {
     public UserGroupsFragment() {
         // Required empty public constructor
     }
-
-
     public static UserGroupsFragment newInstance() {
         if (userGroupsFragment == null) {
             userGroupsFragment = new UserGroupsFragment();
@@ -70,7 +72,12 @@ public class UserGroupsFragment extends Fragment implements GroupOption {
         btnMyGroups = view.findViewById(R.id.btn_my_groups);
         recycleView = view.findViewById(R.id.recycle_view);
         tvCreateGroup = view.findViewById(R.id.tv_greate_group);
-        setData();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadGroup();
     }
 
     @Override
@@ -83,9 +90,9 @@ public class UserGroupsFragment extends Fragment implements GroupOption {
     }
 
 
-    private void setData() {
+    private void setData(List<Group> groups) {
         recycleView.setLayoutManager(new LinearLayoutManager(getContext()));
-        groupItemAdapter = new GroupItemAdapter(GroupsDatabase.getGroups(), this);
+        groupItemAdapter = new GroupItemAdapter(groups, this);
         recycleView.setAdapter(groupItemAdapter);
         tvCreateGroup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,7 +109,7 @@ public class UserGroupsFragment extends Fragment implements GroupOption {
             @Override
             public void onSuccess(String s) {
                 Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
-                groupItemAdapter.notifyItemChanged(position);
+                groupItemAdapter.updateMyStatus(true,position);
                 MyDialog.dismissMyDialog();
 
             }
@@ -118,11 +125,27 @@ public class UserGroupsFragment extends Fragment implements GroupOption {
     @Override
     public void LeaveGroup(int groupId, final int position) {
         MyDialog.showMyDialog(getContext());
-        RequestAndResponse.joinGroup(getContext(), groupId, new BaseResponseInterface<String>() {
+        RequestAndResponse.leaveGroup(getContext(), groupId, new BaseResponseInterface<String>() {
             @Override
             public void onSuccess(String s) {
                 Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
-                groupItemAdapter.notifyItemChanged(position);
+                groupItemAdapter.updateMyStatus(false,position);
+                MyDialog.dismissMyDialog();
+            }
+
+            @Override
+            public void onFailed(String errorMessage) {
+                Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
+                MyDialog.dismissMyDialog();
+            }
+        });
+    }
+    private void loadGroup(){
+        MyDialog.showMyDialog(getContext());
+        RequestAndResponse.getGroups(getContext(), new BaseResponseInterface<List<Group>>() {
+            @Override
+            public void onSuccess(List<Group> groups) {
+                setData(groups);
                 MyDialog.dismissMyDialog();
             }
 

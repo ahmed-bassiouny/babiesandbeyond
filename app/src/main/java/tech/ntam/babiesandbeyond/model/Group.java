@@ -67,6 +67,10 @@ public class Group {
         return isMember;
     }
 
+    public void setMember(boolean member) {
+        isMember = member;
+    }
+
     public int getId() {
         return id;
     }

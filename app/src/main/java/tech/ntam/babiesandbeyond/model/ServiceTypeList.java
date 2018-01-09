@@ -1,16 +1,13 @@
-package tech.ntam.babiesandbeyond.database;
+package tech.ntam.babiesandbeyond.model;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import tech.ntam.babiesandbeyond.model.Service;
-import tech.ntam.babiesandbeyond.model.ServiceType;
 
 /**
  * Created by bassiouny on 03/01/18.
  */
 
-public class ServiceTypeDatabase {
+public class ServiceTypeList {
 
     private static List<ServiceType> serviceTypes;
 
@@ -21,7 +18,7 @@ public class ServiceTypeDatabase {
     }
 
     public static void setServiceTypes(List<ServiceType> serviceTypes) {
-        ServiceTypeDatabase.serviceTypes = serviceTypes;
+        ServiceTypeList.serviceTypes = serviceTypes;
     }
 
     public static String getServiceTypeNameFromId(int id) {

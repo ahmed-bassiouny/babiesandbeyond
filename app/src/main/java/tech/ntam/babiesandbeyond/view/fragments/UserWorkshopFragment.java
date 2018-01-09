@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +44,7 @@ public class UserWorkshopFragment extends Fragment {
         // Required empty public constructor
     }
 
+
     public static UserWorkshopFragment newInstance() {
         if (userWorkshopFragment == null) {
             userWorkshopFragment = new UserWorkshopFragment();
@@ -65,6 +67,11 @@ public class UserWorkshopFragment extends Fragment {
         tvDate = view.findViewById(R.id.tv_date);
         initObject();
         onClick();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         getUserWorkshopController().getWorkshop(compactCalendarView);
     }
 
