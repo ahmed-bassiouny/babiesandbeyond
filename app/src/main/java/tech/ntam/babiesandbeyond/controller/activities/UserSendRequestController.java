@@ -88,12 +88,13 @@ public class UserSendRequestController {
     }
 
     public void saveData(int serviceTypeId, String startDate, String endDate, String location) {
-        MyDialog.showMyDialog(activity);
+        final MyDialog myDialog =new MyDialog();
+        myDialog.showMyDialog(activity);
         // send new request to service to save it
         RequestAndResponse.requestService(activity, serviceTypeId, startDate, endDate, location, new BaseResponseInterface<ParentResponse>() {
             @Override
             public void onSuccess(ParentResponse parentResponse) {
-                MyDialog.dismissMyDialog();
+                myDialog.dismissMyDialog();
                 Toast.makeText(activity, R.string.request_save, Toast.LENGTH_SHORT).show();
                 activity.finish();
             }
@@ -101,7 +102,7 @@ public class UserSendRequestController {
             @Override
             public void onFailed(String errorMessage) {
                 Toast.makeText(activity, errorMessage, Toast.LENGTH_SHORT).show();
-                MyDialog.dismissMyDialog();
+                myDialog.dismissMyDialog();
             }
         });
     }

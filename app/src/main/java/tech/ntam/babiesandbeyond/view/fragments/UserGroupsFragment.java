@@ -104,55 +104,58 @@ public class UserGroupsFragment extends Fragment implements GroupOption {
 
     @Override
     public void JoinGroup(int groupId, final int position) {
-        MyDialog.showMyDialog(getContext());
+        final MyDialog myDialog = new MyDialog();
+        myDialog.showMyDialog(getContext());
         RequestAndResponse.joinGroup(getContext(), groupId, new BaseResponseInterface<String>() {
             @Override
             public void onSuccess(String s) {
                 Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
                 groupItemAdapter.updateMyStatus(true,position);
-                MyDialog.dismissMyDialog();
+                myDialog.dismissMyDialog();
 
             }
 
             @Override
             public void onFailed(String errorMessage) {
                 Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
-                MyDialog.dismissMyDialog();
+                myDialog.dismissMyDialog();
             }
         });
     }
 
     @Override
     public void LeaveGroup(int groupId, final int position) {
-        MyDialog.showMyDialog(getContext());
+        final MyDialog myDialog = new MyDialog();
+        myDialog.showMyDialog(getContext());
         RequestAndResponse.leaveGroup(getContext(), groupId, new BaseResponseInterface<String>() {
             @Override
             public void onSuccess(String s) {
                 Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
                 groupItemAdapter.updateMyStatus(false,position);
-                MyDialog.dismissMyDialog();
+                myDialog.dismissMyDialog();
             }
 
             @Override
             public void onFailed(String errorMessage) {
                 Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
-                MyDialog.dismissMyDialog();
+                myDialog.dismissMyDialog();
             }
         });
     }
     private void loadGroup(){
-        MyDialog.showMyDialog(getContext());
+        final MyDialog myDialog = new MyDialog();
+        myDialog.showMyDialog(getContext());
         RequestAndResponse.getGroups(getContext(), new BaseResponseInterface<List<Group>>() {
             @Override
             public void onSuccess(List<Group> groups) {
                 setData(groups);
-                MyDialog.dismissMyDialog();
+                myDialog.dismissMyDialog();
             }
 
             @Override
             public void onFailed(String errorMessage) {
                 Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
-                MyDialog.dismissMyDialog();
+                myDialog.dismissMyDialog();
             }
         });
     }

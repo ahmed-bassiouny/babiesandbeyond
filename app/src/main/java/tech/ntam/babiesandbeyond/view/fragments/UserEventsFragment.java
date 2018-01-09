@@ -127,18 +127,19 @@ public class UserEventsFragment extends Fragment {
         });
     }
     private void loadEvents(){
-        MyDialog.showMyDialog(getContext());
+        final MyDialog myDialog = new MyDialog();
+        myDialog.showMyDialog(getContext());
         RequestAndResponse.getEvents(getContext(), new BaseResponseInterface<List<tech.ntam.babiesandbeyond.model.Event>>() {
             @Override
             public void onSuccess(List<tech.ntam.babiesandbeyond.model.Event> events) {
                 setEventInCalendar(events);
-                MyDialog.dismissMyDialog();
+                myDialog.dismissMyDialog();
             }
 
             @Override
             public void onFailed(String errorMessage) {
                 Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
-                MyDialog.dismissMyDialog();
+                myDialog.dismissMyDialog();
             }
         });
     }

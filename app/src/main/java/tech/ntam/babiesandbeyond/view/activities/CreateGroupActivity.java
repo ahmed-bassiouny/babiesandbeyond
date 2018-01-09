@@ -61,19 +61,20 @@ public class CreateGroupActivity extends MyToolbar {
                     Toast.makeText(CreateGroupActivity.this, R.string.select_photo, Toast.LENGTH_SHORT).show();
                 } else {
                     // save data and create group
-                    MyDialog.showMyDialog(CreateGroupActivity.this);
+                    final MyDialog myDialog =new MyDialog();
+                    myDialog.showMyDialog(CreateGroupActivity.this);
                     RequestAndResponse.createGroup(CreateGroupActivity.this, etGroupName.getText().toString(),
                             etGroupDescription.getText().toString(), photo, new BaseResponseInterface<String>() {
                                 @Override
                                 public void onSuccess(String s) {
                                     Toast.makeText(CreateGroupActivity.this, s, Toast.LENGTH_SHORT).show();
-                                    MyDialog.dismissMyDialog();
+                                    myDialog.dismissMyDialog();
                                 }
 
                                 @Override
                                 public void onFailed(String errorMessage) {
                                     Toast.makeText(CreateGroupActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
-                                    MyDialog.dismissMyDialog();
+                                    myDialog.dismissMyDialog();
                                 }
                             });
                 }
@@ -92,7 +93,8 @@ public class CreateGroupActivity extends MyToolbar {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        MyDialog.showMyDialog(this);
+        final MyDialog myDialog =new MyDialog();
+        myDialog.showMyDialog(this);
         EasyImage.handleActivityResult(requestCode, resultCode, data, this, new DefaultCallback() {
             @Override
             public void onImagePickerError(Exception e, EasyImage.ImageSource source, int type) {
@@ -107,7 +109,7 @@ public class CreateGroupActivity extends MyToolbar {
                     @Override
                     public void completed(String item) {
                         photo = item;
-                        MyDialog.dismissMyDialog();
+                        myDialog.dismissMyDialog();
                     }
                 });
             }

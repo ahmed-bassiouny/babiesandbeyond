@@ -25,13 +25,14 @@ public class SignUpController {
     }
 
     public void SignUp(String email, String name, String phone, String password) {
-        MyDialog.showMyDialog(activity);
+        final MyDialog myDialog =new MyDialog();
+        myDialog.showMyDialog(activity);
         RequestAndResponse
                 .register(activity, email, password, name, phone, new BaseResponseInterface<User>() {
                     @Override
                     public void onSuccess(User user) {
                         if (user != null) {
-                            MyDialog.dismissMyDialog();
+                            myDialog.dismissMyDialog();
                             UserSharedPref.setUserInfo(activity, user.getUser_token(), user.getEmail(),user.getId());
                             Toast.makeText(activity, activity.getString(R.string.register_successful), Toast.LENGTH_SHORT).show();
                             activity.finish();
@@ -42,7 +43,7 @@ public class SignUpController {
                     @Override
                     public void onFailed(String errorMessage) {
 
-                        MyDialog.dismissMyDialog();
+                        myDialog.dismissMyDialog();
                         Toast.makeText(activity, errorMessage, Toast.LENGTH_SHORT).show();
                     }
                 });

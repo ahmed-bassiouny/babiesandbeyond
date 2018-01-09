@@ -1,6 +1,7 @@
 package tech.ntam.babiesandbeyond.api.request;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.List;
 
@@ -8,6 +9,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import tech.ntam.babiesandbeyond.R;
+import tech.ntam.babiesandbeyond.api.api_model.response.AboutResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.EventsResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.GroupResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.HistoryResponse;
@@ -128,7 +130,7 @@ public class RequestAndResponse {
             @Override
             public void onResponse(Call<MyServiceResponse> call, Response<MyServiceResponse> response) {
                 checkValidResult(response.code(), response.body().getStatus()
-                        , response.body().getUserService(),response.body().getMessage(), anInterface);
+                        , response.body().getUserService(), response.body().getMessage(), anInterface);
             }
 
             @Override
@@ -319,6 +321,22 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<ParentResponse> call, Throwable t) {
+                anInterface.onFailed(t.getLocalizedMessage());
+            }
+        });
+    }
+
+    public static void getAbout(Context context, final BaseResponseInterface<String> anInterface) {
+        Call<AboutResponse> response = baseRequestInterface.getAbout();
+        response.enqueue(new Callback<AboutResponse>() {
+            @Override
+            public void onResponse(Call<AboutResponse> call, Response<AboutResponse> response) {
+                checkValidResult(response.code(), response.body().getStatus()
+                        , response.body().getAboutText(), response.body().getMessage(), anInterface);
+            }
+
+            @Override
+            public void onFailure(Call<AboutResponse> call, Throwable t) {
                 anInterface.onFailed(t.getLocalizedMessage());
             }
         });

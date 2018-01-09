@@ -60,19 +60,20 @@ public class EventDialogActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (event == null)
                     return;
-                MyDialog.showMyDialog(EventDialogActivity.this);
+                final MyDialog myDialog = new MyDialog();
+                myDialog.showMyDialog(EventDialogActivity.this);
                 RequestAndResponse.sendStatusEvent(EventDialogActivity.this, event.getId(), !isComing, new BaseResponseInterface<String>() {
                     @Override
                     public void onSuccess(String s) {
                         event.setComing(!isComing);
-                        MyDialog.dismissMyDialog();
+                        myDialog.dismissMyDialog();
                         checkEventStatus();
                     }
 
                     @Override
                     public void onFailed(String errorMessage) {
                         Toast.makeText(EventDialogActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
-                        MyDialog.dismissMyDialog();
+                        myDialog.dismissMyDialog();
                     }
                 });
             }

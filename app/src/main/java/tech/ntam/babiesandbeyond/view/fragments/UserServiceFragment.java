@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -133,20 +134,21 @@ public class UserServiceFragment extends Fragment {
     }
 
     private void loadService() {
-        MyDialog.showMyDialog(getActivity());
+        final MyDialog myDialog = new MyDialog();
+        myDialog.showMyDialog(getContext());
         RequestAndResponse.getMyService(getContext(), new BaseResponseInterface<UserService>() {
             @Override
             public void onSuccess(UserService userService) {
                 if (userService != null) {
                     ServiceTypeList.setServiceTypes(userService.getServiceTypes());
                     setServiceInCalendar(userService.getServices());
-                    MyDialog.dismissMyDialog();
+                    myDialog.dismissMyDialog();
                 }
             }
 
             @Override
             public void onFailed(String errorMessage) {
-                MyDialog.dismissMyDialog();
+                myDialog.dismissMyDialog();
                 Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
             }
         });

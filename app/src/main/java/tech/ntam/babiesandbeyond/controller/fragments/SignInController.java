@@ -26,11 +26,12 @@ public class SignInController {
     }
 
     public void SignIn(String email, String password) {
-        MyDialog.showMyDialog(activity);
+        final MyDialog myDialog = new MyDialog();
+        myDialog.showMyDialog(activity);
         RequestAndResponse.login(activity,email, password, new BaseResponseInterface<User>() {
             @Override
             public void onSuccess(User user) {
-                MyDialog.dismissMyDialog();
+                myDialog.dismissMyDialog();
                 if (user.getUserTypeId().equals(User.USER)) {
                     // save user information in sharedpref
                     UserSharedPref.setUserInfo(activity, user.getUser_token(),user.getEmail(),user.getId());
@@ -46,7 +47,7 @@ public class SignInController {
 
             @Override
             public void onFailed(String errorMessage) {
-                MyDialog.dismissMyDialog();
+                myDialog.dismissMyDialog();
                 Toast.makeText(activity, errorMessage, Toast.LENGTH_SHORT).show();
             }
         });

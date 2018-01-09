@@ -33,18 +33,19 @@ public class ChangePasswordDialogActivity extends AppCompatActivity {
                 }else if(!etPassword.getText().toString().equals(etConfirmPassword.getText().toString())){
                     etConfirmPassword.setError(getString(R.string.invalid_confirm_password));
                 }else {
-                    MyDialog.showMyDialog(ChangePasswordDialogActivity.this);
+                    final MyDialog myDialog = new MyDialog();
+                    myDialog.showMyDialog(ChangePasswordDialogActivity.this);
                     RequestAndResponse.updatePassword(ChangePasswordDialogActivity.this, etPassword.getText().toString(), new BaseResponseInterface<String>() {
                         @Override
                         public void onSuccess(String s) {
-                            MyDialog.dismissMyDialog();
+                            myDialog.dismissMyDialog();
                             Toast.makeText(ChangePasswordDialogActivity.this, s, Toast.LENGTH_SHORT).show();
                             finish();
                         }
 
                         @Override
                         public void onFailed(String errorMessage) {
-                            MyDialog.dismissMyDialog();
+                            myDialog.dismissMyDialog();
                             Toast.makeText(ChangePasswordDialogActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
                         }
                     });

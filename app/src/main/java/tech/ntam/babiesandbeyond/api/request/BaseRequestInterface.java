@@ -15,6 +15,7 @@ import tech.ntam.babiesandbeyond.api.api_model.request.RegisterRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.StatusEvent;
 import tech.ntam.babiesandbeyond.api.api_model.request.UpdatePasswordRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.UpdateProfileRequest;
+import tech.ntam.babiesandbeyond.api.api_model.response.AboutResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.EventsResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.GroupResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.HistoryResponse;
@@ -47,8 +48,9 @@ public interface BaseRequestInterface {
     String UPDATE_PROFILE = "update_profile";
     String CREATE_GROUP = "create_group";
     String WORKSHOPS = "all_workshops";
-    String JOIN_GROUP= "join_group";
-    String LEAVE_GROUP= "leave_group";
+    String JOIN_GROUP = "join_group";
+    String LEAVE_GROUP = "leave_group";
+    String ABOUT = "about";
 
     @FormUrlEncoded
     @POST(LOGIN)
@@ -152,13 +154,16 @@ public interface BaseRequestInterface {
     @Headers(HEADER_KEY)
     @POST(JOIN_GROUP)
     Call<ParentResponse> joinGroup(@Header(AUTHORIZATION) String token,
-                                        @Field(ParentRequest.USER_ID) int userId,
-                                        @Field(GroupOptionRequest.GROUP_ID) int groupId);
+                                   @Field(ParentRequest.USER_ID) int userId,
+                                   @Field(GroupOptionRequest.GROUP_ID) int groupId);
 
     @FormUrlEncoded
     @Headers(HEADER_KEY)
     @POST(LEAVE_GROUP)
     Call<ParentResponse> leaveGroup(@Header(AUTHORIZATION) String token,
-                                   @Field(ParentRequest.USER_ID) int userId,
-                                   @Field(GroupOptionRequest.GROUP_ID) int groupId);
+                                    @Field(ParentRequest.USER_ID) int userId,
+                                    @Field(GroupOptionRequest.GROUP_ID) int groupId);
+
+    @POST(ABOUT)
+    Call<AboutResponse> getAbout();
 }

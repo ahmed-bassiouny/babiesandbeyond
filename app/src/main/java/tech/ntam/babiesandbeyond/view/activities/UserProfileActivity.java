@@ -91,7 +91,8 @@ public class UserProfileActivity extends MyToolbar {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        MyDialog.showMyDialog(this);
+        final MyDialog myDialog =new MyDialog();
+        myDialog.showMyDialog(this);
         EasyImage.handleActivityResult(requestCode, resultCode, data, this, new DefaultCallback() {
             @Override
             public void onImagePickerError(Exception e, EasyImage.ImageSource source, int type) {
@@ -106,7 +107,7 @@ public class UserProfileActivity extends MyToolbar {
                     @Override
                     public void completed(String item) {
                         photo = item;
-                        MyDialog.dismissMyDialog();
+                        myDialog.dismissMyDialog();
                     }
                 });
             }

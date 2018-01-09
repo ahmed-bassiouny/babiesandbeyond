@@ -29,16 +29,18 @@ public class UserWorkshopController {
     }
 
     public void getWorkshop(final CompactCalendarView compactCalendarView) {
-        MyDialog.showMyDialog(activity);
+        final MyDialog myDialog =new MyDialog();
+        myDialog.showMyDialog(activity);
         RequestAndResponse.getWorkshops(activity, new BaseResponseInterface<List<Workshop>>() {
             @Override
             public void onSuccess(List<Workshop> workshops) {
                 setWorkshopInCalendar(compactCalendarView, workshops);
+                myDialog.dismissMyDialog();
             }
 
             @Override
             public void onFailed(String errorMessage) {
-                MyDialog.dismissMyDialog();
+                myDialog.dismissMyDialog();
                 Toast.makeText(activity, errorMessage, Toast.LENGTH_SHORT).show();
             }
         });
@@ -52,6 +54,5 @@ public class UserWorkshopController {
         if (compactCalendarView != null)
             compactCalendarView.removeAllEvents();
         compactCalendarView.addEvents(events);
-        MyDialog.dismissMyDialog();
     }
 }

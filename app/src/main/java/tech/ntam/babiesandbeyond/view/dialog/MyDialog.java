@@ -15,17 +15,17 @@ import dmax.dialog.SpotsDialog;
 
 public class MyDialog {
 
-    public static AlertDialog dialog;
+    public AlertDialog dialog;
 
 
-    public static void showMyDialog(Context context) {
+    public void showMyDialog(Context context) {
         dialog = new SpotsDialog(context);
         dialog.setCancelable(false);
         dialog.show();
     }
 
-    public static void dismissMyDialog() {
-        if (dialog != null && dialog.isShowing()) {
+    public void dismissMyDialog() {
+        if (dialog != null) {
             dialog.dismiss();
         }
     }

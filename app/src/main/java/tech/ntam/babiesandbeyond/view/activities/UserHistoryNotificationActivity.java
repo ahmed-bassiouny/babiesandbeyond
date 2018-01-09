@@ -47,18 +47,19 @@ public class UserHistoryNotificationActivity extends MyToolbar {
         }
     }
     private void loadHistory(){
-        MyDialog.showMyDialog(this);
+        final MyDialog myDialog =new MyDialog();
+        myDialog.showMyDialog(this);
         RequestAndResponse.getHistory(this, new BaseResponseInterface<List<History>>() {
             @Override
             public void onSuccess(List<History> historyList) {
                 HistoryItemAdapter historyItemAdapter = new HistoryItemAdapter(historyList);
                 recycleView.setAdapter(historyItemAdapter);
-                MyDialog.dismissMyDialog();
+                myDialog.dismissMyDialog();
             }
 
             @Override
             public void onFailed(String errorMessage) {
-                MyDialog.dismissMyDialog();
+                myDialog.dismissMyDialog();
                 Toast.makeText(UserHistoryNotificationActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
                 finish();
             }

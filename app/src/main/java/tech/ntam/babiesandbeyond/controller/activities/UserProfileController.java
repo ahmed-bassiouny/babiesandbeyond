@@ -24,11 +24,12 @@ public class UserProfileController {
     }
 
     public void getProfileData(final EditText etName, final EditText etPhone, final CircleImageView ivProfilePhoto) {
-        MyDialog.showMyDialog(activity);
+        final MyDialog myDialog =new MyDialog();
+        myDialog.showMyDialog(activity);
         RequestAndResponse.getProfile(activity, new BaseResponseInterface<User>() {
             @Override
             public void onSuccess(User user) {
-                MyDialog.dismissMyDialog();
+                myDialog.dismissMyDialog();
                 etName.setText(user.getName());
                 etPhone.setText(user.getPhone());
                 Utils.MyGlide(activity, ivProfilePhoto, user.getPhoto());
@@ -36,25 +37,26 @@ public class UserProfileController {
 
             @Override
             public void onFailed(String errorMessage) {
-                MyDialog.dismissMyDialog();
+                myDialog.dismissMyDialog();
                 Toast.makeText(activity, errorMessage, Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     public void updateProfile(String photo ,EditText etName,EditText etPhone) {
-        MyDialog.showMyDialog(activity);
+        final MyDialog myDialog =new MyDialog();
+        myDialog.showMyDialog(activity);
         RequestAndResponse.updateProfile(activity, etName.getText().toString(), etPhone.getText().toString(), photo, new BaseResponseInterface<String>() {
             @Override
             public void onSuccess(String s) {
                 Toast.makeText(activity, s, Toast.LENGTH_SHORT).show();
-                MyDialog.dismissMyDialog();
+                myDialog.dismissMyDialog();
             }
 
             @Override
             public void onFailed(String errorMessage) {
                 Toast.makeText(activity, errorMessage, Toast.LENGTH_SHORT).show();
-                MyDialog.dismissMyDialog();
+                myDialog.dismissMyDialog();
             }
         });
     }
