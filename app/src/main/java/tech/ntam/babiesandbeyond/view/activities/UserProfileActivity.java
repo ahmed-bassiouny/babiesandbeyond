@@ -32,6 +32,7 @@ import tech.ntam.babiesandbeyond.view.dialog.QrCodeActivity;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 import tech.ntam.mylibrary.DummyClass;
 import tech.ntam.mylibrary.Utils;
+import tech.ntam.mylibrary.interfaces.ProcessInterface;
 
 public class UserProfileActivity extends MyToolbar {
 
@@ -101,7 +102,7 @@ public class UserProfileActivity extends MyToolbar {
             public void onImagePicked(File imageFile, EasyImage.ImageSource source, int type) {
                 Bitmap myBitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
                 ivProfilePhoto.setImageBitmap(myBitmap);
-                Utils.convertImageFromBitmapToStringBase64(myBitmap, new Utils.ProcessInterface() {
+                Utils.convertImageFromBitmapToStringBase64(myBitmap, new ProcessInterface() {
                     @Override
                     public void completed(String item) {
                         photo = item;

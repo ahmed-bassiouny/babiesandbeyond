@@ -15,7 +15,6 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 
 import java.io.ByteArrayOutputStream;
@@ -27,6 +26,8 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import tech.ntam.mylibrary.interfaces.ProcessInterface;
 
 /**
  * Created by bassiouny on 17/12/17.
@@ -96,7 +97,7 @@ public class Utils {
     }
 
     public static void MyGlide(Activity activity, ImageView imageView, String url) {
-        Glide.with(activity).load(url).into(imageView);
+        Glide.with(activity).load(url).error(R.drawable.person).into(imageView);
     }
 
     public static void convertImageFromBitmapToStringBase64(final Bitmap bitmap, final ProcessInterface processInterface) {
@@ -113,7 +114,4 @@ public class Utils {
 
     }
 
-    public interface ProcessInterface {
-        void completed(String item);
-    }
 }

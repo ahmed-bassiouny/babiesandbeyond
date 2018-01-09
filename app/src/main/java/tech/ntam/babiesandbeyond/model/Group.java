@@ -39,11 +39,17 @@ public class Group {
         return Utils.getValueFromString(photo);
     }
 
-    public String getStatus() {
+    public String getStatusString() {
         status = Utils.getValueFromString(status);
         if(status.equals("1")) return "Approved";
         else return "Pending";
     }
+    public boolean getStatus() {
+        status = Utils.getValueFromString(status);
+        if(status.equals("1")) return true;
+        else return false;
+    }
+
 
     public String getCreatedBy() {
         return Utils.getValueFromString(createdBy);
@@ -53,5 +59,13 @@ public class Group {
         date = Utils.getValueFromString(date);
         date = date.split(" ")[0];
         return date;
+    }
+    public boolean isInGroup(){
+        // this method show if in my group or not
+        return false;
+    }
+
+    public int getId() {
+        return id;
     }
 }

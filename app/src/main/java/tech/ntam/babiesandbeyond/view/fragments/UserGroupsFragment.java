@@ -13,14 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.List;
+import android.widget.Toast;
 
 import info.hoang8f.android.segmented.SegmentedGroup;
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.database.GroupsDatabase;
-import tech.ntam.babiesandbeyond.model.Group;
+import tech.ntam.babiesandbeyond.interfaces.GroupOption;
 import tech.ntam.babiesandbeyond.view.activities.CreateGroupActivity;
 import tech.ntam.babiesandbeyond.view.adapter.GroupItemAdapter;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
@@ -28,7 +26,7 @@ import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class UserGroupsFragment extends Fragment {
+public class UserGroupsFragment extends Fragment implements GroupOption{
 
 
 
@@ -36,7 +34,7 @@ public class UserGroupsFragment extends Fragment {
     private RadioButton btnAllGroups;
     private RadioButton btnMostPopular;
     private RadioButton btnMyGroups;
-    private TextView tvGreateGroup;
+    private TextView tvCreateGroup;
     private RecyclerView recycleView;
     private static UserGroupsFragment userGroupsFragment;
 
@@ -67,7 +65,7 @@ public class UserGroupsFragment extends Fragment {
         btnMostPopular = view.findViewById(R.id.btn_most_popular);
         btnMyGroups = view.findViewById(R.id.btn_my_groups);
         recycleView = view.findViewById(R.id.recycle_view);
-        tvGreateGroup = view.findViewById(R.id.tv_greate_group);
+        tvCreateGroup = view.findViewById(R.id.tv_greate_group);
         setData();
     }
 
@@ -83,12 +81,22 @@ public class UserGroupsFragment extends Fragment {
 
     private void setData() {
         recycleView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recycleView.setAdapter(new GroupItemAdapter(GroupsDatabase.getGroups(),getActivity()));
-        tvGreateGroup.setOnClickListener(new View.OnClickListener() {
+        recycleView.setAdapter(new GroupItemAdapter(GroupsDatabase.getGroups(),this));
+        tvCreateGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), CreateGroupActivity.class));
             }
         });
+    }
+
+    @Override
+    public void JoinGroup(int GroupId) {
+        Toast.makeText(getActivity(), GroupId+"", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void LeaveGroup(int GroupId) {
+        Toast.makeText(getActivity(), GroupId+"", Toast.LENGTH_SHORT).show();
     }
 }
