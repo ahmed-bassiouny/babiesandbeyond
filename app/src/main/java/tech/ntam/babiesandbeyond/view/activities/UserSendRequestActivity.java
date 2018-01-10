@@ -1,5 +1,6 @@
 package tech.ntam.babiesandbeyond.view.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +10,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
@@ -24,6 +29,7 @@ public class UserSendRequestActivity extends MyToolbar {
     private EditText etChooseDateFrom, etChooseDateTo, etLocation;
     private UserSendRequestController userSendRequestController;
     private Button btnSend;
+    int PLACE_PICKER_REQUEST = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +39,7 @@ public class UserSendRequestActivity extends MyToolbar {
         onClick();
         getController().loadServiceType(spService);
         setupToolbar(this, false, true, true);
-        tvTitle.setText("Request");
+        tvTitle.setText(R.string.request);
     }
 
     private void findViewById() {
@@ -63,6 +69,26 @@ public class UserSendRequestActivity extends MyToolbar {
                 getDataFromViewAndSendToService();
             }
         });
+        etLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+                try {
+                    startActivityForResult(builder.build(UserSendRequestActivity.this), PLACE_PICKER_REQUEST);
+                } catch (GooglePlayServicesRepairableException e) {
+                } catch (GooglePlayServicesNotAvailableException e) {
+                }
+            }
+        });
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PLACE_PICKER_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                Place place = PlacePicker.getPlace(this, data);
+                etLocation.setText(place.getAddress().toString());
+            }
+        }
     }
 
     private UserSendRequestController getController() {
@@ -79,11 +105,11 @@ public class UserSendRequestActivity extends MyToolbar {
             etChooseDateTo.setError(getString(R.string.select_date));
         } else if (etLocation.getText().toString().trim().length() < 10) {
             etLocation.setError(getString(R.string.enter_location));
-        } else if(Utils.convertStringToDate(etChooseDateTo.getText().toString()).before(Utils.convertStringToDate(etChooseDateFrom.getText().toString()))){
+        } else if (Utils.convertStringToDate(etChooseDateTo.getText().toString()).before(Utils.convertStringToDate(etChooseDateFrom.getText().toString()))) {
             Toast.makeText(this, R.string.invalid_Date, Toast.LENGTH_SHORT).show();
-        }else {
+        } else {
             getController().saveData(getController().getIdFromSpinner(spService.getSelectedItem().toString())
-                    ,etChooseDateFrom.getText().toString(),etChooseDateTo.getText().toString(),etLocation.getText().toString());
+                    , etChooseDateFrom.getText().toString(), etChooseDateTo.getText().toString(), etLocation.getText().toString());
         }
     }
 }

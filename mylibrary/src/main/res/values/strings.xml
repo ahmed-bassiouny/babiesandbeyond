@@ -119,6 +119,7 @@
     <string name="leave_group">Leave Group</string>
     <string name="notification">Notification</string>
     <string name="photo_large">this photo is too large</string>
+    <string name="request">Request</string>
 
 
 </resources>

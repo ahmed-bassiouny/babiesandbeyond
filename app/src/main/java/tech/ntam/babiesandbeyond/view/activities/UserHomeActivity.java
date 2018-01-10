@@ -1,6 +1,10 @@
 package tech.ntam.babiesandbeyond.view.activities;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
+import android.support.annotation.RestrictTo;
+import android.support.design.internal.BottomNavigationItemView;
+import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 
 import android.support.v4.app.Fragment;
@@ -8,9 +12,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
+import java.lang.reflect.Field;
+
 import tech.ntam.babiesandbeyond.R;
+import tech.ntam.babiesandbeyond.utils.BottomNavigationViewHelper;
 import tech.ntam.babiesandbeyond.view.fragments.UserAboutUsFragment;
 import tech.ntam.babiesandbeyond.view.fragments.UserEventsFragment;
 import tech.ntam.babiesandbeyond.view.fragments.UserGroupsFragment;
@@ -39,8 +47,8 @@ public class UserHomeActivity extends MyToolbar implements MyToolbar.TitleToolba
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setOffscreenPageLimit(0);
+        BottomNavigationViewHelper.disableShiftMode(bottomNavigation);
     }
-
     private void onClick() {
         bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
