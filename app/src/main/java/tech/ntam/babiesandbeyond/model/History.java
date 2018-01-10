@@ -2,6 +2,8 @@ package tech.ntam.babiesandbeyond.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.text.ParseException;
+
 import tech.ntam.mylibrary.Utils;
 
 /**
@@ -26,11 +28,21 @@ public class History {
     }
 
     public String getStartDate() {
-        return Utils.getValueFromString(startDate).split(" ")[0];
+        try {
+            startDate = Utils.changeDateFormatFromNumberToText(startDate);
+        } catch (ParseException e) {
+            startDate = "";
+        }
+        return startDate;
     }
 
     public String getEndDate() {
-        return Utils.getValueFromString(endDate).split(" ")[0];
+        try {
+            endDate = Utils.changeDateFormatFromNumberToText(endDate);
+        } catch (ParseException e) {
+            endDate = "";
+        }
+        return endDate;
     }
 
     public String getLocation() {
@@ -38,6 +50,6 @@ public class History {
     }
 
     public String getPrice() {
-        return Utils.getValueFromString(price)+"$";
+        return Utils.getValueFromString(price) + "$";
     }
 }

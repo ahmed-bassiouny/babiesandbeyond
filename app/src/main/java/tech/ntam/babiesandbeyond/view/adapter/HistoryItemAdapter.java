@@ -49,7 +49,7 @@ public class HistoryItemAdapter extends RecyclerView.Adapter<HistoryItemAdapter.
     public void onBindViewHolder(MyViewHolder holder, int position) {
         History history = historyList.get(position);
         holder.ivServiceName.setText(history.getName());
-        holder.tvServiceDateTime.setText(history.getStartDate()+" "+history.getEndDate());
+        holder.tvServiceDateTime.setText(history.getStartDate()+"\n"+history.getEndDate());
         holder.tvServiceLocation.setText(history.getLocation());
         holder.tvServicePrice.setText(history.getPrice());
     }

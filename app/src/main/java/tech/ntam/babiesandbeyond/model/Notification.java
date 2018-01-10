@@ -26,7 +26,7 @@ public class Notification {
     }
 
     public String getNotificationTime() {
-        return Utils.getValueFromString(notificationTime);
+        return Utils.getValueFromString(notificationTime).split(" ")[0];
     }
 
     public String getPrice() {
