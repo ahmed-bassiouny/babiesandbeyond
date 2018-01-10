@@ -5,7 +5,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import tech.ntam.babiesandbeyond.R;
@@ -17,7 +16,6 @@ import tech.ntam.babiesandbeyond.view.adapter.HistoryItemAdapter;
 import tech.ntam.babiesandbeyond.view.adapter.NotificationItemAdapter;
 import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
-import tech.ntam.mylibrary.DummyNotificationItem;
 import tech.ntam.mylibrary.IntentDataKey;
 
 public class UserHistoryNotificationActivity extends MyToolbar {
