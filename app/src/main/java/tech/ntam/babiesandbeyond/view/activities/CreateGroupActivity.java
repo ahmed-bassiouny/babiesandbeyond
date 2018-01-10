@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import pl.aprilapps.easyphotopicker.DefaultCallback;
@@ -22,6 +23,7 @@ import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
+import tech.ntam.mylibrary.ImageFactor;
 import tech.ntam.mylibrary.Utils;
 import tech.ntam.mylibrary.interfaces.ProcessInterface;
 
@@ -103,15 +105,22 @@ public class CreateGroupActivity extends MyToolbar {
 
             @Override
             public void onImagePicked(File imageFile, EasyImage.ImageSource source, int type) {
-                Bitmap myBitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
-                ivProfilePhoto.setImageBitmap(myBitmap);
-                Utils.convertImageFromBitmapToStringBase64(myBitmap, new ProcessInterface() {
-                    @Override
-                    public void completed(String item) {
-                        photo = item;
-                        myDialog.dismissMyDialog();
-                    }
-                });
+                Bitmap myBitmap = null;
+                try {
+                    myBitmap = ImageFactor.getBitmapImageFromFilePathAfterResize(imageFile);
+
+                    ivProfilePhoto.setImageBitmap(myBitmap);
+                    Utils.convertImageFromBitmapToStringBase64(myBitmap, new ProcessInterface() {
+                        @Override
+                        public void completed(String item) {
+                            photo = item;
+                            myDialog.dismissMyDialog();
+                        }
+                    });
+                } catch (FileNotFoundException e) {
+                    Toast.makeText(CreateGroupActivity.this, R.string.photo_large, Toast.LENGTH_SHORT).show();
+                    myDialog.dismissMyDialog();
+                }
             }
 
         });

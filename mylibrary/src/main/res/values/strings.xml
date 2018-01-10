@@ -117,6 +117,8 @@
 
     <string name="join_group">Join Group</string>
     <string name="leave_group">Leave Group</string>
+    <string name="notification">Notification</string>
+    <string name="photo_large">this photo is too large</string>
 
 
 </resources>

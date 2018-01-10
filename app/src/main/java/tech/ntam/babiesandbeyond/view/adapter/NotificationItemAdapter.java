@@ -12,6 +12,7 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import tech.ntam.babiesandbeyond.R;
+import tech.ntam.babiesandbeyond.model.Notification;
 import tech.ntam.mylibrary.DummyNotificationItem;
 
 /**
@@ -20,10 +21,10 @@ import tech.ntam.mylibrary.DummyNotificationItem;
 
 public class NotificationItemAdapter extends RecyclerView.Adapter<NotificationItemAdapter.MyViewHolder> {
 
-    List<DummyNotificationItem> dummyNotificationItems;
+    List<Notification> notifications;
 
-    public NotificationItemAdapter(List<DummyNotificationItem> dummyNotificationItems) {
-        this.dummyNotificationItems = dummyNotificationItems;
+    public NotificationItemAdapter(List<Notification> notifications) {
+        this.notifications = notifications;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -51,23 +52,22 @@ public class NotificationItemAdapter extends RecyclerView.Adapter<NotificationIt
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        DummyNotificationItem dummyNotificationItem = dummyNotificationItems.get(position);
-        holder.tvNotificationTitle.setText(dummyNotificationItem.title);
-        holder.tvNotificationDateTime.setText(dummyNotificationItem.date);
-        if (dummyNotificationItem.price.isEmpty()) {
+        Notification notification = notifications.get(position);
+        holder.tvNotificationTitle.setText(notification.getNotification());
+        holder.tvNotificationDateTime.setText(notification.getNotificationTime());
+        if (notification.getPrice().isEmpty()) {
             holder.btnPay.setVisibility(View.VISIBLE);
             holder.tvPrice.setVisibility(View.INVISIBLE);
 
         } else {
             holder.btnPay.setVisibility(View.INVISIBLE);
             holder.tvPrice.setVisibility(View.VISIBLE);
-            holder.tvPrice.setText(dummyNotificationItem.price);
-
+            holder.tvPrice.setText(notification.getPrice()+"$");
         }
     }
 
     @Override
     public int getItemCount() {
-        return dummyNotificationItems.size();
+        return notifications.size();
     }
 }

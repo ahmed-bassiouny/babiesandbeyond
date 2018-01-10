@@ -64,7 +64,7 @@ public class UserAboutUsFragment extends Fragment {
     private void loadAbout() {
         final MyDialog myDialog =new MyDialog();
         myDialog.showMyDialog(getActivity());
-        RequestAndResponse.getAbout(getContext(), new BaseResponseInterface<String>() {
+        RequestAndResponse.getAbout(new BaseResponseInterface<String>() {
             @Override
             public void onSuccess(String s) {
                 tvAbout.setText(s);

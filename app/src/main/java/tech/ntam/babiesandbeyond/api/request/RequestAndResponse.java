@@ -15,6 +15,7 @@ import tech.ntam.babiesandbeyond.api.api_model.response.GroupResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.HistoryResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.LoginResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.MyServiceResponse;
+import tech.ntam.babiesandbeyond.api.api_model.response.NotificationResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.ParentResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.ProfileResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.RegisterResponse;
@@ -24,6 +25,7 @@ import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.model.Event;
 import tech.ntam.babiesandbeyond.model.Group;
 import tech.ntam.babiesandbeyond.model.History;
+import tech.ntam.babiesandbeyond.model.Notification;
 import tech.ntam.babiesandbeyond.model.User;
 import tech.ntam.babiesandbeyond.model.UserData;
 import tech.ntam.babiesandbeyond.model.UserService;
@@ -326,7 +328,7 @@ public class RequestAndResponse {
         });
     }
 
-    public static void getAbout(Context context, final BaseResponseInterface<String> anInterface) {
+    public static void getAbout(final BaseResponseInterface<String> anInterface) {
         Call<AboutResponse> response = baseRequestInterface.getAbout();
         response.enqueue(new Callback<AboutResponse>() {
             @Override
@@ -337,6 +339,43 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<AboutResponse> call, Throwable t) {
+                anInterface.onFailed(t.getLocalizedMessage());
+            }
+        });
+    }
+
+    public static void sendWorkshopRequest(Context context, int workshopId, final BaseResponseInterface<String> anInterface) {
+        Call<ParentResponse> response = baseRequestInterface.sendWorkshopRequest(
+                UserSharedPref.getTokenWithHeader(context),
+                UserSharedPref.getId(context), workshopId);
+        response.enqueue(new Callback<ParentResponse>() {
+            @Override
+            public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {
+                checkValidResult(response.code(), response.body().getStatus()
+                        , response.body().getMessage(), response.body().getMessage(), anInterface);
+            }
+
+            @Override
+            public void onFailure(Call<ParentResponse> call, Throwable t) {
+                anInterface.onFailed(t.getLocalizedMessage());
+            }
+        });
+    }
+
+
+    public static void getNotification(Context context, final BaseResponseInterface<List<Notification>> anInterface) {
+        Call<NotificationResponse> response = baseRequestInterface.getNotification(
+                UserSharedPref.getTokenWithHeader(context),
+                UserSharedPref.getId(context));
+        response.enqueue(new Callback<NotificationResponse>() {
+            @Override
+            public void onResponse(Call<NotificationResponse> call, Response<NotificationResponse> response) {
+                checkValidResult(response.code(), response.body().getStatus()
+                        , response.body().getNotifications(), response.body().getMessage(), anInterface);
+            }
+
+            @Override
+            public void onFailure(Call<NotificationResponse> call, Throwable t) {
                 anInterface.onFailed(t.getLocalizedMessage());
             }
         });

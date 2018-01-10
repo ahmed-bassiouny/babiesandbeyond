@@ -5,8 +5,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import tech.ntam.babiesandbeyond.R;
+import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
+import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.babiesandbeyond.model.Workshop;
 import tech.ntam.mylibrary.DummyClass;
 import tech.ntam.mylibrary.IntentDataKey;
@@ -42,6 +45,11 @@ public class WorkShopDialogActivity extends AppCompatActivity {
         tvSpeakerBio.setText(workshop.getSpeakerBio());
         tvStatus.setText(workshop.getPaymentStatus());
         tvEventDescription.setText(workshop.getDescription());
+        if(workshop.isComing()){
+            btnComing.setEnabled(false);
+        }else {
+            btnComing.setEnabled(true);
+        }
     }
 
     private void findViewById() {
@@ -56,7 +64,22 @@ public class WorkShopDialogActivity extends AppCompatActivity {
         btnComing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final MyDialog myDialog = new MyDialog();
+                myDialog.showMyDialog(WorkShopDialogActivity.this);
+                RequestAndResponse.sendWorkshopRequest(WorkShopDialogActivity.this, workshop.getId(), new BaseResponseInterface<String>() {
+                    @Override
+                    public void onSuccess(String s) {
+                        Toast.makeText(WorkShopDialogActivity.this, s, Toast.LENGTH_SHORT).show();
+                        myDialog.dismissMyDialog();
+                        finish();
+                    }
 
+                    @Override
+                    public void onFailed(String errorMessage) {
+                        Toast.makeText(WorkShopDialogActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                        myDialog.dismissMyDialog();
+                    }
+                });
             }
         });
     }

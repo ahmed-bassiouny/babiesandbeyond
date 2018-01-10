@@ -5,7 +5,7 @@ package tech.ntam.mylibrary;
  */
 
 public class DummyNotificationItem {
-
+/*
     public String title;
     public String date;
     public String price;
@@ -14,5 +14,5 @@ public class DummyNotificationItem {
         this.title = title;
         this.date = date;
         this.price = price;
-    }
+    }*/
 }

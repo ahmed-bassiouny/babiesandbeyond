@@ -7,6 +7,7 @@ import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import tech.ntam.babiesandbeyond.api.api_model.request.AskServiceRequest;
+import tech.ntam.babiesandbeyond.api.api_model.request.AskWorkshopRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.CreateGroupRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.GroupOptionRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.LoginRequest;
@@ -21,6 +22,7 @@ import tech.ntam.babiesandbeyond.api.api_model.response.GroupResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.HistoryResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.LoginResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.MyServiceResponse;
+import tech.ntam.babiesandbeyond.api.api_model.response.NotificationResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.ParentResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.ProfileResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.RegisterResponse;
@@ -51,6 +53,8 @@ public interface BaseRequestInterface {
     String JOIN_GROUP = "join_group";
     String LEAVE_GROUP = "leave_group";
     String ABOUT = "about";
+    String SEND_WORKSHOP_REQUEST = "send_workshop_request";
+    String NOTIFICATION = "user_notifications";
 
     @FormUrlEncoded
     @POST(LOGIN)
@@ -166,4 +170,19 @@ public interface BaseRequestInterface {
 
     @POST(ABOUT)
     Call<AboutResponse> getAbout();
+
+
+    @FormUrlEncoded
+    @Headers(HEADER_KEY)
+    @POST(SEND_WORKSHOP_REQUEST)
+    Call<ParentResponse> sendWorkshopRequest(@Header(AUTHORIZATION) String token,
+                                             @Field(AskWorkshopRequest.USER_ID) int userId,
+                                             @Field(AskWorkshopRequest.WORKSHOP_ID) int workshopId);
+
+
+    @FormUrlEncoded
+    @Headers(HEADER_KEY)
+    @POST(NOTIFICATION)
+    Call<NotificationResponse> getNotification(@Header(AUTHORIZATION) String token,
+                                               @Field(AskWorkshopRequest.USER_ID) int userId);
 }

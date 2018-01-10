@@ -5,6 +5,8 @@ import android.content.Context;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
@@ -29,10 +31,12 @@ public class UserProfileController {
         RequestAndResponse.getProfile(activity, new BaseResponseInterface<User>() {
             @Override
             public void onSuccess(User user) {
-                myDialog.dismissMyDialog();
                 etName.setText(user.getName());
                 etPhone.setText(user.getPhone());
-                Utils.MyGlide(activity, ivProfilePhoto, user.getPhoto());
+                if(!user.getPhone().isEmpty())
+                    Utils.MyGlide(activity, ivProfilePhoto, user.getPhoto());
+
+                myDialog.dismissMyDialog();
             }
 
             @Override

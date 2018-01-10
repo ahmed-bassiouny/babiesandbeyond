@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -31,6 +32,8 @@ import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
 import tech.ntam.babiesandbeyond.view.dialog.QrCodeActivity;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 import tech.ntam.mylibrary.DummyClass;
+import tech.ntam.mylibrary.ImageFactor;
+import tech.ntam.mylibrary.IntentDataKey;
 import tech.ntam.mylibrary.Utils;
 import tech.ntam.mylibrary.interfaces.ProcessInterface;
 
@@ -68,7 +71,7 @@ public class UserProfileActivity extends MyToolbar {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(UserProfileActivity.this, UserHistoryNotificationActivity.class);
-                intent.putExtra("history", true);
+                intent.putExtra(IntentDataKey.SHOW_HISTORY_DATA_KEY, true);
                 startActivity(intent);
             }
         });
@@ -81,9 +84,9 @@ public class UserProfileActivity extends MyToolbar {
         tvUploadPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!editable)
+                if (!editable)
                     return;
-                EasyImage.openChooserWithGallery(UserProfileActivity.this, "Select Photo",EasyImageConfig.REQ_PICK_PICTURE_FROM_GALLERY);
+                EasyImage.openChooserWithGallery(UserProfileActivity.this, "Select Photo", EasyImageConfig.REQ_PICK_PICTURE_FROM_GALLERY);
             }
         });
     }
@@ -91,8 +94,6 @@ public class UserProfileActivity extends MyToolbar {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        final MyDialog myDialog =new MyDialog();
-        myDialog.showMyDialog(this);
         EasyImage.handleActivityResult(requestCode, resultCode, data, this, new DefaultCallback() {
             @Override
             public void onImagePickerError(Exception e, EasyImage.ImageSource source, int type) {
@@ -101,19 +102,26 @@ public class UserProfileActivity extends MyToolbar {
 
             @Override
             public void onImagePicked(File imageFile, EasyImage.ImageSource source, int type) {
-                Bitmap myBitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
-                ivProfilePhoto.setImageBitmap(myBitmap);
-                Utils.convertImageFromBitmapToStringBase64(myBitmap, new ProcessInterface() {
-                    @Override
-                    public void completed(String item) {
-                        photo = item;
-                        myDialog.dismissMyDialog();
-                    }
-                });
+                final MyDialog dialog = new MyDialog();
+                dialog.showMyDialog(UserProfileActivity.this);
+                try {
+                    Bitmap myBitmap = ImageFactor.getBitmapImageFromFilePathAfterResize(imageFile);
+                    ivProfilePhoto.setImageBitmap(myBitmap);
+                    Utils.convertImageFromBitmapToStringBase64(myBitmap, new ProcessInterface() {
+                        @Override
+                        public void completed(String item) {
+                            photo = item;
+                            dialog.dismissMyDialog();
+                        }
+                    });
+                } catch (FileNotFoundException e) {
+                    Toast.makeText(UserProfileActivity.this, R.string.photo_large, Toast.LENGTH_SHORT).show();
+                    dialog.dismissMyDialog();
+                }
             }
-
         });
     }
+
     private void findViewById() {
         ivProfilePhoto = findViewById(R.id.iv_profile_photo);
         tvUploadPhoto = findViewById(R.id.tv_upload_photo);
@@ -140,7 +148,7 @@ public class UserProfileActivity extends MyToolbar {
                 etPhone.setEnabled(false);
                 item.setIcon(R.drawable.ic_edit_24dp);
                 editable = false;
-                getUserProfileController().updateProfile(photo,etName,etPhone);
+                getUserProfileController().updateProfile(photo, etName, etPhone);
             } else {
                 // here make edit text editable
                 item.setIcon(R.drawable.ic_check_24dp);

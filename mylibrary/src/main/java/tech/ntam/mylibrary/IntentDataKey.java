@@ -8,5 +8,6 @@ public class IntentDataKey {
     public static final String SHOW_SERVICE_DATA_KEY = "service";
     public static final String SHOW_EVENT_DATA_KEY = "event";
     public static final String SHOW_WORKSHOP_DATA_KEY = "workshop";
+    public static final String SHOW_HISTORY_DATA_KEY = "history";
 
 }
