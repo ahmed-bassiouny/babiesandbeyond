@@ -30,6 +30,8 @@ public class Service implements Parcelable {
     private int serviceStatusId;
     @SerializedName("service_type_id")
     private int serviceTypeId;
+    @SerializedName("service_workshop_status_name")
+    private String serviceStatusName;
 
     public int getId() {
         return id;
@@ -76,16 +78,7 @@ public class Service implements Parcelable {
     }
 
     public String getServiceStatusString() {
-        switch (serviceStatusId) {
-            case 1:
-                return "Pending";
-            case 2:
-                return "Confirmation Without Payment";
-            case 3:
-                return "Confirmation With Payment";
-            default:
-                return "";
-        }
+        return Utils.getValueFromString(serviceStatusName);
     }
     public int getServiceStatusColor() {
         switch (serviceStatusId) {

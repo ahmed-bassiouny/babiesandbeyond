@@ -16,7 +16,7 @@ import android.widget.Toast;
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
-import tech.ntam.babiesandbeyond.interfaces.ShowInfo;
+import tech.ntam.babiesandbeyond.interfaces.ParseObject;
 import tech.ntam.babiesandbeyond.model.Service;
 import tech.ntam.babiesandbeyond.model.ServiceTypeList;
 import tech.ntam.babiesandbeyond.model.UserService;
@@ -29,7 +29,7 @@ import tech.ntam.mylibrary.IntentDataKey;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class UserServiceListFragment extends Fragment implements ShowInfo<Service> {
+public class UserServiceListFragment extends Fragment implements ParseObject<Service> {
 
     private RecyclerView recycleView;
     private static UserServiceListFragment userServiceListFragment;

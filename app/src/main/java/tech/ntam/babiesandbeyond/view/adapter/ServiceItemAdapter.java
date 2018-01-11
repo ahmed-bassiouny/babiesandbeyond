@@ -12,8 +12,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import tech.ntam.babiesandbeyond.R;
-import tech.ntam.babiesandbeyond.interfaces.ShowInfo;
-import tech.ntam.babiesandbeyond.model.History;
+import tech.ntam.babiesandbeyond.interfaces.ParseObject;
 import tech.ntam.babiesandbeyond.model.Service;
 import tech.ntam.babiesandbeyond.model.ServiceTypeList;
 
@@ -26,11 +25,11 @@ public class ServiceItemAdapter extends RecyclerView.Adapter<ServiceItemAdapter.
 
     private List<Service> services;
     private Context context;
-    private ShowInfo showInfo;
+    private ParseObject parseObject;
     public ServiceItemAdapter(Context context, Fragment fragment, List<Service> services) {
         this.services = services;
         this.context=context;
-        this.showInfo=(ShowInfo)fragment;
+        this.parseObject =(ParseObject)fragment;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -74,7 +73,7 @@ public class ServiceItemAdapter extends RecyclerView.Adapter<ServiceItemAdapter.
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showInfo.OnClick(service);
+                parseObject.OnClick(service);
             }
         });
     }
