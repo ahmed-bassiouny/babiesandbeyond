@@ -23,6 +23,7 @@ import tech.ntam.babiesandbeyond.view.fragments.UserAboutUsFragment;
 import tech.ntam.babiesandbeyond.view.fragments.UserEventsFragment;
 import tech.ntam.babiesandbeyond.view.fragments.UserGroupsFragment;
 import tech.ntam.babiesandbeyond.view.fragments.UserServiceFragment;
+import tech.ntam.babiesandbeyond.view.fragments.UserServiceListFragment;
 import tech.ntam.babiesandbeyond.view.fragments.UserWorkshopFragment;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 
@@ -122,7 +123,7 @@ public class UserHomeActivity extends MyToolbar implements MyToolbar.TitleToolba
             // Return a PlaceholderFragment (defined as a static inner class below).
             switch (position) {
                 case 0:
-                    return UserServiceFragment.newInstance();
+                    return UserServiceListFragment.newInstance();
                 case 1:
                     return UserEventsFragment.newInstance();
                 case 2:

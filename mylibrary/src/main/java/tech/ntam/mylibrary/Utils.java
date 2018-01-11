@@ -37,8 +37,7 @@ public class Utils {
 
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
-    public static final String DATE_FORMAT_NUMBER = "yyyy-MM-dd HH:mm:ss";
-    public static final String DATE_FORMAT_TEXT = "dd MMM yyyy HH:mm a";
+
 
     // value => i will send string from activity to another
     public static void goToFragment(int container, FragmentActivity fragmentActivity,
@@ -87,15 +86,7 @@ public class Utils {
         return matcher.find();
     }
 
-    public static Date convertStringToDate(String date) {
 
-        DateFormat format = new SimpleDateFormat(DATE_FORMAT_NUMBER, Locale.ENGLISH);
-        try {
-            return format.parse(date);
-        } catch (ParseException e) {
-            return new Date();
-        }
-    }
 
     public static void MyGlide(Activity activity, ImageView imageView, String url) {
         Glide.with(activity).load(url).error(R.drawable.person).into(imageView);
@@ -113,11 +104,6 @@ public class Utils {
             }
         }).start();
     }
-    public static String changeDateFormatFromNumberToText(String dateStr) throws ParseException {
-        DateFormat originalFormat = new SimpleDateFormat(DATE_FORMAT_NUMBER,Locale.ENGLISH);
-        DateFormat targetFormat = new SimpleDateFormat(DATE_FORMAT_TEXT,Locale.ENGLISH);
-        Date date = originalFormat.parse(dateStr);
-        return targetFormat.format(date);
-    }
+
 
 }

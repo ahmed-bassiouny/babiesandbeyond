@@ -32,8 +32,8 @@ public class ServiceDialogActivity extends AppCompatActivity {
 
     private void setDate() {
         Service service = getIntent().getParcelableExtra(IntentDataKey.SHOW_SERVICE_DATA_KEY);
-        tvServiceDateTimeFrom.setText(service.getStartDate());
-        tvServiceDateTimeTo.setText(service.getEndDate());
+        tvServiceDateTimeFrom.setText(service.getFullStartDate());
+        tvServiceDateTimeTo.setText(service.getFullEndDate());
         tvLocation.setText(service.getLocation());
         tvStatus.setText("Pending");
         tvServiceType.setText(ServiceTypeList.getServiceTypeNameFromId(service.getServiceTypeId()));

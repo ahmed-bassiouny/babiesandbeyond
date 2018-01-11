@@ -33,6 +33,7 @@ import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 import tech.ntam.mylibrary.DummyClass;
 import tech.ntam.mylibrary.IntentDataKey;
+import tech.ntam.mylibrary.MyDateTimeFactor;
 import tech.ntam.mylibrary.Utils;
 
 /**
@@ -82,7 +83,7 @@ public class UserEventsFragment extends Fragment {
     private void setEventInCalendar(List<tech.ntam.babiesandbeyond.model.Event> eventList) {
         List<Event> events = new ArrayList<>();
         for (tech.ntam.babiesandbeyond.model.Event item : eventList) {
-            events.add(new Event(R.color.gray_bold, Utils.convertStringToDate(item.getStartDate()).getTime(), item));
+            events.add(new Event(R.color.gray_bold, MyDateTimeFactor.convertStringToDate(item.getStartDate()).getTime(), item));
         }
         if (compactCalendarView != null)
             compactCalendarView.removeAllEvents();

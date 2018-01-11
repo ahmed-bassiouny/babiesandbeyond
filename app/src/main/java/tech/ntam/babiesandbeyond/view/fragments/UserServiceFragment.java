@@ -34,6 +34,7 @@ import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
 import tech.ntam.babiesandbeyond.view.dialog.ServiceDialogActivity;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 import tech.ntam.mylibrary.IntentDataKey;
+import tech.ntam.mylibrary.MyDateTimeFactor;
 import tech.ntam.mylibrary.Utils;
 
 /**
@@ -76,7 +77,7 @@ public class UserServiceFragment extends Fragment {
     private void setServiceInCalendar(List<Service> serviceList) {
         List<Event> events = new ArrayList<>();
         for (Service item : serviceList) {
-            events.add(new Event(R.color.gray_bold, Utils.convertStringToDate(item.getStartDate()).getTime(), item));
+            events.add(new Event(R.color.gray_bold, MyDateTimeFactor.convertStringToDate(item.getFullStartDate()).getTime(), item));
         }
         if (compactCalendarView != null)
             compactCalendarView.removeAllEvents();

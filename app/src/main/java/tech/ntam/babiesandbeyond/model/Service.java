@@ -5,6 +5,8 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import tech.ntam.babiesandbeyond.R;
+import tech.ntam.mylibrary.MyDateTimeFactor;
 import tech.ntam.mylibrary.Utils;
 
 /**
@@ -37,11 +39,31 @@ public class Service implements Parcelable {
         return userId;
     }
 
-    public String getStartDate() {
+    public String getFullStartDate() {
         return Utils.getValueFromString(startDate);
     }
 
+    public String getStartDate() {
+        startDate = Utils.getValueFromString(startDate);
+        return MyDateTimeFactor.getDateFromDateTime(startDate);
+    }
+
+    public String getStartTime() {
+        startDate = Utils.getValueFromString(startDate);
+        return MyDateTimeFactor.getTimeFromDateTime(startDate);
+    }
+
     public String getEndDate() {
+        endDate = Utils.getValueFromString(endDate);
+        return MyDateTimeFactor.getDateFromDateTime(endDate);
+    }
+
+    public String getEndTime() {
+        endDate = Utils.getValueFromString(endDate);
+        return MyDateTimeFactor.getTimeFromDateTime(endDate);
+    }
+
+    public String getFullEndDate() {
         return Utils.getValueFromString(endDate);
     }
 
@@ -53,8 +75,29 @@ public class Service implements Parcelable {
         return Utils.getValueFromString(price);
     }
 
-    public int getServiceStatusId() {
-        return serviceStatusId;
+    public String getServiceStatusString() {
+        switch (serviceStatusId) {
+            case 1:
+                return "Pending";
+            case 2:
+                return "Confirmation Without Payment";
+            case 3:
+                return "Confirmation With Payment";
+            default:
+                return "";
+        }
+    }
+    public int getServiceStatusColor() {
+        switch (serviceStatusId) {
+            case 1:
+                return R.color.colorButton;
+            case 2:
+                return R.color.gray_bold;
+            case 3:
+                return R.color.gray;
+            default:
+                return R.color.white;
+        }
     }
 
     public int getServiceTypeId() {

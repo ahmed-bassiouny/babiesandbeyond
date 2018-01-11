@@ -14,6 +14,7 @@ import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.babiesandbeyond.model.Workshop;
 import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
+import tech.ntam.mylibrary.MyDateTimeFactor;
 import tech.ntam.mylibrary.Utils;
 
 /**
@@ -49,7 +50,7 @@ public class UserWorkshopController {
     private void setWorkshopInCalendar(CompactCalendarView compactCalendarView, List<Workshop> workshops) {
         List<Event> events = new ArrayList<>();
         for (Workshop item : workshops) {
-            events.add(new Event(activity.getResources().getColor(R.color.gray_bold), Utils.convertStringToDate(item.getStartDate()).getTime(), item));
+            events.add(new Event(activity.getResources().getColor(R.color.gray_bold), MyDateTimeFactor.convertStringToDate(item.getStartDate()).getTime(), item));
         }
         if (compactCalendarView != null)
             compactCalendarView.removeAllEvents();

@@ -1,0 +1,34 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="tech.ntam.babiesandbeyond.view.fragments.UserServiceListFragment">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="All"
+        android:layout_marginStart="10dp"
+        android:id="@+id/tv_service_filter_type"
+        android:textSize="15sp" />
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tv_service_filter_type"
+        android:layout_above="@+id/btn_send_request"
+        android:layout_margin="10dp"
+        android:id="@+id/recycle_view"/>
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        android:textAllCaps="false"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/btn_send_request"
+        android:fontFamily="@font/museosans"
+        android:background="@color/colorButton"
+        android:text="@string/send_request" />
+
+</RelativeLayout>

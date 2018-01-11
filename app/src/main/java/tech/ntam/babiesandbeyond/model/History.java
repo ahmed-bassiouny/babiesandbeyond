@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.text.ParseException;
 
+import tech.ntam.mylibrary.MyDateTimeFactor;
 import tech.ntam.mylibrary.Utils;
 
 /**
@@ -29,7 +30,7 @@ public class History {
 
     public String getStartDate() {
         try {
-            startDate = Utils.changeDateFormatFromNumberToText(startDate);
+            startDate = MyDateTimeFactor.changeDateFormatFromNumberToText(startDate);
         } catch (ParseException e) {
             startDate = "";
         }
@@ -38,7 +39,7 @@ public class History {
 
     public String getEndDate() {
         try {
-            endDate = Utils.changeDateFormatFromNumberToText(endDate);
+            endDate = MyDateTimeFactor.changeDateFormatFromNumberToText(endDate);
         } catch (ParseException e) {
             endDate = "";
         }
