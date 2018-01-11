@@ -125,6 +125,8 @@
 
     <string name="time_from">Time From</string>
     <string name="time_to">Time To</string>
+    <string name="fee">Fee</string>
+    <string name="service_information">Service Information</string>
 
 
 </resources>

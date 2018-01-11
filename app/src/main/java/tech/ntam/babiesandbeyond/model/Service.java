@@ -72,7 +72,7 @@ public class Service implements Parcelable {
     }
 
     public String getPrice() {
-        return Utils.getValueFromString(price);
+        return Utils.getValueFromString(price)+"$";
     }
 
     public String getServiceStatusString() {

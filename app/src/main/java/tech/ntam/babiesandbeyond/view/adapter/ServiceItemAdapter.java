@@ -1,6 +1,7 @@
 package tech.ntam.babiesandbeyond.view.adapter;
 
 import android.content.Context;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import tech.ntam.babiesandbeyond.R;
+import tech.ntam.babiesandbeyond.interfaces.ShowInfo;
 import tech.ntam.babiesandbeyond.model.History;
 import tech.ntam.babiesandbeyond.model.Service;
 import tech.ntam.babiesandbeyond.model.ServiceTypeList;
@@ -24,9 +26,11 @@ public class ServiceItemAdapter extends RecyclerView.Adapter<ServiceItemAdapter.
 
     private List<Service> services;
     private Context context;
-    public ServiceItemAdapter(Context context,List<Service> services) {
+    private ShowInfo showInfo;
+    public ServiceItemAdapter(Context context, Fragment fragment, List<Service> services) {
         this.services = services;
         this.context=context;
+        this.showInfo=(ShowInfo)fragment;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -59,7 +63,7 @@ public class ServiceItemAdapter extends RecyclerView.Adapter<ServiceItemAdapter.
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        Service service = services.get(position);
+        final Service service = services.get(position);
         holder.tvDateFrom.setText(service.getStartDate());
         holder.tvTimeFrom.setText(service.getStartTime());
         holder.tvDateTo.setText(service.getEndDate());
@@ -67,6 +71,12 @@ public class ServiceItemAdapter extends RecyclerView.Adapter<ServiceItemAdapter.
         holder.tvServiceType.setText(ServiceTypeList.getServiceTypeNameFromId(service.getServiceTypeId()));
         holder.tvServiceStatus.setText(service.getServiceStatusString());
         holder.tvServiceStatus.setBackgroundColor(context.getResources().getColor(service.getServiceStatusColor()));
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showInfo.OnClick(service);
+            }
+        });
     }
 
     @Override

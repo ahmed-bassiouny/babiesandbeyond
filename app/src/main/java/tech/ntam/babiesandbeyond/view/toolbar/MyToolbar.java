@@ -11,6 +11,7 @@ import android.widget.TextView;
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.view.activities.UserHistoryNotificationActivity;
 import tech.ntam.babiesandbeyond.view.activities.UserProfileActivity;
+import tech.ntam.mylibrary.IntentDataKey;
 
 /**
  * Created by bassiouny on 26/12/17.
@@ -63,7 +64,7 @@ public class MyToolbar extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, UserHistoryNotificationActivity.class);
-                intent.putExtra("history", false);
+                intent.putExtra(IntentDataKey.SHOW_HISTORY_DATA_KEY, false);
                 startActivity(intent);
             }
         });

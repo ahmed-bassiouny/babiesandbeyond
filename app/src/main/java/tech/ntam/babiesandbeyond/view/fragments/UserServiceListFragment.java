@@ -1,6 +1,7 @@
 package tech.ntam.babiesandbeyond.view.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,15 +16,19 @@ import android.widget.Toast;
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
+import tech.ntam.babiesandbeyond.interfaces.ShowInfo;
+import tech.ntam.babiesandbeyond.model.Service;
 import tech.ntam.babiesandbeyond.model.ServiceTypeList;
 import tech.ntam.babiesandbeyond.model.UserService;
+import tech.ntam.babiesandbeyond.view.activities.ShowServiceInfoActivity;
 import tech.ntam.babiesandbeyond.view.adapter.ServiceItemAdapter;
 import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
+import tech.ntam.mylibrary.IntentDataKey;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class UserServiceListFragment extends Fragment {
+public class UserServiceListFragment extends Fragment implements ShowInfo<Service> {
 
     private RecyclerView recycleView;
     private static UserServiceListFragment userServiceListFragment;
@@ -60,7 +65,7 @@ public class UserServiceListFragment extends Fragment {
             public void onSuccess(UserService userService) {
                 if (userService != null) {
                     ServiceTypeList.setServiceTypes(userService.getServiceTypes());
-                    ServiceItemAdapter serviceItemAdapter = new ServiceItemAdapter(getContext(),userService.getServices());
+                    ServiceItemAdapter serviceItemAdapter = new ServiceItemAdapter(getContext(),UserServiceListFragment.this,userService.getServices());
                     recycleView.setAdapter(serviceItemAdapter);
                     myDialog.dismissMyDialog();
                 }
@@ -74,4 +79,10 @@ public class UserServiceListFragment extends Fragment {
         });
     }
 
+    @Override
+    public void OnClick(Service service) {
+        Intent intent = new Intent(getContext(), ShowServiceInfoActivity.class);
+        intent.putExtra(IntentDataKey.SHOW_SERVICE_DATA_KEY,service);
+        startActivity(intent);
+    }
 }
