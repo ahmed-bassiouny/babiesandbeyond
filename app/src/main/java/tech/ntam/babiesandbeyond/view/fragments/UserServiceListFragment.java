@@ -21,6 +21,7 @@ import tech.ntam.babiesandbeyond.model.Service;
 import tech.ntam.babiesandbeyond.model.ServiceTypeList;
 import tech.ntam.babiesandbeyond.model.UserService;
 import tech.ntam.babiesandbeyond.view.activities.ShowServiceInfoActivity;
+import tech.ntam.babiesandbeyond.view.activities.UserSendRequestActivity;
 import tech.ntam.babiesandbeyond.view.adapter.ServiceItemAdapter;
 import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
 import tech.ntam.mylibrary.IntentDataKey;
@@ -54,6 +55,12 @@ public class UserServiceListFragment extends Fragment implements ShowInfo<Servic
         super.onViewCreated(view, savedInstanceState);
         recycleView = view.findViewById(R.id.recycle_view);
         recycleView.setLayoutManager(new LinearLayoutManager(getContext()));
+        view.findViewById(R.id.btn_send_request).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), UserSendRequestActivity.class));
+            }
+        });
         loadService();
     }
 
