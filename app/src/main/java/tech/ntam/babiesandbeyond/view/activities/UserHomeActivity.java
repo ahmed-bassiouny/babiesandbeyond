@@ -25,6 +25,7 @@ import tech.ntam.babiesandbeyond.view.fragments.UserGroupsFragment;
 import tech.ntam.babiesandbeyond.view.fragments.UserServiceFragment;
 import tech.ntam.babiesandbeyond.view.fragments.UserServiceListFragment;
 import tech.ntam.babiesandbeyond.view.fragments.UserWorkshopFragment;
+import tech.ntam.babiesandbeyond.view.fragments.UserWorkshopListFragment;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 
 public class UserHomeActivity extends MyToolbar implements MyToolbar.TitleToolbar {
@@ -127,7 +128,7 @@ public class UserHomeActivity extends MyToolbar implements MyToolbar.TitleToolba
                 case 1:
                     return UserEventsFragment.newInstance();
                 case 2:
-                    return UserWorkshopFragment.newInstance();
+                    return UserWorkshopListFragment.newInstance();
                 case 3:
                     return UserGroupsFragment.newInstance();
                 case 4:

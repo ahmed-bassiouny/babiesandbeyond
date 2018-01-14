@@ -43,7 +43,7 @@ public class WorkShopDialogActivity extends AppCompatActivity {
         tvWorkshopDateTimeTo.setText(workshop.getEndDate());
         tvSpeakerName.setText(workshop.getSpeakerName());
         tvSpeakerBio.setText(workshop.getSpeakerBio());
-        tvStatus.setText(workshop.getPaymentStatus());
+        tvStatus.setText(workshop.getWorkshopStatusName());
         tvEventDescription.setText(workshop.getDescription());
         if(workshop.isComing()){
             btnComing.setEnabled(false);

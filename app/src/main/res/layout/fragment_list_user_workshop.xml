@@ -1,0 +1,25 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="tech.ntam.babiesandbeyond.view.fragments.UserServiceListFragment">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="All"
+        android:layout_marginStart="15dp"
+        android:textColor="@color/gray_bold"
+        android:textStyle="bold"
+        android:layout_marginTop="5dp"
+        android:id="@+id/tv_service_filter_type"
+        android:textSize="15sp" />
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tv_service_filter_type"
+        android:layout_above="@+id/btn_send_request"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:id="@+id/recycle_view"/>
+</RelativeLayout>

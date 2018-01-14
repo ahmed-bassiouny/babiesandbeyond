@@ -24,6 +24,7 @@ import tech.ntam.babiesandbeyond.view.activities.ShowServiceInfoActivity;
 import tech.ntam.babiesandbeyond.view.activities.UserSendRequestActivity;
 import tech.ntam.babiesandbeyond.view.adapter.ServiceItemAdapter;
 import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
+import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 import tech.ntam.mylibrary.IntentDataKey;
 
 /**
@@ -63,6 +64,15 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
         });
         loadService();
     }
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (getContext() != null && isVisibleToUser) {
+            MyToolbar.TitleToolbar titleToolbar = (MyToolbar.TitleToolbar) getActivity();
+            titleToolbar.setTitleToolbar(getString(R.string.services));
+        }
+    }
+
 
     private void loadService() {
         final MyDialog myDialog = new MyDialog();

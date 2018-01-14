@@ -93,6 +93,7 @@ public class UserServiceFragment extends Fragment {
         }
     }
 
+
     private void initObject() {
         compactCalendarView.setLocale(TimeZone.getDefault(), Locale.getDefault());
         Date date = new Date();

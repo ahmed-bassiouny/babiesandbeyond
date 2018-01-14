@@ -112,6 +112,7 @@ public class Service implements Parcelable {
         dest.writeString(this.price);
         dest.writeInt(this.serviceStatusId);
         dest.writeInt(this.serviceTypeId);
+        dest.writeString(this.serviceStatusName);
     }
 
     public Service() {
@@ -126,6 +127,7 @@ public class Service implements Parcelable {
         this.price = in.readString();
         this.serviceStatusId = in.readInt();
         this.serviceTypeId = in.readInt();
+        this.serviceStatusName=in.readString();
     }
 
     public static final Parcelable.Creator<Service> CREATOR = new Parcelable.Creator<Service>() {

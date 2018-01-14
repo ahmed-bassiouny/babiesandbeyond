@@ -5,6 +5,8 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import tech.ntam.babiesandbeyond.R;
+import tech.ntam.mylibrary.MyDateTimeFactor;
 import tech.ntam.mylibrary.Utils;
 
 /**
@@ -35,6 +37,8 @@ public class Workshop implements Parcelable {
     private boolean coming;
     @SerializedName("payment_status")
     private String paymentStatus;
+    @SerializedName("service_workshop_status_name")
+    private String workshopStatusName;
 
     public int getId() {
         return id;
@@ -43,12 +47,31 @@ public class Workshop implements Parcelable {
     public String getName() {
         return Utils.getValueFromString(name);
     }
-
-    public String getStartDate() {
+    public String getFullStartDate() {
         return Utils.getValueFromString(startDate);
     }
 
+    public String getStartDate() {
+        startDate = Utils.getValueFromString(startDate);
+        return MyDateTimeFactor.getDateFromDateTime(startDate);
+    }
+
+    public String getStartTime() {
+        startDate = Utils.getValueFromString(startDate);
+        return MyDateTimeFactor.getTimeFromDateTime(startDate);
+    }
+
     public String getEndDate() {
+        endDate = Utils.getValueFromString(endDate);
+        return MyDateTimeFactor.getDateFromDateTime(endDate);
+    }
+
+    public String getEndTime() {
+        endDate = Utils.getValueFromString(endDate);
+        return MyDateTimeFactor.getTimeFromDateTime(endDate);
+    }
+
+    public String getFullEndDate() {
         return Utils.getValueFromString(endDate);
     }
 
@@ -75,18 +98,25 @@ public class Workshop implements Parcelable {
     public boolean isComing() {
         return coming;
     }
+    public int getWorkshopStatusColor() {
+        switch (paymentStatus) {
+            case "1":
+                return R.color.colorButton;
+            case "2":
+                return R.color.gray_bold;
+            case "3":
+                return R.color.gray;
+            default:
+                return R.color.white;
+        }
+    }
 
     public String getPaymentStatus() {
-        paymentStatus = Utils.getValueFromString(paymentStatus);
-        if (paymentStatus.equals(PaymentStatus.pending)) {
-            return PaymentStatus.pendingString;
-        } else if (paymentStatus.equals(PaymentStatus.confirmationWithoutPayment)) {
-            return PaymentStatus.confirmationWithoutPaymentString;
-        } else if (paymentStatus.equals(PaymentStatus.confirmationWithPayment)) {
-            return PaymentStatus.confirmationWithPaymentString;
-        } else {
-            return "";
-        }
+        return paymentStatus;
+    }
+
+    public String getWorkshopStatusName() {
+        return Utils.getValueFromString(workshopStatusName);
     }
 
     @Override
@@ -107,6 +137,7 @@ public class Workshop implements Parcelable {
         dest.writeString(this.point);
         dest.writeByte(this.coming ? (byte) 1 : (byte) 0);
         dest.writeString(this.paymentStatus);
+        dest.writeString(this.workshopStatusName);
     }
 
     public Workshop() {
@@ -124,6 +155,7 @@ public class Workshop implements Parcelable {
         this.point = in.readString();
         this.coming = in.readByte() != 0;
         this.paymentStatus = in.readString();
+        this.workshopStatusName = in.readString();
     }
 
     public static final Parcelable.Creator<Workshop> CREATOR = new Parcelable.Creator<Workshop>() {
