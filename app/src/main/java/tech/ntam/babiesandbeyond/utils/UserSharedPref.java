@@ -32,7 +32,7 @@ public class UserSharedPref {
         editor.putString(USER_TOKEN, userToken);
         editor.putString(USER_EMAIL, userEmail);
         editor.putInt(USER_ID, id);
-        editor.apply();
+        editor.commit();
     }
     public static void setNotificationToken(Context context, String notificationToken) {
         getSharedPref(context);

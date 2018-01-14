@@ -79,7 +79,7 @@ public class RequestAndResponse {
             @Override
             public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
                 checkValidResult(response.code(), response.body().getStatus()
-                        , response.body().getUser(), response.body().getMessage(), anInterface);
+                        , response.body().getUserData().getUser(), response.body().getMessage(), anInterface);
             }
 
             @Override

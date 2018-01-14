@@ -32,9 +32,9 @@ public class SignUpController {
                     @Override
                     public void onSuccess(User user) {
                         if (user != null) {
-                            myDialog.dismissMyDialog();
                             UserSharedPref.setUserInfo(activity, user.getUser_token(), user.getEmail(),user.getId());
                             Toast.makeText(activity, activity.getString(R.string.register_successful), Toast.LENGTH_SHORT).show();
+                            myDialog.dismissMyDialog();
                             activity.finish();
                             activity.startActivity(new Intent(activity, UserHomeActivity.class));
                         }
