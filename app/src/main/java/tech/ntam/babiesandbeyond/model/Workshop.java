@@ -39,7 +39,8 @@ public class Workshop implements Parcelable {
     private String paymentStatus;
     @SerializedName("service_workshop_status_name")
     private String workshopStatusName;
-
+    @SerializedName("location")
+    private String location;
     public int getId() {
         return id;
     }
@@ -111,6 +112,10 @@ public class Workshop implements Parcelable {
         }
     }
 
+    public String getLocation() {
+        return Utils.getValueFromString(location);
+    }
+
     public String getPaymentStatus() {
         return paymentStatus;
     }
@@ -138,6 +143,7 @@ public class Workshop implements Parcelable {
         dest.writeByte(this.coming ? (byte) 1 : (byte) 0);
         dest.writeString(this.paymentStatus);
         dest.writeString(this.workshopStatusName);
+        dest.writeString(this.location);
     }
 
     public Workshop() {
@@ -156,6 +162,7 @@ public class Workshop implements Parcelable {
         this.coming = in.readByte() != 0;
         this.paymentStatus = in.readString();
         this.workshopStatusName = in.readString();
+        this.location=in.readString();
     }
 
     public static final Parcelable.Creator<Workshop> CREATOR = new Parcelable.Creator<Workshop>() {

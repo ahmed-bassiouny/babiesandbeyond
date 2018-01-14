@@ -29,6 +29,8 @@ import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.babiesandbeyond.controller.fragments.UserWorkshopController;
 import tech.ntam.babiesandbeyond.interfaces.ParseObject;
 import tech.ntam.babiesandbeyond.model.Workshop;
+import tech.ntam.babiesandbeyond.view.activities.ShowServiceInfoActivity;
+import tech.ntam.babiesandbeyond.view.activities.ShowWorkshopInfoActivity;
 import tech.ntam.babiesandbeyond.view.adapter.WorkshopItemAdapter;
 import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
 import tech.ntam.babiesandbeyond.view.dialog.WorkShopDialogActivity;
@@ -104,6 +106,8 @@ public class UserWorkshopListFragment extends Fragment implements ParseObject<Wo
 
     @Override
     public void OnClick(Workshop workshop) {
-
+        Intent intent = new Intent(getContext(), ShowWorkshopInfoActivity.class);
+        intent.putExtra(IntentDataKey.SHOW_WORKSHOP_DATA_KEY,workshop);
+        startActivity(intent);
     }
 }
