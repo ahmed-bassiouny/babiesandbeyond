@@ -20,6 +20,7 @@ import java.lang.reflect.Field;
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.utils.BottomNavigationViewHelper;
 import tech.ntam.babiesandbeyond.view.fragments.UserAboutUsFragment;
+import tech.ntam.babiesandbeyond.view.fragments.UserEventListFragment;
 import tech.ntam.babiesandbeyond.view.fragments.UserEventsFragment;
 import tech.ntam.babiesandbeyond.view.fragments.UserGroupsFragment;
 import tech.ntam.babiesandbeyond.view.fragments.UserServiceFragment;
@@ -126,7 +127,7 @@ public class UserHomeActivity extends MyToolbar implements MyToolbar.TitleToolba
                 case 0:
                     return UserServiceListFragment.newInstance();
                 case 1:
-                    return UserEventsFragment.newInstance();
+                    return UserEventListFragment.newInstance();
                 case 2:
                     return UserWorkshopListFragment.newInstance();
                 case 3:

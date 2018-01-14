@@ -1,0 +1,103 @@
+package tech.ntam.babiesandbeyond.view.fragments;
+
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
+
+import java.util.List;
+
+import tech.ntam.babiesandbeyond.R;
+import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
+import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
+import tech.ntam.babiesandbeyond.controller.fragments.UserWorkshopController;
+import tech.ntam.babiesandbeyond.interfaces.ParseObject;
+import tech.ntam.babiesandbeyond.model.Event;
+import tech.ntam.babiesandbeyond.model.Workshop;
+import tech.ntam.babiesandbeyond.view.activities.ShowWorkshopInfoActivity;
+import tech.ntam.babiesandbeyond.view.adapter.EventItemAdapter;
+import tech.ntam.babiesandbeyond.view.adapter.WorkshopItemAdapter;
+import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
+import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
+import tech.ntam.mylibrary.IntentDataKey;
+
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class UserEventListFragment extends Fragment implements ParseObject<Workshop> {
+
+    private RecyclerView recycleView;
+    private static UserEventListFragment userEventListFragment;
+
+    public UserEventListFragment() {
+        // Required empty public constructor
+    }
+
+
+    public static UserEventListFragment newInstance() {
+        if (userEventListFragment == null) {
+            userEventListFragment = new UserEventListFragment();
+        }
+        return userEventListFragment;
+    }
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_list_user_workshop, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        recycleView = view.findViewById(R.id.recycle_view);
+        recycleView.setLayoutManager(new LinearLayoutManager(getContext()));
+        loadEvents();
+    }
+
+
+    private void loadEvents(){
+        final MyDialog myDialog = new MyDialog();
+        myDialog.showMyDialog(getContext());
+        RequestAndResponse.getEvents(getContext(), new BaseResponseInterface<List<Event>>() {
+            @Override
+            public void onSuccess(List<Event> events) {
+                EventItemAdapter eventItemAdapter = new EventItemAdapter(getContext(),UserEventListFragment.this,events);
+                recycleView.setAdapter(eventItemAdapter);
+                myDialog.dismissMyDialog();
+            }
+
+            @Override
+            public void onFailed(String errorMessage) {
+                Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
+                myDialog.dismissMyDialog();
+            }
+        });
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (getContext() != null && isVisibleToUser) {
+            MyToolbar.TitleToolbar titleToolbar = (MyToolbar.TitleToolbar) getActivity();
+            titleToolbar.setTitleToolbar(getString(R.string.events));
+        }
+    }
+
+    @Override
+    public void OnClick(Workshop workshop) {
+        Intent intent = new Intent(getContext(), ShowWorkshopInfoActivity.class);
+        intent.putExtra(IntentDataKey.SHOW_EVENT_DATA_KEY,workshop);
+        startActivity(intent);
+    }
+}

@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import tech.ntam.mylibrary.MyDateTimeFactor;
 import tech.ntam.mylibrary.Utils;
 
 /**
@@ -40,12 +41,32 @@ public class Event implements Parcelable {
         return Utils.getValueFromString(name);
     }
 
+    public String getFullStartDate() {
+        return Utils.getValueFromString(startDate);
+    }
+
     public String getStartDate() {
-        return startDate;
+        startDate = Utils.getValueFromString(startDate);
+        return MyDateTimeFactor.getDateFromDateTime(startDate);
+    }
+
+    public String getStartTime() {
+        startDate = Utils.getValueFromString(startDate);
+        return MyDateTimeFactor.getTimeFromDateTime(startDate);
     }
 
     public String getEndDate() {
-        return endDate;
+        endDate = Utils.getValueFromString(endDate);
+        return MyDateTimeFactor.getDateFromDateTime(endDate);
+    }
+
+    public String getEndTime() {
+        endDate = Utils.getValueFromString(endDate);
+        return MyDateTimeFactor.getTimeFromDateTime(endDate);
+    }
+
+    public String getFullEndDate() {
+        return Utils.getValueFromString(endDate);
     }
 
     public String getDescription() {
