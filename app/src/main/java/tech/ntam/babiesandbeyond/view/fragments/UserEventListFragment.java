@@ -1,6 +1,7 @@
 package tech.ntam.babiesandbeyond.view.fragments;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -37,6 +38,7 @@ public class UserEventListFragment extends Fragment implements ParseObject<Event
 
     private RecyclerView recycleView;
     private static UserEventListFragment userEventListFragment;
+    private EventItemAdapter eventItemAdapter;
 
     public UserEventListFragment() {
         // Required empty public constructor
@@ -73,7 +75,7 @@ public class UserEventListFragment extends Fragment implements ParseObject<Event
         RequestAndResponse.getEvents(getContext(), new BaseResponseInterface<List<Event>>() {
             @Override
             public void onSuccess(List<Event> events) {
-                EventItemAdapter eventItemAdapter = new EventItemAdapter(getContext(),UserEventListFragment.this,events);
+                eventItemAdapter = new EventItemAdapter(getContext(),UserEventListFragment.this,events);
                 recycleView.setAdapter(eventItemAdapter);
                 myDialog.dismissMyDialog();
             }
@@ -99,6 +101,17 @@ public class UserEventListFragment extends Fragment implements ParseObject<Event
     public void getMyObject(Event event) {
         Intent intent = new Intent(getContext(), ShowEventInfoActivity.class);
         intent.putExtra(IntentDataKey.SHOW_EVENT_DATA_KEY,event);
-        startActivity(intent);
+        startActivityForResult(intent,IntentDataKey.CHANGE_EVENT_DATA_CODE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == IntentDataKey.CHANGE_EVENT_DATA_CODE && resultCode == Activity.RESULT_OK && data != null) {
+            Event event= data.getParcelableExtra(IntentDataKey.CHANGE_EVENT_DATA_KEY);
+            if(event != null){
+                eventItemAdapter.updateEvent(event);
+            }
+        }
     }
 }

@@ -25,9 +25,10 @@ public class EventItemAdapter extends RecyclerView.Adapter<EventItemAdapter.MyVi
     private List<Event> events;
     private ParseObject parseObject;
     private Context context;
+
     public EventItemAdapter(Context context, Fragment fragment, List<Event> events) {
         this.events = events;
-        this.parseObject =(ParseObject)fragment;
+        this.parseObject = (ParseObject) fragment;
         this.context = context;
     }
 
@@ -72,10 +73,10 @@ public class EventItemAdapter extends RecyclerView.Adapter<EventItemAdapter.MyVi
         holder.tvTimeTo.setText(event.getEndTime());
         holder.tvServiceType.setText(event.getName());
         holder.tvServiceStatus.setText(event.getName());
-        if(event.isComing()){
+        if (event.isComing()) {
             holder.tvServiceStatus.setText(R.string.coming);
             holder.tvServiceStatus.setBackgroundColor(context.getResources().getColor(R.color.gray_bold));
-        }else {
+        } else {
             holder.tvServiceStatus.setText(R.string.not_coming);
             holder.tvServiceStatus.setBackgroundColor(context.getResources().getColor(R.color.colorButton));
         }
@@ -90,5 +91,16 @@ public class EventItemAdapter extends RecyclerView.Adapter<EventItemAdapter.MyVi
     @Override
     public int getItemCount() {
         return events.size();
+    }
+
+    public void updateEvent(Event event) {
+        int eventsLenght = events.size();
+        for (int i = 0; i < eventsLenght; i++) {
+            if (event.getId() == events.get(i).getId()) {
+                events.get(i).setComing(event.isComing());
+                notifyItemChanged(i);
+                break;
+            }
+        }
     }
 }

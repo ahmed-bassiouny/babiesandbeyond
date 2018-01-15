@@ -89,12 +89,14 @@ public class WorkshopItemAdapter extends RecyclerView.Adapter<WorkshopItemAdapte
     }
 
     public void updateWorkshop(Workshop workshop) {
-        for (Workshop item : workshops) {
-            if (workshop.getId() == item.getId()) {
-                item.setComing(true);
-                item.setWorkshopStatusName(workshop.getWorkshopStatusName());
+        int workshopsLenght = workshops.size();
+        for (int i=0;i<workshopsLenght;i++) {
+            if (workshop.getId() == workshops.get(i).getId()) {
+                workshops.get(i).setComing(true);
+                workshops.get(i).setWorkshopStatusName(workshop.getWorkshopStatusName());
+                notifyItemChanged(i);
+                break;
             }
         }
-        notifyDataSetChanged();
     }
 }
