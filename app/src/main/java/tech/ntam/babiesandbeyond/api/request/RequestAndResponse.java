@@ -10,6 +10,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.api.api_model.response.AboutResponse;
+import tech.ntam.babiesandbeyond.api.api_model.response.AddServiceResponse;
+import tech.ntam.babiesandbeyond.api.api_model.response.AddWorkshopResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.EventsResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.GroupResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.HistoryResponse;
@@ -26,6 +28,7 @@ import tech.ntam.babiesandbeyond.model.Event;
 import tech.ntam.babiesandbeyond.model.Group;
 import tech.ntam.babiesandbeyond.model.History;
 import tech.ntam.babiesandbeyond.model.Notification;
+import tech.ntam.babiesandbeyond.model.Service;
 import tech.ntam.babiesandbeyond.model.User;
 import tech.ntam.babiesandbeyond.model.UserData;
 import tech.ntam.babiesandbeyond.model.UserService;
@@ -105,20 +108,20 @@ public class RequestAndResponse {
         });
     }
 
-    public static void requestService(Context context, int serviceTypeId, String startDate, String endDate, String location, final BaseResponseInterface<ParentResponse> anInterface) {
-        Call<ParentResponse> response = baseRequestInterface.requestService(
+    public static void requestService(Context context, int serviceTypeId, String startDate, String endDate, String location, final BaseResponseInterface<Service> anInterface) {
+        Call<AddServiceResponse> response = baseRequestInterface.requestService(
                 UserSharedPref.getTokenWithHeader(context),
                 UserSharedPref.getId(context),
                 serviceTypeId, startDate, endDate, location);
-        response.enqueue(new Callback<ParentResponse>() {
+        response.enqueue(new Callback<AddServiceResponse>() {
             @Override
-            public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {
+            public void onResponse(Call<AddServiceResponse> call, Response<AddServiceResponse> response) {
                 checkValidResult(response.code(), response.body().getStatus()
-                        , null, response.body().getMessage(), anInterface);
+                        , response.body().getService(), response.body().getMessage(), anInterface);
             }
 
             @Override
-            public void onFailure(Call<ParentResponse> call, Throwable t) {
+            public void onFailure(Call<AddServiceResponse> call, Throwable t) {
                 anInterface.onFailed(t.getLocalizedMessage());
             }
         });
@@ -344,19 +347,19 @@ public class RequestAndResponse {
         });
     }
 
-    public static void sendWorkshopRequest(Context context, int workshopId, final BaseResponseInterface<String> anInterface) {
-        Call<ParentResponse> response = baseRequestInterface.sendWorkshopRequest(
+    public static void sendWorkshopRequest(Context context, int workshopId, final BaseResponseInterface<Workshop> anInterface) {
+        Call<AddWorkshopResponse> response = baseRequestInterface.sendWorkshopRequest(
                 UserSharedPref.getTokenWithHeader(context),
                 UserSharedPref.getId(context), workshopId);
-        response.enqueue(new Callback<ParentResponse>() {
+        response.enqueue(new Callback<AddWorkshopResponse>() {
             @Override
-            public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {
+            public void onResponse(Call<AddWorkshopResponse> call, Response<AddWorkshopResponse> response) {
                 checkValidResult(response.code(), response.body().getStatus()
-                        , response.body().getMessage(), response.body().getMessage(), anInterface);
+                        , response.body().getWorkshop(), response.body().getMessage(), anInterface);
             }
 
             @Override
-            public void onFailure(Call<ParentResponse> call, Throwable t) {
+            public void onFailure(Call<AddWorkshopResponse> call, Throwable t) {
                 anInterface.onFailed(t.getLocalizedMessage());
             }
         });

@@ -25,9 +25,10 @@ public class WorkshopItemAdapter extends RecyclerView.Adapter<WorkshopItemAdapte
     private List<Workshop> workshops;
     private ParseObject parseObject;
     private Context context;
-    public WorkshopItemAdapter(Context context,Fragment fragment, List<Workshop> workshops) {
+
+    public WorkshopItemAdapter(Context context, Fragment fragment, List<Workshop> workshops) {
         this.workshops = workshops;
-        this.parseObject =(ParseObject)fragment;
+        this.parseObject = (ParseObject) fragment;
         this.context = context;
     }
 
@@ -71,7 +72,7 @@ public class WorkshopItemAdapter extends RecyclerView.Adapter<WorkshopItemAdapte
         holder.tvTimeTo.setText(workshop.getEndTime());
         holder.tvServiceType.setText(workshop.getName());
         holder.tvServiceStatus.setText(workshop.getWorkshopStatusName());
-        if(!workshop.getWorkshopStatusName().isEmpty()){
+        if (!workshop.getWorkshopStatusName().isEmpty()) {
             holder.tvServiceStatus.setBackgroundColor(context.getResources().getColor(workshop.getWorkshopStatusColor()));
         }
         holder.imageView.setOnClickListener(new View.OnClickListener() {
@@ -85,5 +86,15 @@ public class WorkshopItemAdapter extends RecyclerView.Adapter<WorkshopItemAdapte
     @Override
     public int getItemCount() {
         return workshops.size();
+    }
+
+    public void updateWorkshop(Workshop workshop) {
+        for (Workshop item : workshops) {
+            if (workshop.getId() == item.getId()) {
+                item.setComing(true);
+                item.setWorkshopStatusName(workshop.getWorkshopStatusName());
+            }
+        }
+        notifyDataSetChanged();
     }
 }

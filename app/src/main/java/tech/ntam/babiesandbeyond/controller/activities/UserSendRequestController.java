@@ -3,6 +3,7 @@ package tech.ntam.babiesandbeyond.controller.activities;
 import android.app.Activity;
 
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -19,9 +20,11 @@ import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.api.api_model.response.ParentResponse;
 import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
+import tech.ntam.babiesandbeyond.model.Service;
 import tech.ntam.babiesandbeyond.model.ServiceTypeList;
 import tech.ntam.babiesandbeyond.model.ServiceType;
 import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
+import tech.ntam.mylibrary.IntentDataKey;
 
 /**
  * Created by bassiouny on 19/12/17.
@@ -91,11 +94,14 @@ public class UserSendRequestController {
         final MyDialog myDialog =new MyDialog();
         myDialog.showMyDialog(activity);
         // send new request to service to save it
-        RequestAndResponse.requestService(activity, serviceTypeId, startDate, endDate, location, new BaseResponseInterface<ParentResponse>() {
+        RequestAndResponse.requestService(activity, serviceTypeId, startDate, endDate, location, new BaseResponseInterface<Service>() {
             @Override
-            public void onSuccess(ParentResponse parentResponse) {
+            public void onSuccess(Service service) {
+                Toast.makeText(activity, R.string.waiting_confirmation, Toast.LENGTH_SHORT).show();
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra(IntentDataKey.ADD_SERVICE_DATA_KEY, service);
+                activity.setResult(Activity.RESULT_OK, resultIntent);
                 myDialog.dismissMyDialog();
-                Toast.makeText(activity, R.string.request_save, Toast.LENGTH_SHORT).show();
                 activity.finish();
             }
 

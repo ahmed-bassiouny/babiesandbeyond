@@ -82,4 +82,9 @@ public class ServiceItemAdapter extends RecyclerView.Adapter<ServiceItemAdapter.
     public int getItemCount() {
         return services.size();
     }
+
+    public void addService(Service service){
+        services.add(0,service);
+        notifyItemInserted(0);
+    }
 }

@@ -47,7 +47,7 @@ public class MyDateTimeFactor {
     }
     public static String getTimeFromDateTime(String dateStr) {
         DateFormat originalFormat = new SimpleDateFormat(DATE_TIME_FORMAT_NUMBER, Locale.ENGLISH);
-        DateFormat targetFormat = new SimpleDateFormat(DATE_FORMAT_TEXT,Locale.ENGLISH);
+        DateFormat targetFormat = new SimpleDateFormat(TIME_FORMAT,Locale.ENGLISH);
         Date date ;
         try {
             date = originalFormat.parse(dateStr);

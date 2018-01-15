@@ -17,6 +17,8 @@ import tech.ntam.babiesandbeyond.api.api_model.request.StatusEvent;
 import tech.ntam.babiesandbeyond.api.api_model.request.UpdatePasswordRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.UpdateProfileRequest;
 import tech.ntam.babiesandbeyond.api.api_model.response.AboutResponse;
+import tech.ntam.babiesandbeyond.api.api_model.response.AddServiceResponse;
+import tech.ntam.babiesandbeyond.api.api_model.response.AddWorkshopResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.EventsResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.GroupResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.HistoryResponse;
@@ -80,12 +82,12 @@ public interface BaseRequestInterface {
     @FormUrlEncoded
     @Headers(HEADER_KEY)
     @POST(REQUEST_SERVICE)
-    Call<ParentResponse> requestService(@Header(AUTHORIZATION) String token,
-                                        @Field(AskServiceRequest.USER_ID) int userId,
-                                        @Field(AskServiceRequest.USER_TYPE_ID) int userTypeId,
-                                        @Field(AskServiceRequest.START_DATE) String startDate,
-                                        @Field(AskServiceRequest.END_DATE) String endDate,
-                                        @Field(AskServiceRequest.LOCATION) String location);
+    Call<AddServiceResponse> requestService(@Header(AUTHORIZATION) String token,
+                                            @Field(AskServiceRequest.USER_ID) int userId,
+                                            @Field(AskServiceRequest.USER_TYPE_ID) int userTypeId,
+                                            @Field(AskServiceRequest.START_DATE) String startDate,
+                                            @Field(AskServiceRequest.END_DATE) String endDate,
+                                            @Field(AskServiceRequest.LOCATION) String location);
 
 
     @FormUrlEncoded
@@ -175,9 +177,9 @@ public interface BaseRequestInterface {
     @FormUrlEncoded
     @Headers(HEADER_KEY)
     @POST(SEND_WORKSHOP_REQUEST)
-    Call<ParentResponse> sendWorkshopRequest(@Header(AUTHORIZATION) String token,
-                                             @Field(AskWorkshopRequest.USER_ID) int userId,
-                                             @Field(AskWorkshopRequest.WORKSHOP_ID) int workshopId);
+    Call<AddWorkshopResponse> sendWorkshopRequest(@Header(AUTHORIZATION) String token,
+                                                  @Field(AskWorkshopRequest.USER_ID) int userId,
+                                                  @Field(AskWorkshopRequest.WORKSHOP_ID) int workshopId);
 
 
     @FormUrlEncoded

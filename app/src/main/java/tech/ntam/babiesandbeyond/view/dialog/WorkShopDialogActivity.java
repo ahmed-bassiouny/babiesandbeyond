@@ -1,5 +1,7 @@
 package tech.ntam.babiesandbeyond.view.dialog;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -66,10 +68,13 @@ public class WorkShopDialogActivity extends AppCompatActivity {
             public void onClick(View v) {
                 final MyDialog myDialog = new MyDialog();
                 myDialog.showMyDialog(WorkShopDialogActivity.this);
-                RequestAndResponse.sendWorkshopRequest(WorkShopDialogActivity.this, workshop.getId(), new BaseResponseInterface<String>() {
+                RequestAndResponse.sendWorkshopRequest(WorkShopDialogActivity.this, workshop.getId(), new BaseResponseInterface<Workshop>() {
                     @Override
-                    public void onSuccess(String s) {
-                        Toast.makeText(WorkShopDialogActivity.this, s, Toast.LENGTH_SHORT).show();
+                    public void onSuccess(Workshop workshop) {
+                        Toast.makeText(WorkShopDialogActivity.this, R.string.waiting_confirmation, Toast.LENGTH_SHORT).show();
+                        Intent resultIntent = new Intent();
+                        resultIntent.putExtra(IntentDataKey.CHANGE_WORKSHOP_DATA_KEY, workshop);
+                        setResult(Activity.RESULT_OK, resultIntent);
                         myDialog.dismissMyDialog();
                         finish();
                     }

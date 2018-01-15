@@ -92,6 +92,10 @@ public class Workshop implements Parcelable {
         return Utils.getValueFromString(price);
     }
 
+    public void setComing(boolean coming) {
+        this.coming = coming;
+    }
+
     public String getPoint() {
         return Utils.getValueFromString(point);
     }
@@ -110,6 +114,10 @@ public class Workshop implements Parcelable {
             default:
                 return R.color.white;
         }
+    }
+
+    public void setWorkshopStatusName(String workshopStatusName) {
+        this.workshopStatusName = workshopStatusName;
     }
 
     public String getLocation() {

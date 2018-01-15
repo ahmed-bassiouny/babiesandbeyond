@@ -129,5 +129,6 @@
     <string name="service_information">Service Information</string>
     <string name="workshop_information">Workshop Information</string>
     <string name="event_information">Event Information</string>
+    <string name="waiting_confirmation">Wait the confirmation</string>
 
 </resources>

@@ -1,6 +1,7 @@
 package tech.ntam.babiesandbeyond.view.fragments;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.babiesandbeyond.controller.fragments.UserWorkshopController;
 import tech.ntam.babiesandbeyond.interfaces.ParseObject;
+import tech.ntam.babiesandbeyond.model.Service;
 import tech.ntam.babiesandbeyond.model.Workshop;
 import tech.ntam.babiesandbeyond.view.activities.ShowServiceInfoActivity;
 import tech.ntam.babiesandbeyond.view.activities.ShowWorkshopInfoActivity;
@@ -46,6 +48,7 @@ public class UserWorkshopListFragment extends Fragment implements ParseObject<Wo
     private RecyclerView recycleView;
     private UserWorkshopController userWorkshopController;
     private static UserWorkshopListFragment userWorkshopFragment;
+    private WorkshopItemAdapter workshopItemAdapter;
 
     public UserWorkshopListFragment() {
         // Required empty public constructor
@@ -82,7 +85,7 @@ public class UserWorkshopListFragment extends Fragment implements ParseObject<Wo
         RequestAndResponse.getWorkshops(getContext(), new BaseResponseInterface<List<Workshop>>() {
             @Override
             public void onSuccess(List<Workshop> workshops) {
-                WorkshopItemAdapter workshopItemAdapter = new WorkshopItemAdapter(getContext(),UserWorkshopListFragment.this,workshops);
+                workshopItemAdapter = new WorkshopItemAdapter(getContext(),UserWorkshopListFragment.this,workshops);
                 recycleView.setAdapter(workshopItemAdapter);
                 myDialog.dismissMyDialog();
             }
@@ -108,6 +111,16 @@ public class UserWorkshopListFragment extends Fragment implements ParseObject<Wo
     public void getMyObject(Workshop workshop) {
         Intent intent = new Intent(getContext(), ShowWorkshopInfoActivity.class);
         intent.putExtra(IntentDataKey.SHOW_WORKSHOP_DATA_KEY,workshop);
-        startActivity(intent);
+        startActivityForResult(intent,IntentDataKey.CHANGE_WORKSHOP_DATA_CODE);
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == IntentDataKey.CHANGE_WORKSHOP_DATA_CODE && resultCode == Activity.RESULT_OK && data != null) {
+            Workshop workshop = data.getParcelableExtra(IntentDataKey.CHANGE_WORKSHOP_DATA_KEY);
+            if(workshop != null){
+                workshopItemAdapter.updateWorkshop(workshop);
+            }
+        }
     }
 }
