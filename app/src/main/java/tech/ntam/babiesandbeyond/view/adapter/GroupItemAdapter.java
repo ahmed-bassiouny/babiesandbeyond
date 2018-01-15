@@ -2,6 +2,7 @@ package tech.ntam.babiesandbeyond.view.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +18,7 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.interfaces.GroupOption;
+import tech.ntam.babiesandbeyond.interfaces.ParseObject;
 import tech.ntam.babiesandbeyond.model.Group;
 import tech.ntam.mylibrary.Utils;
 
@@ -30,11 +32,13 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
     private Fragment fragment;
     private GroupOption groupOption;
     private boolean showAddLeaveGroup = false;
+    private ParseObject parseObject;
 
     public GroupItemAdapter(List<Group> groups, Fragment fragment) {
         this.groups = groups;
         this.fragment = fragment;
         groupOption = (GroupOption) fragment;
+        parseObject = (ParseObject) fragment;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -46,6 +50,7 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
         private ImageView ivMore;
         private TextView tvDate;
         private Button btnAddLeaveGroup;
+        private ConstraintLayout container;
 
         public MyViewHolder(View view) {
             super(view);
@@ -57,6 +62,7 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
             ivMore = view.findViewById(R.id.iv_more);
             tvDate = view.findViewById(R.id.tv_date);
             btnAddLeaveGroup = view.findViewById(R.id.btn_add_leave_group);
+            container = view.findViewById(R.id.container);
         }
     }
 
@@ -99,7 +105,7 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
             holder.btnAddLeaveGroup.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    groupOption.LeaveGroup(group.getId(),position);
+                    groupOption.LeaveGroup(group.getId(), position);
                 }
             });
         } else {
@@ -107,11 +113,16 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
             holder.btnAddLeaveGroup.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    groupOption.JoinGroup(group.getId(),position);
+                    groupOption.JoinGroup(group.getId(), position);
                 }
             });
         }
-
+        holder.container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                parseObject.getMyObject(group);
+            }
+        });
     }
 
     @Override
@@ -119,7 +130,7 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
         return groups.size();
     }
 
-    public void updateMyStatus(boolean isMember , int position){
+    public void updateMyStatus(boolean isMember, int position) {
         Group group = groups.get(position);
         group.setMember(isMember);
         notifyItemChanged(position);

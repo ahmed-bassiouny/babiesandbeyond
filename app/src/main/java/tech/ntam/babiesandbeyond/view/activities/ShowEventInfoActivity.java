@@ -30,7 +30,6 @@ public class ShowEventInfoActivity extends MyToolbar {
     private TextView tvSpeakerName;
     private Button btnComing;
     private Event event;
-    private boolean isComing = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +53,7 @@ public class ShowEventInfoActivity extends MyToolbar {
         tvEventName.setText(event.getName());
         tvSpeakerName.setText(event.getSpeakerName());
         tvSpeakerBio.setText(event.getSpeakerBio());
+        checkEvents();
     }
 
     private void findViewById() {
@@ -71,7 +71,7 @@ public class ShowEventInfoActivity extends MyToolbar {
             public void onClick(View v) {
                 final MyDialog myDialog = new MyDialog();
                 myDialog.showMyDialog(ShowEventInfoActivity.this);
-                RequestAndResponse.sendStatusEvent(ShowEventInfoActivity.this, event.getId(), !isComing, new BaseResponseInterface<String>() {
+                RequestAndResponse.sendStatusEvent(ShowEventInfoActivity.this, event.getId(), !event.isComing(), new BaseResponseInterface<String>() {
                     @Override
                     public void onSuccess(String s) {
                         event.setComing(!event.isComing());
@@ -90,5 +90,11 @@ public class ShowEventInfoActivity extends MyToolbar {
                 });
             }
         });
+    }
+    private void checkEvents(){
+        if(event.isComing())
+            btnComing.setText(R.string.not_coming);
+        else
+            btnComing.setText(R.string.coming);
     }
 }

@@ -7,5 +7,18 @@ package tech.ntam.babiesandbeyond.model;
 public class Message {
 
     private String message;
+    private boolean me;
     private String type;
+
+    public String getMessage() {
+        return message;
+    }
+
+    public boolean isMe() {
+        return me;
+    }
+
+    public String getType() {
+        return type;
+    }
 }

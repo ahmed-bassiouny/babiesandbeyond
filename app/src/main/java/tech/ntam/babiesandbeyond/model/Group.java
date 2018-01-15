@@ -1,5 +1,8 @@
 package tech.ntam.babiesandbeyond.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 import tech.ntam.mylibrary.Utils;
@@ -8,7 +11,7 @@ import tech.ntam.mylibrary.Utils;
  * Created by bassiouny on 05/01/18.
  */
 
-public class Group {
+public class Group implements Parcelable {
 
     @SerializedName("id")
     private int id;
@@ -74,4 +77,49 @@ public class Group {
     public int getId() {
         return id;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeString(this.name);
+        dest.writeString(this.description);
+        dest.writeString(this.photo);
+        dest.writeString(this.status);
+        dest.writeString(this.createdBy);
+        dest.writeString(this.approvedBy);
+        dest.writeString(this.date);
+        dest.writeByte(this.isMember ? (byte) 1 : (byte) 0);
+    }
+
+    public Group() {
+    }
+
+    protected Group(Parcel in) {
+        this.id = in.readInt();
+        this.name = in.readString();
+        this.description = in.readString();
+        this.photo = in.readString();
+        this.status = in.readString();
+        this.createdBy = in.readString();
+        this.approvedBy = in.readString();
+        this.date = in.readString();
+        this.isMember = in.readByte() != 0;
+    }
+
+    public static final Parcelable.Creator<Group> CREATOR = new Parcelable.Creator<Group>() {
+        @Override
+        public Group createFromParcel(Parcel source) {
+            return new Group(source);
+        }
+
+        @Override
+        public Group[] newArray(int size) {
+            return new Group[size];
+        }
+    };
 }

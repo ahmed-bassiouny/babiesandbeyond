@@ -130,5 +130,6 @@
     <string name="workshop_information">Workshop Information</string>
     <string name="event_information">Event Information</string>
     <string name="waiting_confirmation">Wait the confirmation</string>
+    <string name="enter_your_message">Enter your message...</string>
 
 </resources>

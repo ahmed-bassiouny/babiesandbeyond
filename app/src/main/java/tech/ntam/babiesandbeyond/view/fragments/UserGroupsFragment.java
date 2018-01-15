@@ -23,17 +23,20 @@ import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.babiesandbeyond.interfaces.GroupOption;
+import tech.ntam.babiesandbeyond.interfaces.ParseObject;
 import tech.ntam.babiesandbeyond.model.Group;
+import tech.ntam.babiesandbeyond.view.activities.ChatActivity;
 import tech.ntam.babiesandbeyond.view.activities.CreateGroupActivity;
 import tech.ntam.babiesandbeyond.view.activities.UserHomeActivity;
 import tech.ntam.babiesandbeyond.view.adapter.GroupItemAdapter;
 import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
+import tech.ntam.mylibrary.IntentDataKey;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class UserGroupsFragment extends Fragment implements GroupOption {
+public class UserGroupsFragment extends Fragment implements GroupOption, ParseObject<Group> {
 
 
     private SegmentedGroup segmentedGroup;
@@ -49,6 +52,7 @@ public class UserGroupsFragment extends Fragment implements GroupOption {
     public UserGroupsFragment() {
         // Required empty public constructor
     }
+
     public static UserGroupsFragment newInstance() {
         if (userGroupsFragment == null) {
             userGroupsFragment = new UserGroupsFragment();
@@ -105,7 +109,7 @@ public class UserGroupsFragment extends Fragment implements GroupOption {
             @Override
             public void onSuccess(String s) {
                 Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
-                groupItemAdapter.updateMyStatus(true,position);
+                groupItemAdapter.updateMyStatus(true, position);
                 myDialog.dismissMyDialog();
 
             }
@@ -126,7 +130,7 @@ public class UserGroupsFragment extends Fragment implements GroupOption {
             @Override
             public void onSuccess(String s) {
                 Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
-                groupItemAdapter.updateMyStatus(false,position);
+                groupItemAdapter.updateMyStatus(false, position);
                 myDialog.dismissMyDialog();
             }
 
@@ -137,7 +141,8 @@ public class UserGroupsFragment extends Fragment implements GroupOption {
             }
         });
     }
-    private void loadGroup(){
+
+    private void loadGroup() {
         final MyDialog myDialog = new MyDialog();
         myDialog.showMyDialog(getContext());
         RequestAndResponse.getGroups(getContext(), new BaseResponseInterface<List<Group>>() {
@@ -153,5 +158,12 @@ public class UserGroupsFragment extends Fragment implements GroupOption {
                 myDialog.dismissMyDialog();
             }
         });
+    }
+
+    @Override
+    public void getMyObject(Group group) {
+        Intent intent = new Intent(getContext(), ChatActivity.class);
+        intent.putExtra(IntentDataKey.SHOW_GROUP_DATA_KEY,group);
+        startActivity(intent);
     }
 }

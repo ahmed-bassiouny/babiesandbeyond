@@ -83,6 +83,8 @@ public class ShowWorkshopInfoActivity extends MyToolbar {
         btnPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(workshop.isComing())
+                    return;
                 final MyDialog myDialog = new MyDialog();
                 myDialog.showMyDialog(ShowWorkshopInfoActivity.this);
                 RequestAndResponse.sendWorkshopRequest(ShowWorkshopInfoActivity.this, workshop.getId(), new BaseResponseInterface<Workshop>() {
