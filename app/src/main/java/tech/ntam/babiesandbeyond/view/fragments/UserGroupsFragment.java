@@ -72,11 +72,6 @@ public class UserGroupsFragment extends Fragment implements GroupOption {
         btnMyGroups = view.findViewById(R.id.btn_my_groups);
         recycleView = view.findViewById(R.id.recycle_view);
         tvCreateGroup = view.findViewById(R.id.tv_greate_group);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
         loadGroup();
     }
 
