@@ -22,6 +22,7 @@ import tech.ntam.babiesandbeyond.controller.fragments.UserWorkshopController;
 import tech.ntam.babiesandbeyond.interfaces.ParseObject;
 import tech.ntam.babiesandbeyond.model.Event;
 import tech.ntam.babiesandbeyond.model.Workshop;
+import tech.ntam.babiesandbeyond.view.activities.ShowEventInfoActivity;
 import tech.ntam.babiesandbeyond.view.activities.ShowWorkshopInfoActivity;
 import tech.ntam.babiesandbeyond.view.adapter.EventItemAdapter;
 import tech.ntam.babiesandbeyond.view.adapter.WorkshopItemAdapter;
@@ -32,7 +33,7 @@ import tech.ntam.mylibrary.IntentDataKey;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class UserEventListFragment extends Fragment implements ParseObject<Workshop> {
+public class UserEventListFragment extends Fragment implements ParseObject<Event> {
 
     private RecyclerView recycleView;
     private static UserEventListFragment userEventListFragment;
@@ -95,9 +96,9 @@ public class UserEventListFragment extends Fragment implements ParseObject<Works
     }
 
     @Override
-    public void OnClick(Workshop workshop) {
-        Intent intent = new Intent(getContext(), ShowWorkshopInfoActivity.class);
-        intent.putExtra(IntentDataKey.SHOW_EVENT_DATA_KEY,workshop);
+    public void getMyObject(Event event) {
+        Intent intent = new Intent(getContext(), ShowEventInfoActivity.class);
+        intent.putExtra(IntentDataKey.SHOW_EVENT_DATA_KEY,event);
         startActivity(intent);
     }
 }

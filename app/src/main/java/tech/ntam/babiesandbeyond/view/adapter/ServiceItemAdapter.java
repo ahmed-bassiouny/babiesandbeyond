@@ -73,7 +73,7 @@ public class ServiceItemAdapter extends RecyclerView.Adapter<ServiceItemAdapter.
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                parseObject.OnClick(service);
+                parseObject.getMyObject(service);
             }
         });
     }

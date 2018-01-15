@@ -105,7 +105,7 @@ public class UserWorkshopListFragment extends Fragment implements ParseObject<Wo
     }
 
     @Override
-    public void OnClick(Workshop workshop) {
+    public void getMyObject(Workshop workshop) {
         Intent intent = new Intent(getContext(), ShowWorkshopInfoActivity.class);
         intent.putExtra(IntentDataKey.SHOW_WORKSHOP_DATA_KEY,workshop);
         startActivity(intent);

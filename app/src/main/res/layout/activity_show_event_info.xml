@@ -23,7 +23,7 @@
         android:layout_marginTop="16dp"
         android:fontFamily="@font/museosans"
         android:textColor="@color/gray_bold"
-        android:text="@string/workshop_name"
+        android:text="@string/event_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/my_toolbar" />
 
@@ -163,72 +163,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
-    <TextView
-        android:id="@+id/textView17"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:fontFamily="@font/museosans"
-        android:textColor="@color/gray_bold"
-        android:text="@string/status"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_location" />
-
-    <TextView
-        android:id="@+id/tv_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:fontFamily="@font/museosans"
-        android:textColor="@color/gray_bold"
-        android:layout_marginTop="8dp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView17"
-        tools:text="pending" />
-
-    <TextView
-        android:id="@+id/textView19"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:fontFamily="@font/museosans"
-        android:textColor="@color/gray_bold"
-        android:text="@string/fee"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_status" />
-
-    <TextView
-        android:id="@+id/tv_fee"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/museosans"
-        android:textColor="@color/gray_bold"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView19"
-        tools:text="20 $" />
-
     <Button
-        android:id="@+id/tv_pay"
+        android:id="@+id/tv_coming"
         android:layout_width="200dp"
         android:layout_height="40dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="24dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:background="@color/colorButton"
         android:fontFamily="@font/museosans"
-        android:text="@string/pay"
+        android:text="@string/coming"
         android:textColor="@color/gray_bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_fee" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView3"
@@ -253,30 +201,36 @@
 
     <TextView
         android:id="@+id/textView10"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:text="@string/speaker_bio"
-        app:layout_constraintStart_toStartOf="@+id/tv_speaker_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_speaker_name" />
 
     <ScrollView
+        android:id="@+id/textView7"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/tv_pay"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/speaker_bio"
+        app:layout_constraintBottom_toTopOf="@+id/tv_coming"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/textView10"
-        app:layout_constraintTop_toBottomOf="@+id/textView10">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView10" >
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/museosans"
             android:textColor="@color/gray_bold"
             android:textStyle="bold"
-            android:id="@+id/tv_speaker_bio"
-            android:text="speaker speaker Sunt danistaes fallere castus, fidelis fortises.Noster hibrida virtualiter acquireres species est.Buxum, magister, et coordinatae.Sectams observare, tanquam ferox vox.A falsis, palus superbus torus.Bi-color visus rare perderes messor est.A falsis, pars lotus luna.Nunquam quaestio turpis.Gratis diatrias ducunt ad nixus." />
+            android:id="@+id/tv_speaker_bio" />
     </ScrollView>
+
 </android.support.constraint.ConstraintLayout>

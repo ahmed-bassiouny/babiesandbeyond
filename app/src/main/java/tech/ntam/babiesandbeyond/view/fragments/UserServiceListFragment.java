@@ -97,7 +97,7 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
     }
 
     @Override
-    public void OnClick(Service service) {
+    public void getMyObject(Service service) {
         Intent intent = new Intent(getContext(), ShowServiceInfoActivity.class);
         intent.putExtra(IntentDataKey.SHOW_SERVICE_DATA_KEY,service);
         startActivity(intent);

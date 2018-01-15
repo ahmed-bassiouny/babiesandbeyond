@@ -10,9 +10,9 @@ public class ParentResponse{
 
     public final static String DATA_KEY = "data";
     @SerializedName("status")
-    private Boolean status;
+    private Boolean status = null;
     @SerializedName("message")
-    private String message;
+    private String message = "";
 
     public boolean getStatus() {
         if (status == null)

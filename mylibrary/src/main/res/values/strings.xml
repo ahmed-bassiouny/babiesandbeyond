@@ -128,6 +128,6 @@
     <string name="fee">Fee</string>
     <string name="service_information">Service Information</string>
     <string name="workshop_information">Workshop Information</string>
-
+    <string name="event_information">Event Information</string>
 
 </resources>

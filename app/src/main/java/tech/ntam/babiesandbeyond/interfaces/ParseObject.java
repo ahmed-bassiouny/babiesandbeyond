@@ -5,5 +5,5 @@ package tech.ntam.babiesandbeyond.interfaces;
  */
 
 public interface ParseObject<T> {
-    void OnClick(T t);
+    void getMyObject(T t);
 }

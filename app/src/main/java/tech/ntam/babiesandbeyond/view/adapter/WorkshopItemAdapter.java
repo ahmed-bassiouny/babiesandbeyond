@@ -13,8 +13,6 @@ import java.util.List;
 
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.interfaces.ParseObject;
-import tech.ntam.babiesandbeyond.model.Service;
-import tech.ntam.babiesandbeyond.model.ServiceTypeList;
 import tech.ntam.babiesandbeyond.model.Workshop;
 
 /**
@@ -79,7 +77,7 @@ public class WorkshopItemAdapter extends RecyclerView.Adapter<WorkshopItemAdapte
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                parseObject.OnClick(workshop);
+                parseObject.getMyObject(workshop);
             }
         });
     }
