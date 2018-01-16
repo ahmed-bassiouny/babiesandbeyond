@@ -41,14 +41,14 @@ public class ItemChatAdapter extends RecyclerView.Adapter<ItemChatAdapter.CutomV
         Message message = myarraylist.get(position);
         holder.message.setText(message.getMessage());
 
-        if(message.isPhoto()){
+        if(false){
             holder.ivPhoto.setVisibility(View.VISIBLE);
             holder.message.setVisibility(View.GONE);
         }else {
             holder.ivPhoto.setVisibility(View.GONE);
             holder.message.setVisibility(View.VISIBLE);
         }
-        if (message.isMe()) {
+        /*if (message.isMe()) {
             holder.image.setVisibility(View.GONE);
             holder.message.setBackgroundResource(R.drawable.rounded_blue_chat_message);
             holder.container.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
@@ -56,7 +56,7 @@ public class ItemChatAdapter extends RecyclerView.Adapter<ItemChatAdapter.CutomV
             holder.image.setVisibility(View.VISIBLE);
             holder.message.setBackgroundResource(R.drawable.rounded_gray_chat_message);
             holder.container.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
-        }
+        }*/
     }
 
     @Override

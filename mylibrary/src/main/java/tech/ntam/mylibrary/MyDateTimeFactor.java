@@ -56,4 +56,7 @@ public class MyDateTimeFactor {
             return "";
         }
     }
+    public static long getTimeStamp(){
+        return System.currentTimeMillis()/1000;
+    }
 }
