@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.model.Message;
@@ -19,10 +20,10 @@ import tech.ntam.babiesandbeyond.model.Message;
  */
 
 public class ItemChatAdapter extends RecyclerView.Adapter<ItemChatAdapter.CutomViewHolder> {
-    ArrayList<Message> myarraylist;
+    List<Message> myarraylist;
     Context context;
 
-    public ItemChatAdapter(ArrayList<Message> myarraylist, Context context) {
+    public ItemChatAdapter(List<Message> myarraylist, Context context) {
         this.context = context;
         this.myarraylist = myarraylist;
     }
@@ -40,6 +41,13 @@ public class ItemChatAdapter extends RecyclerView.Adapter<ItemChatAdapter.CutomV
         Message message = myarraylist.get(position);
         holder.message.setText(message.getMessage());
 
+        if(message.isPhoto()){
+            holder.ivPhoto.setVisibility(View.VISIBLE);
+            holder.message.setVisibility(View.GONE);
+        }else {
+            holder.ivPhoto.setVisibility(View.GONE);
+            holder.message.setVisibility(View.VISIBLE);
+        }
         if (message.isMe()) {
             holder.image.setVisibility(View.GONE);
             holder.message.setBackgroundResource(R.drawable.rounded_blue_chat_message);
@@ -57,16 +65,20 @@ public class ItemChatAdapter extends RecyclerView.Adapter<ItemChatAdapter.CutomV
     }
 
     class CutomViewHolder extends RecyclerView.ViewHolder {
-        //inner class to link java with item in layout
         TextView message;
         RelativeLayout container;
-        ImageView image;
+        ImageView image,ivPhoto;
 
         public CutomViewHolder(View view) {
             super(view);
             message = view.findViewById(R.id.tvt_msg);
             container = view.findViewById(R.id.container);
             image = view.findViewById(R.id.image);
+            ivPhoto = view.findViewById(R.id.iv_photo);
         }
+    }
+    public void addMessage(Message message){
+        myarraylist.add(message);
+        notifyItemInserted(myarraylist.size()-1);
     }
 }

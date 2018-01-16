@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDxNKIJlJ9HJvaLkQe4cBO1y4DbZISfGPA" />
+            android:value="AIzaSyBE24J7KvJNcCLiB_5o0oE5EL8vqWiqWWQ" />
 
         <activity
             android:name=".view.activities.SignIn_UpActivity"

@@ -16,6 +16,7 @@
         android:id="@+id/recycle_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="5dp"
         android:layout_below="@+id/my_toolbar"
         android:layout_above="@+id/my_view"/>
 
@@ -48,6 +49,7 @@
             android:layout_height="match_parent"
             android:layout_weight=".75"
             android:background="@null"
+            android:id="@+id/et_message"
             android:hint="@string/enter_your_message"
             android:fontFamily="@font/museosans" />
 
@@ -58,6 +60,7 @@
             android:layout_weight="2"
             android:gravity="center"
             android:text="@string/send"
+            android:id="@+id/tv_send"
             android:textColor="@color/gray_bold" />
     </LinearLayout>
 

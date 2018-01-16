@@ -15,19 +15,29 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/image"
             android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:src="@drawable/person"
             app:civ_border_color="@color/gray_bold"
-            app:civ_border_width="2dp"/>
+            app:civ_border_width="2dp" />
 
         <TextView
             android:id="@+id/tvt_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/museosans"
+            android:minHeight="40dp"
             android:padding="10dp"
             android:textAlignment="textStart"
             android:textColor="#000"
-            android:textSize="20sp" />
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/iv_photo"
+            android:layout_width="200dp"
+            android:layout_height="150dp"
+            android:src="@drawable/temp"
+            android:scaleType="fitXY"
+            android:layout_marginStart="5dp" />
     </LinearLayout>
 </RelativeLayout>
