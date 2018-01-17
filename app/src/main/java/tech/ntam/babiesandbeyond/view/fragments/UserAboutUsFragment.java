@@ -25,6 +25,7 @@ public class UserAboutUsFragment extends Fragment {
 
     public static UserAboutUsFragment userAboutUsFragment;
     private TextView tvAbout;
+    private String about = "";
 
     public static UserAboutUsFragment newInstance() {
         if (userAboutUsFragment == null) {
@@ -58,16 +59,28 @@ public class UserAboutUsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         tvAbout = view.findViewById(R.id.tv_about);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         loadAbout();
     }
 
     private void loadAbout() {
-        final MyDialog myDialog =new MyDialog();
+        // check if about string is empty that mean i don't load data from backend
+        // if about string not empty that mean i loaded data so i set it in string
+        if(!about.isEmpty()){
+            tvAbout.setText(about);
+            return;
+        }
+        final MyDialog myDialog = new MyDialog();
         myDialog.showMyDialog(getActivity());
         RequestAndResponse.getAbout(new BaseResponseInterface<String>() {
             @Override
             public void onSuccess(String s) {
-                tvAbout.setText(s);
+                about = s;
+                tvAbout.setText(about);
                 myDialog.dismissMyDialog();
             }
 

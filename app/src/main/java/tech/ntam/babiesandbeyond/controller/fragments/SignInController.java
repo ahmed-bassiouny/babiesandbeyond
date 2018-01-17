@@ -34,7 +34,7 @@ public class SignInController {
                 myDialog.dismissMyDialog();
                 if (user.getUserTypeId().equals(User.USER)) {
                     // save user information in sharedpref
-                    UserSharedPref.setUserInfo(activity, user.getUser_token(),user.getEmail(),user.getId());
+                    UserSharedPref.setUserInfo(activity, user.getUser_token(),user.getEmail(),user.getId(),user.getName(),user.getPhoto());
                     activity.startActivity(new Intent(activity, UserHomeActivity.class));
                     activity.finish();
                 } else if (user.getUserTypeId().equals(User.STAFF)) {

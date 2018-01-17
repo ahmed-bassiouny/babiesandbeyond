@@ -66,6 +66,11 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
                 startActivityForResult(new Intent(getActivity(), UserSendRequestActivity.class), IntentDataKey.ADD_SERVICE_DATA_CODE);
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         loadService();
     }
 
@@ -80,6 +85,12 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
 
 
     private void loadService() {
+        // check if adapter is null that mean i don't load data from backend
+        // if adapter not equal null that mean i loaded data so i set it in recycler view
+        if(serviceItemAdapter !=null){
+            recycleView.setAdapter(serviceItemAdapter);
+            return;
+        }
         final MyDialog myDialog = new MyDialog();
         myDialog.showMyDialog(getContext());
         RequestAndResponse.getMyService(getContext(), new BaseResponseInterface<UserService>() {
@@ -113,7 +124,7 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == IntentDataKey.ADD_SERVICE_DATA_CODE && resultCode == Activity.RESULT_OK && data != null) {
             Service service = data.getParcelableExtra(IntentDataKey.ADD_SERVICE_DATA_KEY);
-            if(service != null){
+            if (service != null) {
                 serviceItemAdapter.addService(service);
             }
         }

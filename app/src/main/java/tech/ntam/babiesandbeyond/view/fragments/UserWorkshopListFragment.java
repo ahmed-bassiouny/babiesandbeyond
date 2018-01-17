@@ -75,17 +75,27 @@ public class UserWorkshopListFragment extends Fragment implements ParseObject<Wo
         super.onViewCreated(view, savedInstanceState);
         recycleView = view.findViewById(R.id.recycle_view);
         recycleView.setLayoutManager(new LinearLayoutManager(getContext()));
-        loadData();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadWorkshop();
+    }
 
-    private void loadData() {
-        final MyDialog myDialog =new MyDialog();
+    private void loadWorkshop() {
+        // check if adapter is null that mean i don't load data from backend
+        // if adapter not equal null that mean i loaded data so i set it in recycler view
+        if(workshopItemAdapter !=null) {
+            recycleView.setAdapter(workshopItemAdapter);
+            return;
+        }
+        final MyDialog myDialog = new MyDialog();
         myDialog.showMyDialog(getContext());
         RequestAndResponse.getWorkshops(getContext(), new BaseResponseInterface<List<Workshop>>() {
             @Override
             public void onSuccess(List<Workshop> workshops) {
-                workshopItemAdapter = new WorkshopItemAdapter(getContext(),UserWorkshopListFragment.this,workshops);
+                workshopItemAdapter = new WorkshopItemAdapter(getContext(), UserWorkshopListFragment.this, workshops);
                 recycleView.setAdapter(workshopItemAdapter);
                 myDialog.dismissMyDialog();
             }
@@ -110,15 +120,16 @@ public class UserWorkshopListFragment extends Fragment implements ParseObject<Wo
     @Override
     public void getMyObject(Workshop workshop) {
         Intent intent = new Intent(getContext(), ShowWorkshopInfoActivity.class);
-        intent.putExtra(IntentDataKey.SHOW_WORKSHOP_DATA_KEY,workshop);
-        startActivityForResult(intent,IntentDataKey.CHANGE_WORKSHOP_DATA_CODE);
+        intent.putExtra(IntentDataKey.SHOW_WORKSHOP_DATA_KEY, workshop);
+        startActivityForResult(intent, IntentDataKey.CHANGE_WORKSHOP_DATA_CODE);
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == IntentDataKey.CHANGE_WORKSHOP_DATA_CODE && resultCode == Activity.RESULT_OK && data != null) {
             Workshop workshop = data.getParcelableExtra(IntentDataKey.CHANGE_WORKSHOP_DATA_KEY);
-            if(workshop != null){
+            if (workshop != null) {
                 workshopItemAdapter.updateWorkshop(workshop);
             }
         }

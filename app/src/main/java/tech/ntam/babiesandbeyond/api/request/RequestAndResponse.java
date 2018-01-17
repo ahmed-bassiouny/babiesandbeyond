@@ -56,7 +56,7 @@ public class RequestAndResponse {
             }
         } else {
             // this case mean response code not equal 200
-            baseResponseInterface.onFailed(errorMsg);
+            baseResponseInterface.onFailed("Check Your Connection");
         }
     }
 

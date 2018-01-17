@@ -65,17 +65,27 @@ public class UserEventListFragment extends Fragment implements ParseObject<Event
         super.onViewCreated(view, savedInstanceState);
         recycleView = view.findViewById(R.id.recycle_view);
         recycleView.setLayoutManager(new LinearLayoutManager(getContext()));
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         loadEvents();
     }
 
-
-    private void loadEvents(){
+    private void loadEvents() {
+        // check if adapter is null that mean i don't load data from backend
+        // if adapter not equal null that mean i loaded data so i set it in recycler view
+        if(eventItemAdapter !=null){
+            recycleView.setAdapter(eventItemAdapter);
+            return;
+        }
         final MyDialog myDialog = new MyDialog();
         myDialog.showMyDialog(getContext());
         RequestAndResponse.getEvents(getContext(), new BaseResponseInterface<List<Event>>() {
             @Override
             public void onSuccess(List<Event> events) {
-                eventItemAdapter = new EventItemAdapter(getContext(),UserEventListFragment.this,events);
+                eventItemAdapter = new EventItemAdapter(getContext(), UserEventListFragment.this, events);
                 recycleView.setAdapter(eventItemAdapter);
                 myDialog.dismissMyDialog();
             }
@@ -100,16 +110,16 @@ public class UserEventListFragment extends Fragment implements ParseObject<Event
     @Override
     public void getMyObject(Event event) {
         Intent intent = new Intent(getContext(), ShowEventInfoActivity.class);
-        intent.putExtra(IntentDataKey.SHOW_EVENT_DATA_KEY,event);
-        startActivityForResult(intent,IntentDataKey.CHANGE_EVENT_DATA_CODE);
+        intent.putExtra(IntentDataKey.SHOW_EVENT_DATA_KEY, event);
+        startActivityForResult(intent, IntentDataKey.CHANGE_EVENT_DATA_CODE);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == IntentDataKey.CHANGE_EVENT_DATA_CODE && resultCode == Activity.RESULT_OK && data != null) {
-            Event event= data.getParcelableExtra(IntentDataKey.CHANGE_EVENT_DATA_KEY);
-            if(event != null){
+            Event event = data.getParcelableExtra(IntentDataKey.CHANGE_EVENT_DATA_KEY);
+            if (event != null) {
                 eventItemAdapter.updateEvent(event);
             }
         }

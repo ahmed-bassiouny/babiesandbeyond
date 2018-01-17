@@ -47,6 +47,7 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
     private RecyclerView recycleView;
     private GroupItemAdapter groupItemAdapter;
     private static UserGroupsFragment userGroupsFragment;
+    private boolean loaded=false;
 
 
     public UserGroupsFragment() {
@@ -76,7 +77,8 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
         btnMyGroups = view.findViewById(R.id.btn_my_groups);
         recycleView = view.findViewById(R.id.recycle_view);
         tvCreateGroup = view.findViewById(R.id.tv_greate_group);
-        loadGroup();
+        recycleView.setLayoutManager(new LinearLayoutManager(getContext()));
+        onCLick();
     }
 
     @Override
@@ -89,16 +91,19 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
     }
 
 
-    private void setData(List<Group> groups) {
-        recycleView.setLayoutManager(new LinearLayoutManager(getContext()));
-        groupItemAdapter = new GroupItemAdapter(groups, this);
-        recycleView.setAdapter(groupItemAdapter);
+    private void onCLick() {
         tvCreateGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), CreateGroupActivity.class));
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadGroup();
     }
 
     @Override
@@ -143,12 +148,19 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
     }
 
     private void loadGroup() {
+        // check if adapter is null that mean i don't load data from backend
+        // if adapter not equal null that mean i loaded data so i set it in recycler view
+        if(groupItemAdapter !=null){
+            recycleView.setAdapter(groupItemAdapter);
+            return;
+        }
         final MyDialog myDialog = new MyDialog();
         myDialog.showMyDialog(getContext());
         RequestAndResponse.getGroups(getContext(), new BaseResponseInterface<List<Group>>() {
             @Override
             public void onSuccess(List<Group> groups) {
-                setData(groups);
+                groupItemAdapter = new GroupItemAdapter(groups, UserGroupsFragment.this);
+                recycleView.setAdapter(groupItemAdapter);
                 myDialog.dismissMyDialog();
             }
 
