@@ -39,6 +39,7 @@ public class UserEventListFragment extends Fragment implements ParseObject<Event
     private RecyclerView recycleView;
     private static UserEventListFragment userEventListFragment;
     private EventItemAdapter eventItemAdapter;
+    private boolean isViewShown = false;
 
     public UserEventListFragment() {
         // Required empty public constructor
@@ -65,12 +66,9 @@ public class UserEventListFragment extends Fragment implements ParseObject<Event
         super.onViewCreated(view, savedInstanceState);
         recycleView = view.findViewById(R.id.recycle_view);
         recycleView.setLayoutManager(new LinearLayoutManager(getContext()));
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        loadEvents();
+        if (!isViewShown) {
+            loadEvents();
+        }
     }
 
     private void loadEvents() {
@@ -101,9 +99,11 @@ public class UserEventListFragment extends Fragment implements ParseObject<Event
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (getContext() != null && isVisibleToUser) {
-            MyToolbar.TitleToolbar titleToolbar = (MyToolbar.TitleToolbar) getActivity();
-            titleToolbar.setTitleToolbar(getString(R.string.events));
+        if (getView() != null) {
+            isViewShown = true;
+            loadEvents();
+        } else {
+            isViewShown = false;
         }
     }
 

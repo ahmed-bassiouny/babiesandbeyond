@@ -14,6 +14,7 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.lang.reflect.Field;
 
@@ -60,18 +61,23 @@ public class UserHomeActivity extends MyToolbar implements MyToolbar.TitleToolba
                 switch (id) {
                     case R.id.service:
                         mViewPager.setCurrentItem(0);
+                        tvTitle.setText(R.string.services);
                         break;
                     case R.id.event:
                         mViewPager.setCurrentItem(1);
+                        tvTitle.setText(R.string.events);
                         break;
                     case R.id.workshop:
                         mViewPager.setCurrentItem(2);
+                        tvTitle.setText(R.string.workshop);
                         break;
                     case R.id.message:
                         mViewPager.setCurrentItem(3);
+                        tvTitle.setText(R.string.groups);
                         break;
                     case R.id.about_us:
                         mViewPager.setCurrentItem(4);
+                        tvTitle.setText(R.string.about_us);
                         break;
                 }
                 return true;
@@ -87,7 +93,23 @@ public class UserHomeActivity extends MyToolbar implements MyToolbar.TitleToolba
             @Override
             public void onPageSelected(int position) {
                 bottomNavigation.getMenu().getItem(position).setChecked(true);
-
+                switch (position){
+                    case 0:
+                        tvTitle.setText(R.string.services);
+                        break;
+                    case 1:
+                        tvTitle.setText(R.string.events);
+                        break;
+                    case 2:
+                        tvTitle.setText(R.string.workshop);
+                        break;
+                    case 3:
+                        tvTitle.setText(R.string.groups);
+                        break;
+                    case 4:
+                        tvTitle.setText(R.string.about_us);
+                        break;
+                }
             }
 
             @Override
@@ -100,12 +122,6 @@ public class UserHomeActivity extends MyToolbar implements MyToolbar.TitleToolba
     private void findViewById() {
         mViewPager = findViewById(R.id.container);
         bottomNavigation = findViewById(R.id.bottom_navigation);
-    }
-
-    @Override
-    public void setTitleToolbar(String title) {
-        if (tvTitle != null && title != null)
-            tvTitle.setText(title);
     }
 
 

@@ -84,15 +84,6 @@ public class UserServiceFragment extends Fragment {
         compactCalendarView.addEvents(events);
     }
 
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (getContext() != null && isVisibleToUser) {
-            MyToolbar.TitleToolbar titleToolbar = (MyToolbar.TitleToolbar) getActivity();
-            titleToolbar.setTitleToolbar(getString(R.string.services));
-        }
-    }
-
 
     private void initObject() {
         compactCalendarView.setLocale(TimeZone.getDefault(), Locale.getDefault());

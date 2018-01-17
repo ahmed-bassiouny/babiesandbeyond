@@ -47,8 +47,8 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
     private RecyclerView recycleView;
     private GroupItemAdapter groupItemAdapter;
     private static UserGroupsFragment userGroupsFragment;
-    private boolean loaded=false;
 
+    private boolean isViewShown = false;
 
     public UserGroupsFragment() {
         // Required empty public constructor
@@ -79,14 +79,19 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
         tvCreateGroup = view.findViewById(R.id.tv_greate_group);
         recycleView.setLayoutManager(new LinearLayoutManager(getContext()));
         onCLick();
+        if (!isViewShown) {
+            loadGroup();
+        }
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (getContext() != null && isVisibleToUser) {
-            MyToolbar.TitleToolbar titleToolbar = (MyToolbar.TitleToolbar) getActivity();
-            titleToolbar.setTitleToolbar(getString(R.string.groups));
+        if (getView() != null) {
+            isViewShown = true;
+            loadGroup();
+        } else {
+            isViewShown = false;
         }
     }
 
@@ -99,13 +104,6 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
             }
         });
     }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        loadGroup();
-    }
-
     @Override
     public void JoinGroup(int groupId, final int position) {
         final MyDialog myDialog = new MyDialog();

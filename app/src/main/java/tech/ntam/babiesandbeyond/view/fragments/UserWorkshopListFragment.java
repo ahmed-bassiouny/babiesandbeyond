@@ -49,6 +49,7 @@ public class UserWorkshopListFragment extends Fragment implements ParseObject<Wo
     private UserWorkshopController userWorkshopController;
     private static UserWorkshopListFragment userWorkshopFragment;
     private WorkshopItemAdapter workshopItemAdapter;
+    private boolean isViewShown = false;
 
     public UserWorkshopListFragment() {
         // Required empty public constructor
@@ -75,12 +76,9 @@ public class UserWorkshopListFragment extends Fragment implements ParseObject<Wo
         super.onViewCreated(view, savedInstanceState);
         recycleView = view.findViewById(R.id.recycle_view);
         recycleView.setLayoutManager(new LinearLayoutManager(getContext()));
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        loadWorkshop();
+        if (!isViewShown) {
+            loadWorkshop();
+        }
     }
 
     private void loadWorkshop() {
@@ -111,9 +109,11 @@ public class UserWorkshopListFragment extends Fragment implements ParseObject<Wo
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (getContext() != null && isVisibleToUser) {
-            MyToolbar.TitleToolbar titleToolbar = (MyToolbar.TitleToolbar) getActivity();
-            titleToolbar.setTitleToolbar(getString(R.string.workshop));
+        if (getView() != null) {
+            isViewShown = true;
+            loadWorkshop();
+        } else {
+            isViewShown = false;
         }
     }
 

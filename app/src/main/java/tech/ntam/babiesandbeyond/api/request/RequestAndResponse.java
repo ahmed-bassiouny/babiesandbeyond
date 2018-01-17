@@ -40,7 +40,7 @@ import tech.ntam.babiesandbeyond.utils.UserSharedPref;
  */
 
 public class RequestAndResponse {
-
+    public static final String errorConnection = "Please Check Your Internet Connection!";
 
     // base request
     private static BaseRequestInterface baseRequestInterface = ApiConfig.getRetrofit().create(BaseRequestInterface.class);
@@ -56,7 +56,7 @@ public class RequestAndResponse {
             }
         } else {
             // this case mean response code not equal 200
-            baseResponseInterface.onFailed("Check Your Connection");
+            baseResponseInterface.onFailed(errorMsg);
         }
     }
 
@@ -71,7 +71,7 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
-                anInterface.onFailed(t.getLocalizedMessage());
+                anInterface.onFailed(errorConnection);
             }
         });
     }
@@ -103,7 +103,7 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<EventsResponse> call, Throwable t) {
-                anInterface.onFailed(t.getLocalizedMessage());
+                anInterface.onFailed(errorConnection);
             }
         });
     }
@@ -122,7 +122,7 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<AddServiceResponse> call, Throwable t) {
-                anInterface.onFailed(t.getLocalizedMessage());
+                anInterface.onFailed(errorConnection);
             }
         });
     }
@@ -140,7 +140,7 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<MyServiceResponse> call, Throwable t) {
-                anInterface.onFailed(t.getLocalizedMessage());
+                anInterface.onFailed(errorConnection);
             }
         });
     }
@@ -161,7 +161,7 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<ParentResponse> call, Throwable t) {
-                anInterface.onFailed(t.getLocalizedMessage());
+                anInterface.onFailed(errorConnection);
             }
         });
     }
@@ -179,7 +179,7 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<GroupResponse> call, Throwable t) {
-                anInterface.onFailed(t.getLocalizedMessage());
+                anInterface.onFailed(errorConnection);
             }
         });
     }
@@ -197,7 +197,7 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<ProfileResponse> call, Throwable t) {
-                anInterface.onFailed(t.getLocalizedMessage());
+                anInterface.onFailed(errorConnection);
             }
         });
     }
@@ -216,7 +216,7 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<ParentResponse> call, Throwable t) {
-                anInterface.onFailed(t.getLocalizedMessage());
+                anInterface.onFailed(errorConnection);
             }
         });
     }
@@ -234,7 +234,7 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<HistoryResponse> call, Throwable t) {
-                anInterface.onFailed(t.getLocalizedMessage());
+                anInterface.onFailed(errorConnection);
             }
         });
     }
@@ -253,7 +253,7 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<ParentResponse> call, Throwable t) {
-                anInterface.onFailed(t.getLocalizedMessage());
+                anInterface.onFailed(errorConnection);
             }
         });
     }
@@ -272,7 +272,7 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<ParentResponse> call, Throwable t) {
-                anInterface.onFailed(t.getLocalizedMessage());
+                anInterface.onFailed(errorConnection);
             }
         });
     }
@@ -290,7 +290,7 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<WorkshopResponse> call, Throwable t) {
-                anInterface.onFailed(t.getLocalizedMessage());
+                anInterface.onFailed(errorConnection);
             }
         });
     }
@@ -308,7 +308,7 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<ParentResponse> call, Throwable t) {
-                anInterface.onFailed(t.getLocalizedMessage());
+                anInterface.onFailed(errorConnection);
             }
         });
     }
@@ -326,7 +326,7 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<ParentResponse> call, Throwable t) {
-                anInterface.onFailed(t.getLocalizedMessage());
+                anInterface.onFailed(errorConnection);
             }
         });
     }
@@ -342,7 +342,7 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<AboutResponse> call, Throwable t) {
-                anInterface.onFailed(t.getLocalizedMessage());
+                anInterface.onFailed(errorConnection);
             }
         });
     }
@@ -360,7 +360,7 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<AddWorkshopResponse> call, Throwable t) {
-                anInterface.onFailed(t.getLocalizedMessage());
+                anInterface.onFailed(errorConnection);
             }
         });
     }
@@ -379,7 +379,7 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<NotificationResponse> call, Throwable t) {
-                anInterface.onFailed(t.getLocalizedMessage());
+                anInterface.onFailed(errorConnection);
             }
         });
     }

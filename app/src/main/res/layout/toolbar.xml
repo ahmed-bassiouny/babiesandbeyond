@@ -5,7 +5,6 @@
     android:layout_height="wrap_content"
     android:background="@color/gray_bold"
     android:id="@+id/my_toolbar"
-    android:minHeight="?attr/actionBarSize"
     app:subtitleTextColor="@color/white">
 
     <ImageView

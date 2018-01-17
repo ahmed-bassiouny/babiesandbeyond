@@ -23,9 +23,9 @@ public class ItemChatAdapter extends RecyclerView.Adapter<ItemChatAdapter.CutomV
     List<Message> myarraylist;
     Context context;
 
-    public ItemChatAdapter(List<Message> myarraylist, Context context) {
+    public ItemChatAdapter(Context context) {
         this.context = context;
-        this.myarraylist = myarraylist;
+        myarraylist = new ArrayList<>();
     }
 
     @Override

@@ -37,6 +37,7 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
     private RecyclerView recycleView;
     private static UserServiceListFragment userServiceListFragment;
     private ServiceItemAdapter serviceItemAdapter;
+    private boolean isViewShown = false;
 
     public UserServiceListFragment() {
         // Required empty public constructor
@@ -66,21 +67,21 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
                 startActivityForResult(new Intent(getActivity(), UserSendRequestActivity.class), IntentDataKey.ADD_SERVICE_DATA_CODE);
             }
         });
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        loadService();
+        if (!isViewShown) {
+            loadService();
+        }
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (getContext() != null && isVisibleToUser) {
-            MyToolbar.TitleToolbar titleToolbar = (MyToolbar.TitleToolbar) getActivity();
-            titleToolbar.setTitleToolbar(getString(R.string.services));
+        if (getView() != null) {
+            isViewShown = true;
+            loadService();
+        } else {
+            isViewShown = false;
         }
+
     }
 
 

@@ -8,12 +8,19 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.controller.activities.ChatController;
+import tech.ntam.babiesandbeyond.model.FirebaseRoot;
 import tech.ntam.babiesandbeyond.model.Group;
 import tech.ntam.babiesandbeyond.model.Message;
 import tech.ntam.babiesandbeyond.view.adapter.GroupItemAdapter;
@@ -30,6 +37,7 @@ public class ChatActivity extends MyToolbar {
     private EditText etMessage;
     private ItemChatAdapter groupItemAdapter;
     private ChatController chatController;
+    private ItemChatAdapter itemChatAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +57,43 @@ public class ChatActivity extends MyToolbar {
         else {
             tvTitle.setText(group.getName());
         }
-        //setFakeData();
+        loadChat();
     }
 
-    private void setFakeData() {
-        //groupItemAdapter = new ItemChatAdapter(messages, this);
-        //recycleView.setAdapter(groupItemAdapter);
+    private void loadChat() {
+        itemChatAdapter = new ItemChatAdapter(ChatActivity.this);
+        recycleView.setAdapter(itemChatAdapter);
+        FirebaseDatabase.getInstance().getReference().child(FirebaseRoot.GROUP)
+                .child(String.valueOf(group.getId()))
+                .addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                        Message message = dataSnapshot.getValue(Message.class);
+                        itemChatAdapter.addMessage(message);
+                        recycleView.scrollToPosition(itemChatAdapter.getItemCount()- 1);
+                    }
+
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
     }
 
     private void onClick() {

@@ -75,15 +75,6 @@ public class UserWorkshopFragment extends Fragment {
         getUserWorkshopController().getWorkshop(compactCalendarView);
     }
 
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (getContext() != null && isVisibleToUser) {
-            MyToolbar.TitleToolbar titleToolbar = (MyToolbar.TitleToolbar) getActivity();
-            titleToolbar.setTitleToolbar(getString(R.string.workshop));
-        }
-    }
-
     private void initObject() {
         compactCalendarView.setLocale(TimeZone.getDefault(), Locale.getDefault());
         Utils.setCurrentDate(tvDate);

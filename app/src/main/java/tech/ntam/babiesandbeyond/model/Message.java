@@ -22,6 +22,9 @@ public class Message {
         this.userId = userId;
     }
 
+    public Message() {
+    }
+
     public int getImgHeight() {
         return imgHeight;
     }

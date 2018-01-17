@@ -26,6 +26,7 @@ public class UserAboutUsFragment extends Fragment {
     public static UserAboutUsFragment userAboutUsFragment;
     private TextView tvAbout;
     private String about = "";
+    private boolean isViewShown = false;
 
     public static UserAboutUsFragment newInstance() {
         if (userAboutUsFragment == null) {
@@ -37,9 +38,11 @@ public class UserAboutUsFragment extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (getContext() != null && isVisibleToUser) {
-            MyToolbar.TitleToolbar titleToolbar = (MyToolbar.TitleToolbar) getActivity();
-            titleToolbar.setTitleToolbar(getString(R.string.about_us));
+        if (getView() != null) {
+            isViewShown = true;
+            loadAbout();
+        } else {
+            isViewShown = false;
         }
     }
 
@@ -59,18 +62,15 @@ public class UserAboutUsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         tvAbout = view.findViewById(R.id.tv_about);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        loadAbout();
+        if (!isViewShown) {
+            loadAbout();
+        }
     }
 
     private void loadAbout() {
         // check if about string is empty that mean i don't load data from backend
         // if about string not empty that mean i loaded data so i set it in string
-        if(!about.isEmpty()){
+        if (!about.isEmpty()) {
             tvAbout.setText(about);
             return;
         }

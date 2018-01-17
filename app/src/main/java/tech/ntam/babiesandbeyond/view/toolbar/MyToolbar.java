@@ -72,6 +72,6 @@ public class MyToolbar extends AppCompatActivity {
     }
 
     public interface TitleToolbar {
-        void setTitleToolbar(String title);
+        //void setTitleToolbar(String title);
     }
 }

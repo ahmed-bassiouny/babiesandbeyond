@@ -15,6 +15,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:textStyle="bold"
+        android:fontFamily="@font/museosans"
         android:textColor="@color/gray_bold"
         tools:text="service name" />
 
@@ -24,6 +25,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
+        android:textSize="10sp"
+        android:fontFamily="@font/museosans"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_service_name"
         tools:text="location" />
@@ -34,7 +37,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
-        android:textSize="12sp"
+        android:textSize="10sp"
+        android:fontFamily="@font/museosans"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_location"
         tools:text="date time" />
@@ -45,9 +49,14 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="0dp"
+        android:fontFamily="@font/museosans"
+        android:textStyle="bold"
+        android:textColor="@color/gray_bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tv_confirm"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="price" />
 
@@ -58,7 +67,20 @@
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         android:text="Confirm"
+        android:fontFamily="@font/museosans"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/textView12"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/off_white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_date_time" />
 </android.support.constraint.ConstraintLayout>

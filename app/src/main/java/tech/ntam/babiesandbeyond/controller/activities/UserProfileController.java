@@ -11,6 +11,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.babiesandbeyond.model.User;
+import tech.ntam.babiesandbeyond.utils.UserSharedPref;
 import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
 import tech.ntam.mylibrary.Utils;
 
@@ -26,34 +27,27 @@ public class UserProfileController {
     }
 
     public void getProfileData(final EditText etName, final EditText etPhone, final CircleImageView ivProfilePhoto) {
-        final MyDialog myDialog =new MyDialog();
-        myDialog.showMyDialog(activity);
         RequestAndResponse.getProfile(activity, new BaseResponseInterface<User>() {
             @Override
             public void onSuccess(User user) {
-                etName.setText(user.getName());
-                etPhone.setText(user.getPhone());
-                if(!user.getPhone().isEmpty())
-                    Utils.MyGlide(activity, ivProfilePhoto, user.getPhoto());
-
-                myDialog.dismissMyDialog();
+                updateInfoShared(user.getName(), user.getPhoto(), user.getPhone());
+                getDataFromSharefPref(etName,etPhone,ivProfilePhoto);
             }
 
             @Override
             public void onFailed(String errorMessage) {
-                myDialog.dismissMyDialog();
-                Toast.makeText(activity, errorMessage, Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    public void updateProfile(String photo ,EditText etName,EditText etPhone) {
-        final MyDialog myDialog =new MyDialog();
+    public void updateProfile(String photo, final EditText etName, final EditText etPhone) {
+        final MyDialog myDialog = new MyDialog();
         myDialog.showMyDialog(activity);
         RequestAndResponse.updateProfile(activity, etName.getText().toString(), etPhone.getText().toString(), photo, new BaseResponseInterface<String>() {
             @Override
             public void onSuccess(String s) {
                 Toast.makeText(activity, s, Toast.LENGTH_SHORT).show();
+                updateInfoShared(etName.getText().toString(), etPhone.getText().toString());
                 myDialog.dismissMyDialog();
             }
 
@@ -63,5 +57,19 @@ public class UserProfileController {
                 myDialog.dismissMyDialog();
             }
         });
+    }
+
+    private void updateInfoShared(String name, String photo, String phone) {
+        UserSharedPref.setUserInfo(activity, name, photo, phone);
+    }
+    private void updateInfoShared(String name, String phone) {
+        UserSharedPref.setUserInfo(activity, name, phone);
+    }
+
+    public void getDataFromSharefPref(final EditText etName, final EditText etPhone, final CircleImageView ivProfilePhoto) {
+        etName.setText(UserSharedPref.getName(activity));
+        etPhone.setText(UserSharedPref.getPhone(activity));
+        if (!UserSharedPref.getPhoto(activity).isEmpty())
+            Utils.MyGlide(activity, ivProfilePhoto, UserSharedPref.getPhoto(activity));
     }
 }
