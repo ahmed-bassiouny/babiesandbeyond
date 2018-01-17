@@ -8,8 +8,8 @@
     app:subtitleTextColor="@color/white">
 
     <ImageView
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_gravity="start"
         android:id="@+id/iv_back"
         android:src="@drawable/ic_arrow_back_black_24dp" />
@@ -20,17 +20,18 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:fontFamily="@font/museosans"
+        android:textSize="18sp"
         android:textColor="@color/white" />
     <ImageView
-        android:layout_width="25dp"
+        android:layout_width="30dp"
         android:id="@+id/iv_profile"
-        android:layout_height="25dp"
+        android:layout_height="30dp"
         android:layout_gravity="start"
         android:src="@drawable/profile"/>
 
     <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:layout_marginEnd="10dp"
         android:layout_gravity="end"
         android:id="@+id/iv_notification"

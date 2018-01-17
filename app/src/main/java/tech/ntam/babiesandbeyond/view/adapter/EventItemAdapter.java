@@ -77,8 +77,8 @@ public class EventItemAdapter extends RecyclerView.Adapter<EventItemAdapter.MyVi
             holder.tvServiceStatus.setText(R.string.coming);
             holder.tvServiceStatus.setBackgroundColor(context.getResources().getColor(R.color.gray_bold));
         } else {
-            holder.tvServiceStatus.setText(R.string.not_coming);
-            holder.tvServiceStatus.setBackgroundColor(context.getResources().getColor(R.color.colorButton));
+            holder.tvServiceStatus.setVisibility(View.GONE);
+            //holder.tvServiceStatus.setBackgroundColor(context.getResources().getColor(R.color.colorButton));
         }
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
