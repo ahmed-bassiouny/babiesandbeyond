@@ -12,13 +12,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <!--
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyA-ZnB735h3tMJstBYAqgKcrkj5PvfWu6Y" />-->
+            android:value="AIzaSyA-ZnB735h3tMJstBYAqgKcrkj5PvfWu6Y" />
+        -->
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDoZf_iCW39WKmi5WdKsYpvRi1wDeAEt48"/>
+            android:value="AIzaSyDoZf_iCW39WKmi5WdKsYpvRi1wDeAEt48" />
+
         <activity
             android:name=".view.activities.SignIn_UpActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -101,6 +105,8 @@
             android:theme="@style/AppThemeDialog" />
         <activity
             android:name=".view.activities.UserRequestNurseAndBabysitterActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".view.activities.MidwifeActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

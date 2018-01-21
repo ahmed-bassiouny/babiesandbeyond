@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
@@ -24,6 +25,7 @@ import tech.ntam.babiesandbeyond.interfaces.ParseObject;
 import tech.ntam.babiesandbeyond.model.Service;
 import tech.ntam.babiesandbeyond.model.ServiceTypeList;
 import tech.ntam.babiesandbeyond.model.UserService;
+import tech.ntam.babiesandbeyond.view.activities.MidwifeActivity;
 import tech.ntam.babiesandbeyond.view.activities.ShowServiceInfoActivity;
 import tech.ntam.babiesandbeyond.view.activities.UserRequestNurseAndBabysitterActivity;
 import tech.ntam.babiesandbeyond.view.activities.UserSendRequestActivity;
@@ -45,7 +47,7 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
     private FloatingActionButton requestNurse;
     private FloatingActionButton requestMidwife;
     private FloatingActionButton requestBabysitter;
-
+    private FloatingActionsMenu multipleActions;
     public UserServiceListFragment() {
         // Required empty public constructor
     }
@@ -71,6 +73,7 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
         requestNurse = view.findViewById(R.id.request_nurse);
         requestMidwife = view.findViewById(R.id.request_midwife);
         requestBabysitter = view.findViewById(R.id.request_babysitter);
+        multipleActions = view.findViewById(R.id.multiple_actions);
 
         recycleView.setLayoutManager(new LinearLayoutManager(getContext()));
         view.findViewById(R.id.btn_send_request).setOnClickListener(new View.OnClickListener() {
@@ -92,13 +95,18 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
                 Intent intent = new Intent(getContext(), UserRequestNurseAndBabysitterActivity.class);
                 intent.putExtra(IntentDataKey.SERVICE,IntentDataKey.NURSE_SERVICE);
                 startActivityForResult(intent,IntentDataKey.ADD_SERVICE_DATA_CODE);
+                multipleActions.collapse();
 
             }
         });
         requestMidwife.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getContext(), MidwifeActivity.class);
+                /*intent.putExtra(IntentDataKey.SERVICE,IntentDataKey.NURSE_SERVICE);
+                startActivityForResult(intent,IntentDataKey.ADD_SERVICE_DATA_CODE);*/
+                startActivity(intent);
+                multipleActions.collapse();
             }
         });
         requestBabysitter.setOnClickListener(new View.OnClickListener() {
@@ -107,6 +115,7 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
                 Intent intent = new Intent(getContext(), UserRequestNurseAndBabysitterActivity.class);
                 intent.putExtra(IntentDataKey.SERVICE,IntentDataKey.BABYSITTER_SERVICE);
                 startActivityForResult(intent,IntentDataKey.ADD_SERVICE_DATA_CODE);
+                multipleActions.collapse();
             }
         });
     }

@@ -19,6 +19,7 @@ import tech.ntam.babiesandbeyond.api.api_model.request.UpdateProfileRequest;
 import tech.ntam.babiesandbeyond.api.api_model.response.AboutResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.AddServiceResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.AddWorkshopResponse;
+import tech.ntam.babiesandbeyond.api.api_model.response.CreateGroupResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.EventsResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.GroupResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.HistoryResponse;
@@ -145,11 +146,11 @@ public interface BaseRequestInterface {
     @FormUrlEncoded
     @Headers(HEADER_KEY)
     @POST(CREATE_GROUP)
-    Call<ParentResponse> createGroup(@Header(AUTHORIZATION) String token,
-                                     @Field(CreateGroupRequest.USER_ID) int userId,
-                                     @Field(CreateGroupRequest.GROUP_NAME) String name,
-                                     @Field(CreateGroupRequest.GROUP_DESCRIPTION) String description,
-                                     @Field(CreateGroupRequest.GROUP_PHOTO) String photo);
+    Call<CreateGroupResponse> createGroup(@Header(AUTHORIZATION) String token,
+                                          @Field(CreateGroupRequest.USER_ID) int userId,
+                                          @Field(CreateGroupRequest.GROUP_NAME) String name,
+                                          @Field(CreateGroupRequest.GROUP_DESCRIPTION) String description,
+                                          @Field(CreateGroupRequest.GROUP_PHOTO) String photo);
 
     @FormUrlEncoded
     @Headers(HEADER_KEY)

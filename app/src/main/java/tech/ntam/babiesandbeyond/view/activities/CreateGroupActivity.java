@@ -1,5 +1,6 @@
 package tech.ntam.babiesandbeyond.view.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -18,11 +19,14 @@ import java.io.FileNotFoundException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import tech.ntam.babiesandbeyond.R;
+import tech.ntam.babiesandbeyond.api.api_model.response.CreateGroupResponse;
 import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
+import tech.ntam.babiesandbeyond.model.Group;
 import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 import tech.ntam.mylibrary.ImageFactor;
+import tech.ntam.mylibrary.IntentDataKey;
 import tech.ntam.mylibrary.Utils;
 import tech.ntam.mylibrary.interfaces.ProcessInterface;
 
@@ -66,16 +70,20 @@ public class CreateGroupActivity extends MyToolbar {
                     final MyDialog myDialog =new MyDialog();
                     myDialog.showMyDialog(CreateGroupActivity.this);
                     RequestAndResponse.createGroup(CreateGroupActivity.this, etGroupName.getText().toString(),
-                            etGroupDescription.getText().toString(), photo, new BaseResponseInterface<String>() {
+                            etGroupDescription.getText().toString(), photo, new BaseResponseInterface<Group>() {
                                 @Override
-                                public void onSuccess(String s) {
-                                    Toast.makeText(CreateGroupActivity.this, s, Toast.LENGTH_SHORT).show();
+                                public void onSuccess(Group group) {
+                                    Toast.makeText(CreateGroupActivity.this, "You Request sent Successfully,wait the confirmation", Toast.LENGTH_SHORT).show();
                                     myDialog.dismissMyDialog();
+                                    Intent resultIntent = new Intent();
+                                    resultIntent.putExtra(IntentDataKey.ADD_GROUP_DATA_KEY, group);
+                                    setResult(Activity.RESULT_OK, resultIntent);
+                                    finish();
                                 }
 
                                 @Override
                                 public void onFailed(String errorMessage) {
-                                    Toast.makeText(CreateGroupActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(CreateGroupActivity.this, "The name has already been taken.", Toast.LENGTH_SHORT).show();
                                     myDialog.dismissMyDialog();
                                 }
                             });
@@ -96,15 +104,12 @@ public class CreateGroupActivity extends MyToolbar {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         final Bitmap bitmap = ImagePicker.getImageFromResult(this, requestCode, resultCode, data);
-        final MyDialog myDialog =new MyDialog();
-        myDialog.showMyDialog(this);
 
         ivProfilePhoto.setImageBitmap(bitmap);
         Utils.convertImageFromBitmapToStringBase64(bitmap, new ProcessInterface() {
             @Override
             public void completed(String item) {
                 photo = item;
-                myDialog.dismissMyDialog();
             }
         });
 

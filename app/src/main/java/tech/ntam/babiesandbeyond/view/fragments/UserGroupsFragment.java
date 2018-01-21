@@ -1,6 +1,7 @@
 package tech.ntam.babiesandbeyond.view.fragments;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,6 +17,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import info.hoang8f.android.segmented.SegmentedGroup;
@@ -25,6 +27,8 @@ import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.babiesandbeyond.interfaces.GroupOption;
 import tech.ntam.babiesandbeyond.interfaces.ParseObject;
 import tech.ntam.babiesandbeyond.model.Group;
+import tech.ntam.babiesandbeyond.model.Workshop;
+import tech.ntam.babiesandbeyond.utils.UserSharedPref;
 import tech.ntam.babiesandbeyond.view.activities.ChatActivity;
 import tech.ntam.babiesandbeyond.view.activities.CreateGroupActivity;
 import tech.ntam.babiesandbeyond.view.activities.UserHomeActivity;
@@ -47,6 +51,7 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
     private RecyclerView recycleView;
     private GroupItemAdapter groupItemAdapter;
     private static UserGroupsFragment userGroupsFragment;
+    private List<Group> allGroups;
 
     private boolean isViewShown = false;
 
@@ -100,10 +105,34 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
         tvCreateGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), CreateGroupActivity.class));
+                startActivityForResult(new Intent(getActivity(), CreateGroupActivity.class), IntentDataKey.ADD_GROUP_DATA_CODE);
+            }
+        });
+        btnAllGroups.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                groupItemAdapter.updateList(allGroups);
+            }
+        });
+        btnMyGroups.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyDialog myDialog = new MyDialog();
+                myDialog.showMyDialog(getContext());
+                int myId = UserSharedPref.getId(getContext());
+                List<Group> myGroup = new ArrayList<>();
+                for (Group item : allGroups) {
+                    if (item.getCreatedBy() == myId) {
+                        myGroup.add(item);
+                    }
+
+                }
+                groupItemAdapter.updateList(myGroup);
+                myDialog.dismissMyDialog();
             }
         });
     }
+
     @Override
     public void JoinGroup(int groupId, final int position) {
         final MyDialog myDialog = new MyDialog();
@@ -148,7 +177,7 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
     private void loadGroup() {
         // check if adapter is null that mean i don't load data from backend
         // if adapter not equal null that mean i loaded data so i set it in recycler view
-        if(groupItemAdapter !=null){
+        if (groupItemAdapter != null) {
             recycleView.setAdapter(groupItemAdapter);
             return;
         }
@@ -157,6 +186,7 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
         RequestAndResponse.getGroups(getContext(), new BaseResponseInterface<List<Group>>() {
             @Override
             public void onSuccess(List<Group> groups) {
+                allGroups = groups;
                 groupItemAdapter = new GroupItemAdapter(groups, UserGroupsFragment.this);
                 recycleView.setAdapter(groupItemAdapter);
                 myDialog.dismissMyDialog();
@@ -172,12 +202,26 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
 
     @Override
     public void getMyObject(Group group) {
-        if(!group.isMember()){
+        if (!group.isMember()) {
             Toast.makeText(getContext(), R.string.please_join_group, Toast.LENGTH_SHORT).show();
             return;
         }
         Intent intent = new Intent(getContext(), ChatActivity.class);
-        intent.putExtra(IntentDataKey.SHOW_GROUP_DATA_KEY,group);
+        intent.putExtra(IntentDataKey.SHOW_GROUP_DATA_KEY, group);
         startActivity(intent);
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == IntentDataKey.ADD_GROUP_DATA_CODE && resultCode == Activity.RESULT_OK && data != null) {
+            Group group = data.getParcelableExtra(IntentDataKey.ADD_GROUP_DATA_KEY);
+            if (group != null) {
+                if (btnMyGroups.isSelected())
+                    groupItemAdapter.addGroup(group);
+                allGroups.add(group);
+            }
+        }
+    }
+
 }

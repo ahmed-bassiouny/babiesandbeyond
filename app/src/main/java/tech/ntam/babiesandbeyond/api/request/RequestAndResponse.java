@@ -12,6 +12,7 @@ import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.api.api_model.response.AboutResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.AddServiceResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.AddWorkshopResponse;
+import tech.ntam.babiesandbeyond.api.api_model.response.CreateGroupResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.EventsResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.GroupResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.HistoryResponse;
@@ -258,20 +259,20 @@ public class RequestAndResponse {
         });
     }
 
-    public static void createGroup(Context context, String name, String description, String photo, final BaseResponseInterface<String> anInterface) {
-        Call<ParentResponse> response = baseRequestInterface.createGroup(
+    public static void createGroup(Context context, String name, String description, String photo, final BaseResponseInterface<Group> anInterface) {
+        Call<CreateGroupResponse> response = baseRequestInterface.createGroup(
                 UserSharedPref.getTokenWithHeader(context),
                 UserSharedPref.getId(context),
                 name, description, photo);
-        response.enqueue(new Callback<ParentResponse>() {
+        response.enqueue(new Callback<CreateGroupResponse>() {
             @Override
-            public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {
+            public void onResponse(Call<CreateGroupResponse> call, Response<CreateGroupResponse> response) {
                 checkValidResult(response.code(), response.body().getStatus()
-                        , response.body().getMessage(), response.body().getMessage(), anInterface);
+                        , response.body().getGroup(), response.body().getMessage(), anInterface);
             }
 
             @Override
-            public void onFailure(Call<ParentResponse> call, Throwable t) {
+            public void onFailure(Call<CreateGroupResponse> call, Throwable t) {
                 anInterface.onFailed(errorConnection);
             }
         });

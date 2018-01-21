@@ -72,6 +72,7 @@
     <string name="my_task">My Task</string>
     <string name="nurse">Nurse</string>
     <string name="midwife">Midwife</string>
+    <string name="midwife_name">Midwife Name</string>
     <string name="babysitter">Babysitter</string>
     <string name="nurse_request">Nurse Request</string>
 

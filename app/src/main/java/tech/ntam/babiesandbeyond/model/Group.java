@@ -25,7 +25,9 @@ public class Group implements Parcelable {
     @SerializedName("status")
     private String status;
     @SerializedName("created_by")
-    private String createdBy;
+    private int createdBy;
+    @SerializedName("created_by_name")
+    private String createdByName;
     @SerializedName("approved_by")
     private String approvedBy;
     @SerializedName("created_at")
@@ -57,8 +59,12 @@ public class Group implements Parcelable {
     }
 
 
-    public String getCreatedBy() {
-        return Utils.getValueFromString(createdBy);
+    public int getCreatedBy() {
+        return createdBy;
+    }
+
+    public String getCreatedByName() {
+        return Utils.getValueFromString(createdByName);
     }
 
     public String getDate() {
@@ -91,9 +97,10 @@ public class Group implements Parcelable {
         dest.writeString(this.description);
         dest.writeString(this.photo);
         dest.writeString(this.status);
-        dest.writeString(this.createdBy);
+        dest.writeInt(this.createdBy);
         dest.writeString(this.approvedBy);
         dest.writeString(this.date);
+        dest.writeString(this.createdByName);
         dest.writeByte(this.isMember ? (byte) 1 : (byte) 0);
     }
 
@@ -106,9 +113,10 @@ public class Group implements Parcelable {
         this.description = in.readString();
         this.photo = in.readString();
         this.status = in.readString();
-        this.createdBy = in.readString();
+        this.createdBy = in.readInt();
         this.approvedBy = in.readString();
         this.date = in.readString();
+        this.createdByName = in.readString();
         this.isMember = in.readByte() != 0;
     }
 

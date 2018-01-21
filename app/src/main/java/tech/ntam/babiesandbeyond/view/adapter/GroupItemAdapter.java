@@ -78,7 +78,7 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
         final Group group = groups.get(position);
         holder.ivGroupStatus.setText(group.getStatusString());
         holder.tvGroupName.setText(group.getName());
-        holder.tvGroupCreatedBy.setText(group.getCreatedBy());
+        holder.tvGroupCreatedBy.setText(group.getCreatedByName());
         holder.tvDescription.setText(group.getDescription());
         holder.tvDate.setText(group.getDate());
         if (!group.getPhoto().isEmpty())
@@ -134,5 +134,13 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
         Group group = groups.get(position);
         group.setMember(false);
         notifyItemChanged(position);
+    }
+    public void updateList(List<Group> groups){
+        this.groups = groups;
+        notifyDataSetChanged();
+    }
+    public void addGroup(Group group){
+        this.groups.add(group);
+        notifyItemInserted(groups.size()-1);
     }
 }
