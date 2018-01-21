@@ -15,14 +15,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mvc.imagepicker.ImagePicker;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import pl.aprilapps.easyphotopicker.DefaultCallback;
-import pl.aprilapps.easyphotopicker.EasyImage;
-import pl.aprilapps.easyphotopicker.EasyImageConfig;
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
@@ -56,7 +55,7 @@ public class UserProfileActivity extends MyToolbar {
         onClick();
         setupToolbar(this, false, true, false);
         tvTitle.setText(R.string.profile);
-        getUserProfileController().getDataFromSharefPref(etName,etPhone,ivProfilePhoto);
+        getUserProfileController().getDataFromSharefPref(etName, etPhone, ivProfilePhoto);
         getUserProfileController().getProfileData(etName, etPhone, ivProfilePhoto);
     }
 
@@ -87,11 +86,28 @@ public class UserProfileActivity extends MyToolbar {
             public void onClick(View v) {
                 if (!editable)
                     return;
-                EasyImage.openChooserWithGallery(UserProfileActivity.this, "Select Photo", EasyImageConfig.REQ_PICK_PICTURE_FROM_GALLERY);
+                ImagePicker.pickImage(UserProfileActivity.this, "Select your image:");
+
+            }
+        });
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        final Bitmap bitmap = ImagePicker.getImageFromResult(this, requestCode, resultCode, data);
+        final MyDialog dialog = new MyDialog();
+        dialog.showMyDialog(UserProfileActivity.this);
+        ivProfilePhoto.setImageBitmap(bitmap);
+        Utils.convertImageFromBitmapToStringBase64(bitmap, new ProcessInterface() {
+            @Override
+            public void completed(String item) {
+                photo = item;
+                dialog.dismissMyDialog();
             }
         });
     }
 
+    /*
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -122,6 +138,7 @@ public class UserProfileActivity extends MyToolbar {
             }
         });
     }
+*/
 
     private void findViewById() {
         ivProfilePhoto = findViewById(R.id.iv_profile_photo);

@@ -1,10 +1,12 @@
 package tech.ntam.babiesandbeyond.view.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -14,6 +16,7 @@ import java.util.List;
 
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.model.Message;
+import tech.ntam.mylibrary.Utils;
 
 /**
  * Created by bassiouny on 15/01/18.
@@ -21,10 +24,12 @@ import tech.ntam.babiesandbeyond.model.Message;
 
 public class ItemChatAdapter extends RecyclerView.Adapter<ItemChatAdapter.CutomViewHolder> {
     List<Message> myarraylist;
-    Context context;
+    Activity activity;
+    int userId;
 
-    public ItemChatAdapter(Context context) {
-        this.context = context;
+    public ItemChatAdapter(Activity activity , int userId) {
+        this.activity = activity;
+        this.userId = userId;
         myarraylist = new ArrayList<>();
     }
 
@@ -41,14 +46,16 @@ public class ItemChatAdapter extends RecyclerView.Adapter<ItemChatAdapter.CutomV
         Message message = myarraylist.get(position);
         holder.message.setText(message.getMessage());
 
-        if(false){
-            holder.ivPhoto.setVisibility(View.VISIBLE);
-            holder.message.setVisibility(View.GONE);
-        }else {
+        if(message.getImageURL().isEmpty()){
             holder.ivPhoto.setVisibility(View.GONE);
             holder.message.setVisibility(View.VISIBLE);
+        }else {
+            holder.ivPhoto.setVisibility(View.VISIBLE);
+            holder.message.setVisibility(View.GONE);
+            Utils.MyGlideRounded(activity,holder.ivPhoto,message.getImageURL());
         }
-        /*if (message.isMe()) {
+
+        if (message.getUserId() == userId) {
             holder.image.setVisibility(View.GONE);
             holder.message.setBackgroundResource(R.drawable.rounded_blue_chat_message);
             holder.container.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
@@ -56,7 +63,7 @@ public class ItemChatAdapter extends RecyclerView.Adapter<ItemChatAdapter.CutomV
             holder.image.setVisibility(View.VISIBLE);
             holder.message.setBackgroundResource(R.drawable.rounded_gray_chat_message);
             holder.container.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
-        }*/
+        }
     }
 
     @Override
@@ -67,7 +74,8 @@ public class ItemChatAdapter extends RecyclerView.Adapter<ItemChatAdapter.CutomV
     class CutomViewHolder extends RecyclerView.ViewHolder {
         TextView message;
         RelativeLayout container;
-        ImageView image,ivPhoto;
+        ImageView image;
+        ImageView ivPhoto;
 
         public CutomViewHolder(View view) {
             super(view);

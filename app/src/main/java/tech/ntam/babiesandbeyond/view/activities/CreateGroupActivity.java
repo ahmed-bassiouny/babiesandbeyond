@@ -11,13 +11,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mvc.imagepicker.ImagePicker;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import pl.aprilapps.easyphotopicker.DefaultCallback;
-import pl.aprilapps.easyphotopicker.EasyImage;
-import pl.aprilapps.easyphotopicker.EasyImageConfig;
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
@@ -49,7 +48,8 @@ public class CreateGroupActivity extends MyToolbar {
         tvUploadPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EasyImage.openChooserWithGallery(CreateGroupActivity.this, "Select Photo", EasyImageConfig.REQ_PICK_PICTURE_FROM_GALLERY);
+                ImagePicker.pickImage(CreateGroupActivity.this, "Select your image:");
+
             }
         });
         btnCreateGroup.setOnClickListener(new View.OnClickListener() {
@@ -95,6 +95,24 @@ public class CreateGroupActivity extends MyToolbar {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        final Bitmap bitmap = ImagePicker.getImageFromResult(this, requestCode, resultCode, data);
+        final MyDialog myDialog =new MyDialog();
+        myDialog.showMyDialog(this);
+
+        ivProfilePhoto.setImageBitmap(bitmap);
+        Utils.convertImageFromBitmapToStringBase64(bitmap, new ProcessInterface() {
+            @Override
+            public void completed(String item) {
+                photo = item;
+                myDialog.dismissMyDialog();
+            }
+        });
+
+    }
+    /*
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         final MyDialog myDialog =new MyDialog();
         myDialog.showMyDialog(this);
         EasyImage.handleActivityResult(requestCode, resultCode, data, this, new DefaultCallback() {
@@ -124,5 +142,5 @@ public class CreateGroupActivity extends MyToolbar {
             }
 
         });
-    }
+    }*/
 }

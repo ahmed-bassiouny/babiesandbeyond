@@ -5,6 +5,8 @@ import android.content.Context;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
+
 import tech.ntam.babiesandbeyond.model.FirebaseRoot;
 import tech.ntam.babiesandbeyond.model.FirebaseUser;
 import tech.ntam.babiesandbeyond.model.Message;
@@ -27,10 +29,24 @@ public class ChatController {
         this.groupId = groupId;
     }
 
-    public void createMessage(String txtMessage) {
-        Message message = new Message(txtMessage, UserSharedPref.getId(context), MyDateTimeFactor.getTimeStamp());
+    public void createTextMessage(String txtMessage) {
         String key = getGroupReference().push().getKey();
-        getGroupReference().child(key).setValue(message);
+        HashMap<String,Object> hashMap = new HashMap<>();
+        hashMap.put(Message.USER_ID,UserSharedPref.getId(context));
+        hashMap.put(Message.TIME_STAMP,MyDateTimeFactor.getTimeStamp());
+        hashMap.put(Message.TEXT_MESSAGE,txtMessage);
+        getGroupReference().child(key).updateChildren(hashMap);
+        setUser();
+    }
+    public void createImageMessage(String imageUrl,int width,int height) {
+        String key = getGroupReference().push().getKey();
+        HashMap<String,Object> hashMap = new HashMap<>();
+        hashMap.put(Message.USER_ID,UserSharedPref.getId(context));
+        hashMap.put(Message.TIME_STAMP,MyDateTimeFactor.getTimeStamp());
+        hashMap.put(Message.IMAGE_URL,imageUrl);
+        hashMap.put(Message.IMAGE_WIDTH,width);
+        hashMap.put(Message.IMAGE_HEIGHT,height);
+        getGroupReference().child(key).updateChildren(hashMap);
         setUser();
     }
 

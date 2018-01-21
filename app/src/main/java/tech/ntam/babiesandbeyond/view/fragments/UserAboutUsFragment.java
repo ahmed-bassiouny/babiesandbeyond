@@ -62,6 +62,7 @@ public class UserAboutUsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         tvAbout = view.findViewById(R.id.tv_about);
+        Toast.makeText(getActivity(), "fsdf", Toast.LENGTH_SHORT).show();
         if (!isViewShown) {
             loadAbout();
         }

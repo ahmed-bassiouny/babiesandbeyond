@@ -20,6 +20,7 @@ import java.lang.reflect.Field;
 
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.utils.BottomNavigationViewHelper;
+import tech.ntam.babiesandbeyond.view.fragments.OptionsFragment;
 import tech.ntam.babiesandbeyond.view.fragments.UserAboutUsFragment;
 import tech.ntam.babiesandbeyond.view.fragments.UserEventListFragment;
 import tech.ntam.babiesandbeyond.view.fragments.UserEventsFragment;
@@ -75,9 +76,9 @@ public class UserHomeActivity extends MyToolbar implements MyToolbar.TitleToolba
                         mViewPager.setCurrentItem(3);
                         tvTitle.setText(R.string.groups);
                         break;
-                    case R.id.about_us:
+                    case R.id.more:
                         mViewPager.setCurrentItem(4);
-                        tvTitle.setText(R.string.about_us);
+                        tvTitle.setText(R.string.more);
                         break;
                 }
                 return true;
@@ -107,7 +108,7 @@ public class UserHomeActivity extends MyToolbar implements MyToolbar.TitleToolba
                         tvTitle.setText(R.string.groups);
                         break;
                     case 4:
-                        tvTitle.setText(R.string.about_us);
+                        tvTitle.setText(R.string.more);
                         break;
                 }
             }
@@ -149,7 +150,7 @@ public class UserHomeActivity extends MyToolbar implements MyToolbar.TitleToolba
                 case 3:
                     return UserGroupsFragment.newInstance();
                 case 4:
-                    return UserAboutUsFragment.newInstance();
+                    return OptionsFragment.newInstance();
                 default:
                     return null;
             }

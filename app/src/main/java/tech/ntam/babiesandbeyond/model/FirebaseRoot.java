@@ -5,7 +5,7 @@ package tech.ntam.babiesandbeyond.model;
  */
 
 public class FirebaseRoot {
-    public static final String GROUP = "group";
+    public static final String GROUP = "groups";
     public static final String USERS = "users";
 
 }

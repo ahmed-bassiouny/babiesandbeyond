@@ -1,28 +1,57 @@
 package tech.ntam.babiesandbeyond.model;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by bassiouny on 09/01/18.
  */
 
 public class Message {
 
-    private static final String textType = "text";
-    private static final String photoType = "photo";
+    public static final String USER_ID = "userId";
+    public static final String TEXT_MESSAGE = "message";
+    public static final String TIME_STAMP = "timeStamp";
+    public static final String IMAGE_HEIGHT = "imgHeight";
+    public static final String IMAGE_WIDTH = "imgWidth";
+    public static final String IMAGE_URL = "imageURL";
 
-    private int imgHeight;
-    private int imgWidth;
-    private String message;
-    private long timeStamp;
-    private String type;
+    @SerializedName(USER_ID)
     private int userId;
+    @SerializedName(TEXT_MESSAGE)
+    private String txtMessage;
+    @SerializedName(TIME_STAMP)
+    private long timeStamp;
+    @SerializedName(IMAGE_HEIGHT)
+    private int imgHeight;
+    @SerializedName(IMAGE_WIDTH)
+    private int imgWidth;
+    @SerializedName(IMAGE_URL)
+    private String imageURL;
 
-    private void setMessage(String message, long timeStamp, int userId) {
-        this.message = message;
-        this.timeStamp = timeStamp;
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 
-    public Message() {
+    public String getMessage() {
+        if (txtMessage == null)
+            txtMessage = "";
+        return txtMessage;
+    }
+
+    public void setMessage(String message) {
+        this.txtMessage = message;
+    }
+
+    public long getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(long timeStamp) {
+        this.timeStamp = timeStamp;
     }
 
     public int getImgHeight() {
@@ -41,60 +70,13 @@ public class Message {
         this.imgWidth = imgWidth;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public String getImageURL() {
+        if (imageURL == null)
+            imageURL = "";
+        return imageURL;
     }
 
-    public long getTimeStamp() {
-        return timeStamp;
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
-
-    public void setTimeStamp(long timeStamp) {
-        this.timeStamp = timeStamp;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-    /*
-    public  textMessage() {
-        type = textType;
-        this.imgHeight = 0;
-        this.imgWidth = 0;
-    }*/
-
-    public Message(String message, int userId, long timeStamp) {
-        setMessage(message, timeStamp, userId);
-        type = textType;
-        this.imgHeight = 0;
-        this.imgWidth = 0;
-    }
-
-    public Message(String message, int userId, long timeStamp, int imgHeight, int imgWidth) {
-        setMessage(message, timeStamp, userId);
-        type = textType;
-        this.imgHeight = imgHeight;
-        this.imgWidth = imgWidth;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public boolean isMe(int userId) {
-        return this.userId == userId;
-    }
-
 }

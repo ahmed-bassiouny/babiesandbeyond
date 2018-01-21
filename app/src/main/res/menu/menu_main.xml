@@ -32,11 +32,11 @@
     </item>
 
     <item
-        android:id="@+id/about_us"
-        android:title="@string/about_us"
+        android:id="@+id/more"
+        android:title="@string/more"
         app:showAsAction="ifRoom"
         android:enabled="true"
-        android:icon="@drawable/about">
+        android:icon="@drawable/ic_more_horiz_black_24dp">
     </item>
 
 </menu>
