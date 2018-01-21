@@ -80,7 +80,22 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.activities.AboutUsActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <service android:name=".firebase.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".firebase.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name=".view.activities.ViewImageActivity"
+            android:theme="@style/AppThemeDialog"></activity>
     </application>
 
 </manifest>

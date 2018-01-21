@@ -25,9 +25,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:textSize="12sp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/museosans"
+        android:textSize="12sp"
         app:layout_constraintStart_toEndOf="@+id/iv_group_image"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="group status" />
@@ -37,36 +37,36 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        tools:text="Group Name"
+        android:layout_marginTop="5dp"
         android:fontFamily="@font/museosans"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/iv_group_image"
-        app:layout_constraintTop_toBottomOf="@+id/iv_group_status" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_group_status"
+        tools:text="Group Name" />
 
     <TextView
         android:id="@+id/tv_group_created_by"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        tools:text="created by"
-        android:textSize="12sp"
+        android:layout_marginTop="5dp"
         android:fontFamily="@font/museosans"
+        android:textSize="12sp"
         app:layout_constraintStart_toEndOf="@+id/iv_group_image"
-        app:layout_constraintTop_toBottomOf="@+id/tv_group_name" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_group_name"
+        tools:text="created by" />
 
     <TextView
         android:id="@+id/tv_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:textSize="12sp"
+        android:layout_marginTop="5dp"
         android:fontFamily="@font/museosans"
-        tools:text="@string/event_description"
+        android:textSize="12sp"
         app:layout_constraintStart_toEndOf="@+id/iv_group_image"
-        app:layout_constraintTop_toBottomOf="@+id/tv_group_created_by" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_group_created_by"
+        tools:text="@string/event_description" />
 
     <ImageView
         android:id="@+id/iv_more"

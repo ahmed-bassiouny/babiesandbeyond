@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.controller.activities.ChatController;
+import tech.ntam.babiesandbeyond.interfaces.ParseObject;
 import tech.ntam.babiesandbeyond.model.FirebaseRoot;
 import tech.ntam.babiesandbeyond.model.Group;
 import tech.ntam.babiesandbeyond.model.Message;
@@ -49,7 +50,7 @@ import tech.ntam.mylibrary.MyDateTimeFactor;
 import tech.ntam.mylibrary.Utils;
 import tech.ntam.mylibrary.interfaces.ProcessInterface;
 
-public class ChatActivity extends MyToolbar {
+public class ChatActivity extends MyToolbar implements ParseObject<String> {
 
     private Group group;
     private RecyclerView recycleView;
@@ -248,5 +249,12 @@ public class ChatActivity extends MyToolbar {
         if (chatController == null)
             chatController = new ChatController(this, group.getId());
         return chatController;
+    }
+
+    @Override
+    public void getMyObject(String s) {
+        Intent i = new Intent(this, ViewImageActivity.class);
+        i.putExtra(IntentDataKey.SHOW_IMAGE,s);
+        startActivity(i);
     }
 }

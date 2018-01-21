@@ -88,7 +88,7 @@ public class UserSharedPref {
     }
     public static String getNotificationToken(Context context) {
         getSharedPref(context);
-        return "ahmed";//sharedPref.getString(NOTIFICATION_TOKEN, " ");
+        return sharedPref.getString(NOTIFICATION_TOKEN,"");
     }
     public static void clearShared(Context context){
         getSharedPref(context);
