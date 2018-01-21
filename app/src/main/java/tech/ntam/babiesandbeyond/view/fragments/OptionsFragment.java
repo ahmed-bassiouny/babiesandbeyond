@@ -1,6 +1,7 @@
 package tech.ntam.babiesandbeyond.view.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,8 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import tech.ntam.babiesandbeyond.R;
+import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
+import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
+import tech.ntam.babiesandbeyond.utils.UserSharedPref;
+import tech.ntam.babiesandbeyond.view.activities.AboutUsActivity;
+import tech.ntam.babiesandbeyond.view.activities.SignIn_UpActivity;
+import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
 import tech.ntam.mylibrary.Utils;
 
 /**
@@ -45,8 +53,30 @@ public class OptionsFragment extends Fragment {
         linearAbout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Utils.goToFragment(R.id.container,getActivity(),UserAboutUsFragment.newInstance(),true,null);
+                startActivity(new Intent(getContext(), AboutUsActivity.class));
+            }
+        });
+        linearLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final MyDialog myDialog = new MyDialog();
+                myDialog.showMyDialog(getContext());
+                RequestAndResponse.logout(getContext(), new BaseResponseInterface<String>() {
+                    @Override
+                    public void onSuccess(String s) {
+                        Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+                        UserSharedPref.clearShared(getContext());
+                        myDialog.dismissMyDialog();
+                        startActivity(new Intent(getContext(), SignIn_UpActivity.class));
+                        getActivity().finish();
+                    }
 
+                    @Override
+                    public void onFailed(String errorMessage) {
+                        Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
+                        myDialog.dismissMyDialog();
+                    }
+                });
             }
         });
     }

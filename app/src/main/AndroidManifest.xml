@@ -66,17 +66,21 @@
         <activity
             android:name=".view.activities.CreateGroupActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".view.activities.ChatActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".view.activities.ChatActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.activities.ShowServiceInfoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.activities.ShowWorkshopInfoActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.activities.ShowEventInfoActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".view.activities.AboutUsActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

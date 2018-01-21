@@ -57,6 +57,7 @@ public interface BaseRequestInterface {
     String ABOUT = "about";
     String SEND_WORKSHOP_REQUEST = "send_workshop_request";
     String NOTIFICATION = "user_notifications";
+    String LOGOUT = "logout";
 
     @FormUrlEncoded
     @POST(LOGIN)
@@ -187,4 +188,8 @@ public interface BaseRequestInterface {
     @POST(NOTIFICATION)
     Call<NotificationResponse> getNotification(@Header(AUTHORIZATION) String token,
                                                @Field(AskWorkshopRequest.USER_ID) int userId);
+
+    @FormUrlEncoded
+    @POST(LOGOUT)
+    Call<ParentResponse> logout(@Field(AskWorkshopRequest.USER_ID) int userId);
 }

@@ -90,4 +90,10 @@ public class UserSharedPref {
         getSharedPref(context);
         return "ahmed";//sharedPref.getString(NOTIFICATION_TOKEN, " ");
     }
+    public static void clearShared(Context context){
+        getSharedPref(context);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(USER_EMAIL, "");
+        editor.commit();
+    }
 }
