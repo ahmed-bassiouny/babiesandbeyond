@@ -15,6 +15,7 @@ public class MyDateTimeFactor {
     public static final String DATE_TIME_FORMAT_NUMBER = "yyyy-MM-dd HH:mm:ss";
     public static final String DATE_TIME_FORMAT_TEXT = "dd MMM yyyy HH:mm a";
     public static final String DATE_FORMAT_TEXT = "dd MMM yyyy";
+    public static final String DAY_MONTH_FORMAT_TEXT = "dd MMM";
     public static final String TIME_FORMAT = "HH:mm a";
 
     public static String changeDateFormatFromNumberToText(String dateStr) throws ParseException {
@@ -37,6 +38,17 @@ public class MyDateTimeFactor {
     public static String getDateFromDateTime(String dateStr) {
         DateFormat originalFormat = new SimpleDateFormat(DATE_TIME_FORMAT_NUMBER, Locale.ENGLISH);
         DateFormat targetFormat = new SimpleDateFormat(DATE_FORMAT_TEXT,Locale.ENGLISH);
+        Date date ;
+        try {
+            date = originalFormat.parse(dateStr);
+            return targetFormat.format(date);
+        } catch (ParseException e) {
+            return "";
+        }
+    }
+    public static String getDayMonthFromDateTime(String dateStr) {
+        DateFormat originalFormat = new SimpleDateFormat(DATE_TIME_FORMAT_NUMBER, Locale.ENGLISH);
+        DateFormat targetFormat = new SimpleDateFormat(DAY_MONTH_FORMAT_TEXT,Locale.ENGLISH);
         Date date ;
         try {
             date = originalFormat.parse(dateStr);

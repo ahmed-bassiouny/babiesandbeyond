@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import tech.ntam.mylibrary.MyDateTimeFactor;
 import tech.ntam.mylibrary.Utils;
 
 /**
@@ -62,7 +63,7 @@ public class Group implements Parcelable {
 
     public String getDate() {
         date = Utils.getValueFromString(date);
-        date = date.split(" ")[0];
+        date = MyDateTimeFactor.getDayMonthFromDateTime(date);
         return date;
     }
 

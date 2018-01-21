@@ -138,5 +138,7 @@
 
     <string name="nurse_service">Nurse Service</string>
     <string name="midwife_service">Midwife Service</string>
-    <string name="babysitter_service">Babyssiter Service</string>
+    <string name="babysitter_service">Babysitter Service</string>
+
+    <string name="please_join_group">Sorry ,Please join to group</string>
 </resources>

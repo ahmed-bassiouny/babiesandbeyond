@@ -112,7 +112,6 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
             @Override
             public void onSuccess(String s) {
                 Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
-                groupItemAdapter.updateMyStatus(true, position);
                 myDialog.dismissMyDialog();
 
             }
@@ -133,7 +132,8 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
             @Override
             public void onSuccess(String s) {
                 Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
-                groupItemAdapter.updateMyStatus(false, position);
+                groupItemAdapter.leaveGroup(
+                        position);
                 myDialog.dismissMyDialog();
             }
 
@@ -172,6 +172,10 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
 
     @Override
     public void getMyObject(Group group) {
+        if(!group.isMember()){
+            Toast.makeText(getContext(), R.string.please_join_group, Toast.LENGTH_SHORT).show();
+            return;
+        }
         Intent intent = new Intent(getContext(), ChatActivity.class);
         intent.putExtra(IntentDataKey.SHOW_GROUP_DATA_KEY,group);
         startActivity(intent);

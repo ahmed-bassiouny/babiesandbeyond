@@ -130,9 +130,9 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
         return groups.size();
     }
 
-    public void updateMyStatus(boolean isMember, int position) {
+    public void leaveGroup(int position) {
         Group group = groups.get(position);
-        group.setMember(isMember);
+        group.setMember(false);
         notifyItemChanged(position);
     }
 }
