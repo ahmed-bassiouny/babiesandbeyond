@@ -1,38 +1,77 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="tech.ntam.babiesandbeyond.view.fragments.UserServiceListFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="All"
-        android:layout_marginStart="15dp"
-        android:textColor="@color/gray_bold"
-        android:textStyle="bold"
-        android:layout_marginTop="5dp"
-        android:id="@+id/tv_service_filter_type"
-        android:textSize="15sp" />
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycle_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/tv_service_filter_type"
         android:layout_above="@+id/btn_send_request"
-        android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:id="@+id/recycle_view"/>
+        android:layout_marginStart="10dp" />
+
     <Button
+        android:id="@+id/btn_send_request"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="20dp"
-        android:textAllCaps="false"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:id="@+id/btn_send_request"
-        android:fontFamily="@font/museosans"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
         android:background="@color/colorButton"
-        android:text="@string/send_request" />
+        android:fontFamily="@font/museosans"
+        android:text="@string/send_request"
+        android:textAllCaps="false"
+        android:visibility="gone" />
 
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/multiple_actions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="16dp"
+        fab:fab_labelStyle="@style/menu_labels_style"
+        android:layout_marginEnd="16dp"
+        fab:fab_addButtonSize="mini"
+        android:layout_marginRight="16dp"
+        fab:fab_addButtonColorNormal="@color/colorButton"
+        fab:fab_addButtonColorPressed="@color/white"
+        fab:fab_addButtonPlusIconColor="@color/gray_bold">
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/request_nurse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/white"
+            fab:fab_colorPressed="@color/white"
+            fab:fab_icon="@drawable/nurse"
+            fab:fab_size="mini"
+            fab:fab_title="@string/request_nurse" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/request_midwife"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/white"
+            fab:fab_colorPressed="@color/white"
+            fab:fab_icon="@drawable/my_midwife"
+            fab:fab_size="mini"
+            fab:fab_title="@string/request_midwife" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/request_babysitter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/white"
+            fab:fab_colorPressed="@color/white"
+            fab:fab_icon="@drawable/babysitter"
+            fab:fab_size="mini"
+            fab:fab_title="@string/request_babysitter" />
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
 </RelativeLayout>

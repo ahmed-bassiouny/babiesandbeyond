@@ -27,4 +27,10 @@
         <item name="colorControlNormal">@color/gray_bold</item>
         <item name="colorControlActivated">@color/gray_bold</item>
     </style>
+
+    <style name="menu_labels_style">
+        <item name="android:background">@color/white</item>
+        <item name="android:textColor">@color/gray_bold</item>
+        <item name="android:src">@drawable/logo</item>
+    </style>
 </resources>

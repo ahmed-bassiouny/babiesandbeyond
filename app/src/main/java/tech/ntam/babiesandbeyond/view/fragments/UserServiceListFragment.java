@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.getbase.floatingactionbutton.FloatingActionButton;
+
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
@@ -23,6 +25,7 @@ import tech.ntam.babiesandbeyond.model.Service;
 import tech.ntam.babiesandbeyond.model.ServiceTypeList;
 import tech.ntam.babiesandbeyond.model.UserService;
 import tech.ntam.babiesandbeyond.view.activities.ShowServiceInfoActivity;
+import tech.ntam.babiesandbeyond.view.activities.UserRequestNurseAndBabysitterActivity;
 import tech.ntam.babiesandbeyond.view.activities.UserSendRequestActivity;
 import tech.ntam.babiesandbeyond.view.adapter.ServiceItemAdapter;
 import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
@@ -38,6 +41,10 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
     private static UserServiceListFragment userServiceListFragment;
     private ServiceItemAdapter serviceItemAdapter;
     private boolean isViewShown = false;
+
+    private FloatingActionButton requestNurse;
+    private FloatingActionButton requestMidwife;
+    private FloatingActionButton requestBabysitter;
 
     public UserServiceListFragment() {
         // Required empty public constructor
@@ -60,6 +67,11 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recycleView = view.findViewById(R.id.recycle_view);
+
+        requestNurse = view.findViewById(R.id.request_nurse);
+        requestMidwife = view.findViewById(R.id.request_midwife);
+        requestBabysitter = view.findViewById(R.id.request_babysitter);
+
         recycleView.setLayoutManager(new LinearLayoutManager(getContext()));
         view.findViewById(R.id.btn_send_request).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +82,33 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
         if (!isViewShown) {
             loadService();
         }
+        onClick();
+    }
+
+    private void onClick() {
+        requestNurse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), UserRequestNurseAndBabysitterActivity.class);
+                intent.putExtra(IntentDataKey.SERVICE,IntentDataKey.NURSE_SERVICE);
+                startActivityForResult(intent,IntentDataKey.ADD_SERVICE_DATA_CODE);
+
+            }
+        });
+        requestMidwife.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        requestBabysitter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), UserRequestNurseAndBabysitterActivity.class);
+                intent.putExtra(IntentDataKey.SERVICE,IntentDataKey.BABYSITTER_SERVICE);
+                startActivityForResult(intent,IntentDataKey.ADD_SERVICE_DATA_CODE);
+            }
+        });
     }
 
     @Override

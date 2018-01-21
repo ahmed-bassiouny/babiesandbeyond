@@ -20,4 +20,10 @@ public class IntentDataKey {
     public static final int CHANGE_WORKSHOP_DATA_CODE = 121;
     public static final int ADD_SERVICE_DATA_CODE = 122;
 
+
+    public static final int NURSE_SERVICE = 1;
+    public static final int BABYSITTER_SERVICE = 2;
+
+    public static final String SERVICE = "request_service";
+
 }
