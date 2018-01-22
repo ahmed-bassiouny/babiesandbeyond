@@ -95,9 +95,10 @@ public class UserProfileActivity extends MyToolbar {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         final Bitmap bitmap = ImagePicker.getImageFromResult(this, requestCode, resultCode, data);
+        ivProfilePhoto.setImageResource(0);
+        ivProfilePhoto.setImageBitmap(bitmap);
         final MyDialog dialog = new MyDialog();
         dialog.showMyDialog(UserProfileActivity.this);
-        ivProfilePhoto.setImageBitmap(bitmap);
         Utils.convertImageFromBitmapToStringBase64(bitmap, new ProcessInterface() {
             @Override
             public void completed(String item) {
@@ -158,15 +159,19 @@ public class UserProfileActivity extends MyToolbar {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(final MenuItem item) {
         if (item.getItemId() == R.id.edit) {
             if (editable) {
                 // here i will save new data
-                etName.setEnabled(false);
-                etPhone.setEnabled(false);
-                item.setIcon(R.drawable.ic_edit_24dp);
-                editable = false;
-                getUserProfileController().updateProfile(photo, etName, etPhone);
+                getUserProfileController().updateProfile(photo, etName, etPhone, new UserProfileController.UpdateSuccess() {
+                    @Override
+                    public void updated() {
+                        etName.setEnabled(false);
+                        etPhone.setEnabled(false);
+                        item.setIcon(R.drawable.ic_edit_24dp);
+                        editable = false;
+                    }
+                });
             } else {
                 // here make edit text editable
                 item.setIcon(R.drawable.ic_check_24dp);

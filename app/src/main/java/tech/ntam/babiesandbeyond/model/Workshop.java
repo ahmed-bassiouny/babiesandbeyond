@@ -2,6 +2,7 @@ package tech.ntam.babiesandbeyond.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -17,6 +18,8 @@ public class Workshop implements Parcelable {
 
     @SerializedName("id")
     private int id;
+    @SerializedName("workshop_id")
+    private int workshopId;
     @SerializedName("name")
     private String name;
     @SerializedName("start_date")
@@ -43,6 +46,10 @@ public class Workshop implements Parcelable {
     private String location;
     public int getId() {
         return id;
+    }
+
+    public int getWorkshopId() {
+        return workshopId;
     }
 
     public String getName() {
@@ -104,12 +111,12 @@ public class Workshop implements Parcelable {
         return coming;
     }
     public int getWorkshopStatusColor() {
-        switch (paymentStatus) {
-            case "1":
+        switch (workshopStatusName) {
+            case "Pending":
                 return R.color.colorButton;
-            case "2":
+            case "Confirm With Payment":
                 return R.color.gray_bold;
-            case "3":
+            case "Confirm Without Payment":
                 return R.color.gray;
             default:
                 return R.color.white;

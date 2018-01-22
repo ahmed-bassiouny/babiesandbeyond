@@ -3,6 +3,7 @@ package tech.ntam.mylibrary;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -70,5 +71,12 @@ public class MyDateTimeFactor {
     }
     public static long getTimeStamp(){
         return System.currentTimeMillis()/1000;
+    }
+
+    public static Date getDateTimeAfter48Hour(){
+        Calendar cal = Calendar.getInstance(); // creates calendar
+        cal.setTime(new Date()); // sets calendar time/date
+        cal.add(Calendar.HOUR_OF_DAY, 48); // adds one hour
+        return  cal.getTime(); // returns new date object, one hour in the future
     }
 }

@@ -78,7 +78,7 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
         final Group group = groups.get(position);
         holder.ivGroupStatus.setText(group.getStatusString());
         holder.tvGroupName.setText(group.getName());
-        holder.tvGroupCreatedBy.setText("Created by"+group.getCreatedByName());
+        holder.tvGroupCreatedBy.setText("Created by "+group.getCreatedByName());
         holder.tvDescription.setText(group.getDescription());
         holder.tvDate.setText(group.getDate());
         if (!group.getPhoto().isEmpty())

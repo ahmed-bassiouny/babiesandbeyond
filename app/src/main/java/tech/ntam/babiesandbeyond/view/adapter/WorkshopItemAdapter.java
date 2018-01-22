@@ -73,7 +73,10 @@ public class WorkshopItemAdapter extends RecyclerView.Adapter<WorkshopItemAdapte
         holder.tvServiceType.setText(workshop.getName());
         holder.tvServiceStatus.setText(workshop.getWorkshopStatusName());
         if (!workshop.getWorkshopStatusName().isEmpty()) {
+            holder.tvServiceStatus.setVisibility(View.VISIBLE);
             holder.tvServiceStatus.setBackgroundColor(context.getResources().getColor(workshop.getWorkshopStatusColor()));
+        }else {
+            holder.tvServiceStatus.setVisibility(View.INVISIBLE);
         }
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +94,7 @@ public class WorkshopItemAdapter extends RecyclerView.Adapter<WorkshopItemAdapte
     public void updateWorkshop(Workshop workshop) {
         int workshopsLenght = workshops.size();
         for (int i=0;i<workshopsLenght;i++) {
-            if (workshop.getId() == workshops.get(i).getId()) {
+            if (workshop.getWorkshopId() == workshops.get(i).getId()) {
                 workshops.get(i).setComing(true);
                 workshops.get(i).setWorkshopStatusName(workshop.getWorkshopStatusName());
                 notifyItemChanged(i);

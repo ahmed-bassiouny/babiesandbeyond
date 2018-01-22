@@ -14,6 +14,8 @@ import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
+import java.util.Date;
+
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.controller.activities.UserSendRequestController;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
@@ -107,8 +109,10 @@ public class UserRequestNurseAndBabysitterActivity extends MyToolbar {
             etChooseDateTo.setError(getString(R.string.select_date));
         } else if (etLocation.getText().toString().trim().length() < 10) {
             etLocation.setError(getString(R.string.enter_location));
+        } else if (MyDateTimeFactor.convertStringToDate(etChooseDateFrom.getText().toString()).before(MyDateTimeFactor.getDateTimeAfter48Hour())) {
+            Toast.makeText(this, getString(R.string.invalid_Date), Toast.LENGTH_LONG).show();
         } else if (MyDateTimeFactor.convertStringToDate(etChooseDateTo.getText().toString()).before(MyDateTimeFactor.convertStringToDate(etChooseDateFrom.getText().toString()))) {
-            Toast.makeText(this, R.string.invalid_Date, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.invalid_Date), Toast.LENGTH_LONG).show();
         } else {
             getController().saveData(serviceSelected
                     , etChooseDateFrom.getText().toString(), etChooseDateTo.getText().toString(), etLocation.getText().toString());

@@ -2,6 +2,7 @@ package tech.ntam.babiesandbeyond.controller.activities;
 
 import android.app.Activity;
 import android.content.Context;
+import android.provider.ContactsContract;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -40,7 +41,7 @@ public class UserProfileController {
         });
     }
 
-    public void updateProfile(String photo, final EditText etName, final EditText etPhone) {
+    public void updateProfile(String photo, final EditText etName, final EditText etPhone, final UpdateSuccess updateSuccess) {
         final MyDialog myDialog = new MyDialog();
         myDialog.showMyDialog(activity);
         RequestAndResponse.updateProfile(activity, etName.getText().toString(), etPhone.getText().toString(), photo, new BaseResponseInterface<String>() {
@@ -48,6 +49,7 @@ public class UserProfileController {
             public void onSuccess(String s) {
                 Toast.makeText(activity, s, Toast.LENGTH_SHORT).show();
                 updateInfoShared(etName.getText().toString(), etPhone.getText().toString());
+                updateSuccess.updated();
                 myDialog.dismissMyDialog();
             }
 
@@ -69,7 +71,11 @@ public class UserProfileController {
     public void getDataFromSharefPref(final EditText etName, final EditText etPhone, final CircleImageView ivProfilePhoto) {
         etName.setText(UserSharedPref.getName(activity));
         etPhone.setText(UserSharedPref.getPhone(activity));
-        if (!UserSharedPref.getPhoto(activity).isEmpty())
-            Utils.MyGlide(activity, ivProfilePhoto, UserSharedPref.getPhoto(activity));
+        String photo = UserSharedPref.getPhoto(activity);
+        if (!photo.isEmpty())
+            Utils.MyGlide(activity, ivProfilePhoto, photo);
+    }
+    public interface UpdateSuccess{
+        void updated();
     }
 }

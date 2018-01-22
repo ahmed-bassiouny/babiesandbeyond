@@ -81,12 +81,12 @@ public class Service implements Parcelable {
         return Utils.getValueFromString(serviceStatusName);
     }
     public int getServiceStatusColor() {
-        switch (serviceStatusId) {
-            case 1:
+        switch (serviceStatusName) {
+            case "Pending":
                 return R.color.colorButton;
-            case 2:
+            case "Confirm With Payment":
                 return R.color.gray_bold;
-            case 3:
+            case "Confirm Without Payment":
                 return R.color.gray;
             default:
                 return R.color.white;

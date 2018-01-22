@@ -18,6 +18,8 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
+import java.util.Date;
+
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.controller.activities.UserSendRequestController;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
@@ -108,9 +110,11 @@ public class UserSendRequestActivity extends MyToolbar {
             etChooseDateTo.setError(getString(R.string.select_date));
         } else if (etLocation.getText().toString().trim().length() < 10) {
             etLocation.setError(getString(R.string.enter_location));
-        } else if (MyDateTimeFactor.convertStringToDate(etChooseDateTo.getText().toString()).before(MyDateTimeFactor.convertStringToDate(etChooseDateFrom.getText().toString()))) {
+        } else if (MyDateTimeFactor.convertStringToDate(etChooseDateFrom.getText().toString()).before(new Date())) {
             Toast.makeText(this, R.string.invalid_Date, Toast.LENGTH_SHORT).show();
-        } else {
+        }  else if (MyDateTimeFactor.convertStringToDate(etChooseDateTo.getText().toString()).before(MyDateTimeFactor.convertStringToDate(etChooseDateFrom.getText().toString()))) {
+            Toast.makeText(this, R.string.invalid_Date, Toast.LENGTH_SHORT).show();
+        }else {
             getController().saveData(getController().getIdFromSpinner(spService.getSelectedItem().toString())
                     , etChooseDateFrom.getText().toString(), etChooseDateTo.getText().toString(), etLocation.getText().toString());
         }

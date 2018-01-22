@@ -25,10 +25,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:textSize="12sp"
-        android:layout_marginTop="8dp"
         android:fontFamily="@font/museosans"
         android:text="@string/service_type"
+        android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_service_status" />
 
@@ -38,13 +37,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:fontFamily="@font/museosans"
-        android:layout_marginTop="8dp"
-        android:textSize="12sp"
         android:textColor="@color/gray_bold"
-        tools:text="Nurse"
+        android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/tv_service_status" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_service_status"
+        tools:text="Nurse" />
 
     <TextView
         android:id="@+id/textView4"

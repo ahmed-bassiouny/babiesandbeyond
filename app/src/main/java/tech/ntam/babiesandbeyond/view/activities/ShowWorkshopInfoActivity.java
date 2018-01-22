@@ -61,7 +61,7 @@ public class ShowWorkshopInfoActivity extends MyToolbar {
         tvSpeakerBio.setText(workshop.getSpeakerBio());
         if(workshop.isComing()){
             btnPay.setEnabled(false);
-            btnPay.setText(R.string.pay);
+            btnPay.setText(R.string.waiting_confirmation);
         }else {
             btnPay.setEnabled(true);
             btnPay.setText(R.string.send_request);
