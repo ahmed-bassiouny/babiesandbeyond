@@ -18,6 +18,7 @@ import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.model.Task;
 import tech.ntam.babiesandbeyond.view.dialog.RateUserDialogActivity;
 import tech.ntam.mylibrary.DummyTaskModel;
+import tech.ntam.mylibrary.IntentDataKey;
 import tech.ntam.mylibrary.Utils;
 
 /**
@@ -60,7 +61,7 @@ public class TaskItemAdapter extends RecyclerView.Adapter<TaskItemAdapter.MyView
 
     @Override
     public void onBindViewHolder(TaskItemAdapter.MyViewHolder holder, int position) {
-        Task task = tasks.get(position);
+        final Task task = tasks.get(position);
         holder.tvUserName.setText(task.getUserName());
         holder.ivTaskDateTime.setText(task.getStartDate()+" - "+task.getEndDate());
         holder.tvTaskLocation.setText(task.getLocation());
@@ -74,7 +75,9 @@ public class TaskItemAdapter extends RecyclerView.Adapter<TaskItemAdapter.MyView
             holder.btnTaskAction.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    activity.startActivity(new Intent(activity, RateUserDialogActivity.class));
+                    Intent i = new Intent(activity, RateUserDialogActivity.class);
+                    i.putExtra(IntentDataKey.MY_SERVICE_ID,task.getId());
+                    activity.startActivity(i);
                 }
             });
             holder.btnTaskAction.setBackgroundColor(activity.getResources().getColor(R.color.colorButton));

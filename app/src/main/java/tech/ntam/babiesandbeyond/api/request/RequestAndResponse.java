@@ -419,4 +419,21 @@ public class RequestAndResponse {
             }
         });
     }
+    public static void rateTask(Context context,int serviceId,String comment,int rate ,final BaseResponseInterface<String> anInterface) {
+        Call<ParentResponse> response = baseRequestInterface.rateTask(
+                UserSharedPref.getTokenWithHeader(context),
+                UserSharedPref.getId(context),serviceId,comment,rate);
+        response.enqueue(new Callback<ParentResponse>() {
+            @Override
+            public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {
+                checkValidResult(response.code(), response.body().getStatus()
+                        , response.body().getMessage(), response.body().getMessage(), anInterface);
+            }
+
+            @Override
+            public void onFailure(Call<ParentResponse> call, Throwable t) {
+                anInterface.onFailed(errorConnection);
+            }
+        });
+    }
 }

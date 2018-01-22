@@ -12,6 +12,7 @@ import tech.ntam.babiesandbeyond.api.api_model.request.CreateGroupRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.GroupOptionRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.LoginRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.ParentRequest;
+import tech.ntam.babiesandbeyond.api.api_model.request.RateRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.RegisterRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.StaffTasksRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.StatusEvent;
@@ -62,6 +63,7 @@ public interface BaseRequestInterface {
     String NOTIFICATION = "user_notifications";
     String LOGOUT = "logout";
     String STAFF_TASK = "staff_schedule_and_tasks";
+    String RATE = "staff_rate_and_comment";
 
     @FormUrlEncoded
     @POST(LOGIN)
@@ -203,4 +205,13 @@ public interface BaseRequestInterface {
     @POST(STAFF_TASK)
     Call<StaffTasksResponse> getTasks(@Header(AUTHORIZATION) String token,
                                       @Field(StaffTasksRequest.STAFF_ID) int userId);
+
+    @FormUrlEncoded
+    @Headers(HEADER_KEY)
+    @POST(RATE)
+    Call<ParentResponse> rateTask(@Header(AUTHORIZATION) String token,
+                                      @Field(RateRequest.STAFF_ID) int userId,
+                                      @Field(RateRequest.SERVICE_ID) int serviceId,
+                                      @Field(RateRequest.COMMENT) String comment,
+                                      @Field(RateRequest.RATE) int rate);
 }
