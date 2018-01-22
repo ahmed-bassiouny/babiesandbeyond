@@ -31,7 +31,7 @@ import tech.ntam.babiesandbeyond.view.fragments.UserWorkshopFragment;
 import tech.ntam.babiesandbeyond.view.fragments.UserWorkshopListFragment;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 
-public class UserHomeActivity extends MyToolbar implements MyToolbar.TitleToolbar {
+public class UserHomeActivity extends MyToolbar{
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private BottomNavigationView bottomNavigation;

@@ -118,7 +118,7 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
             @Override
             public void onClick(View v) {
                 MyDialog myDialog = new MyDialog();
-                myDialog.showMyDialog(getContext());
+                myDialog.showMyDialog(getActivity());
                 int myId = UserSharedPref.getId(getContext());
                 List<Group> myGroup = new ArrayList<>();
                 for (Group item : allGroups) {
@@ -136,7 +136,7 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
     @Override
     public void JoinGroup(int groupId, final int position) {
         final MyDialog myDialog = new MyDialog();
-        myDialog.showMyDialog(getContext());
+        myDialog.showMyDialog(getActivity());
         RequestAndResponse.joinGroup(getContext(), groupId, new BaseResponseInterface<String>() {
             @Override
             public void onSuccess(String s) {
@@ -156,7 +156,7 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
     @Override
     public void LeaveGroup(int groupId, final int position) {
         final MyDialog myDialog = new MyDialog();
-        myDialog.showMyDialog(getContext());
+        myDialog.showMyDialog(getActivity());
         RequestAndResponse.leaveGroup(getContext(), groupId, new BaseResponseInterface<String>() {
             @Override
             public void onSuccess(String s) {
@@ -182,7 +182,7 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
             return;
         }
         final MyDialog myDialog = new MyDialog();
-        myDialog.showMyDialog(getContext());
+        myDialog.showMyDialog(getActivity());
         RequestAndResponse.getGroups(getContext(), new BaseResponseInterface<List<Group>>() {
             @Override
             public void onSuccess(List<Group> groups) {

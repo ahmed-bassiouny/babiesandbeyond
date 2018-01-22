@@ -22,10 +22,8 @@ public class MyToolbar extends AppCompatActivity {
     private Toolbar toolbar;
     private ImageView ivProfile, ivBack, ivNotification;
     protected TextView tvTitle;
-    private Context context;
 
     protected void setupToolbar(final Context context, boolean showProfile, boolean showBack, boolean showNotification) {
-        this.context = context;
         toolbar = findViewById(R.id.my_toolbar);
         ivProfile = findViewById(R.id.iv_profile);
         ivBack = findViewById(R.id.iv_back);
@@ -69,9 +67,5 @@ public class MyToolbar extends AppCompatActivity {
             }
         });
         setSupportActionBar(toolbar);
-    }
-
-    public interface TitleToolbar {
-        //void setTitleToolbar(String title);
     }
 }

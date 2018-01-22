@@ -128,7 +128,7 @@ public class UserServiceFragment extends Fragment {
 
     private void loadService() {
         final MyDialog myDialog = new MyDialog();
-        myDialog.showMyDialog(getContext());
+        myDialog.showMyDialog(getActivity());
         RequestAndResponse.getMyService(getContext(), new BaseResponseInterface<UserService>() {
             @Override
             public void onSuccess(UserService userService) {

@@ -89,7 +89,7 @@ public class UserWorkshopListFragment extends Fragment implements ParseObject<Wo
             return;
         }
         final MyDialog myDialog = new MyDialog();
-        myDialog.showMyDialog(getContext());
+        myDialog.showMyDialog(getActivity());
         RequestAndResponse.getWorkshops(getContext(), new BaseResponseInterface<List<Workshop>>() {
             @Override
             public void onSuccess(List<Workshop> workshops) {

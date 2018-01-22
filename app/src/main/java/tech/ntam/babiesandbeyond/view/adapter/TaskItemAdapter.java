@@ -1,14 +1,11 @@
 package tech.ntam.babiesandbeyond.view.adapter;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -17,7 +14,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.model.Task;
 import tech.ntam.babiesandbeyond.view.dialog.RateUserDialogActivity;
-import tech.ntam.mylibrary.DummyTaskModel;
 import tech.ntam.mylibrary.IntentDataKey;
 import tech.ntam.mylibrary.Utils;
 
@@ -63,9 +59,9 @@ public class TaskItemAdapter extends RecyclerView.Adapter<TaskItemAdapter.MyView
     public void onBindViewHolder(TaskItemAdapter.MyViewHolder holder, int position) {
         final Task task = tasks.get(position);
         holder.tvUserName.setText(task.getUserName());
-        holder.ivTaskDateTime.setText(task.getStartDate()+" - "+task.getEndDate());
+        holder.ivTaskDateTime.setText(task.getStartDate() + " - " + task.getEndDate());
         holder.tvTaskLocation.setText(task.getLocation());
-        if (task.getIs_completed()&& !task.getRate().isEmpty()) {
+        if (task.getIs_completed() && !task.getRate().isEmpty()) {
             holder.btnTaskAction.setVisibility(View.VISIBLE);
             holder.btnTaskAction.setText("Completed");
             holder.btnTaskAction.setBackgroundColor(activity.getResources().getColor(R.color.gray_bold));
@@ -76,20 +72,31 @@ public class TaskItemAdapter extends RecyclerView.Adapter<TaskItemAdapter.MyView
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(activity, RateUserDialogActivity.class);
-                    i.putExtra(IntentDataKey.MY_SERVICE_ID,task.getId());
-                    activity.startActivity(i);
+                    i.putExtra(IntentDataKey.MY_TASK, task.getId());
+                    activity.startActivityForResult(i, IntentDataKey.CHANGE_TASK_DATA_CODE);
                 }
             });
             holder.btnTaskAction.setBackgroundColor(activity.getResources().getColor(R.color.colorButton));
         } else {
             holder.btnTaskAction.setVisibility(View.INVISIBLE);
         }
-        if(!task.getUserPhoto().isEmpty())
-            Utils.MyGlide(activity,holder.ivUserImage,task.getUserPhoto());
+        if (!task.getUserPhoto().isEmpty())
+            Utils.MyGlide(activity, holder.ivUserImage, task.getUserPhoto());
     }
 
     @Override
     public int getItemCount() {
         return tasks.size();
+    }
+
+    public void setRateToTask(int taskId) {
+        int taskSize = tasks.size();
+        for (int i = 0; i < taskSize; i++) {
+            if (tasks.get(i).getId() == taskId) {
+                tasks.get(i).setRate("0");
+                notifyItemChanged(i);
+                break;
+            }
+        }
     }
 }

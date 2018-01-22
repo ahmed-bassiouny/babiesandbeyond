@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/gray_bold"
+    android:id="@+id/my_toolbar"
+    app:subtitleTextColor="@color/white">
+
+    <TextView
+        android:id="@+id/toolbar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/museosans"
+        android:textSize="18sp"
+        android:textColor="@color/white" />
+
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginEnd="10dp"
+        android:layout_gravity="end"
+        android:id="@+id/iv_logout"
+        android:tint="@color/white"
+        android:src="@drawable/logout"/>
+</android.support.v7.widget.Toolbar>
+

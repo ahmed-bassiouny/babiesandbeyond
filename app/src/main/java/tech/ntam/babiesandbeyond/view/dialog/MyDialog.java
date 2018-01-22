@@ -19,8 +19,10 @@ public class MyDialog {
     public AlertDialog dialog;
 
 
-    public void showMyDialog(Context context) {
-        dialog = new SpotsDialog(context);
+    public void showMyDialog(Activity activity) {
+        if(activity.isDestroyed())
+            return;
+        dialog = new SpotsDialog(activity);
         dialog.setCancelable(false);
         dialog.show();
     }

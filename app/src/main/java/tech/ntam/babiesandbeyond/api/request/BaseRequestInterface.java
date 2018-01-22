@@ -211,7 +211,7 @@ public interface BaseRequestInterface {
     @POST(RATE)
     Call<ParentResponse> rateTask(@Header(AUTHORIZATION) String token,
                                       @Field(RateRequest.STAFF_ID) int userId,
-                                      @Field(RateRequest.SERVICE_ID) int serviceId,
+                                      @Field(RateRequest.SERVICE_ID) int taskId,
                                       @Field(RateRequest.COMMENT) String comment,
                                       @Field(RateRequest.RATE) int rate);
 }

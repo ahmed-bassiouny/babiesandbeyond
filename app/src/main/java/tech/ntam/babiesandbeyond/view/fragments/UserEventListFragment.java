@@ -79,7 +79,7 @@ public class UserEventListFragment extends Fragment implements ParseObject<Event
             return;
         }
         final MyDialog myDialog = new MyDialog();
-        myDialog.showMyDialog(getContext());
+        myDialog.showMyDialog(getActivity());
         RequestAndResponse.getEvents(getContext(), new BaseResponseInterface<List<Event>>() {
             @Override
             public void onSuccess(List<Event> events) {

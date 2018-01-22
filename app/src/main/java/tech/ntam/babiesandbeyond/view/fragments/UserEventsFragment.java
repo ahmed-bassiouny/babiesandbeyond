@@ -121,7 +121,7 @@ public class UserEventsFragment extends Fragment {
     }
     private void loadEvents(){
         final MyDialog myDialog = new MyDialog();
-        myDialog.showMyDialog(getContext());
+        myDialog.showMyDialog(getActivity());
         RequestAndResponse.getEvents(getContext(), new BaseResponseInterface<List<tech.ntam.babiesandbeyond.model.Event>>() {
             @Override
             public void onSuccess(List<tech.ntam.babiesandbeyond.model.Event> events) {

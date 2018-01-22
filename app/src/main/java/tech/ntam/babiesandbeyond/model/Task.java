@@ -35,4 +35,8 @@ public class Task extends Service {
     public String getRate() {
         return Utils.getValueFromString(rate);
     }
+
+    public void setRate(String rate) {
+        this.rate = rate;
+    }
 }

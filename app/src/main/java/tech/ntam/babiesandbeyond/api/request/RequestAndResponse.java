@@ -419,10 +419,10 @@ public class RequestAndResponse {
             }
         });
     }
-    public static void rateTask(Context context,int serviceId,String comment,int rate ,final BaseResponseInterface<String> anInterface) {
+    public static void rateTask(Context context,int taskId,String comment,int rate ,final BaseResponseInterface<String> anInterface) {
         Call<ParentResponse> response = baseRequestInterface.rateTask(
                 UserSharedPref.getTokenWithHeader(context),
-                UserSharedPref.getId(context),serviceId,comment,rate);
+                UserSharedPref.getId(context),taskId,comment,rate);
         response.enqueue(new Callback<ParentResponse>() {
             @Override
             public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {

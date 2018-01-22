@@ -1,26 +1,30 @@
 package tech.ntam.babiesandbeyond.view.dialog;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RatingBar;
+import android.widget.Toast;
 
 import tech.ntam.babiesandbeyond.R;
+import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.mylibrary.IntentDataKey;
 
 public class RateUserDialogActivity extends AppCompatActivity implements View.OnClickListener {
     private RatingBar ratingBar;
     private EditText etComment;
-    private int serviceId;
+    private int taskId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rate_user_dialog);
-        serviceId = getIntent().getIntExtra(IntentDataKey.MY_SERVICE_ID, 0);
-        if (serviceId == 0)
+        taskId = getIntent().getIntExtra(IntentDataKey.MY_TASK, 0);
+        if (taskId == 0)
             finish();
         ratingBar = findViewById(R.id.rating_bar);
         etComment = findViewById(R.id.et_comment);
@@ -39,7 +43,25 @@ public class RateUserDialogActivity extends AppCompatActivity implements View.On
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_submit:
-               // RequestAndResponse.rateTask(this, );
+                final MyDialog myDialog = new MyDialog();
+                myDialog.showMyDialog(this);
+                RequestAndResponse.rateTask(this, taskId, etComment.getText().toString(), (int) ratingBar.getRating(), new BaseResponseInterface<String>() {
+                    @Override
+                    public void onSuccess(String s) {
+                        Toast.makeText(RateUserDialogActivity.this, s, Toast.LENGTH_SHORT).show();
+                        myDialog.dismissMyDialog();
+                        Intent resultIntent = new Intent();
+                        resultIntent.putExtra(IntentDataKey.MY_TASK, taskId);
+                        setResult(Activity.RESULT_OK, resultIntent);
+                        finish();
+                    }
+
+                    @Override
+                    public void onFailed(String errorMessage) {
+                        Toast.makeText(RateUserDialogActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                        myDialog.dismissMyDialog();
+                    }
+                });
                 break;
             case R.id.btn_cancel:
                 finish();

@@ -60,7 +60,7 @@ public class OptionsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 final MyDialog myDialog = new MyDialog();
-                myDialog.showMyDialog(getContext());
+                myDialog.showMyDialog(getActivity());
                 RequestAndResponse.logout(getContext(), new BaseResponseInterface<String>() {
                     @Override
                     public void onSuccess(String s) {

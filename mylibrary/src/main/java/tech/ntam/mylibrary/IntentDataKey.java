@@ -11,7 +11,7 @@ public class IntentDataKey {
     public static final String SHOW_HISTORY_DATA_KEY = "history";
     public static final String SHOW_GROUP_DATA_KEY = "group";
     public static final String SHOW_IMAGE = "image";
-    public static final String MY_SERVICE_ID = "service_id";
+    public static final String MY_TASK = "my_task";
 
 
     public static final String CHANGE_EVENT_DATA_KEY = "change_event_value";
@@ -22,6 +22,7 @@ public class IntentDataKey {
     public static final int CHANGE_WORKSHOP_DATA_CODE = 121;
     public static final int ADD_SERVICE_DATA_CODE = 122;
     public static final int ADD_GROUP_DATA_CODE = 123;
+    public static final int CHANGE_TASK_DATA_CODE = 124;
 
 
     public static final int NURSE_SERVICE = 1;
