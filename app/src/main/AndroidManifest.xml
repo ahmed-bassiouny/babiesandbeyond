@@ -106,8 +106,12 @@
         <activity
             android:name=".view.activities.UserRequestNurseAndBabysitterActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".view.activities.MidwifeActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".view.activities.MidwifeActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".view.activities.NurseTasksHomeActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

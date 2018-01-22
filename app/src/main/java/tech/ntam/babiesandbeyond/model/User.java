@@ -11,8 +11,9 @@ import tech.ntam.mylibrary.Utils;
 public class User {
 
     public static final String USER = "1";
-    public static final String ADMIN = "2";
-    public static final String STAFF = "2";
+    public static final String NURSE = "3";
+    public static final String BABYSITTER = "4";
+    public static final String MIDWIFE = "5";
 
     @SerializedName("id")
     private int id;

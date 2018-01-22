@@ -22,6 +22,7 @@ import tech.ntam.babiesandbeyond.api.api_model.response.NotificationResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.ParentResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.ProfileResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.RegisterResponse;
+import tech.ntam.babiesandbeyond.api.api_model.response.StaffTasksResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.WorkshopResponse;
 import tech.ntam.babiesandbeyond.api.config.ApiConfig;
 import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
@@ -30,6 +31,7 @@ import tech.ntam.babiesandbeyond.model.Group;
 import tech.ntam.babiesandbeyond.model.History;
 import tech.ntam.babiesandbeyond.model.Notification;
 import tech.ntam.babiesandbeyond.model.Service;
+import tech.ntam.babiesandbeyond.model.Task;
 import tech.ntam.babiesandbeyond.model.User;
 import tech.ntam.babiesandbeyond.model.UserData;
 import tech.ntam.babiesandbeyond.model.UserService;
@@ -396,6 +398,23 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<ParentResponse> call, Throwable t) {
+                anInterface.onFailed(errorConnection);
+            }
+        });
+    }
+    public static void getTasks(Context context, final BaseResponseInterface<List<Task>> anInterface) {
+        Call<StaffTasksResponse> response = baseRequestInterface.getTasks(
+                UserSharedPref.getTokenWithHeader(context),
+                UserSharedPref.getId(context));
+        response.enqueue(new Callback<StaffTasksResponse>() {
+            @Override
+            public void onResponse(Call<StaffTasksResponse> call, Response<StaffTasksResponse> response) {
+                checkValidResult(response.code(), response.body().getStatus()
+                        , response.body().getTaskList(), response.body().getMessage(), anInterface);
+            }
+
+            @Override
+            public void onFailure(Call<StaffTasksResponse> call, Throwable t) {
                 anInterface.onFailed(errorConnection);
             }
         });

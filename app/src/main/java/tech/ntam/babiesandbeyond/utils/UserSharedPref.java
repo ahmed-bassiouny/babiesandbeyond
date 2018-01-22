@@ -18,6 +18,7 @@ public class UserSharedPref {
     private final static String USER_NAME = "user_name";
     private final static String USER_PHOTO = "user_photo";
     private final static String USER_PHONE = "user_phone";
+    private final static String IS_STAFF = "is_staff";
     private final static String NOTIFICATION_TOKEN = "notification_token";
     private final static String TOKEN_HEADER_KEY = "Bearer ";
 
@@ -28,7 +29,7 @@ public class UserSharedPref {
             sharedPref = context.getSharedPreferences(sharedPrefName, Context.MODE_PRIVATE);
     }
 
-    public static void setUserInfo(Context context, String userToken, String userEmail, int id,String name,String photo,String phone) {
+    public static void setUserInfo(Context context, String userToken, String userEmail, int id,String name,String photo,String phone,boolean isStaff) {
         getSharedPref(context);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(USER_TOKEN, userToken);
@@ -37,6 +38,7 @@ public class UserSharedPref {
         editor.putString(USER_NAME, name);
         editor.putString(USER_PHOTO, photo);
         editor.putString(USER_PHONE, phone);
+        editor.putBoolean(IS_STAFF, isStaff);
         editor.commit();
     }
     public static void setUserInfo(Context context,String name,String photo,String phone) {
@@ -85,6 +87,10 @@ public class UserSharedPref {
     public static int getId(Context context) {
         getSharedPref(context);
         return sharedPref.getInt(USER_ID, 0);
+    }
+    public static boolean isStaff(Context context) {
+        getSharedPref(context);
+        return sharedPref.getBoolean(IS_STAFF,false);
     }
     public static String getNotificationToken(Context context) {
         getSharedPref(context);

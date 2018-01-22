@@ -10,6 +10,7 @@ import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.babiesandbeyond.model.User;
 import tech.ntam.babiesandbeyond.utils.UserSharedPref;
 import tech.ntam.babiesandbeyond.view.activities.NurseHomeActivity;
+import tech.ntam.babiesandbeyond.view.activities.NurseTasksHomeActivity;
 import tech.ntam.babiesandbeyond.view.activities.UserHomeActivity;
 import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
 
@@ -34,11 +35,12 @@ public class SignInController {
                 myDialog.dismissMyDialog();
                 if (user.getUserTypeId().equals(User.USER)) {
                     // save user information in sharedpref
-                    UserSharedPref.setUserInfo(activity, user.getUser_token(),user.getEmail(),user.getId(),user.getName(),user.getPhoto(),user.getPhone());
+                    UserSharedPref.setUserInfo(activity, user.getUser_token(),user.getEmail(),user.getId(),user.getName(),user.getPhoto(),user.getPhone(),false);
                     activity.startActivity(new Intent(activity, UserHomeActivity.class));
                     activity.finish();
-                } else if (user.getUserTypeId().equals(User.STAFF)) {
-                    activity.startActivity(new Intent(activity, NurseHomeActivity.class));
+                } else if (user.getUserTypeId().equals(User.NURSE)||user.getUserTypeId().equals(User.MIDWIFE)||user.getUserTypeId().equals(User.BABYSITTER)) {
+                    UserSharedPref.setUserInfo(activity, user.getUser_token(),user.getEmail(),user.getId(),user.getName(),user.getPhoto(),user.getPhone(),true);
+                    activity.startActivity(new Intent(activity, NurseTasksHomeActivity.class));
                     activity.finish();
                 } else {
                     Toast.makeText(activity, R.string.user_not_found, Toast.LENGTH_SHORT).show();

@@ -29,14 +29,17 @@ public class SignIn_UpActivity extends AppCompatActivity {
     }
 
     private void checkIfUserLoggedIn() {
-        if(!UserSharedPref.getEmail(this).isEmpty()){
-            startActivity(new Intent(SignIn_UpActivity.this,UserHomeActivity.class));
+        if (!UserSharedPref.getEmail(this).isEmpty() && UserSharedPref.isStaff(this)) {
+            startActivity(new Intent(SignIn_UpActivity.this, NurseTasksHomeActivity.class));
+            finish();
+        }else if (!UserSharedPref.getEmail(this).isEmpty()) {
+            startActivity(new Intent(SignIn_UpActivity.this, UserHomeActivity.class));
             finish();
         }
     }
 
     private void initObject() {
-        Utils.goToFragment(R.id.frame_fragment,this,SignInFragment.newInstance(),false,null);
+        Utils.goToFragment(R.id.frame_fragment, this, SignInFragment.newInstance(), false, null);
     }
 
     private void onClick() {
@@ -45,7 +48,7 @@ public class SignIn_UpActivity extends AppCompatActivity {
             public void onClick(View v) {
                 tvSignUp.setBackground(null);
                 tvSignIn.setBackground(getResources().getDrawable(R.drawable.line));
-                Utils.goToFragment(R.id.frame_fragment,SignIn_UpActivity.this,SignInFragment.newInstance(),false,null);
+                Utils.goToFragment(R.id.frame_fragment, SignIn_UpActivity.this, SignInFragment.newInstance(), false, null);
             }
         });
         tvSignUp.setOnClickListener(new View.OnClickListener() {
@@ -53,7 +56,7 @@ public class SignIn_UpActivity extends AppCompatActivity {
             public void onClick(View v) {
                 tvSignIn.setBackground(null);
                 tvSignUp.setBackground(getResources().getDrawable(R.drawable.line));
-                Utils.goToFragment(R.id.frame_fragment,SignIn_UpActivity.this, SignUpFragment.newInstance(),false,null);
+                Utils.goToFragment(R.id.frame_fragment, SignIn_UpActivity.this, SignUpFragment.newInstance(), false, null);
             }
         });
     }

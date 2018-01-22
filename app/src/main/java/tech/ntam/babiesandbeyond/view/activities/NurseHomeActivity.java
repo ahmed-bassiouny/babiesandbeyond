@@ -48,8 +48,8 @@ public class NurseHomeActivity extends MyToolbar {
         dummyTaskModels.add(dummyTaskModel2);
         DummyTaskModel dummyTaskModel3 = new DummyTaskModel("Martin Jackson 3", "15 Nov 12 pm - 20 Dec 7 pm", "location about Martin Jackson 3", 3);
         dummyTaskModels.add(dummyTaskModel3);
-        TaskItemAdapter taskItemAdapter = new TaskItemAdapter(this, dummyTaskModels);
-        recycleView.setAdapter(taskItemAdapter);
+        //TaskItemAdapter taskItemAdapter = new TaskItemAdapter(this, dummyTaskModels);
+        //recycleView.setAdapter(taskItemAdapter);
     }
 
     private void findViewById() {

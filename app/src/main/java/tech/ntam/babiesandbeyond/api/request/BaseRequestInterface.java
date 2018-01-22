@@ -13,6 +13,7 @@ import tech.ntam.babiesandbeyond.api.api_model.request.GroupOptionRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.LoginRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.ParentRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.RegisterRequest;
+import tech.ntam.babiesandbeyond.api.api_model.request.StaffTasksRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.StatusEvent;
 import tech.ntam.babiesandbeyond.api.api_model.request.UpdatePasswordRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.UpdateProfileRequest;
@@ -29,6 +30,7 @@ import tech.ntam.babiesandbeyond.api.api_model.response.NotificationResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.ParentResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.ProfileResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.RegisterResponse;
+import tech.ntam.babiesandbeyond.api.api_model.response.StaffTasksResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.WorkshopResponse;
 import tech.ntam.babiesandbeyond.model.Group;
 
@@ -59,6 +61,7 @@ public interface BaseRequestInterface {
     String SEND_WORKSHOP_REQUEST = "send_workshop_request";
     String NOTIFICATION = "user_notifications";
     String LOGOUT = "logout";
+    String STAFF_TASK = "staff_schedule_and_tasks";
 
     @FormUrlEncoded
     @POST(LOGIN)
@@ -193,4 +196,11 @@ public interface BaseRequestInterface {
     @FormUrlEncoded
     @POST(LOGOUT)
     Call<ParentResponse> logout(@Field(AskWorkshopRequest.USER_ID) int userId);
+
+
+    @FormUrlEncoded
+    @Headers(HEADER_KEY)
+    @POST(STAFF_TASK)
+    Call<StaffTasksResponse> getTasks(@Header(AUTHORIZATION) String token,
+                                      @Field(StaffTasksRequest.STAFF_ID) int userId);
 }
