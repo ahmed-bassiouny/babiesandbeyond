@@ -95,6 +95,8 @@ public class UserProfileActivity extends MyToolbar {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         final Bitmap bitmap = ImagePicker.getImageFromResult(this, requestCode, resultCode, data);
+        if(bitmap == null)
+            return;
         ivProfilePhoto.setImageResource(0);
         ivProfilePhoto.setImageBitmap(bitmap);
         final MyDialog dialog = new MyDialog();

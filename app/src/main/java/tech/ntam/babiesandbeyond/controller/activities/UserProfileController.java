@@ -2,6 +2,7 @@ package tech.ntam.babiesandbeyond.controller.activities;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Handler;
 import android.provider.ContactsContract;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -32,7 +33,7 @@ public class UserProfileController {
             @Override
             public void onSuccess(User user) {
                 updateInfoShared(user.getName(), user.getPhoto(), user.getPhone());
-                getDataFromSharefPref(etName,etPhone,ivProfilePhoto);
+                getDataFromSharefPref(etName, etPhone, ivProfilePhoto);
             }
 
             @Override
@@ -41,29 +42,35 @@ public class UserProfileController {
         });
     }
 
-    public void updateProfile(String photo, final EditText etName, final EditText etPhone, final UpdateSuccess updateSuccess) {
+    public void updateProfile(final String photo, final EditText etName, final EditText etPhone, final UpdateSuccess updateSuccess) {
         final MyDialog myDialog = new MyDialog();
         myDialog.showMyDialog(activity);
-        RequestAndResponse.updateProfile(activity, etName.getText().toString(), etPhone.getText().toString(), photo, new BaseResponseInterface<String>() {
+        new Thread(new Runnable() {
             @Override
-            public void onSuccess(String s) {
-                Toast.makeText(activity, s, Toast.LENGTH_SHORT).show();
-                updateInfoShared(etName.getText().toString(), etPhone.getText().toString());
-                updateSuccess.updated();
-                myDialog.dismissMyDialog();
-            }
+            public void run() {
+                RequestAndResponse.updateProfile(activity, etName.getText().toString(), etPhone.getText().toString(), photo, new BaseResponseInterface<String>() {
+                    @Override
+                    public void onSuccess(String s) {
+                        Toast.makeText(activity, s, Toast.LENGTH_SHORT).show();
+                        updateInfoShared(etName.getText().toString(), etPhone.getText().toString());
+                        updateSuccess.updated();
+                        myDialog.dismissMyDialog();
+                    }
 
-            @Override
-            public void onFailed(String errorMessage) {
-                Toast.makeText(activity, errorMessage, Toast.LENGTH_SHORT).show();
-                myDialog.dismissMyDialog();
+                    @Override
+                    public void onFailed(String errorMessage) {
+                        Toast.makeText(activity, errorMessage, Toast.LENGTH_SHORT).show();
+                        myDialog.dismissMyDialog();
+                    }
+                });
             }
-        });
+        }).start();
     }
 
     private void updateInfoShared(String name, String photo, String phone) {
         UserSharedPref.setUserInfo(activity, name, photo, phone);
     }
+
     private void updateInfoShared(String name, String phone) {
         UserSharedPref.setUserInfo(activity, name, phone);
     }
@@ -75,7 +82,8 @@ public class UserProfileController {
         if (!photo.isEmpty())
             Utils.MyGlide(activity, ivProfilePhoto, photo);
     }
-    public interface UpdateSuccess{
+
+    public interface UpdateSuccess {
         void updated();
     }
 }

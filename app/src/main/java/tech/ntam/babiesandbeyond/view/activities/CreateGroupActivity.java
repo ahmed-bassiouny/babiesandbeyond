@@ -66,27 +66,34 @@ public class CreateGroupActivity extends MyToolbar {
                 } else if (photo.isEmpty()) {
                     Toast.makeText(CreateGroupActivity.this, R.string.select_photo, Toast.LENGTH_SHORT).show();
                 } else {
-                    // save data and create group
-                    final MyDialog myDialog =new MyDialog();
-                    myDialog.showMyDialog(CreateGroupActivity.this);
-                    RequestAndResponse.createGroup(CreateGroupActivity.this, etGroupName.getText().toString(),
-                            etGroupDescription.getText().toString(), photo, new BaseResponseInterface<Group>() {
-                                @Override
-                                public void onSuccess(Group group) {
-                                    Toast.makeText(CreateGroupActivity.this, "You Request sent Successfully,wait the confirmation", Toast.LENGTH_SHORT).show();
-                                    myDialog.dismissMyDialog();
-                                    Intent resultIntent = new Intent();
-                                    resultIntent.putExtra(IntentDataKey.ADD_GROUP_DATA_KEY, group);
-                                    setResult(Activity.RESULT_OK, resultIntent);
-                                    finish();
-                                }
 
-                                @Override
-                                public void onFailed(String errorMessage) {
-                                    Toast.makeText(CreateGroupActivity.this, "The name has already been taken.", Toast.LENGTH_SHORT).show();
-                                    myDialog.dismissMyDialog();
-                                }
-                            });
+                    final MyDialog myDialog = new MyDialog();
+                    myDialog.showMyDialog(CreateGroupActivity.this);
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            // save data and create group
+                            RequestAndResponse.createGroup(CreateGroupActivity.this, etGroupName.getText().toString(),
+                                    etGroupDescription.getText().toString(), photo, new BaseResponseInterface<Group>() {
+                                        @Override
+                                        public void onSuccess(Group group) {
+                                            Toast.makeText(CreateGroupActivity.this, "You Request sent Successfully,wait the confirmation", Toast.LENGTH_SHORT).show();
+                                            myDialog.dismissMyDialog();
+                                            Intent resultIntent = new Intent();
+                                            resultIntent.putExtra(IntentDataKey.ADD_GROUP_DATA_KEY, group);
+                                            setResult(Activity.RESULT_OK, resultIntent);
+                                            finish();
+                                        }
+
+                                        @Override
+                                        public void onFailed(String errorMessage) {
+                                            Toast.makeText(CreateGroupActivity.this, "The name has already been taken.", Toast.LENGTH_SHORT).show();
+                                            myDialog.dismissMyDialog();
+                                        }
+                                    });
+                        }
+                    }).start();
+
                 }
             }
         });
@@ -104,7 +111,8 @@ public class CreateGroupActivity extends MyToolbar {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         final Bitmap bitmap = ImagePicker.getImageFromResult(this, requestCode, resultCode, data);
-
+        if(bitmap == null)
+            return;
         ivProfilePhoto.setImageBitmap(bitmap);
         Utils.convertImageFromBitmapToStringBase64(bitmap, new ProcessInterface() {
             @Override

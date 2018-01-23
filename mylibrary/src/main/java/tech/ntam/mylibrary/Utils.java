@@ -94,7 +94,7 @@ public class Utils {
 
 
     public static void MyGlide(Activity activity, ImageView imageView, String url) {
-        Glide.with(activity).load(url).error(R.drawable.person).centerCrop().into(imageView);
+        Glide.with(activity).load(url).placeholder(R.drawable.person).dontAnimate().centerCrop().into(imageView);
     }
     public static void MyGlideRounded(Activity activity, ImageView imageView, String url) {
         Glide.with(activity)
