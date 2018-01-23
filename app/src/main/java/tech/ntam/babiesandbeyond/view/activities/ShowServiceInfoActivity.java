@@ -11,6 +11,7 @@ import tech.ntam.babiesandbeyond.model.Service;
 import tech.ntam.babiesandbeyond.model.ServiceTypeList;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 import tech.ntam.mylibrary.IntentDataKey;
+import tech.ntam.mylibrary.interfaces.Constant;
 
 public class ShowServiceInfoActivity extends MyToolbar {
 
@@ -47,6 +48,15 @@ public class ShowServiceInfoActivity extends MyToolbar {
         tvFee.setText(service.getPrice());
         tvServiceType.setText(ServiceTypeList.getServiceTypeNameFromId(service.getServiceTypeId()));
         tvStatus.setText(service.getServiceStatusString());
+        if(service.getServiceStatusString().equals(Constant.PENDING)){
+            btnPay.setEnabled(false);
+            btnPay.setText(R.string.waiting_confirmation);
+        }else if(service.getServiceStatusString().equals(Constant.CONFIRMATION_WITHOUT_PAYMENT)){
+            btnPay.setEnabled(false);
+            btnPay.setText(R.string.pay);
+        }else if(service.getServiceStatusString().equals(Constant.CONFIRMATION_WITH_PAYMENT)){
+            btnPay.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void findViewById() {

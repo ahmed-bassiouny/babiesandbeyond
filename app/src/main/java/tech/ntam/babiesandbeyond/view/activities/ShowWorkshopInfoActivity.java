@@ -19,6 +19,7 @@ import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
 import tech.ntam.babiesandbeyond.view.dialog.WorkShopDialogActivity;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 import tech.ntam.mylibrary.IntentDataKey;
+import tech.ntam.mylibrary.interfaces.Constant;
 
 public class ShowWorkshopInfoActivity extends MyToolbar {
 
@@ -59,10 +60,15 @@ public class ShowWorkshopInfoActivity extends MyToolbar {
         tvStatus.setText(workshop.getWorkshopStatusName());
         tvSpeakerName.setText(workshop.getSpeakerName());
         tvSpeakerBio.setText(workshop.getSpeakerBio());
-        if(workshop.isComing()){
+        if(workshop.getWorkshopStatusName().equals(Constant.PENDING)){
             btnPay.setEnabled(false);
             btnPay.setText(R.string.waiting_confirmation);
-        }else {
+        }else if(workshop.getWorkshopStatusName().equals(Constant.CONFIRMATION_WITHOUT_PAYMENT)){
+            btnPay.setEnabled(false);
+            btnPay.setText(R.string.pay);
+        }else if(workshop.getWorkshopStatusName().equals(Constant.CONFIRMATION_WITH_PAYMENT)){
+            btnPay.setVisibility(View.INVISIBLE);
+        }else{
             btnPay.setEnabled(true);
             btnPay.setText(R.string.send_request);
         }

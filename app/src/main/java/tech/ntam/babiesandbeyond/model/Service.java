@@ -8,6 +8,7 @@ import com.google.gson.annotations.SerializedName;
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.mylibrary.MyDateTimeFactor;
 import tech.ntam.mylibrary.Utils;
+import tech.ntam.mylibrary.interfaces.Constant;
 
 /**
  * Created by bassiouny on 03/01/18.
@@ -82,11 +83,11 @@ public class Service implements Parcelable {
     }
     public int getServiceStatusColor() {
         switch (serviceStatusName) {
-            case "Pending":
+            case Constant.PENDING:
                 return R.color.colorButton;
-            case "Confirm With Payment":
+            case Constant.CONFIRMATION_WITH_PAYMENT:
                 return R.color.gray_bold;
-            case "Confirm Without Payment":
+            case Constant.CONFIRMATION_WITHOUT_PAYMENT:
                 return R.color.gray;
             default:
                 return R.color.white;
