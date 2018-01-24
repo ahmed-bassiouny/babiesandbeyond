@@ -137,22 +137,20 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
 
     @Override
     public void JoinGroup(int groupId, final int position) {
-        progress.setVisibility(View.VISIBLE);
-        recycleView.setVisibility(View.INVISIBLE);
+        final MyDialog myDialog = new MyDialog();
+        myDialog.showMyDialog(getActivity());
         RequestAndResponse.joinGroup(getContext(), groupId, new BaseResponseInterface<String>() {
             @Override
             public void onSuccess(String s) {
                 Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
-                progress.setVisibility(View.INVISIBLE);
-                recycleView.setVisibility(View.VISIBLE);
+                myDialog.dismissMyDialog();
 
             }
 
             @Override
             public void onFailed(String errorMessage) {
                 Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
-                progress.setVisibility(View.INVISIBLE);
-                recycleView.setVisibility(View.VISIBLE);
+                myDialog.dismissMyDialog();
             }
         });
     }
@@ -165,8 +163,7 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
             @Override
             public void onSuccess(String s) {
                 Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
-                groupItemAdapter.leaveGroup(
-                        position);
+                groupItemAdapter.leaveGroup(position);
                 myDialog.dismissMyDialog();
             }
 
@@ -189,12 +186,30 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
         recycleView.setVisibility(View.INVISIBLE);
         RequestAndResponse.getGroups(getContext(), new BaseResponseInterface<List<Group>>() {
             @Override
-            public void onSuccess(List<Group> groups) {
-                allGroups = groups;
-                groupItemAdapter = new GroupItemAdapter(groups, UserGroupsFragment.this);
-                recycleView.setAdapter(groupItemAdapter);
-                progress.setVisibility(View.INVISIBLE);
-                recycleView.setVisibility(View.VISIBLE);
+            public void onSuccess(final List<Group> groups) {
+                final int myId = UserSharedPref.getId(getContext());
+                allGroups = new ArrayList<>();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        for(Group item:groups){
+                            if(item.getCreatedBy()==myId){
+                                allGroups.add(item);
+                            }else if(item.getStatus()){
+                                allGroups.add(item);
+                            }
+                        }
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                groupItemAdapter = new GroupItemAdapter(allGroups, UserGroupsFragment.this,getContext());
+                                recycleView.setAdapter(groupItemAdapter);
+                                progress.setVisibility(View.INVISIBLE);
+                                recycleView.setVisibility(View.VISIBLE);
+                            }
+                        });
+                    }
+                }).start();
             }
 
             @Override

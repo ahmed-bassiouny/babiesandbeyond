@@ -5,8 +5,11 @@ import android.content.Context;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -33,12 +36,14 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
     private GroupOption groupOption;
     private boolean showAddLeaveGroup = false;
     private ParseObject parseObject;
+    private Context context;
 
-    public GroupItemAdapter(List<Group> groups, Fragment fragment) {
+    public GroupItemAdapter(List<Group> groups, Fragment fragment, Context context) {
         this.groups = groups;
         this.fragment = fragment;
         groupOption = (GroupOption) fragment;
         parseObject = (ParseObject) fragment;
+        this.context = context;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -49,7 +54,6 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
         private TextView tvDescription;
         private ImageView ivMore;
         private TextView tvDate;
-        private Button btnAddLeaveGroup;
         private ConstraintLayout container;
 
         public MyViewHolder(View view) {
@@ -61,7 +65,6 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
             tvDescription = view.findViewById(R.id.tv_description);
             ivMore = view.findViewById(R.id.iv_more);
             tvDate = view.findViewById(R.id.tv_date);
-            btnAddLeaveGroup = view.findViewById(R.id.btn_add_leave_group);
             container = view.findViewById(R.id.container);
         }
     }
@@ -76,47 +79,51 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         final Group group = groups.get(position);
+        //creating a popup menu
+        final PopupMenu popup = new PopupMenu(context, holder.ivMore,Gravity.END);
+        //inflating menu from xml resource
+        popup.inflate(R.menu.group_menu);
+
         holder.ivGroupStatus.setText(group.getStatusString());
         holder.tvGroupName.setText(group.getName());
-        holder.tvGroupCreatedBy.setText("Created by "+group.getCreatedByName());
+        holder.tvGroupCreatedBy.setText("Created by " + group.getCreatedByName());
         holder.tvDescription.setText(group.getDescription());
         holder.tvDate.setText(group.getDate());
         if (!group.getPhoto().isEmpty())
             Utils.MyGlide(fragment.getActivity(), holder.ivGroupImage, group.getPhoto());
         if (group.getStatus()) {
             holder.ivMore.setVisibility(View.VISIBLE);
-            holder.ivMore.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (showAddLeaveGroup) {
-                        holder.btnAddLeaveGroup.setVisibility(View.INVISIBLE);
-                        showAddLeaveGroup = false;
-                    } else {
-                        holder.btnAddLeaveGroup.setVisibility(View.VISIBLE);
-                        showAddLeaveGroup = true;
-                    }
-                }
-            });
         } else {
             holder.ivMore.setVisibility(View.INVISIBLE);
         }
         if (group.isMember()) {
-            holder.btnAddLeaveGroup.setText(R.string.leave_group);
-            holder.btnAddLeaveGroup.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    groupOption.LeaveGroup(group.getId(), position);
-                }
-            });
+            popup.getMenu().findItem(R.id.join).setVisible(false);
+            popup.getMenu().findItem(R.id.leave).setVisible(true);
         } else {
-            holder.btnAddLeaveGroup.setText(R.string.join_group);
-            holder.btnAddLeaveGroup.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    groupOption.JoinGroup(group.getId(), position);
-                }
-            });
+            popup.getMenu().findItem(R.id.join).setVisible(true);
+            popup.getMenu().findItem(R.id.leave).setVisible(false);
         }
+        holder.ivMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.join:
+                                groupOption.JoinGroup(group.getId(), position);
+                                break;
+                            case R.id.leave:
+                                groupOption.LeaveGroup(group.getId(), position);
+                                break;
+                        }
+                        return false;
+                    }
+                });
+                popup.show();
+            }
+        });
+
         holder.container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,12 +142,14 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
         group.setMember(false);
         notifyItemChanged(position);
     }
-    public void updateList(List<Group> groups){
+
+    public void updateList(List<Group> groups) {
         this.groups = groups;
         notifyDataSetChanged();
     }
-    public void addGroup(Group group){
+
+    public void addGroup(Group group) {
         this.groups.add(group);
-        notifyItemInserted(groups.size()-1);
+        notifyItemInserted(groups.size() - 1);
     }
 }

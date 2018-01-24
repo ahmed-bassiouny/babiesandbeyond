@@ -42,8 +42,8 @@
     <string name="location">Location</string>
     <string name="type_here">Type Here</string>
     <string name="any">Any</string>
-    <string name="coming">Attend</string>
-    <string name="not_coming">Cancel attendance</string>
+    <string name="coming">Going</string>
+    <string name="not_coming">Cancel</string>
 
     <string name="workshop">Workshop</string>
 

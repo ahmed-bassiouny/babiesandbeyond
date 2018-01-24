@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="tech.ntam.babiesandbeyond.view.activities.UserHomeActivity">
+    <item
+        android:id="@+id/join"
+        app:showAsAction="ifRoom"
+        android:title="@string/join_group"
+        android:enabled="true">
+    </item>
+    <item
+        android:id="@+id/leave"
+        app:showAsAction="ifRoom"
+        android:title="@string/leave_group"
+        android:enabled="true">
+    </item>
+
+</menu>
