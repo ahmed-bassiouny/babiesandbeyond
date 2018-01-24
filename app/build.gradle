@@ -4,7 +4,7 @@ android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "tech.ntam.babiesandbeyond"
-        minSdkVersion 17
+        minSdkVersion 21
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -30,7 +30,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:11.0.4'
     implementation 'com.google.firebase:firebase-storage:11.0.4'
     compile 'com.google.android.gms:play-services-places:11.0.4'
-    compile 'com.getbase:floatingactionbutton:1.10.1'
+    compile 'com.github.w9jds:FloatingActionMenu:v0.1.0-alpha'
     compile 'com.github.Mariovc:ImagePicker:1.2.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'

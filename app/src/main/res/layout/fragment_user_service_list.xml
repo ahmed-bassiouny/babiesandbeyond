@@ -1,8 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/my_relative"
     tools:context="tech.ntam.babiesandbeyond.view.fragments.UserServiceListFragment">
 
     <android.support.v7.widget.RecyclerView
@@ -13,65 +14,50 @@
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp" />
 
-    <Button
-        android:id="@+id/btn_send_request"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        android:layout_margin="20dp"
-        android:background="@color/colorButton"
-        android:fontFamily="@font/museosans"
-        android:text="@string/send_request"
-        android:textAllCaps="false"
-        android:visibility="gone" />
-
-    <com.getbase.floatingactionbutton.FloatingActionsMenu
-        android:id="@+id/multiple_actions"
+    <ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="16dp"
-        fab:fab_labelStyle="@style/menu_labels_style"
-        android:layout_marginEnd="16dp"
-        fab:fab_addButtonSize="mini"
-        android:layout_marginRight="16dp"
-        fab:fab_addButtonColorNormal="@color/colorButton"
-        fab:fab_addButtonColorPressed="@color/white"
-        fab:fab_addButtonPlusIconColor="@color/gray_bold">
-
-        <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/progress"
+        android:visibility="invisible"
+        android:background="@drawable/progress"
+        android:layout_centerInParent="true"/>
+    <com.w9jds.FloatingActionMenu
+        android:id="@+id/action_menu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:base_src="@drawable/ic_positive"
+        app:base_background="#dbc0b6"
+        app:base_marginEnd="8dp"
+        app:base_marginBottom="8dp"
+        app:overlay_color="#66000000"
+        app:item_spacing="16dp"
+        app:label_marginEnd="8dp">
+        <android.support.design.widget.FloatingActionButton
             android:id="@+id/request_nurse"
-            android:layout_width="wrap_content"
+            app:backgroundTint="@android:color/white"
+            android:src="@drawable/nurse"
             android:layout_height="wrap_content"
-            fab:fab_colorNormal="@color/white"
-            fab:fab_colorPressed="@color/white"
-            fab:fab_icon="@drawable/nurse"
-            fab:fab_size="mini"
-            fab:fab_title="@string/request_nurse" />
+            app:fabSize="mini"
+            android:layout_width="wrap_content"
+            android:contentDescription="@string/request_nurse" />
 
-        <com.getbase.floatingactionbutton.FloatingActionButton
+        <android.support.design.widget.FloatingActionButton
             android:id="@+id/request_midwife"
-            android:layout_width="wrap_content"
+            app:backgroundTint="@android:color/white"
+            android:src="@drawable/my_midwife"
             android:layout_height="wrap_content"
-            fab:fab_colorNormal="@color/white"
-            fab:fab_colorPressed="@color/white"
-            fab:fab_icon="@drawable/my_midwife"
-            fab:fab_size="mini"
-            fab:fab_title="@string/request_midwife" />
+            android:layout_width="wrap_content"
+            app:fabSize="mini"
+            android:contentDescription="@string/midwife" />
 
-        <com.getbase.floatingactionbutton.FloatingActionButton
+        <android.support.design.widget.FloatingActionButton
             android:id="@+id/request_babysitter"
-            android:layout_width="wrap_content"
+            app:backgroundTint="@android:color/white"
+            android:src="@drawable/babysitter"
             android:layout_height="wrap_content"
-            fab:fab_colorNormal="@color/white"
-            fab:fab_colorPressed="@color/white"
-            fab:fab_icon="@drawable/babysitter"
-            fab:fab_size="mini"
-            fab:fab_title="@string/request_babysitter" />
+            app:fabSize="mini"
+            android:layout_width="wrap_content"
+            android:contentDescription="@string/babysitter" />
 
-    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+    </com.w9jds.FloatingActionMenu>
 </RelativeLayout>

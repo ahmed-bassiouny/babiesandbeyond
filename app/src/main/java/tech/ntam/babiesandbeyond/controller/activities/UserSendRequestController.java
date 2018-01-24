@@ -17,7 +17,6 @@ import java.util.Calendar;
 import java.util.List;
 
 import tech.ntam.babiesandbeyond.R;
-import tech.ntam.babiesandbeyond.api.api_model.response.ParentResponse;
 import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.babiesandbeyond.model.Service;
@@ -25,6 +24,7 @@ import tech.ntam.babiesandbeyond.model.ServiceTypeList;
 import tech.ntam.babiesandbeyond.model.ServiceType;
 import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
 import tech.ntam.mylibrary.IntentDataKey;
+import tech.ntam.mylibrary.MyDateTimeFactor;
 
 /**
  * Created by bassiouny on 19/12/17.
@@ -54,6 +54,8 @@ public class UserSendRequestController {
         );
         dpd.setVersion(DatePickerDialog.Version.VERSION_2);
         dpd.setThemeDark(true);
+        dpd.setYearRange(Calendar.getInstance().get(Calendar.YEAR),(Calendar.getInstance().get(Calendar.YEAR)+1));
+        dpd.setMinDate(MyDateTimeFactor.getDateTimeAfter24Hour());
         dpd.setAccentColor(activity.getResources()
                 .getColor(R.color.colorPrimary));
         dpd.show(fragmentManager, "Datepickerdialog");
@@ -66,7 +68,7 @@ public class UserSendRequestController {
             public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
                 editText.setText(year + "-" + getValueDateDigit(monthOfYear + 1) + "-" + getValueDateDigit(dayOfMonth) + " " + getValueDateDigit(hourOfDay) + ":" + getValueDateDigit(minute) + ":" + getValueDateDigit(second));
             }
-        }, now.get(Calendar.HOUR_OF_DAY), now.get(Calendar.MINUTE), now.get(Calendar.SECOND), true);
+        }, now.get(Calendar.HOUR_OF_DAY), now.get(Calendar.MINUTE), now.get(Calendar.SECOND), false);
 
         timePickerDialog.setVersion(TimePickerDialog.Version.VERSION_2);
         timePickerDialog.setThemeDark(true);

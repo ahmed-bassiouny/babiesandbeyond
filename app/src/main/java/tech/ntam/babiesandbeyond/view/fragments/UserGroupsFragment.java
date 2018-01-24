@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,7 +44,6 @@ import tech.ntam.mylibrary.IntentDataKey;
 public class UserGroupsFragment extends Fragment implements GroupOption, ParseObject<Group> {
 
 
-    private SegmentedGroup segmentedGroup;
     private RadioButton btnAllGroups;
     private RadioButton btnMostPopular;
     private RadioButton btnMyGroups;
@@ -52,6 +52,8 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
     private GroupItemAdapter groupItemAdapter;
     private static UserGroupsFragment userGroupsFragment;
     private List<Group> allGroups;
+    private ProgressBar progress;
+
 
     private boolean isViewShown = false;
 
@@ -76,12 +78,12 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        segmentedGroup = view.findViewById(R.id.segmented2);
         btnAllGroups = view.findViewById(R.id.btn_all_groups);
         btnMostPopular = view.findViewById(R.id.btn_most_popular);
         btnMyGroups = view.findViewById(R.id.btn_my_groups);
         recycleView = view.findViewById(R.id.recycle_view);
         tvCreateGroup = view.findViewById(R.id.tv_greate_group);
+        progress = view.findViewById(R.id.progress);
         recycleView.setLayoutManager(new LinearLayoutManager(getContext()));
         onCLick();
         if (!isViewShown) {
@@ -135,20 +137,22 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
 
     @Override
     public void JoinGroup(int groupId, final int position) {
-        final MyDialog myDialog = new MyDialog();
-        myDialog.showMyDialog(getActivity());
+        progress.setVisibility(View.VISIBLE);
+        recycleView.setVisibility(View.INVISIBLE);
         RequestAndResponse.joinGroup(getContext(), groupId, new BaseResponseInterface<String>() {
             @Override
             public void onSuccess(String s) {
                 Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
-                myDialog.dismissMyDialog();
+                progress.setVisibility(View.INVISIBLE);
+                recycleView.setVisibility(View.VISIBLE);
 
             }
 
             @Override
             public void onFailed(String errorMessage) {
                 Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
-                myDialog.dismissMyDialog();
+                progress.setVisibility(View.INVISIBLE);
+                recycleView.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -181,21 +185,23 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
             recycleView.setAdapter(groupItemAdapter);
             return;
         }
-        final MyDialog myDialog = new MyDialog();
-        myDialog.showMyDialog(getActivity());
+        progress.setVisibility(View.VISIBLE);
+        recycleView.setVisibility(View.INVISIBLE);
         RequestAndResponse.getGroups(getContext(), new BaseResponseInterface<List<Group>>() {
             @Override
             public void onSuccess(List<Group> groups) {
                 allGroups = groups;
                 groupItemAdapter = new GroupItemAdapter(groups, UserGroupsFragment.this);
                 recycleView.setAdapter(groupItemAdapter);
-                myDialog.dismissMyDialog();
+                progress.setVisibility(View.INVISIBLE);
+                recycleView.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onFailed(String errorMessage) {
                 Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
-                myDialog.dismissMyDialog();
+                progress.setVisibility(View.INVISIBLE);
+                recycleView.setVisibility(View.VISIBLE);
             }
         });
     }

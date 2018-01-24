@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.util.List;
@@ -40,6 +41,8 @@ public class UserEventListFragment extends Fragment implements ParseObject<Event
     private static UserEventListFragment userEventListFragment;
     private EventItemAdapter eventItemAdapter;
     private boolean isViewShown = false;
+    private ProgressBar progress;
+
 
     public UserEventListFragment() {
         // Required empty public constructor
@@ -65,6 +68,7 @@ public class UserEventListFragment extends Fragment implements ParseObject<Event
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recycleView = view.findViewById(R.id.recycle_view);
+        progress = view.findViewById(R.id.progress);
         recycleView.setLayoutManager(new LinearLayoutManager(getContext()));
         if (!isViewShown) {
             loadEvents();
@@ -78,20 +82,23 @@ public class UserEventListFragment extends Fragment implements ParseObject<Event
             recycleView.setAdapter(eventItemAdapter);
             return;
         }
-        final MyDialog myDialog = new MyDialog();
-        myDialog.showMyDialog(getActivity());
+
+        progress.setVisibility(View.VISIBLE);
+        recycleView.setVisibility(View.INVISIBLE);
         RequestAndResponse.getEvents(getContext(), new BaseResponseInterface<List<Event>>() {
             @Override
             public void onSuccess(List<Event> events) {
                 eventItemAdapter = new EventItemAdapter(getContext(), UserEventListFragment.this, events);
                 recycleView.setAdapter(eventItemAdapter);
-                myDialog.dismissMyDialog();
+                progress.setVisibility(View.INVISIBLE);
+                recycleView.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onFailed(String errorMessage) {
                 Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
-                myDialog.dismissMyDialog();
+                progress.setVisibility(View.INVISIBLE);
+                recycleView.setVisibility(View.VISIBLE);
             }
         });
     }

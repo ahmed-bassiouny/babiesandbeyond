@@ -5,77 +5,93 @@
     android:orientation="vertical"
     tools:context="tech.ntam.babiesandbeyond.view.fragments.UserGroupsFragment">
 
-    <info.hoang8f.android.segmented.SegmentedGroup
-        xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
+    <info.hoang8f.android.segmented.SegmentedGroup xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
         android:id="@+id/segmented2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
         android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp"
         android:orientation="horizontal"
-        segmentedgroup:sc_tint_color="@color/gray_bold"
-        segmentedgroup:sc_checked_text_color="@color/white"
         segmentedgroup:sc_border_width="1dp"
-        segmentedgroup:sc_corner_radius="10dp">
+        segmentedgroup:sc_checked_text_color="@color/white"
+        segmentedgroup:sc_corner_radius="10dp"
+        segmentedgroup:sc_tint_color="@color/gray_bold">
 
         <RadioButton
             android:id="@+id/btn_all_groups"
+            style="@style/RadioButton"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="@string/all_groups"
             android:checked="true"
             android:fontFamily="@font/museosans"
             android:padding="5dp"
-            android:textSize="12sp"
-            style="@style/RadioButton" />
+            android:text="@string/all_groups"
+            android:textSize="12sp" />
 
         <RadioButton
             android:id="@+id/btn_most_popular"
+            style="@style/RadioButton"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="@string/most_popular"
-            android:padding="5dp"
-            android:visibility="gone"
-            android:textSize="12sp"
             android:fontFamily="@font/museosans"
-            style="@style/RadioButton" />
+            android:padding="5dp"
+            android:text="@string/most_popular"
+            android:textSize="12sp"
+            android:visibility="gone" />
 
         <RadioButton
             android:id="@+id/btn_my_groups"
+            style="@style/RadioButton"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="@string/my_groups"
-            android:padding="5dp"
-            android:textSize="12sp"
             android:fontFamily="@font/museosans"
-            style="@style/RadioButton" />
+            android:padding="5dp"
+            android:text="@string/my_groups"
+            android:textSize="12sp" />
     </info.hoang8f.android.segmented.SegmentedGroup>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/off_white"/>
+        android:background="@color/off_white" />
+
     <TextView
+        android:id="@+id/tv_greate_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/create_groups"
-        android:textSize="18sp"
         android:layout_marginStart="10dp"
-        android:fontFamily="@font/museosans"
-        android:id="@+id/tv_greate_group"
         android:layout_marginTop="10dp"
         android:drawablePadding="10dp"
-        android:drawableStart="@drawable/ic_group_24dp"/>
+        android:drawableStart="@drawable/ic_group_24dp"
+        android:fontFamily="@font/museosans"
+        android:text="@string/create_groups"
+        android:textSize="18sp" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="10dp"
-        android:background="@color/off_white"/>
-    <android.support.v7.widget.RecyclerView
+        android:background="@color/off_white" />
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_height="match_parent"
-        android:id="@+id/recycle_view"/>
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/progress"
+            android:visibility="invisible" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycle_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp" />
+    </RelativeLayout>
 </LinearLayout>

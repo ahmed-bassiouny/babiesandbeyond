@@ -1,20 +1,16 @@
 package tech.ntam.babiesandbeyond.view.activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
-
-import java.util.Date;
 
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.controller.activities.UserSendRequestController;
@@ -109,7 +105,7 @@ public class UserRequestNurseAndBabysitterActivity extends MyToolbar {
             etChooseDateTo.setError(getString(R.string.select_date));
         } else if (etLocation.getText().toString().trim().length() < 10) {
             etLocation.setError(getString(R.string.enter_location));
-        } else if (MyDateTimeFactor.convertStringToDate(etChooseDateFrom.getText().toString()).before(MyDateTimeFactor.getDateTimeAfter48Hour())) {
+        } else if (MyDateTimeFactor.convertStringToDate(etChooseDateFrom.getText().toString()).before(MyDateTimeFactor.getDateTimeAfter24Hour().getTime())) {
             Toast.makeText(this, getString(R.string.invalid_Date), Toast.LENGTH_LONG).show();
         } else if (MyDateTimeFactor.convertStringToDate(etChooseDateTo.getText().toString()).before(MyDateTimeFactor.convertStringToDate(etChooseDateFrom.getText().toString()))) {
             Toast.makeText(this, getString(R.string.invalid_Date), Toast.LENGTH_LONG).show();

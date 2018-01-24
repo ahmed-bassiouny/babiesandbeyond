@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,10 +14,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.FrameLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.getbase.floatingactionbutton.FloatingActionsMenu;
+
+import com.w9jds.FloatingActionMenu;
 
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
@@ -47,7 +52,9 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
     private FloatingActionButton requestNurse;
     private FloatingActionButton requestMidwife;
     private FloatingActionButton requestBabysitter;
-    private FloatingActionsMenu multipleActions;
+    private FloatingActionMenu multipleActions;
+    private ProgressBar progress;
+
     public UserServiceListFragment() {
         // Required empty public constructor
     }
@@ -73,15 +80,9 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
         requestNurse = view.findViewById(R.id.request_nurse);
         requestMidwife = view.findViewById(R.id.request_midwife);
         requestBabysitter = view.findViewById(R.id.request_babysitter);
-        multipleActions = view.findViewById(R.id.multiple_actions);
-
+        multipleActions = view.findViewById(R.id.action_menu);
+        progress = view.findViewById(R.id.progress);
         recycleView.setLayoutManager(new LinearLayoutManager(getContext()));
-        view.findViewById(R.id.btn_send_request).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivityForResult(new Intent(getActivity(), UserSendRequestActivity.class), IntentDataKey.ADD_SERVICE_DATA_CODE);
-            }
-        });
         if (!isViewShown) {
             loadService();
         }
@@ -93,31 +94,39 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), UserRequestNurseAndBabysitterActivity.class);
-                intent.putExtra(IntentDataKey.SERVICE,IntentDataKey.NURSE_SERVICE);
-                startActivityForResult(intent,IntentDataKey.ADD_SERVICE_DATA_CODE);
-                multipleActions.collapse();
-
+                intent.putExtra(IntentDataKey.SERVICE, IntentDataKey.NURSE_SERVICE);
+                startActivityForResult(intent, IntentDataKey.ADD_SERVICE_DATA_CODE);
+                multipleActions.close();
             }
         });
         requestMidwife.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), MidwifeActivity.class);
-                /*intent.putExtra(IntentDataKey.SERVICE,IntentDataKey.NURSE_SERVICE);
-                startActivityForResult(intent,IntentDataKey.ADD_SERVICE_DATA_CODE);*/
+                //intent.putExtra(IntentDataKey.SERVICE,IntentDataKey.NURSE_SERVICE);
+                startActivityForResult(intent, IntentDataKey.ADD_SERVICE_DATA_CODE);
                 startActivity(intent);
-                multipleActions.collapse();
+                multipleActions.close();
             }
         });
         requestBabysitter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), UserRequestNurseAndBabysitterActivity.class);
-                intent.putExtra(IntentDataKey.SERVICE,IntentDataKey.BABYSITTER_SERVICE);
-                startActivityForResult(intent,IntentDataKey.ADD_SERVICE_DATA_CODE);
-                multipleActions.collapse();
+                intent.putExtra(IntentDataKey.SERVICE, IntentDataKey.BABYSITTER_SERVICE);
+                startActivityForResult(intent, IntentDataKey.ADD_SERVICE_DATA_CODE);
+                multipleActions.close();
             }
         });
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (multipleActions.isOpened())
+            multipleActions.close();
+
     }
 
     @Override
@@ -136,12 +145,12 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
     private void loadService() {
         // check if adapter is null that mean i don't load data from backend
         // if adapter not equal null that mean i loaded data so i set it in recycler view
-        if(serviceItemAdapter !=null){
+        if (serviceItemAdapter != null) {
             recycleView.setAdapter(serviceItemAdapter);
             return;
         }
-        final MyDialog myDialog = new MyDialog();
-        myDialog.showMyDialog(getActivity());
+        progress.setVisibility(View.VISIBLE);
+        recycleView.setVisibility(View.INVISIBLE);
         RequestAndResponse.getMyService(getContext(), new BaseResponseInterface<UserService>() {
             @Override
             public void onSuccess(UserService userService) {
@@ -149,13 +158,15 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
                     ServiceTypeList.setServiceTypes(userService.getServiceTypes());
                     serviceItemAdapter = new ServiceItemAdapter(getContext(), UserServiceListFragment.this, userService.getServices());
                     recycleView.setAdapter(serviceItemAdapter);
-                    myDialog.dismissMyDialog();
+                    progress.setVisibility(View.INVISIBLE);
+                    recycleView.setVisibility(View.VISIBLE);
                 }
             }
 
             @Override
             public void onFailed(String errorMessage) {
-                myDialog.dismissMyDialog();
+                progress.setVisibility(View.INVISIBLE);
+                recycleView.setVisibility(View.VISIBLE);
                 Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
             }
         });

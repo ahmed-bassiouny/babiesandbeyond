@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,6 +51,7 @@ public class UserWorkshopListFragment extends Fragment implements ParseObject<Wo
     private static UserWorkshopListFragment userWorkshopFragment;
     private WorkshopItemAdapter workshopItemAdapter;
     private boolean isViewShown = false;
+    private ProgressBar progress;
 
     public UserWorkshopListFragment() {
         // Required empty public constructor
@@ -75,6 +77,7 @@ public class UserWorkshopListFragment extends Fragment implements ParseObject<Wo
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recycleView = view.findViewById(R.id.recycle_view);
+        progress = view.findViewById(R.id.progress);
         recycleView.setLayoutManager(new LinearLayoutManager(getContext()));
         if (!isViewShown) {
             loadWorkshop();
@@ -88,19 +91,21 @@ public class UserWorkshopListFragment extends Fragment implements ParseObject<Wo
             recycleView.setAdapter(workshopItemAdapter);
             return;
         }
-        final MyDialog myDialog = new MyDialog();
-        myDialog.showMyDialog(getActivity());
+        progress.setVisibility(View.VISIBLE);
+        recycleView.setVisibility(View.INVISIBLE);
         RequestAndResponse.getWorkshops(getContext(), new BaseResponseInterface<List<Workshop>>() {
             @Override
             public void onSuccess(List<Workshop> workshops) {
                 workshopItemAdapter = new WorkshopItemAdapter(getContext(), UserWorkshopListFragment.this, workshops);
                 recycleView.setAdapter(workshopItemAdapter);
-                myDialog.dismissMyDialog();
+                progress.setVisibility(View.INVISIBLE);
+                recycleView.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onFailed(String errorMessage) {
-                myDialog.dismissMyDialog();
+                progress.setVisibility(View.INVISIBLE);
+                recycleView.setVisibility(View.VISIBLE);
                 Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
             }
         });

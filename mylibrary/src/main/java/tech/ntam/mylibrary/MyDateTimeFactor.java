@@ -73,10 +73,10 @@ public class MyDateTimeFactor {
         return System.currentTimeMillis()/1000;
     }
 
-    public static Date getDateTimeAfter48Hour(){
+    public static Calendar getDateTimeAfter24Hour(){
         Calendar cal = Calendar.getInstance(); // creates calendar
         cal.setTime(new Date()); // sets calendar time/date
-        cal.add(Calendar.HOUR_OF_DAY, 48); // adds one hour
-        return  cal.getTime(); // returns new date object, one hour in the future
+        cal.add(Calendar.HOUR_OF_DAY, 24); // adds one hour
+        return  cal; // returns new date object, one hour in the future
     }
 }
