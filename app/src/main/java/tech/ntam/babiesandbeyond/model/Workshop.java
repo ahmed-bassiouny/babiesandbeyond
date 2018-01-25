@@ -160,6 +160,7 @@ public class Workshop implements Parcelable {
         dest.writeString(this.paymentStatus);
         dest.writeString(this.workshopStatusName);
         dest.writeString(this.location);
+        dest.writeInt(this.workshopId);
     }
 
     public Workshop() {
@@ -179,6 +180,7 @@ public class Workshop implements Parcelable {
         this.paymentStatus = in.readString();
         this.workshopStatusName = in.readString();
         this.location=in.readString();
+        this.workshopId=in.readInt();
     }
 
     public static final Parcelable.Creator<Workshop> CREATOR = new Parcelable.Creator<Workshop>() {

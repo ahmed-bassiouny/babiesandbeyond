@@ -57,29 +57,23 @@ public class OptionsFragment extends Fragment {
                 startActivity(new Intent(getContext(), AboutUsActivity.class));
             }
         });
- /*       linearLogout.setOnClickListener(new View.OnClickListener() {
+        linearLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final MyDialog myDialog = new MyDialog();
-                myDialog.showMyDialog(getActivity());
                 RequestAndResponse.logout(getContext(), new BaseResponseInterface<String>() {
                     @Override
                     public void onSuccess(String s) {
-                        Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
-                        myDialog.dismissMyDialog();
 
                     }
 
                     @Override
                     public void onFailed(String errorMessage) {
-                        Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
-                        myDialog.dismissMyDialog();
                     }
                 });
+                UserSharedPref.clearShared(getContext());
+                getActivity().finish();
+                startActivity(new Intent(getContext(), SignIn_UpActivity.class));
             }
-        });*/
-        UserSharedPref.clearShared(getContext());
-        startActivity(new Intent(getContext(), SignIn_UpActivity.class));
-        getActivity().finish();
+        });
     }
 }

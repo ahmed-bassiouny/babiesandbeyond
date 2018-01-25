@@ -25,6 +25,11 @@ public class SignIn_UpActivity extends AppCompatActivity {
         findViewById();
         onClick();
         checkIfUserLoggedIn();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         initObject();
     }
 

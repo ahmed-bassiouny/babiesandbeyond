@@ -25,7 +25,7 @@
     </item>
     <item
         android:id="@+id/message"
-        android:title="@string/message"
+        android:title="@string/groups"
         app:showAsAction="ifRoom"
         android:enabled="true"
         android:icon="@drawable/messages">

@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -76,13 +77,13 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recycleView = view.findViewById(R.id.recycle_view);
-
         requestNurse = view.findViewById(R.id.request_nurse);
         requestMidwife = view.findViewById(R.id.request_midwife);
         requestBabysitter = view.findViewById(R.id.request_babysitter);
         multipleActions = view.findViewById(R.id.action_menu);
         progress = view.findViewById(R.id.progress);
-        recycleView.setLayoutManager(new LinearLayoutManager(getContext()));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        recycleView.setLayoutManager(linearLayoutManager);
         if (!isViewShown) {
             loadService();
         }
