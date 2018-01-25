@@ -58,22 +58,16 @@ public class NurseTasksHomeActivity extends AppCompatActivity {
         findViewById(R.id.iv_logout).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final MyDialog myDialog = new MyDialog();
-                myDialog.showMyDialog(NurseTasksHomeActivity.this);
+                UserSharedPref.clearShared(NurseTasksHomeActivity.this);
+                startActivity(new Intent(NurseTasksHomeActivity.this, SignIn_UpActivity.class));
+                finish();
                 RequestAndResponse.logout(NurseTasksHomeActivity.this, new BaseResponseInterface<String>() {
                     @Override
                     public void onSuccess(String s) {
-                        Toast.makeText(NurseTasksHomeActivity.this, s, Toast.LENGTH_SHORT).show();
-                        UserSharedPref.clearShared(NurseTasksHomeActivity.this);
-                        myDialog.dismissMyDialog();
-                        startActivity(new Intent(NurseTasksHomeActivity.this, SignIn_UpActivity.class));
-                        finish();
                     }
 
                     @Override
                     public void onFailed(String errorMessage) {
-                        Toast.makeText(NurseTasksHomeActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
-                        myDialog.dismissMyDialog();
                     }
                 });
             }

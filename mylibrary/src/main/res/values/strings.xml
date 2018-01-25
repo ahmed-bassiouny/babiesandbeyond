@@ -135,7 +135,7 @@
     <string name="logout">Logout</string>
     <string name="request_nurse">Request Nurse Service</string>
     <string name="request_midwife">Request Midwife Service</string>
-    <string name="request_babysitter">Request Babyssiter Service</string>
+    <string name="request_babysitter">Request Babysitter Service</string>
 
     <string name="nurse_service">Nurse Service</string>
     <string name="midwife_service">Midwife Service</string>

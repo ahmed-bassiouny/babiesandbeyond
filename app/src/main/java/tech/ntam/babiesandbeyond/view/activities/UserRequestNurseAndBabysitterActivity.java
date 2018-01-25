@@ -87,6 +87,7 @@ public class UserRequestNurseAndBabysitterActivity extends MyToolbar {
             if (resultCode == RESULT_OK) {
                 Place place = PlacePicker.getPlace(this, data);
                 etLocation.setText(place.getAddress().toString());
+                etLocation.setError(null);
             }
         }
     }
@@ -106,9 +107,9 @@ public class UserRequestNurseAndBabysitterActivity extends MyToolbar {
         } else if (etLocation.getText().toString().trim().length() < 10) {
             etLocation.setError(getString(R.string.enter_location));
         } else if (MyDateTimeFactor.convertStringToDate(etChooseDateFrom.getText().toString()).before(MyDateTimeFactor.getDateTimeAfter24Hour().getTime())) {
-            Toast.makeText(this, getString(R.string.invalid_Date), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "date from must be after 24 hours", Toast.LENGTH_LONG).show();
         } else if (MyDateTimeFactor.convertStringToDate(etChooseDateTo.getText().toString()).before(MyDateTimeFactor.convertStringToDate(etChooseDateFrom.getText().toString()))) {
-            Toast.makeText(this, getString(R.string.invalid_Date), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "date to must be after "+etChooseDateFrom.getText().toString(), Toast.LENGTH_LONG).show();
         } else {
             getController().saveData(serviceSelected
                     , etChooseDateFrom.getText().toString(), etChooseDateTo.getText().toString(), etLocation.getText().toString());
