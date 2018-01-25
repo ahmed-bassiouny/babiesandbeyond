@@ -51,6 +51,8 @@ public class History {
     }
 
     public String getPrice() {
-        return Utils.getValueFromString(price) + "$";
+        if(price == null || price.isEmpty())
+            price ="0";
+        return price + "$";
     }
 }

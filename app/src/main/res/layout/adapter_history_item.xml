@@ -21,12 +21,14 @@
 
     <TextView
         android:id="@+id/tv_location"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
-        android:textSize="10sp"
         android:fontFamily="@font/museosans"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toStartOf="@+id/tv_price"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_service_name"
         tools:text="location" />
