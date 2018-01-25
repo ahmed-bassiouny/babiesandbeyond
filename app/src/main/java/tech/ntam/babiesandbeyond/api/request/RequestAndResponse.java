@@ -90,7 +90,7 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<RegisterResponse> call, Throwable t) {
-                anInterface.onFailed(context.getString(R.string.email_already_taken));
+                anInterface.onFailed(errorConnection);
             }
         });
     }

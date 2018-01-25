@@ -9,6 +9,7 @@
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_gravity="center"
+        android:textColorHint="@color/white"
         android:layout_height="wrap_content">
 
         <android.support.design.widget.TextInputEditText
@@ -17,6 +18,7 @@
             android:maxLines="1"
             android:fontFamily="@font/museosans"
             android:id="@+id/et_email"
+            android:textColor="@color/white"
             android:inputType="textEmailAddress"
             android:hint="@string/email" />
     </android.support.design.widget.TextInputLayout>
@@ -24,6 +26,7 @@
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_gravity="center"
+        android:textColorHint="@color/white"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp">
 
@@ -33,6 +36,8 @@
             android:maxLines="1"
             android:id="@+id/et_password"
             android:fontFamily="@font/museosans"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
             android:inputType="textPassword"
             android:hint="@string/password" />
     </android.support.design.widget.TextInputLayout>

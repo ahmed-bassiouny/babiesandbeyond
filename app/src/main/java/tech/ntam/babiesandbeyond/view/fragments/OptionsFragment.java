@@ -27,7 +27,8 @@ import tech.ntam.mylibrary.Utils;
 public class OptionsFragment extends Fragment {
 
     private static OptionsFragment optionsFragment;
-    private LinearLayout linearAbout,linearLogout;
+    private LinearLayout linearAbout, linearLogout;
+
     public OptionsFragment() {
         // Required empty public constructor
     }
@@ -56,7 +57,7 @@ public class OptionsFragment extends Fragment {
                 startActivity(new Intent(getContext(), AboutUsActivity.class));
             }
         });
-        linearLogout.setOnClickListener(new View.OnClickListener() {
+ /*       linearLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final MyDialog myDialog = new MyDialog();
@@ -65,10 +66,8 @@ public class OptionsFragment extends Fragment {
                     @Override
                     public void onSuccess(String s) {
                         Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
-                        UserSharedPref.clearShared(getContext());
                         myDialog.dismissMyDialog();
-                        startActivity(new Intent(getContext(), SignIn_UpActivity.class));
-                        getActivity().finish();
+
                     }
 
                     @Override
@@ -78,6 +77,9 @@ public class OptionsFragment extends Fragment {
                     }
                 });
             }
-        });
+        });*/
+        UserSharedPref.clearShared(getContext());
+        startActivity(new Intent(getContext(), SignIn_UpActivity.class));
+        getActivity().finish();
     }
 }

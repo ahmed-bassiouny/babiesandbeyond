@@ -1,6 +1,7 @@
 package tech.ntam.babiesandbeyond.view.fragments;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
@@ -8,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -94,6 +96,15 @@ public class SignUpFragment extends Fragment {
             signUpController = new SignUpController(getActivity());
         }
         return signUpController;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (getView() != null) {
+            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+        }
     }
 
 }
