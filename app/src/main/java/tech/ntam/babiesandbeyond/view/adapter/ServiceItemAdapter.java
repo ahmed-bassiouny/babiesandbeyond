@@ -1,6 +1,7 @@
 package tech.ntam.babiesandbeyond.view.adapter;
 
 import android.content.Context;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -39,7 +40,7 @@ public class ServiceItemAdapter extends RecyclerView.Adapter<ServiceItemAdapter.
         private TextView tvTimeFrom;
         private TextView tvDateTo;
         private TextView tvTimeTo;
-        private ImageView imageView;
+        private ConstraintLayout constraintLayout;
 
         public MyViewHolder(View view) {
             super(view);
@@ -49,7 +50,7 @@ public class ServiceItemAdapter extends RecyclerView.Adapter<ServiceItemAdapter.
             tvTimeFrom = view.findViewById(R.id.tv_time_from);
             tvDateTo = view.findViewById(R.id.tv_date_to_value);
             tvTimeTo = view.findViewById(R.id.tv_time_to);
-            imageView = view.findViewById(R.id.imageView);
+            constraintLayout = view.findViewById(R.id.constraint);
         }
     }
 
@@ -69,8 +70,7 @@ public class ServiceItemAdapter extends RecyclerView.Adapter<ServiceItemAdapter.
         holder.tvTimeTo.setText(service.getEndTime());
         holder.tvServiceType.setText(ServiceTypeList.getServiceTypeNameFromId(service.getServiceTypeId()));
         holder.tvServiceStatus.setText(service.getServiceStatusString());
-        holder.tvServiceStatus.setBackgroundColor(context.getResources().getColor(service.getServiceStatusColor()));
-        holder.imageView.setOnClickListener(new View.OnClickListener() {
+        holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 parseObject.getMyObject(service);
