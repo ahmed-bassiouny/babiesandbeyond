@@ -34,6 +34,7 @@
             android:lines="1"
             android:fontFamily="@font/museosans"
             android:inputType="phone"
+            android:digits="0123456789+"
             android:textColor="@color/white"
             android:hint="@string/phone" />
     </android.support.design.widget.TextInputLayout>

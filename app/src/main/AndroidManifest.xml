@@ -25,7 +25,8 @@
 
         <activity
             android:name=".view.activities.SignIn_UpActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,60 +35,78 @@
         </activity>
         <activity
             android:name=".view.activities.UserForgetPasswordActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".view.activities.UserHomeActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".view.activities.UserSendRequestActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".view.dialog.EventDialogActivity"
-            android:theme="@style/AppThemeDialog" />
+            android:theme="@style/AppThemeDialog"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".view.dialog.WorkShopDialogActivity"
-            android:theme="@style/AppThemeDialog" />
+            android:theme="@style/AppThemeDialog"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".view.activities.UserHistoryNotificationActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".view.activities.UserProfileActivity"
             android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".view.dialog.ChangePasswordDialogActivity"
-            android:theme="@style/AppThemeDialog" />
+            android:theme="@style/AppThemeDialog"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".view.activities.NurseHomeActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".view.dialog.QrCodeActivity"
-            android:theme="@style/AppThemeDialog" />
+            android:theme="@style/AppThemeDialog"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".view.dialog.RateUserDialogActivity"
-            android:theme="@style/AppThemeDialog" />
+            android:theme="@style/AppThemeDialog"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".view.dialog.ServiceDialogActivity"
-            android:theme="@style/AppThemeDialog" />
+            android:theme="@style/AppThemeDialog"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".view.activities.CreateGroupActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".view.activities.ChatActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".view.activities.ShowServiceInfoActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".view.activities.ShowWorkshopInfoActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".view.activities.ShowEventInfoActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".view.activities.AboutUsActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
 
         <service android:name=".firebase.MyFirebaseMessagingService">
             <intent-filter>
@@ -102,16 +121,20 @@
 
         <activity
             android:name=".view.activities.ViewImageActivity"
-            android:theme="@style/AppThemeDialog" />
+            android:theme="@style/AppThemeDialog"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".view.activities.UserRequestNurseAndBabysitterActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".view.activities.MidwifeActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".view.activities.NurseTasksHomeActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

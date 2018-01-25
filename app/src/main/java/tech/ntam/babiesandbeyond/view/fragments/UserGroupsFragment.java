@@ -37,6 +37,7 @@ import tech.ntam.babiesandbeyond.view.adapter.GroupItemAdapter;
 import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 import tech.ntam.mylibrary.IntentDataKey;
+import tech.ntam.mylibrary.interfaces.Constant;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -143,6 +144,7 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
             @Override
             public void onSuccess(String s) {
                 Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
+                groupItemAdapter.addLeaveGroup(position,Constant.USER_PENDING_GROUP_TEXT);
                 myDialog.dismissMyDialog();
 
             }
@@ -163,7 +165,7 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
             @Override
             public void onSuccess(String s) {
                 Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
-                groupItemAdapter.leaveGroup(position);
+                groupItemAdapter.addLeaveGroup(position,Constant.USER_OUT_GROUP);
                 myDialog.dismissMyDialog();
             }
 
@@ -192,17 +194,17 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        for(Group item:groups){
-                            if(item.getCreatedBy()==myId){
+                        for (Group item : groups) {
+                            if (item.getCreatedBy() == myId) {
                                 allGroups.add(item);
-                            }else if(item.getStatus()){
+                            } else if (item.getStatus()) {
                                 allGroups.add(item);
                             }
                         }
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                groupItemAdapter = new GroupItemAdapter(allGroups, UserGroupsFragment.this,getContext());
+                                groupItemAdapter = new GroupItemAdapter(allGroups, UserGroupsFragment.this, getContext());
                                 recycleView.setAdapter(groupItemAdapter);
                                 progress.setVisibility(View.INVISIBLE);
                                 recycleView.setVisibility(View.VISIBLE);
@@ -223,13 +225,15 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
 
     @Override
     public void getMyObject(Group group) {
-        if (!group.isMember()) {
+        if (group.getUserStatus().equals(Constant.USER_OUT_GROUP)) {
             Toast.makeText(getContext(), R.string.please_join_group, Toast.LENGTH_SHORT).show();
-            return;
+        }else if (group.getUserStatus().equals(Constant.USER_OUT_GROUP)){
+            Intent intent = new Intent(getContext(), ChatActivity.class);
+            intent.putExtra(IntentDataKey.SHOW_GROUP_DATA_KEY, group);
+            startActivity(intent);
+        }else {
+            Toast.makeText(getContext(), R.string.group_pending, Toast.LENGTH_SHORT).show();
         }
-        Intent intent = new Intent(getContext(), ChatActivity.class);
-        intent.putExtra(IntentDataKey.SHOW_GROUP_DATA_KEY, group);
-        startActivity(intent);
     }
 
     @Override
@@ -238,8 +242,7 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
         if (requestCode == IntentDataKey.ADD_GROUP_DATA_CODE && resultCode == Activity.RESULT_OK && data != null) {
             Group group = data.getParcelableExtra(IntentDataKey.ADD_GROUP_DATA_KEY);
             if (group != null) {
-                if (btnMyGroups.isSelected())
-                    groupItemAdapter.addGroup(group);
+                groupItemAdapter.addGroup(group);
                 allGroups.add(group);
             }
         }

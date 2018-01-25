@@ -60,6 +60,9 @@ public class Group implements Parcelable {
         else return false;
     }
 
+    public void setUserStatus(String userStatus) {
+        this.userStatus = userStatus;
+    }
 
     public int getCreatedBy() {
         return createdBy;

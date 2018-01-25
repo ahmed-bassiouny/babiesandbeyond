@@ -106,7 +106,6 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
                 Intent intent = new Intent(getContext(), MidwifeActivity.class);
                 //intent.putExtra(IntentDataKey.SERVICE,IntentDataKey.NURSE_SERVICE);
                 startActivityForResult(intent, IntentDataKey.ADD_SERVICE_DATA_CODE);
-                startActivity(intent);
                 multipleActions.close();
             }
         });

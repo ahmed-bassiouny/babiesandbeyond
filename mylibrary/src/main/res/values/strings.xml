@@ -31,7 +31,7 @@
     <string name="confirmation_without_payment">Confirmation Without Payment</string>
     <string name="confirmation_with_payment">Confirmation With Payment</string>
     <string name="pending">Pending</string>
-
+    <string name="group_pending">group is pending</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

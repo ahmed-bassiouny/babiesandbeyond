@@ -56,6 +56,12 @@ public class CreateGroupActivity extends MyToolbar {
 
             }
         });
+        ivProfilePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ImagePicker.pickImage(CreateGroupActivity.this, "Select your image:");
+            }
+        });
         btnCreateGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

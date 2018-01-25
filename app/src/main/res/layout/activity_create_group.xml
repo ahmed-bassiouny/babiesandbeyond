@@ -44,6 +44,8 @@
         android:layout_height="wrap_content"
         android:lines="1"
         android:maxLines="1"
+        android:ellipsize="end"
+        android:inputType="textPersonName"
         android:id="@+id/et_group_name"
         android:layout_margin="10dp"/>
     <TextView

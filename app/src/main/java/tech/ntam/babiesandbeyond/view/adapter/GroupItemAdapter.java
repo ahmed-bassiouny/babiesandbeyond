@@ -101,12 +101,16 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
                 holder.ivMore.setVisibility(View.INVISIBLE);
                 holder.ivGroupStatus.setImageDrawable(context.getDrawable(R.drawable.pendingjoin));
                 holder.tvGroupStatus.setText(Constant.USER_PENDING_GROUP_TEXT);
+                holder.ivGroupStatus.setVisibility(View.VISIBLE);
+                holder.tvGroupStatus.setVisibility(View.VISIBLE);
             }else if (group.getUserStatus().equals(Constant.USER_IN_GROUP)){
                 holder.ivMore.setVisibility(View.VISIBLE);
                 popup.getMenu().findItem(R.id.join).setVisible(false);
                 popup.getMenu().findItem(R.id.leave).setVisible(true);
                 holder.ivGroupStatus.setImageDrawable(context.getDrawable(R.drawable.joined));
                 holder.tvGroupStatus.setText(Constant.USER_IN_GROUP_TEXT);
+                holder.ivGroupStatus.setVisibility(View.VISIBLE);
+                holder.tvGroupStatus.setVisibility(View.VISIBLE);
             }else {
                 holder.ivMore.setVisibility(View.VISIBLE);
                 popup.getMenu().findItem(R.id.join).setVisible(true);
@@ -119,26 +123,10 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
             holder.tvGroupStatus.setText(Constant.USER_PENDING_APPROVAL_GROUP_TEXT);
             holder.ivGroupStatus.setImageDrawable(context.getDrawable(R.drawable.pending));
             holder.ivMore.setVisibility(View.INVISIBLE);
+            holder.ivGroupStatus.setVisibility(View.VISIBLE);
+            holder.tvGroupStatus.setVisibility(View.VISIBLE);
         }
 
-        /*if (group.getStatus()) {
-            holder.ivMore.setVisibility(View.VISIBLE);
-        } else {
-            holder.ivMore.setVisibility(View.INVISIBLE);
-            holder.tvGroupStatus.setText(Constant.USER_PENDING_APPROVAL_GROUP_TEXT);
-        }
-        if (group.getUserStatus().equals(Constant.USER_PENDING_GROUP)) {
-            holder.ivMore.setVisibility(View.INVISIBLE);
-            holder.tvGroupStatus.setText(Constant.USER_PENDING_GROUP_TEXT);
-        } else if (group.getUserStatus().equals(Constant.USER_IN_GROUP)){
-            popup.getMenu().findItem(R.id.join).setVisible(false);
-            popup.getMenu().findItem(R.id.leave).setVisible(true);
-            holder.tvGroupStatus.setText(Constant.USER_IN_GROUP_TEXT);
-        }else {
-            popup.getMenu().findItem(R.id.join).setVisible(true);
-            popup.getMenu().findItem(R.id.leave).setVisible(false);
-            holder.tvGroupStatus.setVisibility(View.INVISIBLE);
-        }*/
         holder.ivMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -173,9 +161,9 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
         return groups.size();
     }
 
-    public void leaveGroup(int position) {
+    public void addLeaveGroup(int position,String status) {
         Group group = groups.get(position);
-        group.setMember(false);
+        group.setUserStatus(status);
         notifyItemChanged(position);
     }
 
