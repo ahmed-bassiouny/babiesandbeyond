@@ -92,7 +92,7 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
         holder.tvDescription.setText(group.getDescription());
         holder.tvDate.setText(group.getDate());
         if (!group.getPhoto().isEmpty())
-            Utils.MyGlide(fragment.getActivity(), holder.ivGroupImage, group.getPhoto());
+            Utils.MyGlideGroup(fragment.getActivity(), holder.ivGroupImage, group.getPhoto());
 
 
         if(group.getStatus()){
