@@ -29,6 +29,7 @@ public class ShowWorkshopInfoActivity extends MyToolbar {
     private TextView tvDateTo;
     private TextView tvTimeTo;
     private TextView tvLocation;
+    private TextView tvStatusName;
     private TextView tvStatus;
     private TextView tvFee;
     private TextView tvSpeakerBio;
@@ -57,7 +58,11 @@ public class ShowWorkshopInfoActivity extends MyToolbar {
         tvLocation.setText(workshop.getLocation());
         tvFee.setText(workshop.getPrice());
         tvWorkshopName.setText(workshop.getName());
-        tvStatus.setText(workshop.getWorkshopStatusName());
+        if(!workshop.getWorkshopStatusName().isEmpty()){
+            tvStatus.setText(workshop.getWorkshopStatusName());
+            tvStatusName.setVisibility(View.VISIBLE);
+            tvStatus.setVisibility(View.VISIBLE);
+        }
         tvSpeakerName.setText(workshop.getSpeakerName());
         tvSpeakerBio.setText(workshop.getSpeakerBio());
         if(workshop.getWorkshopStatusName().equals(Constant.PENDING)){
@@ -82,6 +87,7 @@ public class ShowWorkshopInfoActivity extends MyToolbar {
         tvTimeTo = findViewById(R.id.tv_time_to);
         tvLocation = findViewById(R.id.tv_location);
         tvStatus = findViewById(R.id.tv_status);
+        tvStatusName = findViewById(R.id.textView17);
         tvFee = findViewById(R.id.tv_fee);
         btnPay = findViewById(R.id.tv_pay);
         tvSpeakerName = findViewById(R.id.tv_speaker_name);

@@ -31,7 +31,7 @@ import tech.ntam.babiesandbeyond.view.fragments.UserWorkshopFragment;
 import tech.ntam.babiesandbeyond.view.fragments.UserWorkshopListFragment;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 
-public class UserHomeActivity extends MyToolbar{
+public class UserHomeActivity extends MyToolbar {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private BottomNavigationView bottomNavigation;
@@ -54,6 +54,7 @@ public class UserHomeActivity extends MyToolbar{
         mViewPager.setOffscreenPageLimit(0);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigation);
     }
+
     private void onClick() {
         bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -93,7 +94,7 @@ public class UserHomeActivity extends MyToolbar{
             @Override
             public void onPageSelected(int position) {
                 bottomNavigation.getMenu().getItem(position).setChecked(true);
-                switch (position){
+                switch (position) {
                     case 0:
                         tvTitle.setText(R.string.services);
                         break;
