@@ -1,11 +1,14 @@
 package tech.ntam.babiesandbeyond.view.fragments;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,19 +63,38 @@ public class OptionsFragment extends Fragment {
         linearLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RequestAndResponse.logout(getContext(), new BaseResponseInterface<String>() {
-                    @Override
-                    public void onSuccess(String s) {
+                AlertDialog.Builder builder;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    builder = new AlertDialog.Builder(getContext(), android.R.style.Theme_DeviceDefault_Light_Dialog_NoActionBar);
+                } else {
+                    builder = new AlertDialog.Builder(getContext());
+                }
+                builder.setMessage("Are you sure you want to Logout?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // continue with delete
+                                RequestAndResponse.logout(getContext(), new BaseResponseInterface<String>() {
+                                    @Override
+                                    public void onSuccess(String s) {
 
-                    }
+                                    }
 
-                    @Override
-                    public void onFailed(String errorMessage) {
-                    }
-                });
-                UserSharedPref.clearShared(getContext());
-                getActivity().finish();
-                startActivity(new Intent(getContext(), SignIn_UpActivity.class));
+                                    @Override
+                                    public void onFailed(String errorMessage) {
+                                    }
+                                });
+                                UserSharedPref.clearShared(getContext());
+                                getActivity().finish();
+                                startActivity(new Intent(getContext(), SignIn_UpActivity.class));
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do nothing
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
             }
         });
     }

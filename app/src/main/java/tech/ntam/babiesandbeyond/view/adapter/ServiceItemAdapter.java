@@ -68,7 +68,8 @@ public class ServiceItemAdapter extends RecyclerView.Adapter<ServiceItemAdapter.
         holder.tvTimeFrom.setText(service.getStartTime());
         holder.tvDateTo.setText(service.getEndDate());
         holder.tvTimeTo.setText(service.getEndTime());
-        holder.tvServiceType.setText(ServiceTypeList.getServiceTypeNameFromId(service.getServiceTypeId()));
+        holder.tvServiceType.setText(service.getServiceTypeName());
+        holder.tvServiceStatus.setBackgroundColor(context.getResources().getColor(service.getServiceStatusColor()));
         holder.tvServiceStatus.setText(service.getServiceStatusString());
         holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override

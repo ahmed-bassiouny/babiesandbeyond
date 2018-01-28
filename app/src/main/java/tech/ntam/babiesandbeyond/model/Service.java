@@ -33,6 +33,8 @@ public class Service implements Parcelable {
     private int serviceTypeId;
     @SerializedName("service_workshop_status_name")
     private String serviceStatusName;
+    @SerializedName("service_type_name")
+    private String serviceTypeName;
 
     public int getId() {
         return id;
@@ -54,6 +56,10 @@ public class Service implements Parcelable {
     public String getStartTime() {
         startDate = Utils.getValueFromString(startDate);
         return MyDateTimeFactor.getTimeFromDateTime(startDate);
+    }
+
+    public String getServiceTypeName() {
+        return Utils.getValueFromString(serviceTypeName);
     }
 
     public String getEndDate() {

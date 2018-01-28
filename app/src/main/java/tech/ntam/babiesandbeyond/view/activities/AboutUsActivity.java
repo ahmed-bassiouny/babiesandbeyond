@@ -2,6 +2,7 @@ package tech.ntam.babiesandbeyond.view.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
+import tech.ntam.babiesandbeyond.model.AboutUs;
 import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 
@@ -28,17 +30,15 @@ public class AboutUsActivity extends MyToolbar {
         noInternet = findViewById(R.id.no_internet);
         btnNoInternet = findViewById(R.id.btn_no_internet);
 
-        wvAbout.getSettings().setJavaScriptEnabled(true);
-
-        setupToolbar(this,false,true,false);
+        setupToolbar(this, false, true, false);
         tvTitle.setText(R.string.about_us);
-        loadAbout();
         btnNoInternet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loadAbout();
             }
         });
+        loadAbout();
     }
 
     private void loadAbout() {
@@ -50,7 +50,9 @@ public class AboutUsActivity extends MyToolbar {
         RequestAndResponse.getAbout(new BaseResponseInterface<String>() {
             @Override
             public void onSuccess(String s) {
+                Log.e("onSuccess: ", s);
                 wvAbout.loadDataWithBaseURL("", s, "text/html", "UTF-8", "");
+                AboutUs.setAbout(s);
                 wvAbout.setVisibility(View.VISIBLE);
                 myDialog.dismissMyDialog();
             }

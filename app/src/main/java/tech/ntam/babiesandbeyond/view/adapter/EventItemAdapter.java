@@ -15,6 +15,7 @@ import java.util.List;
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.interfaces.ParseObject;
 import tech.ntam.babiesandbeyond.model.Event;
+import tech.ntam.mylibrary.Utils;
 
 /**
  * Created by bassiouny on 22/12/17.
@@ -76,9 +77,11 @@ public class EventItemAdapter extends RecyclerView.Adapter<EventItemAdapter.MyVi
         holder.tvServiceStatus.setText(event.getName());
         if (event.isComing()) {
             holder.tvServiceStatus.setText(R.string.coming);
+            holder.tvServiceStatus.setHeight(80);
             holder.tvServiceStatus.setBackgroundColor(context.getResources().getColor(R.color.gray_bold));
         } else {
             holder.tvServiceStatus.setVisibility(View.INVISIBLE);
+            holder.tvServiceStatus.setHeight(5);
         }
         holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
