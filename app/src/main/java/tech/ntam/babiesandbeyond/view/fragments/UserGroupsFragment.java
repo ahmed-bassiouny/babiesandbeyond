@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -54,7 +55,8 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
     private static UserGroupsFragment userGroupsFragment;
     private List<Group> allGroups;
     private ProgressBar progress;
-
+    private TextView noInternet;
+    private LinearLayout container;
 
     private boolean isViewShown = false;
 
@@ -85,6 +87,9 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
         recycleView = view.findViewById(R.id.recycle_view);
         tvCreateGroup = view.findViewById(R.id.tv_greate_group);
         progress = view.findViewById(R.id.progress);
+        noInternet = view.findViewById(R.id.no_internet);
+        container = view.findViewById(R.id.container);
+
         recycleView.setLayoutManager(new LinearLayoutManager(getContext()));
         onCLick();
         if (!isViewShown) {
@@ -132,6 +137,12 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
                 }
                 groupItemAdapter.updateList(myGroup);
                 myDialog.dismissMyDialog();
+            }
+        });
+        noInternet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadGroup();
             }
         });
     }
@@ -182,10 +193,15 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
         // if adapter not equal null that mean i loaded data so i set it in recycler view
         if (groupItemAdapter != null) {
             recycleView.setAdapter(groupItemAdapter);
+            progress.setVisibility(View.GONE);
+            container.setVisibility(View.VISIBLE);
+            noInternet.setVisibility(View.GONE);
             return;
         }
         progress.setVisibility(View.VISIBLE);
-        recycleView.setVisibility(View.INVISIBLE);
+        container.setVisibility(View.GONE);
+        noInternet.setVisibility(View.GONE);
+
         RequestAndResponse.getGroups(getContext(), new BaseResponseInterface<List<Group>>() {
             @Override
             public void onSuccess(final List<Group> groups) {
@@ -206,8 +222,10 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
                             public void run() {
                                 groupItemAdapter = new GroupItemAdapter(allGroups, UserGroupsFragment.this, getContext());
                                 recycleView.setAdapter(groupItemAdapter);
-                                progress.setVisibility(View.INVISIBLE);
-                                recycleView.setVisibility(View.VISIBLE);
+                                progress.setVisibility(View.GONE);
+                                container.setVisibility(View.VISIBLE);
+                                noInternet.setVisibility(View.GONE);
+
                             }
                         });
                     }
@@ -216,9 +234,9 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
 
             @Override
             public void onFailed(String errorMessage) {
-                Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
-                progress.setVisibility(View.INVISIBLE);
-                recycleView.setVisibility(View.VISIBLE);
+                progress.setVisibility(View.GONE);
+                container.setVisibility(View.GONE);
+                noInternet.setVisibility(View.VISIBLE);
             }
         });
     }

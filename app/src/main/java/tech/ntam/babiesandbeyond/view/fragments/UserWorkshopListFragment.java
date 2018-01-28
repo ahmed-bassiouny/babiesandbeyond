@@ -47,11 +47,11 @@ import tech.ntam.mylibrary.Utils;
 public class UserWorkshopListFragment extends Fragment implements ParseObject<Workshop> {
 
     private RecyclerView recycleView;
-    private UserWorkshopController userWorkshopController;
     private static UserWorkshopListFragment userWorkshopFragment;
     private WorkshopItemAdapter workshopItemAdapter;
     private boolean isViewShown = false;
     private ProgressBar progress;
+    private TextView noInternet;
 
     public UserWorkshopListFragment() {
         // Required empty public constructor
@@ -78,10 +78,20 @@ public class UserWorkshopListFragment extends Fragment implements ParseObject<Wo
         super.onViewCreated(view, savedInstanceState);
         recycleView = view.findViewById(R.id.recycle_view);
         progress = view.findViewById(R.id.progress);
+        noInternet = view.findViewById(R.id.no_internet);
         recycleView.setLayoutManager(new LinearLayoutManager(getContext()));
         if (!isViewShown) {
             loadWorkshop();
         }
+        onClick();
+    }
+    private void onClick() {
+        noInternet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadWorkshop();
+            }
+        });
     }
 
     private void loadWorkshop() {
@@ -89,24 +99,29 @@ public class UserWorkshopListFragment extends Fragment implements ParseObject<Wo
         // if adapter not equal null that mean i loaded data so i set it in recycler view
         if(workshopItemAdapter !=null) {
             recycleView.setAdapter(workshopItemAdapter);
+            progress.setVisibility(View.INVISIBLE);
+            noInternet.setVisibility(View.INVISIBLE);
+            recycleView.setVisibility(View.VISIBLE);
             return;
         }
         progress.setVisibility(View.VISIBLE);
         recycleView.setVisibility(View.INVISIBLE);
+        noInternet.setVisibility(View.INVISIBLE);
         RequestAndResponse.getWorkshops(getContext(), new BaseResponseInterface<List<Workshop>>() {
             @Override
             public void onSuccess(List<Workshop> workshops) {
                 workshopItemAdapter = new WorkshopItemAdapter(getContext(), UserWorkshopListFragment.this, workshops);
                 recycleView.setAdapter(workshopItemAdapter);
                 progress.setVisibility(View.INVISIBLE);
+                noInternet.setVisibility(View.INVISIBLE);
                 recycleView.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onFailed(String errorMessage) {
                 progress.setVisibility(View.INVISIBLE);
-                recycleView.setVisibility(View.VISIBLE);
-                Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
+                recycleView.setVisibility(View.INVISIBLE);
+                noInternet.setVisibility(View.VISIBLE);
             }
         });
     }

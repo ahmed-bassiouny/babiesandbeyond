@@ -141,6 +141,6 @@
     <string name="midwife_service">Midwife Service</string>
     <string name="babysitter_service">Babysitter Service</string>
     <string name="schedule">Schedule</string>
-
+    <string name="no_internet">No Internet Connection \n Please try again</string>
     <string name="please_join_group">Sorry ,Please join to group</string>
 </resources>

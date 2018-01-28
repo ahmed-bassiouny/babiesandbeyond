@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -43,6 +45,7 @@ public class UserEventListFragment extends Fragment implements ParseObject<Event
     private boolean isViewShown = false;
     private ProgressBar progress;
 
+    private TextView noInternet;
 
     public UserEventListFragment() {
         // Required empty public constructor
@@ -69,10 +72,21 @@ public class UserEventListFragment extends Fragment implements ParseObject<Event
         super.onViewCreated(view, savedInstanceState);
         recycleView = view.findViewById(R.id.recycle_view);
         progress = view.findViewById(R.id.progress);
+        noInternet = view.findViewById(R.id.no_internet);
         recycleView.setLayoutManager(new LinearLayoutManager(getContext()));
         if (!isViewShown) {
             loadEvents();
         }
+        onClick();
+    }
+
+    private void onClick() {
+        noInternet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadEvents();
+            }
+        });
     }
 
     private void loadEvents() {
@@ -80,25 +94,30 @@ public class UserEventListFragment extends Fragment implements ParseObject<Event
         // if adapter not equal null that mean i loaded data so i set it in recycler view
         if(eventItemAdapter !=null){
             recycleView.setAdapter(eventItemAdapter);
+            progress.setVisibility(View.INVISIBLE);
+            noInternet.setVisibility(View.INVISIBLE);
+            recycleView.setVisibility(View.VISIBLE);
             return;
         }
 
         progress.setVisibility(View.VISIBLE);
         recycleView.setVisibility(View.INVISIBLE);
+        noInternet.setVisibility(View.INVISIBLE);
         RequestAndResponse.getEvents(getContext(), new BaseResponseInterface<List<Event>>() {
             @Override
             public void onSuccess(List<Event> events) {
                 eventItemAdapter = new EventItemAdapter(getContext(), UserEventListFragment.this, events);
                 recycleView.setAdapter(eventItemAdapter);
                 progress.setVisibility(View.INVISIBLE);
+                noInternet.setVisibility(View.INVISIBLE);
                 recycleView.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onFailed(String errorMessage) {
-                Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
                 progress.setVisibility(View.INVISIBLE);
-                recycleView.setVisibility(View.VISIBLE);
+                recycleView.setVisibility(View.INVISIBLE);
+                noInternet.setVisibility(View.VISIBLE);
             }
         });
     }

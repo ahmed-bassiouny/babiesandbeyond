@@ -91,7 +91,7 @@ public class Group implements Parcelable {
     }
 
     public String getUserStatus() {
-        return userStatus;
+        return Utils.getValueFromString(userStatus);
     }
 
     @Override

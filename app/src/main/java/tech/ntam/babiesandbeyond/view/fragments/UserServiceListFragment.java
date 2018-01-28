@@ -19,6 +19,7 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -56,6 +57,8 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
     private FloatingActionMenu multipleActions;
     private ProgressBar progress;
 
+    private TextView noInternet;
+
     public UserServiceListFragment() {
         // Required empty public constructor
     }
@@ -82,6 +85,7 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
         requestBabysitter = view.findViewById(R.id.request_babysitter);
         multipleActions = view.findViewById(R.id.action_menu);
         progress = view.findViewById(R.id.progress);
+        noInternet = view.findViewById(R.id.no_internet);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recycleView.setLayoutManager(linearLayoutManager);
         if (!isViewShown) {
@@ -118,6 +122,12 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
                 multipleActions.close();
             }
         });
+        noInternet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadService();
+            }
+        });
 
     }
 
@@ -147,10 +157,14 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
         // if adapter not equal null that mean i loaded data so i set it in recycler view
         if (serviceItemAdapter != null) {
             recycleView.setAdapter(serviceItemAdapter);
+            progress.setVisibility(View.INVISIBLE);
+            noInternet.setVisibility(View.INVISIBLE);
+            recycleView.setVisibility(View.VISIBLE);
             return;
         }
         progress.setVisibility(View.VISIBLE);
         recycleView.setVisibility(View.INVISIBLE);
+        noInternet.setVisibility(View.INVISIBLE);
         RequestAndResponse.getMyService(getContext(), new BaseResponseInterface<UserService>() {
             @Override
             public void onSuccess(UserService userService) {
@@ -159,6 +173,7 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
                     serviceItemAdapter = new ServiceItemAdapter(getContext(), UserServiceListFragment.this, userService.getServices());
                     recycleView.setAdapter(serviceItemAdapter);
                     progress.setVisibility(View.INVISIBLE);
+                    noInternet.setVisibility(View.INVISIBLE);
                     recycleView.setVisibility(View.VISIBLE);
                 }
             }
@@ -166,8 +181,8 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
             @Override
             public void onFailed(String errorMessage) {
                 progress.setVisibility(View.INVISIBLE);
-                recycleView.setVisibility(View.VISIBLE);
-                Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
+                recycleView.setVisibility(View.INVISIBLE);
+                noInternet.setVisibility(View.VISIBLE);
             }
         });
     }
