@@ -2,6 +2,7 @@ package tech.ntam.babiesandbeyond.view.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.webkit.WebView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,13 +14,15 @@ import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 
 public class AboutUsActivity extends MyToolbar {
 
-    private TextView tvAbout;
+    private WebView wvAbout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_us);
-        tvAbout = findViewById(R.id.tv_about);
+        wvAbout = findViewById(R.id.wv_about);
+        wvAbout.getSettings().setJavaScriptEnabled(true);
+
         setupToolbar(this,false,true,false);
         tvTitle.setText(R.string.about_us);
         loadAbout();
@@ -31,7 +34,7 @@ public class AboutUsActivity extends MyToolbar {
         RequestAndResponse.getAbout(new BaseResponseInterface<String>() {
             @Override
             public void onSuccess(String s) {
-                tvAbout.setText(s);
+                wvAbout.loadDataWithBaseURL("", s, "text/html", "UTF-8", "");
                 myDialog.dismissMyDialog();
             }
 
