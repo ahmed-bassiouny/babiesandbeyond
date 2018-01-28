@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
@@ -56,6 +57,8 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
     private List<Group> allGroups;
     private ProgressBar progress;
     private TextView noInternet;
+    private Button btnNoInternet;
+
     private LinearLayout container;
 
     private boolean isViewShown = false;
@@ -88,6 +91,7 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
         tvCreateGroup = view.findViewById(R.id.tv_greate_group);
         progress = view.findViewById(R.id.progress);
         noInternet = view.findViewById(R.id.no_internet);
+        btnNoInternet = view.findViewById(R.id.btn_no_internet);
         container = view.findViewById(R.id.container);
 
         recycleView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -139,7 +143,7 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
                 myDialog.dismissMyDialog();
             }
         });
-        noInternet.setOnClickListener(new View.OnClickListener() {
+        btnNoInternet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loadGroup();
@@ -196,11 +200,14 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
             progress.setVisibility(View.GONE);
             container.setVisibility(View.VISIBLE);
             noInternet.setVisibility(View.GONE);
+            btnNoInternet.setVisibility(View.GONE);
+
             return;
         }
         progress.setVisibility(View.VISIBLE);
         container.setVisibility(View.GONE);
         noInternet.setVisibility(View.GONE);
+        btnNoInternet.setVisibility(View.GONE);
 
         RequestAndResponse.getGroups(getContext(), new BaseResponseInterface<List<Group>>() {
             @Override
@@ -224,8 +231,6 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
                                 recycleView.setAdapter(groupItemAdapter);
                                 progress.setVisibility(View.GONE);
                                 container.setVisibility(View.VISIBLE);
-                                noInternet.setVisibility(View.GONE);
-
                             }
                         });
                     }
@@ -235,8 +240,9 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
             @Override
             public void onFailed(String errorMessage) {
                 progress.setVisibility(View.GONE);
-                container.setVisibility(View.GONE);
                 noInternet.setVisibility(View.VISIBLE);
+                btnNoInternet.setVisibility(View.VISIBLE);
+
             }
         });
     }

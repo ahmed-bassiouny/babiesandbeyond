@@ -11,6 +11,7 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/btn_send_request"
         android:layout_marginEnd="10dp"
+        android:visibility="visible"
         android:layout_marginStart="10dp" />
 
     <ProgressBar
@@ -66,10 +67,21 @@
     <TextView
         android:id="@+id/no_internet"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:visibility="invisible"
+        android:gravity="center"
         android:text="@string/no_internet"
         android:textColor="@color/gray_bold"
         android:textSize="20sp" />
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="45dp"
+        android:id="@+id/btn_no_internet"
+        android:text="@string/retry"
+        android:textSize="16sp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/no_internet"
+        android:layout_centerInParent="true"
+        android:visibility="invisible"/>
 </RelativeLayout>

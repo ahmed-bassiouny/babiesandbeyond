@@ -115,8 +115,8 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
                 holder.ivMore.setVisibility(View.VISIBLE);
                 popup.getMenu().findItem(R.id.join).setVisible(true);
                 popup.getMenu().findItem(R.id.leave).setVisible(false);
-                holder.ivGroupStatus.setVisibility(View.INVISIBLE);
-                holder.tvGroupStatus.setVisibility(View.INVISIBLE);
+                holder.ivGroupStatus.setVisibility(View.GONE);
+                holder.tvGroupStatus.setVisibility(View.GONE);
             }
         }else{
             // group pending
@@ -164,6 +164,7 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
     public void addLeaveGroup(int position,String status) {
         Group group = groups.get(position);
         group.setUserStatus(status);
+        groups.set(position,group);
         notifyItemChanged(position);
     }
 

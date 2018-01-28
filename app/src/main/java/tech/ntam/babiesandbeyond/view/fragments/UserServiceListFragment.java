@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -58,6 +59,7 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
     private ProgressBar progress;
 
     private TextView noInternet;
+    private Button btnNoInternet;
 
     public UserServiceListFragment() {
         // Required empty public constructor
@@ -86,6 +88,7 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
         multipleActions = view.findViewById(R.id.action_menu);
         progress = view.findViewById(R.id.progress);
         noInternet = view.findViewById(R.id.no_internet);
+        btnNoInternet = view.findViewById(R.id.btn_no_internet);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recycleView.setLayoutManager(linearLayoutManager);
         if (!isViewShown) {
@@ -122,7 +125,7 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
                 multipleActions.close();
             }
         });
-        noInternet.setOnClickListener(new View.OnClickListener() {
+        btnNoInternet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loadService();
@@ -159,12 +162,14 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
             recycleView.setAdapter(serviceItemAdapter);
             progress.setVisibility(View.INVISIBLE);
             noInternet.setVisibility(View.INVISIBLE);
+            btnNoInternet.setVisibility(View.INVISIBLE);
             recycleView.setVisibility(View.VISIBLE);
             return;
         }
         progress.setVisibility(View.VISIBLE);
         recycleView.setVisibility(View.INVISIBLE);
         noInternet.setVisibility(View.INVISIBLE);
+        btnNoInternet.setVisibility(View.INVISIBLE);
         RequestAndResponse.getMyService(getContext(), new BaseResponseInterface<UserService>() {
             @Override
             public void onSuccess(UserService userService) {
@@ -173,7 +178,6 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
                     serviceItemAdapter = new ServiceItemAdapter(getContext(), UserServiceListFragment.this, userService.getServices());
                     recycleView.setAdapter(serviceItemAdapter);
                     progress.setVisibility(View.INVISIBLE);
-                    noInternet.setVisibility(View.INVISIBLE);
                     recycleView.setVisibility(View.VISIBLE);
                 }
             }
@@ -181,8 +185,8 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
             @Override
             public void onFailed(String errorMessage) {
                 progress.setVisibility(View.INVISIBLE);
-                recycleView.setVisibility(View.INVISIBLE);
                 noInternet.setVisibility(View.VISIBLE);
+                btnNoInternet.setVisibility(View.VISIBLE);
             }
         });
     }

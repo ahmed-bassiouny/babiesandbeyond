@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,18 +9,32 @@
     <TextView
         android:id="@+id/no_internet"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="visible"
         android:gravity="center"
+        android:layout_gravity="center"
         android:text="@string/no_internet"
         android:textColor="@color/gray_bold"
-        android:textSize="20sp"
-        android:visibility="gone" />
+        android:textSize="20sp" />
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="45dp"
+        android:id="@+id/btn_no_internet"
+        android:text="@string/retry"
+        android:textSize="16sp"
+        android:layout_gravity="center"
+        android:layout_below="@+id/no_internet"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_centerInParent="true"
+        android:visibility="visible"/>
 
     <ProgressBar
         android:id="@+id/progress"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
+        android:layout_centerInParent="true"
         android:background="@drawable/progress"
         android:visibility="gone" />
     <LinearLayout
@@ -108,4 +122,4 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp" />
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

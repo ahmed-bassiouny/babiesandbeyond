@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -46,6 +47,7 @@ public class UserEventListFragment extends Fragment implements ParseObject<Event
     private ProgressBar progress;
 
     private TextView noInternet;
+    private Button btnNoInternet;
 
     public UserEventListFragment() {
         // Required empty public constructor
@@ -73,6 +75,8 @@ public class UserEventListFragment extends Fragment implements ParseObject<Event
         recycleView = view.findViewById(R.id.recycle_view);
         progress = view.findViewById(R.id.progress);
         noInternet = view.findViewById(R.id.no_internet);
+        btnNoInternet = view.findViewById(R.id.btn_no_internet);
+
         recycleView.setLayoutManager(new LinearLayoutManager(getContext()));
         if (!isViewShown) {
             loadEvents();
@@ -81,7 +85,7 @@ public class UserEventListFragment extends Fragment implements ParseObject<Event
     }
 
     private void onClick() {
-        noInternet.setOnClickListener(new View.OnClickListener() {
+        btnNoInternet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loadEvents();
@@ -96,6 +100,7 @@ public class UserEventListFragment extends Fragment implements ParseObject<Event
             recycleView.setAdapter(eventItemAdapter);
             progress.setVisibility(View.INVISIBLE);
             noInternet.setVisibility(View.INVISIBLE);
+            noInternet.setVisibility(View.INVISIBLE);
             recycleView.setVisibility(View.VISIBLE);
             return;
         }
@@ -103,21 +108,21 @@ public class UserEventListFragment extends Fragment implements ParseObject<Event
         progress.setVisibility(View.VISIBLE);
         recycleView.setVisibility(View.INVISIBLE);
         noInternet.setVisibility(View.INVISIBLE);
+        btnNoInternet.setVisibility(View.INVISIBLE);
         RequestAndResponse.getEvents(getContext(), new BaseResponseInterface<List<Event>>() {
             @Override
             public void onSuccess(List<Event> events) {
                 eventItemAdapter = new EventItemAdapter(getContext(), UserEventListFragment.this, events);
                 recycleView.setAdapter(eventItemAdapter);
                 progress.setVisibility(View.INVISIBLE);
-                noInternet.setVisibility(View.INVISIBLE);
                 recycleView.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onFailed(String errorMessage) {
                 progress.setVisibility(View.INVISIBLE);
-                recycleView.setVisibility(View.INVISIBLE);
                 noInternet.setVisibility(View.VISIBLE);
+                btnNoInternet.setVisibility(View.VISIBLE);
             }
         });
     }
