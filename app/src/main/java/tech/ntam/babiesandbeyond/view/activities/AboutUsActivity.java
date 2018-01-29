@@ -38,7 +38,13 @@ public class AboutUsActivity extends MyToolbar {
                 loadAbout();
             }
         });
-        loadAbout();
+        if(AboutUs.getAbout().isEmpty()){
+            loadAbout();
+        }else {
+            wvAbout.loadDataWithBaseURL("", AboutUs.getAbout(), "text/html", "UTF-8", "");
+            wvAbout.setVisibility(View.VISIBLE);
+        }
+
     }
 
     private void loadAbout() {
@@ -50,9 +56,8 @@ public class AboutUsActivity extends MyToolbar {
         RequestAndResponse.getAbout(new BaseResponseInterface<String>() {
             @Override
             public void onSuccess(String s) {
-                Log.e("onSuccess: ", s);
-                wvAbout.loadDataWithBaseURL("", s, "text/html", "UTF-8", "");
                 AboutUs.setAbout(s);
+                wvAbout.loadDataWithBaseURL("", s, "text/html", "UTF-8", "");
                 wvAbout.setVisibility(View.VISIBLE);
                 myDialog.dismissMyDialog();
             }
