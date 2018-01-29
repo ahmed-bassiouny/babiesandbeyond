@@ -30,4 +30,14 @@ public class IntentDataKey {
 
     public static final String SERVICE = "request_service";
 
+    public static final String MY_NOTIFICATION_DATA ="my_notification_data";
+
+
+    // broad cast reciever
+    public static final String NOTIFICATION_TYPE ="type";
+    public static final String NOTIFICATION_ACTION ="action";
+    public static final String NOTIFICATION_ID ="id";
+    // Group status
+    public static final String NOTIFICATION_GROUP = "3";
+
 }

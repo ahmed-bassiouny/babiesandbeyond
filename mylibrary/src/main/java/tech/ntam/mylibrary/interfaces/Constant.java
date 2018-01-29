@@ -21,4 +21,7 @@ public class Constant {
     public static final String USER_IN_GROUP_TEXT = "Joined";
     public static final String USER_PENDING_APPROVAL_GROUP_TEXT= "Pending Admin Approval";
 
+    // change group from pending to approved
+    public static final String GROUP_APPROVED = "0";
+
 }

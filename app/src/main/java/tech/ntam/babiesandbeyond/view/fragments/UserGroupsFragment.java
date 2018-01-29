@@ -2,14 +2,17 @@ package tech.ntam.babiesandbeyond.view.fragments;
 
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,21 +26,17 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import info.hoang8f.android.segmented.SegmentedGroup;
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.babiesandbeyond.interfaces.GroupOption;
 import tech.ntam.babiesandbeyond.interfaces.ParseObject;
 import tech.ntam.babiesandbeyond.model.Group;
-import tech.ntam.babiesandbeyond.model.Workshop;
 import tech.ntam.babiesandbeyond.utils.UserSharedPref;
 import tech.ntam.babiesandbeyond.view.activities.ChatActivity;
 import tech.ntam.babiesandbeyond.view.activities.CreateGroupActivity;
-import tech.ntam.babiesandbeyond.view.activities.UserHomeActivity;
 import tech.ntam.babiesandbeyond.view.adapter.GroupItemAdapter;
 import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
-import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 import tech.ntam.mylibrary.IntentDataKey;
 import tech.ntam.mylibrary.interfaces.Constant;
 
@@ -271,5 +270,31 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
             }
         }
     }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver((mMessageReceiver),
+                new IntentFilter(IntentDataKey.MY_NOTIFICATION_DATA));
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(mMessageReceiver);
+    }
+
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if(intent.getStringExtra(IntentDataKey.NOTIFICATION_TYPE).equals(IntentDataKey.NOTIFICATION_GROUP)){
+                // todo get group id
+                // todo check status
+                // todo send new status to adapter and update it
+
+            }
+            Toast.makeText(context, intent.getStringExtra("extra")+"", Toast.LENGTH_SHORT).show();
+        }
+    };
 
 }
