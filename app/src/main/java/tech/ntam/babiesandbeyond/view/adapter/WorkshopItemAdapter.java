@@ -77,7 +77,7 @@ public class WorkshopItemAdapter extends RecyclerView.Adapter<WorkshopItemAdapte
             holder.tvServiceStatus.setVisibility(View.VISIBLE);
             holder.tvServiceStatus.setHeight(80);
             holder.tvServiceStatus.setBackgroundColor(context.getResources().getColor(workshop.getWorkshopStatusColor()));
-        }else {
+        } else {
             holder.tvServiceStatus.setVisibility(View.INVISIBLE);
             holder.tvServiceStatus.setHeight(5);
         }
@@ -96,7 +96,7 @@ public class WorkshopItemAdapter extends RecyclerView.Adapter<WorkshopItemAdapte
 
     public void updateWorkshop(Workshop workshop) {
         int workshopsLenght = workshops.size();
-        for (int i=0;i<workshopsLenght;i++) {
+        for (int i = 0; i < workshopsLenght; i++) {
             if (workshop.getWorkshopId() == workshops.get(i).getId()) {
                 workshops.get(i).setComing(true);
                 workshops.get(i).setWorkshopStatusName(workshop.getWorkshopStatusName());
@@ -104,5 +104,18 @@ public class WorkshopItemAdapter extends RecyclerView.Adapter<WorkshopItemAdapte
                 break;
             }
         }
+    }
+
+    public void updateWorkshopToConfirmationWithoutPayment(int id) {
+        final int size = workshops.size();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < size; i++) {
+                 Workshop workshop = workshops.get(i);
+                 //if()
+                }
+            }
+        }).start();
     }
 }
