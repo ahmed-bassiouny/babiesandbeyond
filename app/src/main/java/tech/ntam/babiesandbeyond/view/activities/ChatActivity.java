@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -33,6 +35,7 @@ import java.nio.file.Files;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
+
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.controller.activities.ChatController;
 import tech.ntam.babiesandbeyond.interfaces.ParseObject;
@@ -60,6 +63,8 @@ public class ChatActivity extends MyToolbar implements ParseObject<String> {
     private ChatController chatController;
     private ItemChatAdapter itemChatAdapter;
     private StorageReference mStorageRef;
+    private ChildEventListener childEventListener;
+    private ProgressBar progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,11 +73,16 @@ public class ChatActivity extends MyToolbar implements ParseObject<String> {
         setupToolbar(this, false, true, false);
         findViewById();
         onClick();
-        loadChatGroup();
 
     }
 
-    private void loadChatGroup() {
+    @Override
+    protected void onStart() {
+        super.onStart();
+        setDataGroup();
+    }
+
+    private void setDataGroup() {
         group = getIntent().getParcelableExtra(IntentDataKey.SHOW_GROUP_DATA_KEY);
         if (group == null)
             finish();
@@ -86,37 +96,58 @@ public class ChatActivity extends MyToolbar implements ParseObject<String> {
         int userId = UserSharedPref.getId(this);
         itemChatAdapter = new ItemChatAdapter(ChatActivity.this, userId);
         recycleView.setAdapter(itemChatAdapter);
-        FirebaseDatabase.getInstance().getReference().child(FirebaseRoot.GROUP)
-                .child(String.valueOf(group.getId()))
-                .addChildEventListener(new ChildEventListener() {
-                    @Override
-                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        Message message = dataSnapshot.getValue(Message.class);
-                        itemChatAdapter.addMessage(message);
-                        recycleView.scrollToPosition(itemChatAdapter.getItemCount() - 1);
-                    }
+        progress.setVisibility(View.VISIBLE);
+        getController().getGroupReference().addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                progress.setVisibility(View.GONE);
+            }
 
-                    @Override
-                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-                    }
+            }
+        });
+        getController().getGroupReference().addChildEventListener(getChildEventListener());
 
-                    @Override
-                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+    }
 
-                    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        getController().getGroupReference().removeEventListener(childEventListener);
+    }
 
-                    @Override
-                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+    private ChildEventListener getChildEventListener() {
+        childEventListener = new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Message message = dataSnapshot.getValue(Message.class);
+                itemChatAdapter.addMessage(message);
+                recycleView.scrollToPosition(itemChatAdapter.getItemCount() - 1);
+            }
 
-                    }
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
+            }
 
-                    }
-                });
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
 
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+        return childEventListener;
     }
 
     private void onClick() {
@@ -138,32 +169,33 @@ public class ChatActivity extends MyToolbar implements ParseObject<String> {
             }
         });
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         final Bitmap bitmap = ImagePicker.getImageFromResult(this, requestCode, resultCode, data);
         // TODO do something with the bitmap
         final MyDialog dialog = new MyDialog();
         dialog.showMyDialog(ChatActivity.this);
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-            byte[] myData = baos.toByteArray();
-            mStorageRef = FirebaseStorage.getInstance().getReference();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] myData = baos.toByteArray();
+        mStorageRef = FirebaseStorage.getInstance().getReference();
 
-            UploadTask uploadTask = mStorageRef.child(String.valueOf(MyDateTimeFactor.getTimeStamp())).putBytes(myData);
-            uploadTask.addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    dialog.dismissMyDialog();
-                    Toast.makeText(ChatActivity.this, exception.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                    getController().createImageMessage(downloadUrl.toString(), bitmap.getWidth(), bitmap.getHeight());
-                    dialog.dismissMyDialog();
-                }
-            });
+        UploadTask uploadTask = mStorageRef.child(String.valueOf(MyDateTimeFactor.getTimeStamp())).putBytes(myData);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                dialog.dismissMyDialog();
+                Toast.makeText(ChatActivity.this, exception.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                getController().createImageMessage(downloadUrl.toString(), bitmap.getWidth(), bitmap.getHeight());
+                dialog.dismissMyDialog();
+            }
+        });
     }
 
     /*@Override
@@ -242,6 +274,7 @@ public class ChatActivity extends MyToolbar implements ParseObject<String> {
         ivChooseAttachment = findViewById(R.id.iv_choose_attachment);
         tvSend = findViewById(R.id.tv_send);
         etMessage = findViewById(R.id.et_message);
+        progress = findViewById(R.id.progress);
         recycleView.setLayoutManager(new LinearLayoutManager(this));
     }
 
@@ -254,7 +287,8 @@ public class ChatActivity extends MyToolbar implements ParseObject<String> {
     @Override
     public void getMyObject(String s) {
         Intent i = new Intent(this, ViewImageActivity.class);
-        i.putExtra(IntentDataKey.SHOW_IMAGE,s);
+        i.putExtra(IntentDataKey.SHOW_IMAGE, s);
         startActivity(i);
     }
+
 }

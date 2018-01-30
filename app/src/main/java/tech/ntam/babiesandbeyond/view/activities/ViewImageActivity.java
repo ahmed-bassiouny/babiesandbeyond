@@ -20,6 +20,7 @@ public class ViewImageActivity extends AppCompatActivity {
         String url = getIntent().getStringExtra(IntentDataKey.SHOW_IMAGE);
         if(url == null || url.isEmpty())
             finish();
-        Utils.MyGlide(this, img,url );
+        Utils.MyGlidePlaceholder(this,img,url);
+
     }
 }

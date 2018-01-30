@@ -59,7 +59,7 @@ public class ChatController {
         }
     }
 
-    private DatabaseReference getGroupReference() {
+    public DatabaseReference getGroupReference() {
         return FirebaseDatabase.getInstance().getReference().child(FirebaseRoot.GROUP).child(String.valueOf(groupId));
     }
 

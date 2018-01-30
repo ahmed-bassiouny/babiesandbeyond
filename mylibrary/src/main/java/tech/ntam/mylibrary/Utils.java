@@ -96,14 +96,18 @@ public class Utils {
     public static void MyGlide(Activity activity, ImageView imageView, String url) {
         Glide.with(activity).load(url).placeholder(R.drawable.person).dontAnimate().centerCrop().into(imageView);
     }
-
+    public static void MyGlidePlaceholder(Activity activity, ImageView imageView, String url) {
+        Glide.with(activity).load(url).placeholder(R.drawable.placeholder).dontAnimate().into(imageView);
+    }
     public static void MyGlideGroup(Activity activity, ImageView imageView, String url) {
         Glide.with(activity).load(url).placeholder(R.drawable.group).dontAnimate().centerCrop().into(imageView);
     }
     public static void MyGlideRounded(Activity activity, ImageView imageView, String url) {
         Glide.with(activity)
                 .load(url)
+                .placeholder(R.drawable.placeholder)
                 .fitCenter()
+                .dontAnimate()
                 .bitmapTransform(new RoundedCornersTransformation( activity,25, 10))
                 .into(imageView);
     }
