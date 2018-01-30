@@ -100,6 +100,10 @@ public class Service implements Parcelable {
         }
     }
 
+    public void updateServiceStatusName() {
+        this.serviceStatusName = Constant.CONFIRMATION_WITHOUT_PAYMENT;
+    }
+
     public int getServiceTypeId() {
         return serviceTypeId;
     }

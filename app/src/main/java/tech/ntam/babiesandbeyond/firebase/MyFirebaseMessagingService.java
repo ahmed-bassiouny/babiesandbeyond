@@ -39,6 +39,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 case IntentDataKey.NOTIFICATION_GROUP:
                     intent = new Intent(IntentDataKey.NOTIFICATION_GROUP);
                     break;
+                case IntentDataKey.NOTIFICATION_SERVICE:
+                    intent = new Intent(IntentDataKey.NOTIFICATION_SERVICE);
+                    break;
             }
             // get action
             intent.putExtra(IntentDataKey.NOTIFICATION_ACTION, object.get(IntentDataKey.NOTIFICATION_ACTION).toString());

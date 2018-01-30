@@ -2,12 +2,16 @@ package tech.ntam.babiesandbeyond.view.fragments;
 
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -41,6 +45,7 @@ import tech.ntam.babiesandbeyond.view.adapter.ServiceItemAdapter;
 import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 import tech.ntam.mylibrary.IntentDataKey;
+import tech.ntam.mylibrary.interfaces.Constant;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -143,6 +148,38 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver((mMessageReceiver),
+                new IntentFilter(IntentDataKey.NOTIFICATION_SERVICE));
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(mMessageReceiver);
+    }
+
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String serviceId = intent.getStringExtra(IntentDataKey.NOTIFICATION_ID);
+            if (serviceId == null || serviceId.isEmpty())
+                return;
+            String action = intent.getStringExtra(IntentDataKey.NOTIFICATION_ACTION);
+            switch (action) {
+                case "0":
+                    serviceItemAdapter.deleteService(Integer.parseInt(serviceId));
+                    break;
+                case "1":
+                    serviceItemAdapter.updateService(Integer.parseInt(serviceId));
+                    break;
+            }
+
+        }
+    };
+
+    @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (getView() != null) {
@@ -175,7 +212,7 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
             public void onSuccess(UserService userService) {
                 if (userService != null) {
                     ServiceTypeList.setServiceTypes(userService.getServiceTypes());
-                    serviceItemAdapter = new ServiceItemAdapter(getContext(), UserServiceListFragment.this, userService.getServices());
+                    serviceItemAdapter = new ServiceItemAdapter(getActivity() , UserServiceListFragment.this, userService.getServices());
                     recycleView.setAdapter(serviceItemAdapter);
                     progress.setVisibility(View.INVISIBLE);
                     recycleView.setVisibility(View.VISIBLE);

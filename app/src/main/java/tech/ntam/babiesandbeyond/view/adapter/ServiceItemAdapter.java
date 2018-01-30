@@ -1,5 +1,6 @@
 package tech.ntam.babiesandbeyond.view.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
@@ -25,12 +26,13 @@ public class ServiceItemAdapter extends RecyclerView.Adapter<ServiceItemAdapter.
 
 
     private List<Service> services;
-    private Context context;
+    private Activity activity;
     private ParseObject parseObject;
-    public ServiceItemAdapter(Context context, Fragment fragment, List<Service> services) {
+
+    public ServiceItemAdapter(Activity activity, Fragment fragment, List<Service> services) {
         this.services = services;
-        this.context=context;
-        this.parseObject =(ParseObject)fragment;
+        this.activity = activity;
+        this.parseObject = (ParseObject) fragment;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -69,7 +71,7 @@ public class ServiceItemAdapter extends RecyclerView.Adapter<ServiceItemAdapter.
         holder.tvDateTo.setText(service.getEndDate());
         holder.tvTimeTo.setText(service.getEndTime());
         holder.tvServiceType.setText(service.getServiceTypeName());
-        holder.tvServiceStatus.setBackgroundColor(context.getResources().getColor(service.getServiceStatusColor()));
+        holder.tvServiceStatus.setBackgroundColor(activity.getResources().getColor(service.getServiceStatusColor()));
         holder.tvServiceStatus.setText(service.getServiceStatusString());
         holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,8 +86,54 @@ public class ServiceItemAdapter extends RecyclerView.Adapter<ServiceItemAdapter.
         return services.size();
     }
 
-    public void addService(Service service){
-        services.add(0,service);
+    public void addService(Service service) {
+        services.add(0, service);
         notifyItemInserted(0);
+    }
+
+    public void deleteService(final int id) {
+        final int size = services.size();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < size; i++) {
+                    Service item = services.get(i);
+                    if(item.getId() == id){
+                        final int position = i;
+                        services.remove(i);
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                notifyItemRemoved(position);
+                            }
+                        });
+                        break;
+                    }
+                }
+            }
+        }).start();
+    }
+    public void updateService(final int id) {
+        final int size = services.size();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < size; i++) {
+                    Service item = services.get(i);
+                    if(item.getId() == id){
+                        final int position = i;
+                        item.updateServiceStatusName();
+                        services.set(i,item);
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                notifyItemChanged(position);
+                            }
+                        });
+                        break;
+                    }
+                }
+            }
+        }).start();
     }
 }

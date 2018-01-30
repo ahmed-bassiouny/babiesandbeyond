@@ -34,7 +34,8 @@ public class IntentDataKey {
     public static final String NOTIFICATION_TYPE ="type";
     public static final String NOTIFICATION_ACTION ="action";
     public static final String NOTIFICATION_ID ="id";
-    // Group status
+    // Group Notification
     public static final String NOTIFICATION_GROUP = "3";
+    public static final String NOTIFICATION_SERVICE = "0";
 
 }
