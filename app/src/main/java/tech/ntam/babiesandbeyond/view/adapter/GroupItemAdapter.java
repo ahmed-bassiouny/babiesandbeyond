@@ -37,14 +37,14 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
     private GroupOption groupOption;
     private boolean showAddLeaveGroup = false;
     private ParseObject parseObject;
-    private Context context;
+    private Activity activity;
 
-    public GroupItemAdapter(List<Group> groups, Fragment fragment, Context context) {
+    public GroupItemAdapter(List<Group> groups, Fragment fragment, Activity activity) {
         this.groups = groups;
         this.fragment = fragment;
         groupOption = (GroupOption) fragment;
         parseObject = (ParseObject) fragment;
-        this.context = context;
+        this.activity = activity;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -83,7 +83,7 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         final Group group = groups.get(position);
         //creating a popup menu
-        final PopupMenu popup = new PopupMenu(context, holder.ivMore,Gravity.END);
+        final PopupMenu popup = new PopupMenu(activity, holder.ivMore, Gravity.END);
         //inflating menu from xml resource
         popup.inflate(R.menu.group_menu);
 
@@ -95,33 +95,33 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
             Utils.MyGlideGroup(fragment.getActivity(), holder.ivGroupImage, group.getPhoto());
 
 
-        if(group.getStatus()){
+        if (group.getStatus()) {
             // group approved
-            if(group.getUserStatus().equals(Constant.USER_PENDING_GROUP)){
+            if (group.getUserStatus().equals(Constant.USER_PENDING_GROUP)) {
                 holder.ivMore.setVisibility(View.INVISIBLE);
-                holder.ivGroupStatus.setImageDrawable(context.getDrawable(R.drawable.pendingjoin));
+                holder.ivGroupStatus.setImageDrawable(activity.getDrawable(R.drawable.pendingjoin));
                 holder.tvGroupStatus.setText(Constant.USER_PENDING_GROUP_TEXT);
                 holder.ivGroupStatus.setVisibility(View.VISIBLE);
                 holder.tvGroupStatus.setVisibility(View.VISIBLE);
-            }else if (group.getUserStatus().equals(Constant.USER_IN_GROUP)){
+            } else if (group.getUserStatus().equals(Constant.USER_IN_GROUP)) {
                 holder.ivMore.setVisibility(View.VISIBLE);
                 popup.getMenu().findItem(R.id.join).setVisible(false);
                 popup.getMenu().findItem(R.id.leave).setVisible(true);
-                holder.ivGroupStatus.setImageDrawable(context.getDrawable(R.drawable.joined));
+                holder.ivGroupStatus.setImageDrawable(activity.getDrawable(R.drawable.joined));
                 holder.tvGroupStatus.setText(Constant.USER_IN_GROUP_TEXT);
                 holder.ivGroupStatus.setVisibility(View.VISIBLE);
                 holder.tvGroupStatus.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 holder.ivMore.setVisibility(View.VISIBLE);
                 popup.getMenu().findItem(R.id.join).setVisible(true);
                 popup.getMenu().findItem(R.id.leave).setVisible(false);
                 holder.ivGroupStatus.setVisibility(View.GONE);
                 holder.tvGroupStatus.setVisibility(View.GONE);
             }
-        }else{
+        } else {
             // group pending
             holder.tvGroupStatus.setText(Constant.USER_PENDING_APPROVAL_GROUP_TEXT);
-            holder.ivGroupStatus.setImageDrawable(context.getDrawable(R.drawable.pending));
+            holder.ivGroupStatus.setImageDrawable(activity.getDrawable(R.drawable.pending));
             holder.ivMore.setVisibility(View.INVISIBLE);
             holder.ivGroupStatus.setVisibility(View.VISIBLE);
             holder.tvGroupStatus.setVisibility(View.VISIBLE);
@@ -161,10 +161,10 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
         return groups.size();
     }
 
-    public void addLeaveGroup(int position,String status) {
+    public void addLeaveGroup(int position, String status) {
         Group group = groups.get(position);
         group.setUserStatus(status);
-        groups.set(position,group);
+        groups.set(position, group);
         notifyItemChanged(position);
     }
 
@@ -176,5 +176,51 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
     public void addGroup(Group group) {
         this.groups.add(group);
         notifyItemInserted(groups.size() - 1);
+    }
+
+    public void approvedGroup(final int id) {
+        final int size = groups.size();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < size; i++) {
+                    Group item = groups.get(i);
+                    if(item.getId() == id) {
+                        final int position= i;
+                        item.setStatusApproved();
+                        groups.set(i, item);
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                notifyItemChanged(position);
+                            }
+                        });
+                        break;
+                    }
+                }
+            }
+        }).start();
+    }
+    public void deleteGroup(final int id) {
+        final int size = groups.size();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < size; i++) {
+                    Group item = groups.get(i);
+                    if(item.getId() == id) {
+                        final int position = i;
+                        groups.remove(i);
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                notifyItemChanged(position);
+                            }
+                        });
+                        break;
+                    }
+                }
+            }
+        }).start();
     }
 }

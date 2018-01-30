@@ -158,7 +158,7 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
             @Override
             public void onSuccess(String s) {
                 Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
-                groupItemAdapter.addLeaveGroup(position,Constant.USER_PENDING_GROUP_TEXT);
+                groupItemAdapter.addLeaveGroup(position, Constant.USER_PENDING_GROUP);
                 myDialog.dismissMyDialog();
 
             }
@@ -179,7 +179,7 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
             @Override
             public void onSuccess(String s) {
                 Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
-                groupItemAdapter.addLeaveGroup(position,Constant.USER_OUT_GROUP);
+                groupItemAdapter.addLeaveGroup(position, Constant.USER_OUT_GROUP);
                 myDialog.dismissMyDialog();
             }
 
@@ -226,7 +226,7 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                groupItemAdapter = new GroupItemAdapter(allGroups, UserGroupsFragment.this, getContext());
+                                groupItemAdapter = new GroupItemAdapter(allGroups, UserGroupsFragment.this, getActivity());
                                 recycleView.setAdapter(groupItemAdapter);
                                 progress.setVisibility(View.GONE);
                                 container.setVisibility(View.VISIBLE);
@@ -250,11 +250,11 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
     public void getMyObject(Group group) {
         if (group.getUserStatus().equals(Constant.USER_OUT_GROUP)) {
             Toast.makeText(getContext(), R.string.please_join_group, Toast.LENGTH_SHORT).show();
-        }else if (group.getUserStatus().equals(Constant.USER_OUT_GROUP)){
+        } else if (group.getUserStatus().equals(Constant.USER_OUT_GROUP)) {
             Intent intent = new Intent(getContext(), ChatActivity.class);
             intent.putExtra(IntentDataKey.SHOW_GROUP_DATA_KEY, group);
             startActivity(intent);
-        }else {
+        } else {
             Toast.makeText(getContext(), R.string.group_pending, Toast.LENGTH_SHORT).show();
         }
     }
@@ -275,7 +275,7 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
     public void onAttach(Context context) {
         super.onAttach(context);
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver((mMessageReceiver),
-                new IntentFilter(IntentDataKey.MY_NOTIFICATION_DATA));
+                new IntentFilter(IntentDataKey.NOTIFICATION_GROUP));
     }
 
     @Override
@@ -287,13 +287,24 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if(intent.getStringExtra(IntentDataKey.NOTIFICATION_TYPE).equals(IntentDataKey.NOTIFICATION_GROUP)){
-                // todo get group id
-                // todo check status
-                // todo send new status to adapter and update it
+            // todo get group id
+            // todo check status
+            // todo send new status to adapter and update it
+            String groupId = intent.getStringExtra(IntentDataKey.NOTIFICATION_ID);
+            if (groupId == null || groupId.isEmpty())
+                return;
+            int action = intent.getIntExtra(IntentDataKey.NOTIFICATION_ACTION, 0);
+            switch (action) {
+                // this case mean group approved
+                case 0:
+                    groupItemAdapter.approvedGroup(Integer.parseInt(groupId));
+                    break;
+                case 1:
+                    groupItemAdapter.deleteGroup(Integer.parseInt(groupId));
+                    break;
 
             }
-            Toast.makeText(context, intent.getStringExtra("extra")+"", Toast.LENGTH_SHORT).show();
+
         }
     };
 

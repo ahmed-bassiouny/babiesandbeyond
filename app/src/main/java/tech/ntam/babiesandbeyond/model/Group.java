@@ -60,6 +60,10 @@ public class Group implements Parcelable {
         else return false;
     }
 
+    public void setStatusApproved() {
+        this.status = "1";
+    }
+
     public void setUserStatus(String userStatus) {
         this.userStatus = userStatus;
     }
@@ -74,8 +78,7 @@ public class Group implements Parcelable {
 
     public String getDate() {
         date = Utils.getValueFromString(date);
-        date = MyDateTimeFactor.getDayMonthFromDateTime(date);
-        return date;
+        return MyDateTimeFactor.getDayMonthFromDateTime(date);
     }
 
     public boolean isMember() {

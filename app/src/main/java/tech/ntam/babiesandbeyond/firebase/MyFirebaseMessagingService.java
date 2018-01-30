@@ -29,16 +29,23 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
         new MyNotification(this, remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody()).showNotification();
-        Intent intent = new Intent(IntentDataKey.MY_NOTIFICATION_DATA);
+        Intent intent = null;
         try {
+
             // convert notification to json object
             JSONObject object = new JSONObject(remoteMessage.getData().values().toArray()[0].toString());
-            // get type
-            intent.putExtra(IntentDataKey.NOTIFICATION_TYPE, object.get(IntentDataKey.NOTIFICATION_TYPE).toString());
+            // get notification type and create intent
+            switch (object.get(IntentDataKey.NOTIFICATION_TYPE).toString()) {
+                case IntentDataKey.NOTIFICATION_GROUP:
+                    intent = new Intent(IntentDataKey.NOTIFICATION_GROUP);
+                    break;
+            }
             // get action
             intent.putExtra(IntentDataKey.NOTIFICATION_ACTION, object.get(IntentDataKey.NOTIFICATION_ACTION).toString());
             // get id
-            intent.putExtra(IntentDataKey.NOTIFICATION_ID, object.get(IntentDataKey.NOTIFICATION_ID).toString());
+            intent.putExtra(IntentDataKey.NOTIFICATION_ID,object.get(IntentDataKey.NOTIFICATION_ID).toString());
+
+
             broadcaster.sendBroadcast(intent);
         } catch (JSONException e) {
             e.printStackTrace();
