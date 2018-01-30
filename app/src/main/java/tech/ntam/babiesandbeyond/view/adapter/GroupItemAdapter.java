@@ -202,6 +202,29 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
             }
         }).start();
     }
+    public void updateUserStatusGroup(final int id, final String status) {
+        final int size = groups.size();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < size; i++) {
+                    Group item = groups.get(i);
+                    if(item.getId() == id) {
+                        final int position= i;
+                        item.setUserStatus(status);
+                        groups.set(i, item);
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                notifyItemChanged(position);
+                            }
+                        });
+                        break;
+                    }
+                }
+            }
+        }).start();
+    }
     public void deleteGroup(final int id) {
         final int size = groups.size();
         new Thread(new Runnable() {

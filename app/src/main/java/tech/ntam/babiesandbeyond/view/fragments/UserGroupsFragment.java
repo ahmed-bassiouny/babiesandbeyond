@@ -292,14 +292,20 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
                 return;
             String action = intent.getStringExtra(IntentDataKey.NOTIFICATION_ACTION);
             switch (action) {
-                // this case mean group approved
-                case "0":
+                case "0": //this case mean group approved
                     groupItemAdapter.approvedGroup(Integer.parseInt(groupId));
                     break;
-                case "1":
+                case "1": //this case mean group cancel
+                case "5": //this case mean group delete
                     groupItemAdapter.deleteGroup(Integer.parseInt(groupId));
                     break;
-
+                case "2": //this case mean user approve joined
+                    groupItemAdapter.updateUserStatusGroup(Integer.parseInt(groupId), Constant.USER_IN_GROUP);
+                    break;
+                case "3": //this case mean user reject joined
+                case "4": //this case mean user deleted
+                    groupItemAdapter.updateUserStatusGroup(Integer.parseInt(groupId), Constant.USER_OUT_GROUP);
+                    break;
             }
 
         }
