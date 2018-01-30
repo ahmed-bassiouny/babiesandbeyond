@@ -250,7 +250,7 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
     public void getMyObject(Group group) {
         if (group.getUserStatus().equals(Constant.USER_OUT_GROUP)) {
             Toast.makeText(getContext(), R.string.please_join_group, Toast.LENGTH_SHORT).show();
-        } else if (group.getUserStatus().equals(Constant.USER_OUT_GROUP)) {
+        } else if (group.getUserStatus().equals(Constant.USER_IN_GROUP)) {
             Intent intent = new Intent(getContext(), ChatActivity.class);
             intent.putExtra(IntentDataKey.SHOW_GROUP_DATA_KEY, group);
             startActivity(intent);
@@ -265,8 +265,8 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
         if (requestCode == IntentDataKey.ADD_GROUP_DATA_CODE && resultCode == Activity.RESULT_OK && data != null) {
             Group group = data.getParcelableExtra(IntentDataKey.ADD_GROUP_DATA_KEY);
             if (group != null) {
-                groupItemAdapter.addGroup(group);
                 allGroups.add(group);
+                groupItemAdapter.addGroup(group);
             }
         }
     }
@@ -287,19 +287,16 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            // todo get group id
-            // todo check status
-            // todo send new status to adapter and update it
             String groupId = intent.getStringExtra(IntentDataKey.NOTIFICATION_ID);
             if (groupId == null || groupId.isEmpty())
                 return;
-            int action = intent.getIntExtra(IntentDataKey.NOTIFICATION_ACTION, 0);
+            String action = intent.getStringExtra(IntentDataKey.NOTIFICATION_ACTION);
             switch (action) {
                 // this case mean group approved
-                case 0:
+                case "0":
                     groupItemAdapter.approvedGroup(Integer.parseInt(groupId));
                     break;
-                case 1:
+                case "1":
                     groupItemAdapter.deleteGroup(Integer.parseInt(groupId));
                     break;
 

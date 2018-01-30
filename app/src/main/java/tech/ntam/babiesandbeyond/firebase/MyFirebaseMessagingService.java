@@ -45,7 +45,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             // get id
             intent.putExtra(IntentDataKey.NOTIFICATION_ID,object.get(IntentDataKey.NOTIFICATION_ID).toString());
 
-
             broadcaster.sendBroadcast(intent);
         } catch (JSONException e) {
             e.printStackTrace();

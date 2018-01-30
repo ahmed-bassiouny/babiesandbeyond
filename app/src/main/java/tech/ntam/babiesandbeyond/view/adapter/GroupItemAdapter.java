@@ -174,8 +174,8 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
     }
 
     public void addGroup(Group group) {
-        this.groups.add(group);
-        notifyItemInserted(groups.size() - 1);
+        this.groups.add(0,group);
+        notifyItemInserted(0);
     }
 
     public void approvedGroup(final int id) {
@@ -188,6 +188,7 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
                     if(item.getId() == id) {
                         final int position= i;
                         item.setStatusApproved();
+                        item.setUserStatus(Constant.USER_IN_GROUP);
                         groups.set(i, item);
                         activity.runOnUiThread(new Runnable() {
                             @Override
@@ -214,7 +215,7 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
                         activity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                notifyItemChanged(position);
+                                notifyItemRemoved(position);
                             }
                         });
                         break;
