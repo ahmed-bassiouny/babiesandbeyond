@@ -17,6 +17,7 @@ import tech.ntam.mylibrary.MyNotification;
  */
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
+
     private LocalBroadcastManager broadcaster;
 
     @Override

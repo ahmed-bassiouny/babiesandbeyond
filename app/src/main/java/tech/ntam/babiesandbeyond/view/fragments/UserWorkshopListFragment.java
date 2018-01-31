@@ -119,7 +119,7 @@ public class UserWorkshopListFragment extends Fragment implements ParseObject<Wo
         RequestAndResponse.getWorkshops(getContext(), new BaseResponseInterface<List<Workshop>>() {
             @Override
             public void onSuccess(List<Workshop> workshops) {
-                workshopItemAdapter = new WorkshopItemAdapter(getContext(), UserWorkshopListFragment.this, workshops);
+                workshopItemAdapter = new WorkshopItemAdapter(getActivity(), UserWorkshopListFragment.this, workshops);
                 recycleView.setAdapter(workshopItemAdapter);
                 progress.setVisibility(View.INVISIBLE);
                 recycleView.setVisibility(View.VISIBLE);
@@ -173,10 +173,10 @@ public class UserWorkshopListFragment extends Fragment implements ParseObject<Wo
             String action = intent.getStringExtra(IntentDataKey.NOTIFICATION_ACTION);
             switch (action) {
                 case "0":
-                    //serviceItemAdapter.deleteService(Integer.parseInt(serviceId));
+                    workshopItemAdapter.deleteService(Integer.parseInt(serviceId));
                     break;
                 case "1":
-                    //serviceItemAdapter.updateService(Integer.parseInt(serviceId));
+                    workshopItemAdapter.updateWorkshopToConfirmationWithoutPayment(Integer.parseInt(serviceId));
                     break;
             }
 

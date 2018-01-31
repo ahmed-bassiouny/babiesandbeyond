@@ -1,5 +1,6 @@
 package tech.ntam.babiesandbeyond.view.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,7 @@ import java.util.List;
 
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.interfaces.ParseObject;
+import tech.ntam.babiesandbeyond.model.Service;
 import tech.ntam.babiesandbeyond.model.Workshop;
 
 /**
@@ -25,12 +27,12 @@ public class WorkshopItemAdapter extends RecyclerView.Adapter<WorkshopItemAdapte
 
     private List<Workshop> workshops;
     private ParseObject parseObject;
-    private Context context;
+    private Activity activity;
 
-    public WorkshopItemAdapter(Context context, Fragment fragment, List<Workshop> workshops) {
+    public WorkshopItemAdapter(Activity activity, Fragment fragment, List<Workshop> workshops) {
         this.workshops = workshops;
         this.parseObject = (ParseObject) fragment;
-        this.context = context;
+        this.activity = activity;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -76,7 +78,7 @@ public class WorkshopItemAdapter extends RecyclerView.Adapter<WorkshopItemAdapte
         if (!workshop.getWorkshopStatusName().isEmpty()) {
             holder.tvServiceStatus.setVisibility(View.VISIBLE);
             holder.tvServiceStatus.setHeight(80);
-            holder.tvServiceStatus.setBackgroundColor(context.getResources().getColor(workshop.getWorkshopStatusColor()));
+            holder.tvServiceStatus.setBackgroundColor(activity.getResources().getColor(workshop.getWorkshopStatusColor()));
         } else {
             holder.tvServiceStatus.setVisibility(View.INVISIBLE);
             holder.tvServiceStatus.setHeight(5);
@@ -106,14 +108,47 @@ public class WorkshopItemAdapter extends RecyclerView.Adapter<WorkshopItemAdapte
         }
     }
 
-    public void updateWorkshopToConfirmationWithoutPayment(int id) {
+    public void updateWorkshopToConfirmationWithoutPayment(final int id) {
         final int size = workshops.size();
         new Thread(new Runnable() {
             @Override
             public void run() {
                 for (int i = 0; i < size; i++) {
-                 Workshop workshop = workshops.get(i);
-                 //if()
+                    Workshop item = workshops.get(i);
+                    if (item.getId() == id) {
+                        final int position = i;
+                        item.updateWorkshopToConfirmationWithoutPayment();
+                        workshops.set(i, item);
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                notifyItemChanged(position);
+                            }
+                        });
+                        break;
+                    }
+                }
+            }
+        }).start();
+    }
+    public void deleteService(final int id) {
+        final int size = workshops.size();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < size; i++) {
+                    Workshop item = workshops.get(i);
+                    if(item.getId() == id){
+                        final int position = i;
+                        workshops.remove(i);
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                notifyItemRemoved(position);
+                            }
+                        });
+                        break;
+                    }
                 }
             }
         }).start();

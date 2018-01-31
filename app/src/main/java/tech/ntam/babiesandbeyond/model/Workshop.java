@@ -127,6 +127,9 @@ public class Workshop implements Parcelable {
     public void setWorkshopStatusName(String workshopStatusName) {
         this.workshopStatusName = workshopStatusName;
     }
+    public void updateWorkshopToConfirmationWithoutPayment(){
+        workshopStatusName = Constant.CONFIRMATION_WITHOUT_PAYMENT;
+    }
 
     public String getLocation() {
         return Utils.getValueFromString(location);
