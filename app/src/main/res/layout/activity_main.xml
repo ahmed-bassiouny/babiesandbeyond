@@ -29,8 +29,8 @@
         android:layout_height="wrap_content"
         app:itemTextColor="@color/gray_bold"
         android:background="@color/off_white"
-        app:menu="@menu/menu_main"
         app:itemIconTint="@color/gray_bold"
+        app:menu="@menu/menu_main"
         android:layout_alignParentBottom="true">
     </android.support.design.widget.BottomNavigationView>
 </RelativeLayout>

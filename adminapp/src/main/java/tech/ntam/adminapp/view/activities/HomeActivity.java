@@ -12,6 +12,7 @@ import android.view.MenuItem;
 
 import tech.ntam.adminapp.R;
 import tech.ntam.adminapp.view.fragments.nurse.NurseFragment;
+import tech.ntam.mylibrary.BottomNavigationViewHelper;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -32,6 +33,7 @@ public class HomeActivity extends AppCompatActivity {
     private void initObject() {
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        BottomNavigationViewHelper.disableShiftMode(bottomNavigation);
     }
 
     private void onClick() {

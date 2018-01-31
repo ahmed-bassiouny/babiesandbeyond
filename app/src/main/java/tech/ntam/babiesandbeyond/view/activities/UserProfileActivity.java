@@ -2,10 +2,7 @@ package tech.ntam.babiesandbeyond.view.activities;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -13,25 +10,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mvc.imagepicker.ImagePicker;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.List;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 import tech.ntam.babiesandbeyond.R;
-import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
-import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.babiesandbeyond.controller.activities.UserProfileController;
 import tech.ntam.babiesandbeyond.view.dialog.ChangePasswordDialogActivity;
 import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
 import tech.ntam.babiesandbeyond.view.dialog.QrCodeActivity;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
-import tech.ntam.mylibrary.DummyClass;
-import tech.ntam.mylibrary.ImageFactor;
 import tech.ntam.mylibrary.IntentDataKey;
 import tech.ntam.mylibrary.Utils;
 import tech.ntam.mylibrary.interfaces.ProcessInterface;

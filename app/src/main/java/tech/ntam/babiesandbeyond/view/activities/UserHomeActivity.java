@@ -1,10 +1,6 @@
 package tech.ntam.babiesandbeyond.view.activities;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
-import android.support.annotation.RestrictTo;
-import android.support.design.internal.BottomNavigationItemView;
-import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 
 import android.support.v4.app.Fragment;
@@ -12,24 +8,16 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Toast;
-
-import java.lang.reflect.Field;
 
 import tech.ntam.babiesandbeyond.R;
-import tech.ntam.babiesandbeyond.utils.BottomNavigationViewHelper;
 import tech.ntam.babiesandbeyond.view.fragments.OptionsFragment;
-import tech.ntam.babiesandbeyond.view.fragments.UserAboutUsFragment;
 import tech.ntam.babiesandbeyond.view.fragments.UserEventListFragment;
-import tech.ntam.babiesandbeyond.view.fragments.UserEventsFragment;
 import tech.ntam.babiesandbeyond.view.fragments.UserGroupsFragment;
-import tech.ntam.babiesandbeyond.view.fragments.UserServiceFragment;
 import tech.ntam.babiesandbeyond.view.fragments.UserServiceListFragment;
-import tech.ntam.babiesandbeyond.view.fragments.UserWorkshopFragment;
 import tech.ntam.babiesandbeyond.view.fragments.UserWorkshopListFragment;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
+import tech.ntam.mylibrary.BottomNavigationViewHelper;
 
 public class UserHomeActivity extends MyToolbar {
 

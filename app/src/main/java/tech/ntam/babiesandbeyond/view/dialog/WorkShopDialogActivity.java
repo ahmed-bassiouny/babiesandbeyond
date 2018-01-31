@@ -13,7 +13,6 @@ import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.babiesandbeyond.model.Workshop;
-import tech.ntam.mylibrary.DummyClass;
 import tech.ntam.mylibrary.IntentDataKey;
 
 public class WorkShopDialogActivity extends AppCompatActivity {

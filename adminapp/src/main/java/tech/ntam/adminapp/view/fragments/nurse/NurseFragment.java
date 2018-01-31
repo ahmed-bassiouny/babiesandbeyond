@@ -46,21 +46,16 @@ public class NurseFragment extends Fragment {
         view.findViewById(R.id.btn_request).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NurseRequestFragment fragment2 = new NurseRequestFragment();
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.container, fragment2);
+                fragmentTransaction.replace(R.id.container, NurseRequestFragment.newInstance());
                 fragmentTransaction.commit();
             }
         });
         view.findViewById(R.id.btn_calendar).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NurseCalendarFragment fragment2 = new NurseCalendarFragment();
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.container, fragment2);
-                fragmentTransaction.commit();
+
             }
         });
     }

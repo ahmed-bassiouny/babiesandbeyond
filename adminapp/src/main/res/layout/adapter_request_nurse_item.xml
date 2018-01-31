@@ -14,7 +14,7 @@
         android:layout_marginTop="8dp"
         android:src="@drawable/person"
         app:civ_border_color="@color/gray_bold"
-        app:civ_border_width="2dp"
+        app:civ_border_width="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,7 +24,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:textColor="@color/gray_bold"
         app:layout_constraintStart_toEndOf="@+id/iv_user_image"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="date" />
@@ -37,7 +36,6 @@
         android:layout_marginTop="4dp"
         android:textColor="@color/gray_bold"
         android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/iv_user_image"
         app:layout_constraintTop_toBottomOf="@+id/tv_date"
         tools:text="name" />
@@ -49,7 +47,6 @@
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
-        android:textColor="@color/gray_bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iv_user_image"
         app:layout_constraintTop_toBottomOf="@+id/tv_request_name"
@@ -58,10 +55,15 @@
     <Button
         android:id="@+id/btn_view_details"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
+        android:paddingEnd="5dp"
+        android:paddingStart="5dp"
+        android:textAllCaps="false"
+        android:textSize="12sp"
+        android:textColor="@color/gray_bold"
         android:text="@string/view_details"
         android:background="@color/colorButton"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -1,4 +1,4 @@
-package tech.ntam.babiesandbeyond.utils;
+package tech.ntam.mylibrary;
 
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
@@ -8,7 +8,7 @@ import android.util.Log;
 import java.lang.reflect.Field;
 
 /**
- * Created by bassiouny on 10/01/18.
+ * Created by bassiouny on 31/01/18.
  */
 
 public class BottomNavigationViewHelper {
@@ -34,3 +34,4 @@ public class BottomNavigationViewHelper {
         }
     }
 }
+
