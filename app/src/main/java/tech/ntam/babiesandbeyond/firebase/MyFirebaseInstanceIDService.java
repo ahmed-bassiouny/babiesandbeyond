@@ -5,7 +5,7 @@ import android.util.Log;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
-import tech.ntam.babiesandbeyond.utils.UserSharedPref;
+import tech.ntam.mylibrary.UserSharedPref;
 
 /**
  * Created by bassiouny on 21/01/18.

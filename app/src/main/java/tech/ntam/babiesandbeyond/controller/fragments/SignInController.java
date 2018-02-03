@@ -8,7 +8,7 @@ import tech.ntam.babiesandbeyond.R;
 import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.babiesandbeyond.model.User;
-import tech.ntam.babiesandbeyond.utils.UserSharedPref;
+import tech.ntam.mylibrary.UserSharedPref;
 import tech.ntam.babiesandbeyond.view.activities.NurseTasksHomeActivity;
 import tech.ntam.babiesandbeyond.view.activities.UserHomeActivity;
 import tech.ntam.mylibrary.MyDialog;

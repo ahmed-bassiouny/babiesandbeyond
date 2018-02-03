@@ -33,7 +33,7 @@ import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.babiesandbeyond.interfaces.GroupOption;
 import tech.ntam.babiesandbeyond.interfaces.ParseObject;
 import tech.ntam.babiesandbeyond.model.Group;
-import tech.ntam.babiesandbeyond.utils.UserSharedPref;
+import tech.ntam.mylibrary.UserSharedPref;
 import tech.ntam.babiesandbeyond.view.activities.ChatActivity;
 import tech.ntam.babiesandbeyond.view.activities.CreateGroupActivity;
 import tech.ntam.babiesandbeyond.view.adapter.GroupItemAdapter;

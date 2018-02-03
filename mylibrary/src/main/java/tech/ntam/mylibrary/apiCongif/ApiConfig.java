@@ -1,4 +1,4 @@
-package tech.ntam.babiesandbeyond.api.config;
+package tech.ntam.mylibrary.apiCongif;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

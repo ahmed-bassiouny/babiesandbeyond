@@ -8,8 +8,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.babiesandbeyond.model.User;
-import tech.ntam.babiesandbeyond.utils.UserSharedPref;
 import tech.ntam.mylibrary.MyDialog;
+import tech.ntam.mylibrary.UserSharedPref;
 import tech.ntam.mylibrary.Utils;
 import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 

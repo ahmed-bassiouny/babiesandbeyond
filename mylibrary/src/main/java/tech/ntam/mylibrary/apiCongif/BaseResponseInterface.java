@@ -1,4 +1,4 @@
-package tech.ntam.babiesandbeyond.api.config;
+package tech.ntam.mylibrary.apiCongif;
 
 /**
  * Created by bassiouny on 31/12/17.

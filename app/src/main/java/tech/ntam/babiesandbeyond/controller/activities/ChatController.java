@@ -10,7 +10,7 @@ import java.util.HashMap;
 import tech.ntam.babiesandbeyond.model.FirebaseRoot;
 import tech.ntam.babiesandbeyond.model.FirebaseUser;
 import tech.ntam.babiesandbeyond.model.Message;
-import tech.ntam.babiesandbeyond.utils.UserSharedPref;
+import tech.ntam.mylibrary.UserSharedPref;
 import tech.ntam.babiesandbeyond.view.activities.ChatActivity;
 import tech.ntam.mylibrary.MyDateTimeFactor;
 

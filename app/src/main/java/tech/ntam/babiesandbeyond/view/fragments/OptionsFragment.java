@@ -17,7 +17,7 @@ import android.widget.LinearLayout;
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
-import tech.ntam.babiesandbeyond.utils.UserSharedPref;
+import tech.ntam.mylibrary.UserSharedPref;
 import tech.ntam.babiesandbeyond.view.activities.AboutUsActivity;
 import tech.ntam.babiesandbeyond.view.activities.SignIn_UpActivity;
 

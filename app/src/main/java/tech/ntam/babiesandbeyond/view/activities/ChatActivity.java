@@ -32,12 +32,12 @@ import tech.ntam.babiesandbeyond.controller.activities.ChatController;
 import tech.ntam.babiesandbeyond.interfaces.ParseObject;
 import tech.ntam.babiesandbeyond.model.Group;
 import tech.ntam.babiesandbeyond.model.Message;
-import tech.ntam.babiesandbeyond.utils.UserSharedPref;
 import tech.ntam.babiesandbeyond.view.adapter.ItemChatAdapter;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 import tech.ntam.mylibrary.IntentDataKey;
 import tech.ntam.mylibrary.MyDateTimeFactor;
 import tech.ntam.mylibrary.MyDialog;
+import tech.ntam.mylibrary.UserSharedPref;
 
 public class ChatActivity extends MyToolbar implements ParseObject<String> {
 

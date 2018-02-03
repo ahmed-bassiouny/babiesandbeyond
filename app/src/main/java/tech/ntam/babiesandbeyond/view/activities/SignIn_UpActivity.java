@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.crashlytics.android.Crashlytics;
 import io.fabric.sdk.android.Fabric;
 import tech.ntam.babiesandbeyond.R;
-import tech.ntam.babiesandbeyond.utils.UserSharedPref;
+import tech.ntam.mylibrary.UserSharedPref;
 import tech.ntam.babiesandbeyond.view.fragments.SignInFragment;
 import tech.ntam.babiesandbeyond.view.fragments.SignUpFragment;
 import tech.ntam.mylibrary.Utils;

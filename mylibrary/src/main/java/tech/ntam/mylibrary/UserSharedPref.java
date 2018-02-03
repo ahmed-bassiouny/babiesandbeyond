@@ -1,9 +1,7 @@
-package tech.ntam.babiesandbeyond.utils;
+package tech.ntam.mylibrary;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-
-import tech.ntam.babiesandbeyond.model.User;
 
 /**
  * Created by bassiouny on 02/01/18.

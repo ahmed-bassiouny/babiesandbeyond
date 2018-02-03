@@ -34,7 +34,7 @@ import tech.ntam.babiesandbeyond.model.User;
 import tech.ntam.babiesandbeyond.model.UserData;
 import tech.ntam.babiesandbeyond.model.UserService;
 import tech.ntam.babiesandbeyond.model.Workshop;
-import tech.ntam.babiesandbeyond.utils.UserSharedPref;
+import tech.ntam.mylibrary.UserSharedPref;
 import tech.ntam.mylibrary.apiCongif.ApiConfig;
 import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 
