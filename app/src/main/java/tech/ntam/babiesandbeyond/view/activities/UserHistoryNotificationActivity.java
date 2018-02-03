@@ -8,15 +8,15 @@ import android.widget.Toast;
 import java.util.List;
 
 import tech.ntam.babiesandbeyond.R;
-import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
+import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.babiesandbeyond.model.History;
 import tech.ntam.babiesandbeyond.model.Notification;
 import tech.ntam.babiesandbeyond.view.adapter.HistoryItemAdapter;
 import tech.ntam.babiesandbeyond.view.adapter.NotificationItemAdapter;
-import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 import tech.ntam.mylibrary.IntentDataKey;
+import tech.ntam.mylibrary.MyDialog;
 
 public class UserHistoryNotificationActivity extends MyToolbar {
 

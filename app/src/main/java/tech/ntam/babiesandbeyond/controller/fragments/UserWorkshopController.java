@@ -10,12 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tech.ntam.babiesandbeyond.R;
-import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
+import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.babiesandbeyond.model.Workshop;
-import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
 import tech.ntam.mylibrary.MyDateTimeFactor;
-import tech.ntam.mylibrary.Utils;
+import tech.ntam.mylibrary.MyDialog;
 
 /**
  * Created by bassiouny on 08/01/18.

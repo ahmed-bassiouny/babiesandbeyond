@@ -24,8 +24,6 @@ import tech.ntam.babiesandbeyond.api.api_model.response.ProfileResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.RegisterResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.StaffTasksResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.WorkshopResponse;
-import tech.ntam.babiesandbeyond.api.config.ApiConfig;
-import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.model.Event;
 import tech.ntam.babiesandbeyond.model.Group;
 import tech.ntam.babiesandbeyond.model.History;
@@ -37,6 +35,8 @@ import tech.ntam.babiesandbeyond.model.UserData;
 import tech.ntam.babiesandbeyond.model.UserService;
 import tech.ntam.babiesandbeyond.model.Workshop;
 import tech.ntam.babiesandbeyond.utils.UserSharedPref;
+import tech.ntam.mylibrary.apiCongif.ApiConfig;
+import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 
 /**
  * Created by bassiouny on 31/12/17.

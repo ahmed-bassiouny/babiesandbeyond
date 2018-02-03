@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tech.ntam.babiesandbeyond.R;
-import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
+import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.babiesandbeyond.interfaces.GroupOption;
 import tech.ntam.babiesandbeyond.interfaces.ParseObject;
@@ -37,8 +37,8 @@ import tech.ntam.babiesandbeyond.utils.UserSharedPref;
 import tech.ntam.babiesandbeyond.view.activities.ChatActivity;
 import tech.ntam.babiesandbeyond.view.activities.CreateGroupActivity;
 import tech.ntam.babiesandbeyond.view.adapter.GroupItemAdapter;
-import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
 import tech.ntam.mylibrary.IntentDataKey;
+import tech.ntam.mylibrary.MyDialog;
 import tech.ntam.mylibrary.interfaces.Constant;
 
 /**

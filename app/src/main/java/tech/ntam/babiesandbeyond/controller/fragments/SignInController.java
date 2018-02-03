@@ -5,14 +5,13 @@ import android.content.Intent;
 import android.widget.Toast;
 
 import tech.ntam.babiesandbeyond.R;
-import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
+import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.babiesandbeyond.model.User;
 import tech.ntam.babiesandbeyond.utils.UserSharedPref;
-import tech.ntam.babiesandbeyond.view.activities.NurseHomeActivity;
 import tech.ntam.babiesandbeyond.view.activities.NurseTasksHomeActivity;
 import tech.ntam.babiesandbeyond.view.activities.UserHomeActivity;
-import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
+import tech.ntam.mylibrary.MyDialog;
 
 /**
  * Created by bassiouny on 17/12/17.

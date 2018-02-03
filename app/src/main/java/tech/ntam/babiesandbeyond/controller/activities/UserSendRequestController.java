@@ -17,14 +17,14 @@ import java.util.Calendar;
 import java.util.List;
 
 import tech.ntam.babiesandbeyond.R;
-import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.babiesandbeyond.model.Service;
 import tech.ntam.babiesandbeyond.model.ServiceTypeList;
 import tech.ntam.babiesandbeyond.model.ServiceType;
-import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
 import tech.ntam.mylibrary.IntentDataKey;
 import tech.ntam.mylibrary.MyDateTimeFactor;
+import tech.ntam.mylibrary.MyDialog;
+import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 
 /**
  * Created by bassiouny on 19/12/17.

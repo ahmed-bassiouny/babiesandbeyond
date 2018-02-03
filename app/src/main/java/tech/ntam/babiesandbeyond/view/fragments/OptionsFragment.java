@@ -13,16 +13,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import tech.ntam.babiesandbeyond.R;
-import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
+import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.babiesandbeyond.utils.UserSharedPref;
 import tech.ntam.babiesandbeyond.view.activities.AboutUsActivity;
 import tech.ntam.babiesandbeyond.view.activities.SignIn_UpActivity;
-import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
-import tech.ntam.mylibrary.Utils;
 
 /**
  * A simple {@link Fragment} subclass.

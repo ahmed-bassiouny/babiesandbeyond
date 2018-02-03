@@ -8,8 +8,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import tech.ntam.babiesandbeyond.R;
-import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
+import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
+import tech.ntam.mylibrary.MyDialog;
 
 public class ChangePasswordDialogActivity extends AppCompatActivity {
 

@@ -17,10 +17,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.controller.activities.UserProfileController;
 import tech.ntam.babiesandbeyond.view.dialog.ChangePasswordDialogActivity;
-import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
 import tech.ntam.babiesandbeyond.view.dialog.QrCodeActivity;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 import tech.ntam.mylibrary.IntentDataKey;
+import tech.ntam.mylibrary.MyDialog;
 import tech.ntam.mylibrary.Utils;
 import tech.ntam.mylibrary.interfaces.ProcessInterface;
 

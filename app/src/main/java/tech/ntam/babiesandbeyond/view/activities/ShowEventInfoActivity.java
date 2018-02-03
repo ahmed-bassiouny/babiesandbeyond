@@ -9,12 +9,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import tech.ntam.babiesandbeyond.R;
-import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
+import tech.ntam.mylibrary.MyDialog;
+import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.babiesandbeyond.model.Event;
-import tech.ntam.babiesandbeyond.model.Workshop;
-import tech.ntam.babiesandbeyond.view.dialog.EventDialogActivity;
-import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 import tech.ntam.mylibrary.IntentDataKey;
 

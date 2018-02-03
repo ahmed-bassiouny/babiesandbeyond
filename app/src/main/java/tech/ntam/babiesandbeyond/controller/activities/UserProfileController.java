@@ -1,21 +1,17 @@
 package tech.ntam.babiesandbeyond.controller.activities;
 
 import android.app.Activity;
-import android.content.Context;
-import android.os.Handler;
-import android.provider.ContactsContract;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-
 import de.hdodenhof.circleimageview.CircleImageView;
-import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
+
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.babiesandbeyond.model.User;
 import tech.ntam.babiesandbeyond.utils.UserSharedPref;
-import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
+import tech.ntam.mylibrary.MyDialog;
 import tech.ntam.mylibrary.Utils;
+import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 
 /**
  * Created by bassiouny on 06/01/18.

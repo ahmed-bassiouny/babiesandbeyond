@@ -1,7 +1,6 @@
 package tech.ntam.babiesandbeyond.view.fragments;
 
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,10 +12,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import tech.ntam.babiesandbeyond.R;
-import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
+import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
-import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
-import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
+import tech.ntam.mylibrary.MyDialog;
 
 /**
  * A simple {@link Fragment} subclass.

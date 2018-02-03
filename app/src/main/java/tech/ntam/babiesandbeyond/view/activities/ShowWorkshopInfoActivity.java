@@ -2,7 +2,6 @@ package tech.ntam.babiesandbeyond.view.activities;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,15 +9,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import tech.ntam.babiesandbeyond.R;
-import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
+import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
-import tech.ntam.babiesandbeyond.model.Service;
-import tech.ntam.babiesandbeyond.model.ServiceTypeList;
 import tech.ntam.babiesandbeyond.model.Workshop;
-import tech.ntam.babiesandbeyond.view.dialog.MyDialog;
-import tech.ntam.babiesandbeyond.view.dialog.WorkShopDialogActivity;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 import tech.ntam.mylibrary.IntentDataKey;
+import tech.ntam.mylibrary.MyDialog;
 import tech.ntam.mylibrary.interfaces.Constant;
 
 public class ShowWorkshopInfoActivity extends MyToolbar {

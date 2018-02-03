@@ -10,9 +10,10 @@ import android.widget.RatingBar;
 import android.widget.Toast;
 
 import tech.ntam.babiesandbeyond.R;
-import tech.ntam.babiesandbeyond.api.config.BaseResponseInterface;
+import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.mylibrary.IntentDataKey;
+import tech.ntam.mylibrary.MyDialog;
 
 public class RateUserDialogActivity extends AppCompatActivity implements View.OnClickListener {
     private RatingBar ratingBar;
