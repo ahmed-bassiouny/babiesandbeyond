@@ -2,6 +2,8 @@ package tech.ntam.babiesandbeyond.firebase;
 
 import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -29,30 +31,35 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
-        new MyNotification(this, remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody()).showNotification();
-        Intent intent = null;
+    }
+
+    @Override
+    public void handleIntent(Intent intent) {
+        super.handleIntent(intent);
+        new MyNotification(this, intent.getExtras().get("gcm.notification.title").toString(), intent.getExtras().get("gcm.notification.body").toString()).showNotification();
+        Intent myIntent = null;
         try {
 
             // convert notification to json object
-            JSONObject object = new JSONObject(remoteMessage.getData().values().toArray()[0].toString());
+            JSONObject object = new JSONObject(intent.getExtras().get("a_data").toString());
             // get notification type and create intent
             switch (object.get(IntentDataKey.NOTIFICATION_TYPE).toString()) {
                 case IntentDataKey.NOTIFICATION_GROUP:
-                    intent = new Intent(IntentDataKey.NOTIFICATION_GROUP);
+                    myIntent = new Intent(IntentDataKey.NOTIFICATION_GROUP);
                     break;
                 case IntentDataKey.NOTIFICATION_SERVICE:
-                    intent = new Intent(IntentDataKey.NOTIFICATION_SERVICE);
+                    myIntent = new Intent(IntentDataKey.NOTIFICATION_SERVICE);
                     break;
                 case IntentDataKey.NOTIFICATION_WORKSHOP:
-                    intent = new Intent(IntentDataKey.NOTIFICATION_WORKSHOP);
+                    myIntent = new Intent(IntentDataKey.NOTIFICATION_WORKSHOP);
                     break;
             }
             // get action
-            intent.putExtra(IntentDataKey.NOTIFICATION_ACTION, object.get(IntentDataKey.NOTIFICATION_ACTION).toString());
+            myIntent.putExtra(IntentDataKey.NOTIFICATION_ACTION, object.get(IntentDataKey.NOTIFICATION_ACTION).toString());
             // get id
-            intent.putExtra(IntentDataKey.NOTIFICATION_ID,object.get(IntentDataKey.NOTIFICATION_ID).toString());
+            myIntent.putExtra(IntentDataKey.NOTIFICATION_ID,object.get(IntentDataKey.NOTIFICATION_ID).toString());
 
-            broadcaster.sendBroadcast(intent);
+            broadcaster.sendBroadcast(myIntent);
         } catch (JSONException e) {
             e.printStackTrace();
         }

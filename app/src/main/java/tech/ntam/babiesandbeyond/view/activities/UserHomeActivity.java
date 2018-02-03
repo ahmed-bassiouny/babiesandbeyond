@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import tech.ntam.babiesandbeyond.R;
@@ -34,6 +35,8 @@ public class UserHomeActivity extends MyToolbar {
         setupToolbar(this, true, false, true);
         tvTitle.setText(R.string.services);
         initObject();
+        // ay habl
+        Bundle bundle = getIntent().getExtras();
     }
 
     private void initObject() {

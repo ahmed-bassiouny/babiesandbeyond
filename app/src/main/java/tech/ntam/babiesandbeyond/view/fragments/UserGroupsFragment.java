@@ -13,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -157,7 +158,6 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
         RequestAndResponse.joinGroup(getContext(), groupId, new BaseResponseInterface<String>() {
             @Override
             public void onSuccess(String s) {
-                Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
                 groupItemAdapter.addLeaveGroup(position, Constant.USER_PENDING_GROUP);
                 myDialog.dismissMyDialog();
 
@@ -178,7 +178,6 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
         RequestAndResponse.leaveGroup(getContext(), groupId, new BaseResponseInterface<String>() {
             @Override
             public void onSuccess(String s) {
-                Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
                 groupItemAdapter.addLeaveGroup(position, Constant.USER_OUT_GROUP);
                 myDialog.dismissMyDialog();
             }
@@ -189,6 +188,18 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
                 myDialog.dismissMyDialog();
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.e( "onResume: ","onResume: " );
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.e( "onStart: ","onStart: " );
     }
 
     private void loadGroup() {
@@ -265,7 +276,6 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
         if (requestCode == IntentDataKey.ADD_GROUP_DATA_CODE && resultCode == Activity.RESULT_OK && data != null) {
             Group group = data.getParcelableExtra(IntentDataKey.ADD_GROUP_DATA_KEY);
             if (group != null) {
-                allGroups.add(group);
                 groupItemAdapter.addGroup(group);
             }
         }
