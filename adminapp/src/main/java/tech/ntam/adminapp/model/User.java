@@ -10,11 +10,11 @@ import tech.ntam.mylibrary.Utils;
 
 public class User {
 
-    public static final String USER = "1";
     public static final String ADMIN = "2";
-    public static final String NURSE = "3";
-    public static final String BABYSITTER = "4";
-    public static final String MIDWIFE = "5";
+    // to get requests staff
+    public static final int NURSE = 1;
+    public static final int BABYSITTER = 2;
+    public static final int MIDWIFE = 3;
 
     @SerializedName("id")
     private int id;

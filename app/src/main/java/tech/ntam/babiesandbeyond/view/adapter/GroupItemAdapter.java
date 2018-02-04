@@ -69,6 +69,12 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
             ivMore = view.findViewById(R.id.iv_more);
             tvDate = view.findViewById(R.id.tv_date);
             container = view.findViewById(R.id.container);
+           /* itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Group group = groups.get(getAdapterPosition());
+                }
+            });*/
         }
     }
 

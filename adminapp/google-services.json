@@ -1,0 +1,113 @@
+{
+  "project_info": {
+    "project_number": "914501770525",
+    "firebase_url": "https://babiesandbeyond-f1e38.firebaseio.com",
+    "project_id": "babiesandbeyond-f1e38",
+    "storage_bucket": "babiesandbeyond-f1e38.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:914501770525:android:867ddbef81767965",
+        "android_client_info": {
+          "package_name": "tech.ntam.babiesandbeyond"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "914501770525-njj48u8v955o8ve65oor5qln06f4j1gi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "tech.ntam.babiesandbeyond",
+            "certificate_hash": "9d849810e7649df1c78b9aa421dd04fff1c5b45d"
+          }
+        },
+        {
+          "client_id": "914501770525-ndend6lk57hhi26dnp4m4osc0lphm3pd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3UtQLUsVmHGTkkHFwgXVEQD9Pz9J_300"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "914501770525-ndend6lk57hhi26dnp4m4osc0lphm3pd.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "914501770525-aah34mqcm0mjris9hfr5qg3l8ofi8u4e.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ntamtech.Babies-Beyond"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:914501770525:android:1a599501a0dc5fbd",
+        "android_client_info": {
+          "package_name": "tech.ntam.adminapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "914501770525-88jpu2sr46qnepnafqglkski6doj5ebb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "tech.ntam.adminapp",
+            "certificate_hash": "9d849810e7649df1c78b9aa421dd04fff1c5b45d"
+          }
+        },
+        {
+          "client_id": "914501770525-ndend6lk57hhi26dnp4m4osc0lphm3pd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3UtQLUsVmHGTkkHFwgXVEQD9Pz9J_300"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "914501770525-ndend6lk57hhi26dnp4m4osc0lphm3pd.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "914501770525-aah34mqcm0mjris9hfr5qg3l8ofi8u4e.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ntamtech.Babies-Beyond"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

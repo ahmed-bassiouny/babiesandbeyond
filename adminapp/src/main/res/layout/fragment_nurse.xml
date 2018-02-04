@@ -39,8 +39,8 @@
             android:text="@string/nurse_calendar" />
     </info.hoang8f.android.segmented.SegmentedGroup>
 
-    <FrameLayout
-        android:id="@+id/container"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>

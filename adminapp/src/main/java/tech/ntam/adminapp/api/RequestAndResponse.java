@@ -2,11 +2,11 @@ package tech.ntam.adminapp.api;
 
 import android.content.Context;
 
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import tech.ntam.adminapp.model.Service;
+import tech.ntam.adminapp.model.Staff;
 import tech.ntam.adminapp.model.User;
 import tech.ntam.mylibrary.UserSharedPref;
 import tech.ntam.mylibrary.apiCongif.ApiConfig;
@@ -48,6 +48,21 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
+                anInterface.onFailed(errorConnection);
+            }
+        });
+    }
+    public static void getStaff(Context context, int serviceTypeId, final BaseResponseInterface<Staff> anInterface) {
+        Call<StaffResponse> response = baseRequestInterface.getStaffRequests(UserSharedPref.getTokenWithHeader(context),UserSharedPref.getId(context), serviceTypeId);
+        response.enqueue(new Callback<StaffResponse>() {
+            @Override
+            public void onResponse(Call<StaffResponse> call, Response<StaffResponse> response) {
+                checkValidResult(response.code(), response.body().getStatus()
+                        , response.body().getStaff(), response.body().getMessage(), anInterface);
+            }
+
+            @Override
+            public void onFailure(Call<StaffResponse> call, Throwable t) {
                 anInterface.onFailed(errorConnection);
             }
         });
