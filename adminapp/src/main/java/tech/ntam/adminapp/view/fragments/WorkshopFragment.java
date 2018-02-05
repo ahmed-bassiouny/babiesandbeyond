@@ -15,37 +15,39 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import java.util.List;
+
 import tech.ntam.adminapp.R;
 import tech.ntam.adminapp.api.RequestAndResponse;
 import tech.ntam.adminapp.model.Staff;
 import tech.ntam.adminapp.model.User;
+import tech.ntam.adminapp.model.Workshop;
 import tech.ntam.adminapp.view.adapter.RequestItemAdapter;
 import tech.ntam.adminapp.view.adapter.ServiceItemAdapter;
+import tech.ntam.adminapp.view.adapter.WorkshopListItemAdapter;
 import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BabysitterFragment extends Fragment {
+public class WorkshopFragment extends Fragment {
 
-    private static BabysitterFragment babysitterFragment;
+    private static WorkshopFragment workshopFragment;
     private RecyclerView recyclerView;
     private ProgressBar progress;
     private TextView noInternet;
     private Button btnNoInternet;
-    private Staff myStaff;
-    private ServiceItemAdapter serviceItemAdapter;
-    private RequestItemAdapter requestItemAdapter;
+    private WorkshopListItemAdapter workshopListItemAdapter;
     private RadioButton btnRequest;
     private RadioButton btnList;
 
-    public static BabysitterFragment newInstance() {
-        if (babysitterFragment == null)
-            babysitterFragment = new BabysitterFragment();
-        return babysitterFragment;
+    public static WorkshopFragment newInstance() {
+        if (workshopFragment == null)
+            workshopFragment = new WorkshopFragment();
+        return workshopFragment;
     }
 
-    public BabysitterFragment() {
+    public WorkshopFragment() {
         // Required empty public constructor
     }
 
@@ -54,7 +56,7 @@ public class BabysitterFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_babysitter, container, false);
+        return inflater.inflate(R.layout.fragment_workshop, container, false);
     }
 
     @Override
@@ -70,56 +72,48 @@ public class BabysitterFragment extends Fragment {
         btnRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (myStaff == null)
-                    return;
-                if (requestItemAdapter == null)
-                    requestItemAdapter = new RequestItemAdapter(getActivity(), myStaff.getRequests());
-                recyclerView.setAdapter(requestItemAdapter);
             }
         });
         btnList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (myStaff == null)
-                    return;
-                if (serviceItemAdapter == null)
-                    serviceItemAdapter = new ServiceItemAdapter(getActivity(), myStaff.getServices());
-                recyclerView.setAdapter(serviceItemAdapter);
+                fetchWorkshopList();
             }
         });
         btnNoInternet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 btnRequest.setChecked(true);
-                fetchData();
+                fetchWorkshopList();
             }
         });
-        fetchData();
+        fetchWorkshopList();
     }
 
-    private void fetchData() {
-        if(myStaff != null)
-            return;
-        progress.setVisibility(View.VISIBLE);
-        noInternet.setVisibility(View.INVISIBLE);
-        btnNoInternet.setVisibility(View.INVISIBLE);
-        recyclerView.setVisibility(View.INVISIBLE);
-        RequestAndResponse.getStaff(getContext(), User.BABYSITTER, new BaseResponseInterface<Staff>() {
-            @Override
-            public void onSuccess(Staff staff) {
-                myStaff = staff;
-                requestItemAdapter = new RequestItemAdapter(getActivity(), staff.getRequests());
-                recyclerView.setAdapter(requestItemAdapter);
-                progress.setVisibility(View.INVISIBLE);
-                recyclerView.setVisibility(View.VISIBLE);
-            }
+    private void fetchWorkshopList() {
+        if (workshopListItemAdapter != null) {
+            recyclerView.setAdapter(workshopListItemAdapter);
+        } else {
+            progress.setVisibility(View.VISIBLE);
+            noInternet.setVisibility(View.INVISIBLE);
+            btnNoInternet.setVisibility(View.INVISIBLE);
+            recyclerView.setVisibility(View.INVISIBLE);
+            RequestAndResponse.getWorkshopLList(getContext(), new BaseResponseInterface<List<Workshop>>() {
+                @Override
+                public void onSuccess(List<Workshop> workshops) {
+                    workshopListItemAdapter = new WorkshopListItemAdapter(getActivity(), workshops);
+                    recyclerView.setAdapter(workshopListItemAdapter);
+                    progress.setVisibility(View.INVISIBLE);
+                    recyclerView.setVisibility(View.VISIBLE);
+                }
 
-            @Override
-            public void onFailed(String errorMessage) {
-                progress.setVisibility(View.INVISIBLE);
-                noInternet.setVisibility(View.VISIBLE);
-                btnNoInternet.setVisibility(View.VISIBLE);
-            }
-        });
+                @Override
+                public void onFailed(String errorMessage) {
+                    progress.setVisibility(View.INVISIBLE);
+                    noInternet.setVisibility(View.VISIBLE);
+                    btnNoInternet.setVisibility(View.VISIBLE);
+                }
+            });
+        }
     }
 }

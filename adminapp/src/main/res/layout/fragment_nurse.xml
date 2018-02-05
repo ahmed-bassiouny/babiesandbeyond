@@ -30,7 +30,7 @@
             android:textSize="12sp" />
 
         <RadioButton
-            android:id="@+id/btn_calendar"
+            android:id="@+id/btn_list"
             style="@style/RadioButton"
             android:layout_width="150dp"
             android:layout_height="wrap_content"

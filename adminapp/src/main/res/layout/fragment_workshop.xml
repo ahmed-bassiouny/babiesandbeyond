@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:checked="true"
             android:fontFamily="@font/museosans"
-            android:text="@string/baby_request"
+            android:text="@string/workshop_request"
             android:textSize="12sp" />
 
         <RadioButton
@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/museosans"
             android:padding="5dp"
-            android:text="@string/babysitter_list" />
+            android:text="@string/workshop_list" />
     </info.hoang8f.android.segmented.SegmentedGroup>
 
     <android.support.v7.widget.RecyclerView

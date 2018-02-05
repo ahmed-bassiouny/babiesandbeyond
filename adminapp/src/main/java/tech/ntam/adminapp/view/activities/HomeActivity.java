@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import tech.ntam.adminapp.R;
 import tech.ntam.adminapp.view.fragments.BabysitterFragment;
 import tech.ntam.adminapp.view.fragments.NurseFragment;
+import tech.ntam.adminapp.view.fragments.WorkshopFragment;
 import tech.ntam.mylibrary.BottomNavigationViewHelper;
 
 public class HomeActivity extends AppCompatActivity {
@@ -101,10 +102,8 @@ public class HomeActivity extends AppCompatActivity {
                     return NurseFragment.newInstance();
                 case 1:
                     return BabysitterFragment.newInstance();
-                /*case 2:
-                    return UserWorkshopFragment.newInstance();
-                case 3:
-                    return UserGroupsFragment.newInstance();*/
+                case 2:
+                    return WorkshopFragment.newInstance();
                 default:
                     return null;
             }
@@ -112,7 +111,7 @@ public class HomeActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 2;
+            return 3;
         }
     }
 }

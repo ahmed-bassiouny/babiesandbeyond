@@ -76,8 +76,10 @@
     <string name="babysitter">Babysitter</string>
     <string name="nurse_request">Nurse Request</string>
     <string name="baby_request">Baby Request</string>
+    <string name="workshop_request">Workshop Request</string>
     <string name="nurse_list">Nurse List</string>
     <string name="babysitter_list">Babysitter List</string>
+    <string name="workshop_list">Workshop List</string>
     <string name="choose_nurse">Choose Nurse</string>
     <string name="view_details">View Details</string>
     <string name="nurses_tasks">Nurses Tasks</string>

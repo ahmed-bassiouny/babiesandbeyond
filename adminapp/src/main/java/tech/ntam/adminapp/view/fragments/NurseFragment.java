@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import tech.ntam.adminapp.R;
@@ -35,6 +36,8 @@ public class NurseFragment extends Fragment {
     private Staff myStaff;
     private ServiceItemAdapter serviceItemAdapter;
     private RequestItemAdapter requestItemAdapter;
+    private RadioButton btnRequest;
+    private RadioButton btnList;
 
     public static NurseFragment newInstance() {
         if (nurseFragment == null)
@@ -61,8 +64,11 @@ public class NurseFragment extends Fragment {
         progress = view.findViewById(R.id.progress);
         noInternet = view.findViewById(R.id.no_internet);
         btnNoInternet = view.findViewById(R.id.btn_no_internet);
+        btnRequest = view.findViewById(R.id.btn_request);
+        btnList = view.findViewById(R.id.btn_list);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        view.findViewById(R.id.btn_request).setOnClickListener(new View.OnClickListener() {
+        btnRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (myStaff == null)
@@ -72,7 +78,7 @@ public class NurseFragment extends Fragment {
                 recyclerView.setAdapter(requestItemAdapter);
             }
         });
-        view.findViewById(R.id.btn_calendar).setOnClickListener(new View.OnClickListener() {
+        btnList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (myStaff == null)
@@ -85,35 +91,47 @@ public class NurseFragment extends Fragment {
         btnNoInternet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                btnRequest.setChecked(true);
                 fetchData();
             }
         });
         fetchData();
     }
 
-    private void fetchData() {
-        if(myStaff != null)
-            return;
-        progress.setVisibility(View.VISIBLE);
-        noInternet.setVisibility(View.INVISIBLE);
-        btnNoInternet.setVisibility(View.INVISIBLE);
-        recyclerView.setVisibility(View.INVISIBLE);
-        RequestAndResponse.getStaff(getContext(), User.NURSE, new BaseResponseInterface<Staff>() {
-            @Override
-            public void onSuccess(Staff staff) {
-                myStaff = staff;
-                requestItemAdapter = new RequestItemAdapter(getActivity(), staff.getRequests());
-                recyclerView.setAdapter(requestItemAdapter);
-                progress.setVisibility(View.INVISIBLE);
-                recyclerView.setVisibility(View.VISIBLE);
-            }
+    @Override
+    public void onResume() {
+        super.onResume();
+        btnRequest.setChecked(true);
+    }
 
-            @Override
-            public void onFailed(String errorMessage) {
-                progress.setVisibility(View.INVISIBLE);
-                noInternet.setVisibility(View.VISIBLE);
-                btnNoInternet.setVisibility(View.VISIBLE);
-            }
-        });
+    private void fetchData() {
+        if (myStaff != null) {
+            if (requestItemAdapter == null)
+                requestItemAdapter = new RequestItemAdapter(getActivity(), myStaff.getRequests());
+            recyclerView.setAdapter(requestItemAdapter);
+            recyclerView.setVisibility(View.VISIBLE);
+        } else {
+            progress.setVisibility(View.VISIBLE);
+            noInternet.setVisibility(View.INVISIBLE);
+            btnNoInternet.setVisibility(View.INVISIBLE);
+            recyclerView.setVisibility(View.INVISIBLE);
+            RequestAndResponse.getStaff(getContext(), User.NURSE, new BaseResponseInterface<Staff>() {
+                @Override
+                public void onSuccess(Staff staff) {
+                    myStaff = staff;
+                    requestItemAdapter = new RequestItemAdapter(getActivity(), staff.getRequests());
+                    recyclerView.setAdapter(requestItemAdapter);
+                    progress.setVisibility(View.INVISIBLE);
+                    recyclerView.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onFailed(String errorMessage) {
+                    progress.setVisibility(View.INVISIBLE);
+                    noInternet.setVisibility(View.VISIBLE);
+                    btnNoInternet.setVisibility(View.VISIBLE);
+                }
+            });
+        }
     }
 }

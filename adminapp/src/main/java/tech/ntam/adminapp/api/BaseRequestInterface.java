@@ -17,6 +17,7 @@ public interface BaseRequestInterface {
     String AUTHORIZATION = "Authorization";
     String LOGIN = "login";
     String STAFF_REQUESTS = "staff_requests";
+    String WORKSHOP_LIST = "admin_workshops";
 
 
     @FormUrlEncoded
@@ -32,6 +33,12 @@ public interface BaseRequestInterface {
     Call<StaffResponse> getStaffRequests(@Header(AUTHORIZATION) String token,
                                          @Field("admin_id") int adminId,
                                          @Field("service_type_id") int serviceTypeId);
+
+    @FormUrlEncoded
+    @Headers(HEADER_KEY)
+    @POST(WORKSHOP_LIST)
+    Call<WorkshopListResponse> getWorkshopLList(@Header(AUTHORIZATION) String token,
+                                         @Field("admin_id") int adminId);
 
 
 }
