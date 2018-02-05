@@ -93,6 +93,7 @@ public class WorkshopFragment extends Fragment {
     private void fetchWorkshopList() {
         if (workshopListItemAdapter != null) {
             recyclerView.setAdapter(workshopListItemAdapter);
+            recyclerView.setVisibility(View.VISIBLE);
         } else {
             progress.setVisibility(View.VISIBLE);
             noInternet.setVisibility(View.INVISIBLE);

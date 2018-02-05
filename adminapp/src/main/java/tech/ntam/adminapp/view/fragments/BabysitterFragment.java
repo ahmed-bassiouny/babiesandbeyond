@@ -97,29 +97,41 @@ public class BabysitterFragment extends Fragment {
         fetchData();
     }
 
-    private void fetchData() {
-        if(myStaff != null)
-            return;
-        progress.setVisibility(View.VISIBLE);
-        noInternet.setVisibility(View.INVISIBLE);
-        btnNoInternet.setVisibility(View.INVISIBLE);
-        recyclerView.setVisibility(View.INVISIBLE);
-        RequestAndResponse.getStaff(getContext(), User.BABYSITTER, new BaseResponseInterface<Staff>() {
-            @Override
-            public void onSuccess(Staff staff) {
-                myStaff = staff;
-                requestItemAdapter = new RequestItemAdapter(getActivity(), staff.getRequests());
-                recyclerView.setAdapter(requestItemAdapter);
-                progress.setVisibility(View.INVISIBLE);
-                recyclerView.setVisibility(View.VISIBLE);
-            }
+    @Override
+    public void onResume() {
+        super.onResume();
+        btnRequest.setChecked(true);
+    }
 
-            @Override
-            public void onFailed(String errorMessage) {
-                progress.setVisibility(View.INVISIBLE);
-                noInternet.setVisibility(View.VISIBLE);
-                btnNoInternet.setVisibility(View.VISIBLE);
-            }
-        });
+
+    private void fetchData() {
+        if (myStaff != null) {
+            if (requestItemAdapter == null)
+                requestItemAdapter = new RequestItemAdapter(getActivity(), myStaff.getRequests());
+            recyclerView.setAdapter(requestItemAdapter);
+            recyclerView.setVisibility(View.VISIBLE);
+        } else {
+            progress.setVisibility(View.VISIBLE);
+            noInternet.setVisibility(View.INVISIBLE);
+            btnNoInternet.setVisibility(View.INVISIBLE);
+            recyclerView.setVisibility(View.INVISIBLE);
+            RequestAndResponse.getStaff(getContext(), User.BABYSITTER, new BaseResponseInterface<Staff>() {
+                @Override
+                public void onSuccess(Staff staff) {
+                    myStaff = staff;
+                    requestItemAdapter = new RequestItemAdapter(getActivity(), staff.getRequests());
+                    recyclerView.setAdapter(requestItemAdapter);
+                    progress.setVisibility(View.INVISIBLE);
+                    recyclerView.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onFailed(String errorMessage) {
+                    progress.setVisibility(View.INVISIBLE);
+                    noInternet.setVisibility(View.VISIBLE);
+                    btnNoInternet.setVisibility(View.VISIBLE);
+                }
+            });
+        }
     }
 }
