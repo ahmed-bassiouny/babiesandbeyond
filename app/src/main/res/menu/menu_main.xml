@@ -3,11 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="tech.ntam.babiesandbeyond.view.activities.UserHomeActivity">
     <item
-        android:id="@+id/service"
-        android:title="@string/services"
+        android:id="@+id/request"
+        android:title="@string/requests"
         app:showAsAction="always"
         android:enabled="true"
-        android:icon="@drawable/services">
+        android:icon="@drawable/requests">
     </item>
     <item
         android:id="@+id/event"

@@ -23,7 +23,7 @@
     Your Password on It</string>
     <string name="send">Send</string>
     <string name="title_activity_main">HomeActivity</string>
-    <string name="services">Services</string>
+    <string name="requests">Services</string>
     <string name="events">Events</string>
     <string name="Workshops">Workshops</string>
     <string name="message">Messages</string>
@@ -75,8 +75,9 @@
     <string name="midwife_name">Midwife Name</string>
     <string name="babysitter">Babysitter</string>
     <string name="nurse_request">Nurse Request</string>
-
-    <string name="nurse_calendar">Nurse Calendar</string>
+    <string name="baby_request">Baby Request</string>
+    <string name="nurse_list">Nurse List</string>
+    <string name="babysitter_list">Babysitter List</string>
     <string name="choose_nurse">Choose Nurse</string>
     <string name="view_details">View Details</string>
     <string name="nurses_tasks">Nurses Tasks</string>

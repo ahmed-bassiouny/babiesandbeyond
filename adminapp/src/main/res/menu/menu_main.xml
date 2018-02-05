@@ -10,13 +10,6 @@
         android:icon="@drawable/services">
     </item>
     <item
-        android:id="@+id/midwife"
-        android:title="@string/midwife"
-        app:showAsAction="ifRoom"
-        android:enabled="true"
-        android:icon="@drawable/midwife">
-    </item>
-    <item
         android:id="@+id/babysitter"
         android:title="@string/babysitter"
         app:showAsAction="ifRoom"

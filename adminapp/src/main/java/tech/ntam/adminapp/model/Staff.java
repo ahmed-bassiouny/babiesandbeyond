@@ -5,8 +5,6 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
-import tech.ntam.adminapp.model.Service;
-
 /**
  * Created by bassiouny on 04/02/18.
  */
@@ -14,10 +12,18 @@ import tech.ntam.adminapp.model.Service;
 public class Staff {
 
     @SerializedName("staff_request")
+    private List<Request> requests;
+    @SerializedName("all_staff")
     private List<Service> services;
 
+    public List<Request> getRequests() {
+        if (requests == null)
+            requests = new ArrayList<>();
+        return requests;
+    }
+
     public List<Service> getServices() {
-        if (services == null)
+        if(services == null)
             services = new ArrayList<>();
         return services;
     }

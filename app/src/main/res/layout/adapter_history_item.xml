@@ -17,7 +17,7 @@
         android:textStyle="bold"
         android:fontFamily="@font/museosans"
         android:textColor="@color/gray_bold"
-        tools:text="service name" />
+        tools:text="request name" />
 
     <TextView
         android:id="@+id/tv_location"

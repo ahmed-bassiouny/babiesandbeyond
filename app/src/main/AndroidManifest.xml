@@ -108,16 +108,16 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"/>
 
-        <service android:name=".firebase.MyFirebaseMessagingService">
+        <request android:name=".firebase.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
-        </service>
-        <service android:name=".firebase.MyFirebaseInstanceIDService">
+        </request>
+        <request android:name=".firebase.MyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
-        </service>
+        </request>
 
         <activity
             android:name=".view.activities.ViewImageActivity"

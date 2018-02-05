@@ -20,39 +20,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_toEndOf="@+id/iv_user_image"
-        android:layout_marginTop="8dp"
-        android:textSize="12sp"
-        android:layout_toStartOf="@+id/btn_view_details"
-        tools:text="date" />
 
     <TextView
-        android:id="@+id/tv_request_name"
+        android:id="@+id/tv_service_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:layout_below="@+id/tv_date"
+        android:layout_marginTop="8dp"
         android:textColor="@color/gray_bold"
         android:layout_toStartOf="@+id/btn_view_details"
         android:layout_toEndOf="@+id/iv_user_image"
         android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/iv_user_image"
         tools:text="name" />
 
     <TextView
-        android:id="@+id/tv_request_location"
+        android:id="@+id/tv_service_reserved"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="12sp"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
-        android:layout_below="@+id/tv_request_name"
+        android:layout_below="@+id/tv_service_name"
         android:layout_toStartOf="@+id/btn_view_details"
         android:layout_toEndOf="@+id/iv_user_image"
         tools:text="@string/location" />
@@ -61,11 +51,7 @@
         android:id="@+id/btn_view_details"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        android:paddingEnd="5dp"
-        android:paddingStart="5dp"
+        android:layout_marginEnd="5dp"
         android:textAllCaps="false"
         android:textSize="12sp"
         android:layout_alignParentEnd="true"
@@ -77,6 +63,6 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/off_white"
-        android:layout_below="@+id/tv_request_location"/>
+        android:layout_below="@+id/iv_user_image"/>
 
 </RelativeLayout>

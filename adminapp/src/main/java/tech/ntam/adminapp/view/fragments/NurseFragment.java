@@ -1,27 +1,25 @@
-package tech.ntam.adminapp.view.fragments.nurse;
+package tech.ntam.adminapp.view.fragments;
 
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.Toast;
+import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import tech.ntam.adminapp.R;
 import tech.ntam.adminapp.api.RequestAndResponse;
-import tech.ntam.adminapp.model.Service;
 import tech.ntam.adminapp.model.Staff;
 import tech.ntam.adminapp.model.User;
-import tech.ntam.adminapp.view.adapter.NurseRequestItemAdapter;
-import tech.ntam.mylibrary.MyDialog;
+import tech.ntam.adminapp.view.adapter.RequestItemAdapter;
+import tech.ntam.adminapp.view.adapter.ServiceItemAdapter;
 import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 
 /**
@@ -31,6 +29,12 @@ public class NurseFragment extends Fragment {
 
     private static NurseFragment nurseFragment;
     private RecyclerView recyclerView;
+    private ProgressBar progress;
+    private TextView noInternet;
+    private Button btnNoInternet;
+    private Staff myStaff;
+    private ServiceItemAdapter serviceItemAdapter;
+    private RequestItemAdapter requestItemAdapter;
 
     public static NurseFragment newInstance() {
         if (nurseFragment == null)
@@ -54,35 +58,61 @@ public class NurseFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.recycler_view);
+        progress = view.findViewById(R.id.progress);
+        noInternet = view.findViewById(R.id.no_internet);
+        btnNoInternet = view.findViewById(R.id.btn_no_internet);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         view.findViewById(R.id.btn_request).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (myStaff == null)
+                    return;
+                if (requestItemAdapter == null)
+                    requestItemAdapter = new RequestItemAdapter(getActivity(), myStaff.getRequests());
+                recyclerView.setAdapter(requestItemAdapter);
             }
         });
         view.findViewById(R.id.btn_calendar).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (myStaff == null)
+                    return;
+                if (serviceItemAdapter == null)
+                    serviceItemAdapter = new ServiceItemAdapter(getActivity(), myStaff.getServices());
+                recyclerView.setAdapter(serviceItemAdapter);
+            }
+        });
+        btnNoInternet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fetchData();
             }
         });
         fetchData();
     }
-    private void fetchData(){
-        final MyDialog myDialog = new MyDialog();
-        myDialog.showMyDialog(getActivity());
+
+    private void fetchData() {
+        if(myStaff != null)
+            return;
+        progress.setVisibility(View.VISIBLE);
+        noInternet.setVisibility(View.INVISIBLE);
+        btnNoInternet.setVisibility(View.INVISIBLE);
+        recyclerView.setVisibility(View.INVISIBLE);
         RequestAndResponse.getStaff(getContext(), User.NURSE, new BaseResponseInterface<Staff>() {
             @Override
             public void onSuccess(Staff staff) {
-                NurseRequestItemAdapter adapter = new NurseRequestItemAdapter(getActivity(),true,staff.getServices());
-                recyclerView.setAdapter(adapter);
-                myDialog.dismissMyDialog();
+                myStaff = staff;
+                requestItemAdapter = new RequestItemAdapter(getActivity(), staff.getRequests());
+                recyclerView.setAdapter(requestItemAdapter);
+                progress.setVisibility(View.INVISIBLE);
+                recyclerView.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onFailed(String errorMessage) {
-                Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
-                myDialog.dismissMyDialog();
+                progress.setVisibility(View.INVISIBLE);
+                noInternet.setVisibility(View.VISIBLE);
+                btnNoInternet.setVisibility(View.VISIBLE);
             }
         });
     }

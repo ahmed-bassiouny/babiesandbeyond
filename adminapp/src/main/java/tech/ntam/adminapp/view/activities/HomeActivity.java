@@ -11,7 +11,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import tech.ntam.adminapp.R;
-import tech.ntam.adminapp.view.fragments.nurse.NurseFragment;
+import tech.ntam.adminapp.view.fragments.BabysitterFragment;
+import tech.ntam.adminapp.view.fragments.NurseFragment;
 import tech.ntam.mylibrary.BottomNavigationViewHelper;
 
 public class HomeActivity extends AppCompatActivity {
@@ -45,14 +46,11 @@ public class HomeActivity extends AppCompatActivity {
                     case R.id.nurse:
                         mViewPager.setCurrentItem(0);
                         break;
-                    case R.id.midwife:
+                    case R.id.babysitter:
                         mViewPager.setCurrentItem(1);
                         break;
-                    case R.id.babysitter:
-                        mViewPager.setCurrentItem(2);
-                        break;
                     case R.id.workshop:
-                        mViewPager.setCurrentItem(3);
+                        mViewPager.setCurrentItem(2);
                         break;
                 }
                 return true;
@@ -101,9 +99,9 @@ public class HomeActivity extends AppCompatActivity {
             switch (position) {
                 case 0:
                     return NurseFragment.newInstance();
-               /* case 1:
-                    return UserEventsFragment.newInstance();
-                case 2:
+                case 1:
+                    return BabysitterFragment.newInstance();
+                /*case 2:
                     return UserWorkshopFragment.newInstance();
                 case 3:
                     return UserGroupsFragment.newInstance();*/
@@ -114,7 +112,7 @@ public class HomeActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 1;
+            return 2;
         }
     }
 }

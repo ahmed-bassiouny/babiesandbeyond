@@ -6,29 +6,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import tech.ntam.adminapp.R;
-import tech.ntam.adminapp.model.Service;
+import tech.ntam.adminapp.model.Request;
 import tech.ntam.mylibrary.Utils;
 
 /**
  * Created by bassiouny on 22/12/17.
  */
 
-public class NurseRequestItemAdapter extends RecyclerView.Adapter<NurseRequestItemAdapter.MyViewHolder> {
-    private boolean showActionButton;
-    private List<Service> services;
+public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.MyViewHolder> {
+    private List<Request> requests;
     private Activity activity;
 
-    public NurseRequestItemAdapter(Activity activity, boolean showActionButton, List<Service> services) {
+    public RequestItemAdapter(Activity activity, List<Request> requests) {
         this.activity = activity;
-        this.showActionButton = showActionButton;
-        this.services = services;
+        this.requests = requests;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -59,21 +56,16 @@ public class NurseRequestItemAdapter extends RecyclerView.Adapter<NurseRequestIt
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        Service service = services.get(position);
-        if (showActionButton) {
-            holder.btnViewDetails.setVisibility(View.VISIBLE);
-        } else {
-            holder.btnViewDetails.setVisibility(View.INVISIBLE);
-        }
-        if (!service.getUserPhoto().isEmpty())
-            Utils.MyGlide(activity, holder.ivUserImage, service.getUserPhoto());
-        holder.tvDate.setText(service.getStartDate() + " " + service.getStartTime() + " to " + service.getEndTime());
-        holder.tvRequestName.setText(service.getUserName());
-        holder.tvRequestLocation.setText(service.getLocation());
+        Request request = requests.get(position);
+        if (!request.getUserPhoto().isEmpty())
+            Utils.MyGlide(activity, holder.ivUserImage, request.getUserPhoto());
+        holder.tvDate.setText(request.getStartDate() + " " + request.getStartTime() + " to " + request.getEndTime());
+        holder.tvRequestName.setText(request.getUserName());
+        holder.tvRequestLocation.setText(request.getLocation());
     }
 
     @Override
     public int getItemCount() {
-        return services.size();
+        return requests.size();
     }
 }
