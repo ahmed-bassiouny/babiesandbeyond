@@ -111,7 +111,7 @@ public class Utils {
         progressBar.setVisibility(View.VISIBLE);
         Glide.with(activity)
                 .load(url)
-                .placeholder(R.color.off_white)
+                .placeholder(R.color.colorAccent)
                 .fitCenter()
                 .dontAnimate()
                 .bitmapTransform(new RoundedCornersTransformation( activity,25, 10))

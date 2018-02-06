@@ -105,7 +105,10 @@ public class ChatActivity extends MyToolbar implements ParseObject<String> {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Message message = dataSnapshot.getValue(Message.class);
-                if (!message.getImageURL().isEmpty() && imageDownloaded) {
+                if(!message.getMessage().isEmpty()){
+                    itemChatAdapter.addMessage(message);
+                    recycleView.scrollToPosition(itemChatAdapter.getItemCount() - 1);
+                }else if (!message.getImageURL().isEmpty() && imageDownloaded) {
                     itemChatAdapter.addMessage(message);
                     recycleView.scrollToPosition(itemChatAdapter.getItemCount() - 1);
                 }

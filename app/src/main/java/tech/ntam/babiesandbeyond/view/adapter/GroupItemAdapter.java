@@ -56,7 +56,6 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
         private TextView tvDescription;
         private ImageView ivMore;
         private TextView tvDate;
-        private ConstraintLayout container;
 
         public MyViewHolder(View view) {
             super(view);
@@ -68,13 +67,13 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
             tvDescription = view.findViewById(R.id.tv_description);
             ivMore = view.findViewById(R.id.iv_more);
             tvDate = view.findViewById(R.id.tv_date);
-            container = view.findViewById(R.id.container);
-           /* itemView.setOnClickListener(new View.OnClickListener() {
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Group group = groups.get(getAdapterPosition());
+                    parseObject.getMyObject(group);
                 }
-            });*/
+            });
         }
     }
 
@@ -154,12 +153,6 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
             }
         });
 
-        holder.container.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                parseObject.getMyObject(group);
-            }
-        });
     }
 
     @Override
