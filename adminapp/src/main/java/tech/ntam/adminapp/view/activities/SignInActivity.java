@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
 import tech.ntam.adminapp.R;
 import tech.ntam.adminapp.api.RequestAndResponse;
 import tech.ntam.adminapp.model.User;
@@ -24,6 +26,7 @@ public class SignInActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_sign_in);
         findViewById();
         checkIfUserLoggedIn();
