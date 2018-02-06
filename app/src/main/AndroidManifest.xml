@@ -10,7 +10,7 @@
         android:icon="@drawable/appicon"
         android:label="@string/app_name"
         android:roundIcon="@drawable/appicon"
-        android:supportsRtl="false"
+        android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
         <!--
@@ -108,16 +108,16 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"/>
 
-        <request android:name=".firebase.MyFirebaseMessagingService">
+        <service android:name=".firebase.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
-        </request>
-        <request android:name=".firebase.MyFirebaseInstanceIDService">
+        </service>
+        <service android:name=".firebase.MyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
-        </request>
+        </service>
 
         <activity
             android:name=".view.activities.ViewImageActivity"

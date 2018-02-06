@@ -23,7 +23,7 @@
     Your Password on It</string>
     <string name="send">Send</string>
     <string name="title_activity_main">HomeActivity</string>
-    <string name="requests">Services</string>
+    <string name="services">Services</string>
     <string name="events">Events</string>
     <string name="Workshops">Workshops</string>
     <string name="message">Messages</string>

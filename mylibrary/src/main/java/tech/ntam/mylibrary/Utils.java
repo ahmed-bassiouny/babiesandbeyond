@@ -14,13 +14,18 @@ import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.util.Base64;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.MultiTransformation;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.bumptech.glide.request.target.Target;
 
 import java.io.ByteArrayOutputStream;
 import java.text.DateFormat;
@@ -102,10 +107,32 @@ public class Utils {
     public static void MyGlideGroup(Activity activity, ImageView imageView, String url) {
         Glide.with(activity).load(url).placeholder(R.drawable.group).dontAnimate().centerCrop().into(imageView);
     }
-    public static void MyGlideRounded(Activity activity, ImageView imageView, String url) {
+    public static void MyGlideRounded(Activity activity, ImageView imageView, String url, final ProgressBar progressBar) {
+        progressBar.setVisibility(View.VISIBLE);
         Glide.with(activity)
                 .load(url)
-                .placeholder(R.drawable.placeholder)
+                .placeholder(R.color.off_white)
+                .fitCenter()
+                .dontAnimate()
+                .bitmapTransform(new RoundedCornersTransformation( activity,25, 10))
+                .listener(new RequestListener<String, GlideDrawable>() {
+                    @Override
+                    public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                        progressBar.setVisibility(View.INVISIBLE);
+                        return false;
+                    }
+                })
+                .into(imageView);
+    }
+    public static void MyGlideRounded(Activity activity, ImageView imageView, byte[] bytes) {
+        Glide.with(activity)
+                .load(bytes)
+                .placeholder(R.color.off_white)
                 .fitCenter()
                 .dontAnimate()
                 .bitmapTransform(new RoundedCornersTransformation( activity,25, 10))

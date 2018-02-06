@@ -72,6 +72,7 @@ public class WorkshopFragment extends Fragment {
         btnRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                recyclerView.setVisibility(View.INVISIBLE);
             }
         });
         btnList.setOnClickListener(new View.OnClickListener() {

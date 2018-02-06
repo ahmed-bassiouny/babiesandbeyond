@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -51,13 +52,18 @@ public class ItemChatAdapter extends RecyclerView.Adapter<ItemChatAdapter.CutomV
         final Message message = myarraylist.get(position);
         holder.message.setText(message.getMessage());
 
-        if(message.getImageURL().isEmpty()){
+        if(message.getImageURL().isEmpty() && message.bytes == null){
             holder.ivPhoto.setVisibility(View.GONE);
             holder.message.setVisibility(View.VISIBLE);
         }else {
             holder.ivPhoto.setVisibility(View.VISIBLE);
             holder.message.setVisibility(View.GONE);
-            Utils.MyGlideRounded(activity,holder.ivPhoto,message.getImageURL());
+            if(message.bytes !=null){
+                Utils.MyGlideRounded(activity,holder.ivPhoto,message.bytes);
+            }else {
+                Utils.MyGlideRounded(activity,holder.ivPhoto,message.getImageURL(),holder.progress);
+            }
+
             holder.ivPhoto.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -87,6 +93,7 @@ public class ItemChatAdapter extends RecyclerView.Adapter<ItemChatAdapter.CutomV
         RelativeLayout container;
         ImageView image;
         ImageView ivPhoto;
+        ProgressBar progress;
 
         public CutomViewHolder(View view) {
             super(view);
@@ -94,10 +101,21 @@ public class ItemChatAdapter extends RecyclerView.Adapter<ItemChatAdapter.CutomV
             container = view.findViewById(R.id.container);
             image = view.findViewById(R.id.image);
             ivPhoto = view.findViewById(R.id.iv_photo);
+            progress = view.findViewById(R.id.progress);
         }
     }
-    public void addMessage(Message message){
+    public int addMessage(Message message){
         myarraylist.add(message);
         notifyItemInserted(myarraylist.size()-1);
+        return myarraylist.size()-1;
+    }
+    public void updateMessageUrl(String url , int position){
+        Message item = myarraylist.get(position);
+        item.setImageURL(url);
+        myarraylist.set(position,item);
+    }
+    public void deleteMessage(int position){
+        myarraylist.remove(position);
+        notifyDataSetChanged();
     }
 }

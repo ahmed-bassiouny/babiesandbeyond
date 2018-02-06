@@ -1,5 +1,7 @@
 package tech.ntam.babiesandbeyond.model;
 
+import android.graphics.Bitmap;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -27,6 +29,20 @@ public class Message {
     private int imgWidth;
     @SerializedName(IMAGE_URL)
     private String imageURL;
+
+    public byte[] bytes;
+
+
+    public Message(int userId, long timeStamp, int imgHeight, int imgWidth, byte[] bytes) {
+        this.userId = userId;
+        this.timeStamp = timeStamp;
+        this.imgHeight = imgHeight;
+        this.imgWidth = imgWidth;
+        this.bytes = bytes;
+    }
+
+    public Message() {
+    }
 
     public int getUserId() {
         return userId;
@@ -75,6 +91,7 @@ public class Message {
             imageURL = "";
         return imageURL;
     }
+
 
     public void setImageURL(String imageURL) {
         this.imageURL = imageURL;

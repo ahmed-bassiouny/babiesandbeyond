@@ -51,6 +51,7 @@ public class ChatActivity extends MyToolbar implements ParseObject<String> {
     private StorageReference mStorageRef;
     private ChildEventListener childEventListener;
     private ProgressBar progress;
+    private boolean imageDownloaded = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,15 +60,10 @@ public class ChatActivity extends MyToolbar implements ParseObject<String> {
         setupToolbar(this, false, true, false);
         findViewById();
         onClick();
-
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
+        imageDownloaded = true;
         setDataGroup();
-    }
 
+    }
     private void setDataGroup() {
         group = getIntent().getParcelableExtra(IntentDataKey.SHOW_GROUP_DATA_KEY);
         if (group == null)
@@ -109,8 +105,10 @@ public class ChatActivity extends MyToolbar implements ParseObject<String> {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Message message = dataSnapshot.getValue(Message.class);
-                itemChatAdapter.addMessage(message);
-                recycleView.scrollToPosition(itemChatAdapter.getItemCount() - 1);
+                if (!message.getImageURL().isEmpty() && imageDownloaded) {
+                    itemChatAdapter.addMessage(message);
+                    recycleView.scrollToPosition(itemChatAdapter.getItemCount() - 1);
+                }
             }
 
             @Override
@@ -149,7 +147,6 @@ public class ChatActivity extends MyToolbar implements ParseObject<String> {
         ivChooseAttachment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //EasyImage.openChooserWithGallery(ChatActivity.this, "Select Photo", EasyImageConfig.REQ_PICK_PICTURE_FROM_GALLERY);
                 ImagePicker.pickImage(ChatActivity.this, "Select your image:");
 
             }
@@ -158,102 +155,35 @@ public class ChatActivity extends MyToolbar implements ParseObject<String> {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        final Bitmap bitmap = ImagePicker.getImageFromResult(this, requestCode, resultCode, data);
-        // TODO do something with the bitmap
-        final MyDialog dialog = new MyDialog();
-        dialog.showMyDialog(ChatActivity.this);
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] myData = baos.toByteArray();
-        mStorageRef = FirebaseStorage.getInstance().getReference();
+        if (resultCode == RESULT_OK) {
+            final Bitmap bitmap = ImagePicker.getImageFromResult(this, requestCode, resultCode, data);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            byte[] myData = baos.toByteArray();
+            // create local message
+            Message message = new Message(UserSharedPref.getId(this),MyDateTimeFactor.getTimeStamp(),bitmap.getHeight(),bitmap.getWidth(),myData);
+            final int position = itemChatAdapter.addMessage(message);
+            mStorageRef = FirebaseStorage.getInstance().getReference();
 
-        UploadTask uploadTask = mStorageRef.child(String.valueOf(MyDateTimeFactor.getTimeStamp())).putBytes(myData);
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                dialog.dismissMyDialog();
-                Toast.makeText(ChatActivity.this, exception.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                getController().createImageMessage(downloadUrl.toString(), bitmap.getWidth(), bitmap.getHeight());
-                dialog.dismissMyDialog();
-            }
-        });
-    }
+            UploadTask uploadTask = mStorageRef.child(String.valueOf(MyDateTimeFactor.getTimeStamp())).putBytes(myData);
+            uploadTask.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    Toast.makeText(ChatActivity.this, exception.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    itemChatAdapter.deleteMessage(position);
 
-    /*@Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        EasyImage.handleActivityResult(requestCode, resultCode, data, this, new DefaultCallback() {
-            @Override
-            public void onImagePickerError(Exception e, EasyImage.ImageSource source, int type) {
-                //Some error handling
-                final MyDialog dialog = new MyDialog();
-                dialog.showMyDialog(ChatActivity.this);
-                try {
-                    final Bitmap myBitmap = ImageFactor.getBitmapImageFromFilePathAfterResize(imageFile);
-
-
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    myBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                    byte[] data = baos.toByteArray();
-                    mStorageRef = FirebaseStorage.getInstance().getReference();
-
-                    UploadTask uploadTask = mStorageRef.child(String.valueOf(MyDateTimeFactor.getTimeStamp())).putBytes(data);
-                    uploadTask.addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception exception) {
-                            dialog.dismissMyDialog();
-                            Toast.makeText(ChatActivity.this, exception.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                            getController().createImageMessage(downloadUrl.toString(),myBitmap.getWidth(),myBitmap.getHeight());
-                            dialog.dismissMyDialog();
-                        }
-                    });
-            }
-
-            @Override
-            public void onImagePicked(File imageFile, EasyImage.ImageSource source, int type) {
-                final MyDialog dialog = new MyDialog();
-                dialog.showMyDialog(ChatActivity.this);
-                try {
-                    final Bitmap myBitmap = ImageFactor.getBitmapImageFromFilePathAfterResize(imageFile);
-
-
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    myBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                    byte[] data = baos.toByteArray();
-                    mStorageRef = FirebaseStorage.getInstance().getReference();
-
-                    UploadTask uploadTask = mStorageRef.child(String.valueOf(MyDateTimeFactor.getTimeStamp())).putBytes(data);
-                    uploadTask.addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception exception) {
-                            dialog.dismissMyDialog();
-                            Toast.makeText(ChatActivity.this, exception.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                            getController().createImageMessage(downloadUrl.toString(),myBitmap.getWidth(),myBitmap.getHeight());
-                            dialog.dismissMyDialog();
-                        }
-                    });
-                } catch (FileNotFoundException e) {
-                    Toast.makeText(ChatActivity.this, R.string.photo_large, Toast.LENGTH_SHORT).show();
-                    dialog.dismissMyDialog();
                 }
-            }
-        });
-    }*/
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                    getController().createImageMessage(downloadUrl.toString(), bitmap.getWidth(), bitmap.getHeight());
+                    imageDownloaded = false;
+                    itemChatAdapter.updateMessageUrl(downloadUrl.toString(),position);
+                }
+            });
+        }
+    }
 
     private void findViewById() {
         recycleView = findViewById(R.id.recycle_view);

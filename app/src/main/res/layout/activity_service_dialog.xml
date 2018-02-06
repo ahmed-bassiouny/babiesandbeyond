@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:fontFamily="@font/museosans"
-            android:text="@string/requests"
+            android:text="@string/services"
             android:textSize="20sp" />
 
         <TextView
