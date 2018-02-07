@@ -12,7 +12,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".view.activities.SignInActivity"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,10 +22,12 @@
         </activity>
         <activity
             android:name=".view.activities.HomeActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
         </activity>
         <activity android:name=".view.dialog.ServiceDetailsActivity"
-            android:theme="@style/AppThemeDialog">
+            android:theme="@style/AppThemeDialog"
+            android:screenOrientation="portrait">
         </activity>
         <service android:name=".firebase.MyFirebaseMessagingService">
             <intent-filter>

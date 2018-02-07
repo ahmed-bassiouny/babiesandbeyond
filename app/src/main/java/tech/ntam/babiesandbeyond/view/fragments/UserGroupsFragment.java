@@ -190,18 +190,6 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
         });
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.e( "onResume: ","onResume: " );
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        Log.e( "onStart: ","onStart: " );
-    }
-
     private void loadGroup() {
         // check if adapter is null that mean i don't load data from backend
         // if adapter not equal null that mean i loaded data so i set it in recycler view
@@ -298,7 +286,7 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
         @Override
         public void onReceive(Context context, Intent intent) {
             String groupId = intent.getStringExtra(IntentDataKey.NOTIFICATION_ID);
-            if (groupId == null || groupId.isEmpty())
+            if (groupId == null || groupId.isEmpty() || groupItemAdapter == null)
                 return;
             String action = intent.getStringExtra(IntentDataKey.NOTIFICATION_ACTION);
             switch (action) {

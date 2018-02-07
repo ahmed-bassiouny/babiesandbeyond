@@ -14,7 +14,7 @@
         android:title="@string/babysitter"
         app:showAsAction="ifRoom"
         android:enabled="true"
-        android:icon="@drawable/workshop">
+        android:icon="@drawable/babysitter">
     </item>
     <item
         android:id="@+id/workshop"

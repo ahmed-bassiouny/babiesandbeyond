@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_margin="5dp"
     android:layout_height="wrap_content">
 
     <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -71,6 +72,7 @@
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:textColor="@color/gray_bold"
+        android:textStyle="bold"
         android:text="@string/view_details"
         android:background="@color/colorButton" />
     <View

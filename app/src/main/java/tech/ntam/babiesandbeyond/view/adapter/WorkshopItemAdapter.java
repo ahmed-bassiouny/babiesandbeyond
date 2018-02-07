@@ -77,11 +77,9 @@ public class WorkshopItemAdapter extends RecyclerView.Adapter<WorkshopItemAdapte
         holder.tvServiceStatus.setText(workshop.getWorkshopStatusName());
         if (!workshop.getWorkshopStatusName().isEmpty()) {
             holder.tvServiceStatus.setVisibility(View.VISIBLE);
-            holder.tvServiceStatus.setHeight(80);
             holder.tvServiceStatus.setBackgroundColor(activity.getResources().getColor(workshop.getWorkshopStatusColor()));
         } else {
-            holder.tvServiceStatus.setVisibility(View.INVISIBLE);
-            holder.tvServiceStatus.setHeight(5);
+            holder.tvServiceStatus.setVisibility(View.GONE);
         }
         holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override

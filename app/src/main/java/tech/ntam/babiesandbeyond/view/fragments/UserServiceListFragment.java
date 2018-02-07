@@ -154,7 +154,7 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
         @Override
         public void onReceive(Context context, Intent intent) {
             String serviceId = intent.getStringExtra(IntentDataKey.NOTIFICATION_ID);
-            if (serviceId == null || serviceId.isEmpty())
+            if (serviceId == null || serviceId.isEmpty() ||serviceItemAdapter == null)
                 return;
             String action = intent.getStringExtra(IntentDataKey.NOTIFICATION_ACTION);
             switch (action) {

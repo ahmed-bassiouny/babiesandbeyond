@@ -153,7 +153,7 @@ public class UserWorkshopListFragment extends Fragment implements ParseObject<Wo
         @Override
         public void onReceive(Context context, Intent intent) {
             String serviceId = intent.getStringExtra(IntentDataKey.NOTIFICATION_ID);
-            if (serviceId == null || serviceId.isEmpty())
+            if (serviceId == null || serviceId.isEmpty() || workshopItemAdapter == null)
                 return;
             String action = intent.getStringExtra(IntentDataKey.NOTIFICATION_ACTION);
             switch (action) {
