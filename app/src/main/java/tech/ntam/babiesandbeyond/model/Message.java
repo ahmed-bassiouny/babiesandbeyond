@@ -52,7 +52,7 @@ public class Message {
         this.userId = userId;
     }
 
-    public String getMessage() {
+    public String getTxtMessage() {
         if (txtMessage == null)
             txtMessage = "";
         return txtMessage;

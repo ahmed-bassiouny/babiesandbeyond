@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -19,6 +20,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -26,12 +28,17 @@ import com.google.firebase.storage.UploadTask;
 import com.mvc.imagepicker.ImagePicker;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.controller.activities.ChatController;
 import tech.ntam.babiesandbeyond.interfaces.ParseObject;
+import tech.ntam.babiesandbeyond.model.FirebaseRoot;
 import tech.ntam.babiesandbeyond.model.Group;
 import tech.ntam.babiesandbeyond.model.Message;
+import tech.ntam.babiesandbeyond.model.UserMessage;
 import tech.ntam.babiesandbeyond.view.adapter.ItemChatAdapter;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 import tech.ntam.mylibrary.IntentDataKey;
@@ -105,12 +112,10 @@ public class ChatActivity extends MyToolbar implements ParseObject<String> {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Message message = dataSnapshot.getValue(Message.class);
-                if(!message.getMessage().isEmpty()){
-                    itemChatAdapter.addMessage(message);
-                    recycleView.scrollToPosition(itemChatAdapter.getItemCount() - 1);
+                if(!message.getTxtMessage().isEmpty()){
+                    convertMessageToUserMessage(message);
                 }else if (!message.getImageURL().isEmpty() && imageDownloaded) {
-                    itemChatAdapter.addMessage(message);
-                    recycleView.scrollToPosition(itemChatAdapter.getItemCount() - 1);
+                    convertMessageToUserMessage(message);
                 }
             }
 
@@ -165,7 +170,7 @@ public class ChatActivity extends MyToolbar implements ParseObject<String> {
             byte[] myData = baos.toByteArray();
             // create local message
             Message message = new Message(UserSharedPref.getId(this),MyDateTimeFactor.getTimeStamp(),bitmap.getHeight(),bitmap.getWidth(),myData);
-            final int position = itemChatAdapter.addMessage(message);
+            final int position = itemChatAdapter.addMessage(new UserMessage("","",message));
             mStorageRef = FirebaseStorage.getInstance().getReference();
 
             UploadTask uploadTask = mStorageRef.child(String.valueOf(MyDateTimeFactor.getTimeStamp())).putBytes(myData);
@@ -208,6 +213,26 @@ public class ChatActivity extends MyToolbar implements ParseObject<String> {
         Intent i = new Intent(this, ViewImageActivity.class);
         i.putExtra(IntentDataKey.SHOW_IMAGE, s);
         startActivity(i);
+    }
+
+    private void convertMessageToUserMessage(final Message message){
+        // get user name and photo from firebase
+        FirebaseDatabase.getInstance().getReference()
+                .child(FirebaseRoot.USERS)
+                .child(String.valueOf(message.getUserId()))
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Map<String,String>map = (Map)dataSnapshot.getValue();
+                        itemChatAdapter.addMessage(new UserMessage(map.get("name"),map.get("photo"),message));
+                        recycleView.scrollToPosition(itemChatAdapter.getItemCount() - 1);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
     }
 
 }
