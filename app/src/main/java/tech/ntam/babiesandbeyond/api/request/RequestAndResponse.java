@@ -44,6 +44,7 @@ import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 
 public class RequestAndResponse {
     public static final String errorConnection = "Please Check Your Internet Connection!";
+    public static final String timeoutConnection = "Timeout Connection!";
 
     // base request
     private static BaseRequestInterface baseRequestInterface = ApiConfig.getRetrofit().create(BaseRequestInterface.class);

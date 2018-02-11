@@ -62,10 +62,7 @@ public class CreateGroupActivity extends MyToolbar {
                     etGroupName.setError(getString(R.string.fill_data));
                 } else if (etGroupDescription.getText().toString().trim().isEmpty()) {
                     etGroupDescription.setError(getString(R.string.fill_data));
-                } else if (photo.isEmpty()) {
-                    Toast.makeText(CreateGroupActivity.this, R.string.select_photo, Toast.LENGTH_SHORT).show();
                 } else {
-
                     final MyDialog myDialog = new MyDialog();
                     myDialog.showMyDialog(CreateGroupActivity.this);
                     new Thread(new Runnable() {
@@ -86,7 +83,7 @@ public class CreateGroupActivity extends MyToolbar {
 
                                         @Override
                                         public void onFailed(String errorMessage) {
-                                            Toast.makeText(CreateGroupActivity.this, "The name has already been taken.", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(CreateGroupActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
                                             myDialog.dismissMyDialog();
                                         }
                                     });

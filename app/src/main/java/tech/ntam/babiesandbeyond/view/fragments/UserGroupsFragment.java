@@ -62,6 +62,7 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
     private LinearLayout container;
 
     private boolean isViewShown = false;
+    private int myId;
 
     public UserGroupsFragment() {
         // Required empty public constructor
@@ -99,6 +100,7 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
         if (!isViewShown) {
             loadGroup();
         }
+        myId = UserSharedPref.getId(getContext());
     }
 
     @Override
@@ -131,7 +133,6 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
             public void onClick(View v) {
                 MyDialog myDialog = new MyDialog();
                 myDialog.showMyDialog(getActivity());
-                int myId = UserSharedPref.getId(getContext());
                 List<Group> myGroup = new ArrayList<>();
                 for (Group item : allGroups) {
                     if (item.getCreatedBy() == myId) {
@@ -210,7 +211,6 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
         RequestAndResponse.getGroups(getContext(), new BaseResponseInterface<List<Group>>() {
             @Override
             public void onSuccess(final List<Group> groups) {
-                final int myId = UserSharedPref.getId(getContext());
                 allGroups = new ArrayList<>();
                 new Thread(new Runnable() {
                     @Override
@@ -247,7 +247,7 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
 
     @Override
     public void getMyObject(Group group) {
-        if (group.getUserStatus().equals(Constant.USER_OUT_GROUP)) {
+        if (group.getUserStatus().equals(Constant.USER_OUT_GROUP)&&group.getCreatedBy()!= myId) {
             Toast.makeText(getContext(), R.string.please_join_group, Toast.LENGTH_SHORT).show();
         } else if (group.getUserStatus().equals(Constant.USER_IN_GROUP)) {
             Intent intent = new Intent(getContext(), ChatActivity.class);

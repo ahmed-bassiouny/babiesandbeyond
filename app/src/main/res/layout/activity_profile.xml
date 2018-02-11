@@ -108,6 +108,7 @@
             android:fontFamily="@font/museosans"
             android:text="@string/view_qr_code"
             android:textAllCaps="false"
+            android:visibility="gone"
             android:layout_marginBottom="30dp"/>
     </LinearLayout>
 </ScrollView>
