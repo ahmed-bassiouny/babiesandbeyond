@@ -19,8 +19,7 @@ public class Message {
 
     @SerializedName(USER_ID)
     private int userId;
-    @SerializedName(TEXT_MESSAGE)
-    private String txtMessage;
+    private String message;
     @SerializedName(TIME_STAMP)
     private long timeStamp;
     @SerializedName(IMAGE_HEIGHT)
@@ -52,14 +51,14 @@ public class Message {
         this.userId = userId;
     }
 
-    public String getTxtMessage() {
-        if (txtMessage == null)
-            txtMessage = "";
-        return txtMessage;
+    public String getMessage() {
+        if (message == null)
+            message = "";
+        return message;
     }
 
     public void setMessage(String message) {
-        this.txtMessage = message;
+        this.message = message;
     }
 
     public long getTimeStamp() {

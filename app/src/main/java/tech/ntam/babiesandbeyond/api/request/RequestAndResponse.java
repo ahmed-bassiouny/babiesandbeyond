@@ -442,6 +442,22 @@ public class RequestAndResponse {
         });
     }
 
+    public static void forgetPassword(String email, final BaseResponseInterface<String> anInterface) {
+        Call<ParentResponse> response = baseRequestInterface.forgetPassword(email);
+        response.enqueue(new Callback<ParentResponse>() {
+            @Override
+            public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {
+                checkValidResult(response.code(), response.body().getStatus()
+                        , response.body().getMessage(), response.body().getMessage(), anInterface);
+            }
+
+            @Override
+            public void onFailure(Call<ParentResponse> call, Throwable t) {
+                anInterface.onFailed(getExceptionText(t));
+            }
+        });
+    }
+
     private static String getExceptionText(Throwable t){
         if(t instanceof UnknownHostException) {
             return errorConnection;

@@ -1,10 +1,14 @@
 package tech.ntam.babiesandbeyond.view.activities;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -45,6 +49,7 @@ import tech.ntam.mylibrary.IntentDataKey;
 import tech.ntam.mylibrary.MyDateTimeFactor;
 import tech.ntam.mylibrary.MyDialog;
 import tech.ntam.mylibrary.UserSharedPref;
+import tech.ntam.mylibrary.interfaces.Constant;
 
 public class ChatActivity extends MyToolbar implements ParseObject<String> {
 
@@ -71,6 +76,7 @@ public class ChatActivity extends MyToolbar implements ParseObject<String> {
         setDataGroup();
 
     }
+
     private void setDataGroup() {
         group = getIntent().getParcelableExtra(IntentDataKey.SHOW_GROUP_DATA_KEY);
         if (group == null)
@@ -105,6 +111,7 @@ public class ChatActivity extends MyToolbar implements ParseObject<String> {
     protected void onStop() {
         super.onStop();
         getController().getGroupReference().removeEventListener(childEventListener);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
     }
 
     private ChildEventListener getChildEventListener() {
@@ -112,9 +119,9 @@ public class ChatActivity extends MyToolbar implements ParseObject<String> {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Message message = dataSnapshot.getValue(Message.class);
-                if(!message.getTxtMessage().isEmpty()){
+                if (!message.getMessage().isEmpty()) {
                     convertMessageToUserMessage(message);
-                }else if (!message.getImageURL().isEmpty() && imageDownloaded) {
+                } else if (!message.getImageURL().isEmpty() && imageDownloaded) {
                     convertMessageToUserMessage(message);
                 }
             }
@@ -169,8 +176,8 @@ public class ChatActivity extends MyToolbar implements ParseObject<String> {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
             byte[] myData = baos.toByteArray();
             // create local message
-            Message message = new Message(UserSharedPref.getId(this),MyDateTimeFactor.getTimeStamp(),bitmap.getHeight(),bitmap.getWidth(),myData);
-            final int position = itemChatAdapter.addMessage(new UserMessage("","",message));
+            Message message = new Message(UserSharedPref.getId(this), MyDateTimeFactor.getTimeStamp(), bitmap.getHeight(), bitmap.getWidth(), myData);
+            final int position = itemChatAdapter.addMessage(new UserMessage("", "", message));
             mStorageRef = FirebaseStorage.getInstance().getReference();
 
             UploadTask uploadTask = mStorageRef.child(String.valueOf(MyDateTimeFactor.getTimeStamp())).putBytes(myData);
@@ -187,7 +194,7 @@ public class ChatActivity extends MyToolbar implements ParseObject<String> {
                     Uri downloadUrl = taskSnapshot.getDownloadUrl();
                     getController().createImageMessage(downloadUrl.toString(), bitmap.getWidth(), bitmap.getHeight());
                     imageDownloaded = false;
-                    itemChatAdapter.updateMessageUrl(downloadUrl.toString(),position);
+                    itemChatAdapter.updateMessageUrl(downloadUrl.toString(), position);
                 }
             });
         }
@@ -215,7 +222,7 @@ public class ChatActivity extends MyToolbar implements ParseObject<String> {
         startActivity(i);
     }
 
-    private void convertMessageToUserMessage(final Message message){
+    private void convertMessageToUserMessage(final Message message) {
         // get user name and photo from firebase
         FirebaseDatabase.getInstance().getReference()
                 .child(FirebaseRoot.USERS)
@@ -223,8 +230,8 @@ public class ChatActivity extends MyToolbar implements ParseObject<String> {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        Map<String,String>map = (Map)dataSnapshot.getValue();
-                        itemChatAdapter.addMessage(new UserMessage(map.get("name"),map.get("photo"),message));
+                        Map<String, String> map = (Map) dataSnapshot.getValue();
+                        itemChatAdapter.addMessage(new UserMessage(map.get("name"), map.get("photo"), message));
                         recycleView.scrollToPosition(itemChatAdapter.getItemCount() - 1);
                     }
 
@@ -234,5 +241,28 @@ public class ChatActivity extends MyToolbar implements ParseObject<String> {
                     }
                 });
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        LocalBroadcastManager.getInstance(this).registerReceiver((mMessageReceiver),
+                new IntentFilter(IntentDataKey.NOTIFICATION_GROUP));
+    }
+
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String groupId = intent.getStringExtra(IntentDataKey.NOTIFICATION_ID);
+            if (groupId == null || groupId.isEmpty())
+                return;
+            String action = intent.getStringExtra(IntentDataKey.NOTIFICATION_ACTION);
+            //                  group from notification equal this group   delete group    delete user
+            if (groupId.equals(String.valueOf(group.getId())) && (action.equals("5")||action.equals("4"))) {
+                Toast.makeText(context, "Group Deleted", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+
+        }
+    };
 
 }

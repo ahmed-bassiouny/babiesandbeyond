@@ -64,6 +64,8 @@ public interface BaseRequestInterface {
     String LOGOUT = "logout";
     String STAFF_TASK = "staff_schedule_and_tasks";
     String RATE = "staff_rate_and_comment";
+    String FORGET_PASSWORD = "forget_password";
+
 
     @FormUrlEncoded
     @POST(LOGIN)
@@ -214,4 +216,9 @@ public interface BaseRequestInterface {
                                       @Field(RateRequest.SERVICE_ID) int taskId,
                                       @Field(RateRequest.COMMENT) String comment,
                                       @Field(RateRequest.RATE) int rate);
+
+
+    @FormUrlEncoded
+    @POST(FORGET_PASSWORD)
+    Call<ParentResponse> forgetPassword(@Field(LoginRequest.EMAIL) String email);
 }

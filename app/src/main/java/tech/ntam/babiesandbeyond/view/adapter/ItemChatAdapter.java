@@ -54,7 +54,7 @@ public class ItemChatAdapter extends RecyclerView.Adapter<ItemChatAdapter.CutomV
     public void onBindViewHolder(ItemChatAdapter.CutomViewHolder holder, int position) {
 
         final UserMessage userMessage= myarraylist.get(position);
-        holder.message.setText(userMessage.getMessage().getTxtMessage());
+        holder.message.setText(userMessage.getMessage().getMessage());
 
         if(userMessage.getMessage().getImageURL().isEmpty() && userMessage.getMessage().bytes == null){
             holder.ivPhoto.setVisibility(View.GONE);
