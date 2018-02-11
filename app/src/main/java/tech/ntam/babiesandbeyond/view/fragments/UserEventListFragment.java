@@ -115,6 +115,7 @@ public class UserEventListFragment extends Fragment implements ParseObject<Event
                 progress.setVisibility(View.INVISIBLE);
                 noInternet.setVisibility(View.VISIBLE);
                 btnNoInternet.setVisibility(View.VISIBLE);
+                noInternet.setText(errorMessage);
             }
         });
     }

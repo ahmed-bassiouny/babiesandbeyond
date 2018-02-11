@@ -63,6 +63,7 @@ public class AboutUsActivity extends MyToolbar {
             public void onFailed(String errorMessage) {
                 noInternet.setVisibility(View.VISIBLE);
                 btnNoInternet.setVisibility(View.VISIBLE);
+                noInternet.setText(errorMessage);
                 myDialog.dismissMyDialog();
             }
         });

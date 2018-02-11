@@ -30,7 +30,7 @@ public class ApiConfig {
             OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor)
                     .connectTimeout(20, TimeUnit.SECONDS)
                     .readTimeout(20, TimeUnit.SECONDS)
-                    .writeTimeout(600, TimeUnit.SECONDS).build();
+                    .writeTimeout(60, TimeUnit.SECONDS).build();
 
             Gson gson = new GsonBuilder()
                     .setLenient()

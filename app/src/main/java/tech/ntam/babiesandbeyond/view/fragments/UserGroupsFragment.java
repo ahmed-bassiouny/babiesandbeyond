@@ -240,7 +240,7 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
                 progress.setVisibility(View.GONE);
                 noInternet.setVisibility(View.VISIBLE);
                 btnNoInternet.setVisibility(View.VISIBLE);
-
+                noInternet.setText(errorMessage);
             }
         });
     }

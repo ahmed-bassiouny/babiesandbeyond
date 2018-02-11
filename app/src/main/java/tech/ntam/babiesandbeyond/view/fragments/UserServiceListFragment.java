@@ -214,6 +214,7 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
                 progress.setVisibility(View.INVISIBLE);
                 noInternet.setVisibility(View.VISIBLE);
                 btnNoInternet.setVisibility(View.VISIBLE);
+                noInternet.setText(errorMessage);
             }
         });
     }
