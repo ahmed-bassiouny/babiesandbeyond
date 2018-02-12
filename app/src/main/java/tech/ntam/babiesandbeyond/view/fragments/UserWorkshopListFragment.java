@@ -130,6 +130,7 @@ public class UserWorkshopListFragment extends Fragment implements ParseObject<Wo
                 recycleView.setAdapter(workshopItemAdapter);
                 progress.setVisibility(View.INVISIBLE);
                 recycleView.setVisibility(View.VISIBLE);
+                swipeRefreshLayout.setEnabled(true);
             }
 
             @Override
@@ -137,6 +138,7 @@ public class UserWorkshopListFragment extends Fragment implements ParseObject<Wo
                 progress.setVisibility(View.INVISIBLE);
                 noInternet.setVisibility(View.VISIBLE);
                 btnNoInternet.setVisibility(View.VISIBLE);
+                swipeRefreshLayout.setEnabled(false);
             }
         });
     }

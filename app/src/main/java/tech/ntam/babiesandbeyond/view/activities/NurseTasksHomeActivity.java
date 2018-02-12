@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ public class NurseTasksHomeActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private TaskItemAdapter adapter;
     protected TextView tvTitle;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,7 @@ public class NurseTasksHomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_nurse_tasks_home);
         tvTitle = findViewById(R.id.toolbar_title);
         recyclerView = findViewById(R.id.recycle_view);
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
 
         tvTitle.setText(R.string.schedule);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -45,12 +48,14 @@ public class NurseTasksHomeActivity extends AppCompatActivity {
             public void onSuccess(List<Task> tasks) {
                 adapter = new TaskItemAdapter(NurseTasksHomeActivity.this,tasks);
                 recyclerView.setAdapter(adapter);
+                swipeRefreshLayout.setEnabled(true);
                 dialog.dismissMyDialog();
             }
 
             @Override
             public void onFailed(String errorMessage) {
                 Toast.makeText(NurseTasksHomeActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                swipeRefreshLayout.setEnabled(false);
                 dialog.dismissMyDialog();
             }
         });
@@ -87,6 +92,24 @@ public class NurseTasksHomeActivity extends AppCompatActivity {
                         })
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .show();
+            }
+        });
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                RequestAndResponse.getTasks(NurseTasksHomeActivity.this, new BaseResponseInterface<List<Task>>() {
+                    @Override
+                    public void onSuccess(List<Task> tasks) {
+                        adapter.updateTask(tasks);
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+
+                    @Override
+                    public void onFailed(String errorMessage) {
+                        Toast.makeText(NurseTasksHomeActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                });
             }
         });
     }

@@ -99,4 +99,10 @@ public class TaskItemAdapter extends RecyclerView.Adapter<TaskItemAdapter.MyView
             }
         }
     }
+
+    public void updateTask(List<Task> tasks) {
+        this.tasks = tasks;
+        notifyDataSetChanged();
+    }
+
 }
