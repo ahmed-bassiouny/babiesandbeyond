@@ -8,4 +8,5 @@ import tech.ntam.babiesandbeyond.api.api_model.response.ParentResponse;
 
 public class UpdatePasswordRequest extends ParentRequest {
     public static final String PASSWORD = "password";
+    public static final String OLD_PASSWORD = "old_password";
 }

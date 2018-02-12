@@ -131,7 +131,8 @@ public interface BaseRequestInterface {
     @POST(UPDATE_PASSWORD)
     Call<ParentResponse> updatePassword(@Header(AUTHORIZATION) String token,
                                         @Field(UpdatePasswordRequest.USER_ID) int userId,
-                                        @Field(UpdatePasswordRequest.PASSWORD) String password);
+                                        @Field(UpdatePasswordRequest.PASSWORD) String password,
+                                        @Field(UpdatePasswordRequest.OLD_PASSWORD) String oldPassword);
 
     @FormUrlEncoded
     @Headers(HEADER_KEY)

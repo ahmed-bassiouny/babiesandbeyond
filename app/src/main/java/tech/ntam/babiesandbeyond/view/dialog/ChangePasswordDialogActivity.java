@@ -14,7 +14,7 @@ import tech.ntam.mylibrary.MyDialog;
 
 public class ChangePasswordDialogActivity extends AppCompatActivity {
 
-    private EditText etPassword, etConfirmPassword;
+    private EditText etPassword, etConfirmPassword, etOldPassword;
     private Button btnSubmit, btnCancel;
 
     @Override
@@ -29,14 +29,17 @@ public class ChangePasswordDialogActivity extends AppCompatActivity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(etPassword.getText().toString().length()<6){
+                if (etOldPassword.getText().toString().length() < 6) {
+                    etOldPassword.setError(getString(R.string.invalid_password));
+                }
+                if (etPassword.getText().toString().length() < 6) {
                     etPassword.setError(getString(R.string.invalid_password));
-                }else if(!etPassword.getText().toString().equals(etConfirmPassword.getText().toString())){
+                } else if (!etPassword.getText().toString().equals(etConfirmPassword.getText().toString())) {
                     etConfirmPassword.setError(getString(R.string.invalid_confirm_password));
-                }else {
+                } else {
                     final MyDialog myDialog = new MyDialog();
                     myDialog.showMyDialog(ChangePasswordDialogActivity.this);
-                    RequestAndResponse.updatePassword(ChangePasswordDialogActivity.this, etPassword.getText().toString(), new BaseResponseInterface<String>() {
+                    RequestAndResponse.updatePassword(ChangePasswordDialogActivity.this, etPassword.getText().toString(), etOldPassword.getText().toString(), new BaseResponseInterface<String>() {
                         @Override
                         public void onSuccess(String s) {
                             myDialog.dismissMyDialog();
@@ -66,5 +69,6 @@ public class ChangePasswordDialogActivity extends AppCompatActivity {
         etConfirmPassword = findViewById(R.id.et_confirm_password);
         btnSubmit = findViewById(R.id.btn_submit);
         btnCancel = findViewById(R.id.btn_cancel);
+        etOldPassword = findViewById(R.id.et_old_password);
     }
 }

@@ -210,11 +210,11 @@ public class RequestAndResponse {
         });
     }
 
-    public static void updatePassword(Context context, String password, final BaseResponseInterface<String> anInterface) {
+    public static void updatePassword(Context context, String password,String oldPassword, final BaseResponseInterface<String> anInterface) {
         Call<ParentResponse> response = baseRequestInterface.updatePassword(
                 UserSharedPref.getTokenWithHeader(context),
                 UserSharedPref.getId(context),
-                password);
+                password,oldPassword);
         response.enqueue(new Callback<ParentResponse>() {
             @Override
             public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {
