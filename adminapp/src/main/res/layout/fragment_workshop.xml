@@ -39,40 +39,47 @@
             android:text="@string/workshop_list" />
     </info.hoang8f.android.segmented.SegmentedGroup>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swpie_refresh_layout"
         android:layout_width="match_parent"
-        android:visibility="gone"
-        android:layout_below="@+id/segmented2"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/segmented2"
+            android:visibility="gone" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <ProgressBar
+        android:id="@+id/progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/progress"
-        android:visibility="invisible"
         android:layout_centerInParent="true"
         android:layout_gravity="center"
-        android:background="@drawable/progress" />
+        android:background="@drawable/progress"
+        android:visibility="invisible" />
 
     <TextView
         android:id="@+id/no_internet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:visibility="invisible"
         android:gravity="center"
         android:text="@string/no_internet"
         android:textColor="@color/gray_bold"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:visibility="invisible" />
+
     <Button
+        android:id="@+id/btn_no_internet"
         android:layout_width="100dp"
         android:layout_height="45dp"
-        android:id="@+id/btn_no_internet"
-        android:text="@string/retry"
-        android:textSize="16sp"
-        android:layout_marginTop="10dp"
         android:layout_below="@+id/no_internet"
         android:layout_centerInParent="true"
-        android:visibility="invisible"/>
+        android:layout_marginTop="10dp"
+        android:text="@string/retry"
+        android:textSize="16sp"
+        android:visibility="invisible" />
 </RelativeLayout>

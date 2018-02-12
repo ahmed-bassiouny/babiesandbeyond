@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -40,6 +41,7 @@ public class WorkshopFragment extends Fragment {
     private WorkshopListItemAdapter workshopListItemAdapter;
     private RadioButton btnRequest;
     private RadioButton btnList;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     public static WorkshopFragment newInstance() {
         if (workshopFragment == null)
@@ -68,6 +70,7 @@ public class WorkshopFragment extends Fragment {
         btnNoInternet = view.findViewById(R.id.btn_no_internet);
         btnRequest = view.findViewById(R.id.btn_request);
         btnList = view.findViewById(R.id.btn_list);
+        swipeRefreshLayout = view.findViewById(R.id.swpie_refresh_layout);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         btnRequest.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +89,12 @@ public class WorkshopFragment extends Fragment {
             public void onClick(View v) {
                 btnRequest.setChecked(true);
                 fetchWorkshopList();
+            }
+        });
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
             }
         });
         fetchWorkshopList();

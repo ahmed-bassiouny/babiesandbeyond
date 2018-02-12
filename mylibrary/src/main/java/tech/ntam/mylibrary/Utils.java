@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.MultiTransformation;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
@@ -52,7 +53,7 @@ public class Utils {
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
     public static final String errorConnection = "Please Check Your Internet Connection!";
-    public static final String timeoutConnection = "Timeout Connection!";
+    public static final String timeoutConnection = "The connection has timed out!";
     public static final String connectToServerFailed = "Can't Connect To Server";
 
     // value => i will send string from activity to another
@@ -103,16 +104,18 @@ public class Utils {
     }
 
 
-
     public static void MyGlide(Activity activity, ImageView imageView, String url) {
         Glide.with(activity).load(url).placeholder(R.drawable.person).dontAnimate().centerCrop().into(imageView);
     }
+
     public static void MyGlidePlaceholder(Activity activity, ImageView imageView, String url) {
         Glide.with(activity).load(url).placeholder(R.drawable.placeholder).dontAnimate().into(imageView);
     }
+
     public static void MyGlideGroup(Activity activity, ImageView imageView, String url) {
         Glide.with(activity).load(url).placeholder(R.drawable.group).dontAnimate().centerCrop().into(imageView);
     }
+
     public static void MyGlideRounded(Activity activity, ImageView imageView, String url, final ProgressBar progressBar) {
         progressBar.setVisibility(View.VISIBLE);
         Glide.with(activity)
@@ -120,7 +123,7 @@ public class Utils {
                 .placeholder(R.color.colorAccent)
                 .fitCenter()
                 .dontAnimate()
-                .bitmapTransform(new RoundedCornersTransformation( activity,25, 10))
+                .bitmapTransform(new RoundedCornersTransformation(activity, 25, 10))
                 .listener(new RequestListener<String, GlideDrawable>() {
                     @Override
                     public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
@@ -135,13 +138,14 @@ public class Utils {
                 })
                 .into(imageView);
     }
+
     public static void MyGlideRounded(Activity activity, ImageView imageView, byte[] bytes) {
         Glide.with(activity)
                 .load(bytes)
                 .placeholder(R.color.off_white)
                 .fitCenter()
                 .dontAnimate()
-                .bitmapTransform(new RoundedCornersTransformation( activity,25, 10))
+                .bitmapTransform(new RoundedCornersTransformation(activity, 25, 10))
                 .into(imageView);
     }
 
@@ -170,15 +174,15 @@ public class Utils {
         }).start();
     }
 
-    public static String getExceptionText(Throwable t){
-        if(t instanceof UnknownHostException) {
+    public static String getExceptionText(Throwable t) {
+        if (t instanceof UnknownHostException) {
             return errorConnection;
-        }else if(t instanceof SocketException){
+        } else if (t instanceof SocketException) {
             return connectToServerFailed;
-        }else if(t instanceof TimeoutException){
+        } else if (t instanceof TimeoutException) {
             // timeout
             return timeoutConnection;
-        }else {
+        } else {
             return t.getLocalizedMessage();
         }
     }
