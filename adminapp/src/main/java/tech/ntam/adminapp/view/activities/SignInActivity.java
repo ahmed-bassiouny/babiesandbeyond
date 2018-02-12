@@ -51,6 +51,12 @@ public class SignInActivity extends AppCompatActivity {
                 }
             }
         });
+        findViewById(R.id.tv_forget_password).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SignInActivity.this, ForgetPasswordActivity.class));
+            }
+        });
     }
 
     public void SignIn(String email, String password) {

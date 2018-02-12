@@ -11,6 +11,7 @@ import tech.ntam.adminapp.model.Staff;
 import tech.ntam.adminapp.model.User;
 import tech.ntam.adminapp.model.Workshop;
 import tech.ntam.mylibrary.UserSharedPref;
+import tech.ntam.mylibrary.Utils;
 import tech.ntam.mylibrary.apiCongif.ApiConfig;
 import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 
@@ -19,7 +20,6 @@ import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
  */
 
 public class RequestAndResponse {
-    public static final String errorConnection = "Please Check Your Internet Connection!";
 
     // base request
     private static BaseRequestInterface baseRequestInterface = ApiConfig.getRetrofit().create(BaseRequestInterface.class);
@@ -50,7 +50,7 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
-                anInterface.onFailed(errorConnection);
+                anInterface.onFailed(Utils.getExceptionText(t));
             }
         });
     }
@@ -66,7 +66,7 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<StaffResponse> call, Throwable t) {
-                anInterface.onFailed(errorConnection);
+                anInterface.onFailed(Utils.getExceptionText(t));
             }
         });
     }
@@ -82,7 +82,22 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<WorkshopListResponse> call, Throwable t) {
-                anInterface.onFailed(errorConnection);
+                anInterface.onFailed(Utils.getExceptionText(t));
+            }
+        });
+    }
+    public static void forgetPassword(String email, final BaseResponseInterface<String> anInterface) {
+        Call<ParentResponse> response = baseRequestInterface.forgetPassword(email);
+        response.enqueue(new Callback<ParentResponse>() {
+            @Override
+            public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {
+                checkValidResult(response.code(), response.body().getStatus()
+                        , response.body().getMessage(), response.body().getMessage(), anInterface);
+            }
+
+            @Override
+            public void onFailure(Call<ParentResponse> call, Throwable t) {
+                anInterface.onFailed(Utils.getExceptionText(t));
             }
         });
     }

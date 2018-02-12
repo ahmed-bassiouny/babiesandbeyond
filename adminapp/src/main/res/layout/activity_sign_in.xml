@@ -67,4 +67,13 @@
         android:fontFamily="@font/museosans"
         android:text="@string/sign_in"
         android:textAllCaps="false" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:id="@+id/tv_forget_password"
+        android:fontFamily="@font/museosans"
+        android:layout_marginTop="20dp"
+        android:text="@string/forget_password" />
 </LinearLayout>

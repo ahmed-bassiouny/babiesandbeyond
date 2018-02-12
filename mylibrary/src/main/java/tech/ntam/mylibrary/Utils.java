@@ -28,12 +28,15 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.bumptech.glide.request.target.Target;
 
 import java.io.ByteArrayOutputStream;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.concurrent.TimeoutException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -48,6 +51,9 @@ public class Utils {
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
+    public static final String errorConnection = "Please Check Your Internet Connection!";
+    public static final String timeoutConnection = "Timeout Connection!";
+    public static final String connectToServerFailed = "Can't Connect To Server";
 
     // value => i will send string from activity to another
     public static void goToFragment(int container, FragmentActivity fragmentActivity,
@@ -162,6 +168,19 @@ public class Utils {
                 processInterface.completed(encoded);
             }
         }).start();
+    }
+
+    public static String getExceptionText(Throwable t){
+        if(t instanceof UnknownHostException) {
+            return errorConnection;
+        }else if(t instanceof SocketException){
+            return connectToServerFailed;
+        }else if(t instanceof TimeoutException){
+            // timeout
+            return timeoutConnection;
+        }else {
+            return t.getLocalizedMessage();
+        }
     }
 
 

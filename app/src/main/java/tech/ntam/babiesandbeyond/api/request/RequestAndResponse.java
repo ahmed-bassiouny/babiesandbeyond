@@ -3,6 +3,7 @@ package tech.ntam.babiesandbeyond.api.request;
 import android.content.Context;
 import android.util.Log;
 
+
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.List;
@@ -38,6 +39,7 @@ import tech.ntam.babiesandbeyond.model.UserData;
 import tech.ntam.babiesandbeyond.model.UserService;
 import tech.ntam.babiesandbeyond.model.Workshop;
 import tech.ntam.mylibrary.UserSharedPref;
+import tech.ntam.mylibrary.Utils;
 import tech.ntam.mylibrary.apiCongif.ApiConfig;
 import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 
@@ -46,9 +48,6 @@ import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
  */
 
 public class RequestAndResponse {
-    public static final String errorConnection = "Please Check Your Internet Connection!";
-    public static final String timeoutConnection = "Timeout Connection!";
-    public static final String connectToServerFailed = "Can't Connect To Server";
 
     // base request
     private static BaseRequestInterface baseRequestInterface = ApiConfig.getRetrofit().create(BaseRequestInterface.class);
@@ -79,7 +78,7 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
-                anInterface.onFailed(getExceptionText(t));
+                anInterface.onFailed(Utils.getExceptionText(t));
             }
         });
     }
@@ -95,7 +94,7 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<RegisterResponse> call, Throwable t) {
-                anInterface.onFailed(getExceptionText(t));
+                anInterface.onFailed(Utils.getExceptionText(t));
             }
         });
     }
@@ -111,7 +110,7 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<EventsResponse> call, Throwable t) {
-                anInterface.onFailed(getExceptionText(t));
+                anInterface.onFailed(Utils.getExceptionText(t));
             }
         });
     }
@@ -130,7 +129,7 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<AddServiceResponse> call, Throwable t) {
-                anInterface.onFailed(getExceptionText(t));
+                anInterface.onFailed(Utils.getExceptionText(t));
             }
         });
     }
@@ -148,7 +147,7 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<MyServiceResponse> call, Throwable t) {
-                anInterface.onFailed(getExceptionText(t));
+                anInterface.onFailed(Utils.getExceptionText(t));
             }
         });
     }
@@ -169,7 +168,7 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<ParentResponse> call, Throwable t) {
-                anInterface.onFailed(getExceptionText(t));
+                anInterface.onFailed(Utils.getExceptionText(t));
             }
         });
     }
@@ -187,7 +186,7 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<GroupResponse> call, Throwable t) {
-                anInterface.onFailed(getExceptionText(t));
+                anInterface.onFailed(Utils.getExceptionText(t));
             }
         });
     }
@@ -205,7 +204,7 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<ProfileResponse> call, Throwable t) {
-                anInterface.onFailed(getExceptionText(t));
+                anInterface.onFailed(Utils.getExceptionText(t));
             }
         });
     }
@@ -224,7 +223,7 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<ParentResponse> call, Throwable t) {
-                anInterface.onFailed(getExceptionText(t));
+                anInterface.onFailed(Utils.getExceptionText(t));
             }
         });
     }
@@ -242,7 +241,7 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<HistoryResponse> call, Throwable t) {
-                anInterface.onFailed(getExceptionText(t));
+                anInterface.onFailed(Utils.getExceptionText(t));
             }
         });
     }
@@ -261,7 +260,7 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<ParentResponse> call, Throwable t) {
-                anInterface.onFailed(getExceptionText(t));
+                anInterface.onFailed(Utils.getExceptionText(t));
             }
         });
     }
@@ -280,7 +279,7 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<CreateGroupResponse> call, Throwable t) {
-                anInterface.onFailed(getExceptionText(t));
+                anInterface.onFailed(Utils.getExceptionText(t));
             }
         });
     }
@@ -298,7 +297,7 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<WorkshopResponse> call, Throwable t) {
-                anInterface.onFailed(getExceptionText(t));
+                anInterface.onFailed(Utils.getExceptionText(t));
             }
         });
     }
@@ -316,7 +315,7 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<ParentResponse> call, Throwable t) {
-                anInterface.onFailed(getExceptionText(t));
+                anInterface.onFailed(Utils.getExceptionText(t));
             }
         });
     }
@@ -334,7 +333,7 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<ParentResponse> call, Throwable t) {
-                anInterface.onFailed(getExceptionText(t));
+                anInterface.onFailed(Utils.getExceptionText(t));
             }
         });
     }
@@ -350,7 +349,7 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<AboutResponse> call, Throwable t) {
-                anInterface.onFailed(getExceptionText(t));
+                anInterface.onFailed(Utils.getExceptionText(t));
             }
         });
     }
@@ -368,7 +367,7 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<AddWorkshopResponse> call, Throwable t) {
-                anInterface.onFailed(getExceptionText(t));
+                anInterface.onFailed(Utils.getExceptionText(t));
             }
         });
     }
@@ -387,7 +386,7 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<NotificationResponse> call, Throwable t) {
-                anInterface.onFailed(getExceptionText(t));
+                anInterface.onFailed(Utils.getExceptionText(t));
             }
         });
     }
@@ -403,7 +402,7 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<ParentResponse> call, Throwable t) {
-                anInterface.onFailed(getExceptionText(t));
+                anInterface.onFailed(Utils.getExceptionText(t));
             }
         });
     }
@@ -420,7 +419,7 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<StaffTasksResponse> call, Throwable t) {
-                anInterface.onFailed(getExceptionText(t));
+                anInterface.onFailed(Utils.getExceptionText(t));
             }
         });
     }
@@ -437,7 +436,7 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<ParentResponse> call, Throwable t) {
-                anInterface.onFailed(getExceptionText(t));
+                anInterface.onFailed(Utils.getExceptionText(t));
             }
         });
     }
@@ -453,21 +452,9 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<ParentResponse> call, Throwable t) {
-                anInterface.onFailed(getExceptionText(t));
+                anInterface.onFailed(Utils.getExceptionText(t));
             }
         });
     }
 
-    private static String getExceptionText(Throwable t){
-        if(t instanceof UnknownHostException) {
-            return errorConnection;
-        }else if(t instanceof SocketException){
-            return connectToServerFailed;
-        }else if(t instanceof TimeoutException){
-            // timeout
-            return timeoutConnection;
-        }else {
-            return t.getLocalizedMessage();
-        }
-    }
 }

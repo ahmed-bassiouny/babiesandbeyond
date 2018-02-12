@@ -18,6 +18,7 @@ public interface BaseRequestInterface {
     String LOGIN = "login";
     String STAFF_REQUESTS = "staff_requests";
     String WORKSHOP_LIST = "admin_workshops";
+    String FORGET_PASSWORD = "forget_password";
 
 
     @FormUrlEncoded
@@ -40,5 +41,7 @@ public interface BaseRequestInterface {
     Call<WorkshopListResponse> getWorkshopLList(@Header(AUTHORIZATION) String token,
                                          @Field("admin_id") int adminId);
 
-
+    @FormUrlEncoded
+    @POST(FORGET_PASSWORD)
+    Call<ParentResponse> forgetPassword(@Field(LoginRequest.EMAIL) String email);
 }

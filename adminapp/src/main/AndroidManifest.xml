@@ -24,11 +24,11 @@
         <activity
             android:name=".view.activities.HomeActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.dialog.ServiceDetailsActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemeDialog"></activity>
+            android:theme="@style/AppThemeDialog" />
 
         <service android:name=".firebase.MyFirebaseMessagingService">
             <intent-filter>
@@ -45,7 +45,10 @@
             android:name="io.fabric.ApiKey"
             android:value="a07905da1fb4c784f0369b04a71691297ca15843" />
 
-        <activity android:name=".view.activities.TaskAssigmentActivity"></activity>
+        <activity android:name=".view.activities.TaskAssigmentActivity" />
+        <activity
+            android:name=".view.activities.ForgetPasswordActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
