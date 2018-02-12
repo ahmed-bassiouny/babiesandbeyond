@@ -115,8 +115,8 @@ public class UserSendRequestActivity extends MyToolbar {
         }  else if (MyDateTimeFactor.convertStringToDate(etChooseDateTo.getText().toString()).before(MyDateTimeFactor.convertStringToDate(etChooseDateFrom.getText().toString()))) {
             Toast.makeText(this, R.string.invalid_Date, Toast.LENGTH_SHORT).show();
         }else {
-            getController().saveData(getController().getIdFromSpinner(spService.getSelectedItem().toString())
-                    , etChooseDateFrom.getText().toString(), etChooseDateTo.getText().toString(), etLocation.getText().toString());
+            /*getController().saveData(getController().getIdFromSpinner(spService.getSelectedItem().toString())
+                    , etChooseDateFrom.getText().toString(), etChooseDateTo.getText().toString(), etLocation.getText().toString());*/
         }
     }
 }

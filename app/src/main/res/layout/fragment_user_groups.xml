@@ -11,24 +11,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:visibility="visible"
-        android:gravity="center"
         android:layout_gravity="center"
+        android:gravity="center"
         android:text="@string/no_internet"
         android:textColor="@color/gray_bold"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:visibility="visible" />
+
     <Button
+        android:id="@+id/btn_no_internet"
         android:layout_width="100dp"
         android:layout_height="45dp"
-        android:id="@+id/btn_no_internet"
+        android:layout_below="@+id/no_internet"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
         android:text="@string/retry"
         android:textSize="16sp"
-        android:layout_gravity="center"
-        android:layout_below="@+id/no_internet"
-        android:gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_centerInParent="true"
-        android:visibility="visible"/>
+        android:visibility="visible" />
 
     <ProgressBar
         android:id="@+id/progress"
@@ -37,12 +38,13 @@
         android:layout_centerInParent="true"
         android:background="@drawable/progress"
         android:visibility="gone" />
+
     <LinearLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:visibility="gone"
-        android:id="@+id/container">
+        android:visibility="gone">
 
         <info.hoang8f.android.segmented.SegmentedGroup xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
             android:id="@+id/segmented2"
@@ -112,6 +114,10 @@
             android:layout_marginTop="10dp"
             android:background="@color/off_white" />
 
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycle_view"
@@ -121,5 +127,6 @@
                 android:layout_marginEnd="5dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp" />
+        </android.support.v4.widget.SwipeRefreshLayout>
     </LinearLayout>
 </RelativeLayout>

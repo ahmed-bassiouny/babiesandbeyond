@@ -82,14 +82,14 @@ public class UserSendRequestController {
         // ex nurse , midwife,babysitting
 
         /* this list temp*/
-        List<String> list = new ArrayList<String>();
+       /* List<String> list = new ArrayList<String>();
         for (ServiceType item : ServiceTypeList.getServiceTypes()) {
             list.add(item.getName());
         }
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(activity,
                 android.R.layout.simple_spinner_item, list);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(dataAdapter);
+        spinner.setAdapter(dataAdapter);*/
     }
 
     public void saveData(int serviceTypeId, String startDate, String endDate, String location) {
@@ -115,7 +115,7 @@ public class UserSendRequestController {
         });
     }
 
-    public int getIdFromSpinner(String text) {
+   /* public int getIdFromSpinner(String text) {
         int result = 0;
         // TODO :i will copy that to service Type database
         for (ServiceType item : ServiceTypeList.getServiceTypes()) {
@@ -125,7 +125,7 @@ public class UserSendRequestController {
             }
         }
         return result;
-    }
+    }*/
 
     private String getValueDateDigit(int value) {
         if (value < 10)

@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.w9jds.FloatingActionMenu;
@@ -55,6 +57,7 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
 
     private TextView noInternet;
     private Button btnNoInternet;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     public UserServiceListFragment() {
         // Required empty public constructor
@@ -84,6 +87,7 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
         progress = view.findViewById(R.id.progress);
         noInternet = view.findViewById(R.id.no_internet);
         btnNoInternet = view.findViewById(R.id.btn_no_internet);
+        swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recycleView.setLayoutManager(linearLayoutManager);
         if (!isViewShown) {
@@ -126,7 +130,26 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
                 loadService();
             }
         });
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                RequestAndResponse.getMyService(getContext(), new BaseResponseInterface<UserService>() {
+                    @Override
+                    public void onSuccess(UserService userService) {
+                        serviceItemAdapter.updateServices(userService.getServices());
+                        swipeRefreshLayout.setRefreshing(false);
 
+                    }
+
+                    @Override
+                    public void onFailed(String errorMessage) {
+                        Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
+                        swipeRefreshLayout.setRefreshing(false);
+
+                    }
+                });
+            }
+        });
     }
 
     @Override
@@ -134,7 +157,6 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
         super.onPause();
         if (multipleActions.isOpened())
             multipleActions.close();
-
     }
 
     @Override
@@ -154,7 +176,7 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
         @Override
         public void onReceive(Context context, Intent intent) {
             String serviceId = intent.getStringExtra(IntentDataKey.NOTIFICATION_ID);
-            if (serviceId == null || serviceId.isEmpty() ||serviceItemAdapter == null)
+            if (serviceId == null || serviceId.isEmpty() || serviceItemAdapter == null)
                 return;
             String action = intent.getStringExtra(IntentDataKey.NOTIFICATION_ACTION);
             switch (action) {
@@ -201,11 +223,11 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
             @Override
             public void onSuccess(UserService userService) {
                 if (userService != null) {
-                    ServiceTypeList.setServiceTypes(userService.getServiceTypes());
-                    serviceItemAdapter = new ServiceItemAdapter(getActivity() , UserServiceListFragment.this, userService.getServices());
+                    serviceItemAdapter = new ServiceItemAdapter(getActivity(), UserServiceListFragment.this, userService.getServices());
                     recycleView.setAdapter(serviceItemAdapter);
                     progress.setVisibility(View.INVISIBLE);
                     recycleView.setVisibility(View.VISIBLE);
+                    swipeRefreshLayout.setEnabled(true);
                 }
             }
 
@@ -214,6 +236,7 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
                 progress.setVisibility(View.INVISIBLE);
                 noInternet.setVisibility(View.VISIBLE);
                 btnNoInternet.setVisibility(View.VISIBLE);
+                swipeRefreshLayout.setEnabled(false);
                 noInternet.setText(errorMessage);
             }
         });

@@ -136,4 +136,8 @@ public class ServiceItemAdapter extends RecyclerView.Adapter<ServiceItemAdapter.
             }
         }).start();
     }
+    public void updateServices(List<Service> services) {
+        this.services = services;
+        notifyDataSetChanged();
+    }
 }

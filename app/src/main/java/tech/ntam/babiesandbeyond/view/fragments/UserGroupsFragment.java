@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -48,7 +49,6 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
 
 
     private RadioButton btnAllGroups;
-    private RadioButton btnMostPopular;
     private RadioButton btnMyGroups;
     private TextView tvCreateGroup;
     private RecyclerView recycleView;
@@ -58,9 +58,8 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
     private ProgressBar progress;
     private TextView noInternet;
     private Button btnNoInternet;
-
     private LinearLayout container;
-
+    private SwipeRefreshLayout swipeRefreshLayout;
     private boolean isViewShown = false;
     private int myId;
 
@@ -86,7 +85,6 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         btnAllGroups = view.findViewById(R.id.btn_all_groups);
-        btnMostPopular = view.findViewById(R.id.btn_most_popular);
         btnMyGroups = view.findViewById(R.id.btn_my_groups);
         recycleView = view.findViewById(R.id.recycle_view);
         tvCreateGroup = view.findViewById(R.id.tv_greate_group);
@@ -94,7 +92,7 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
         noInternet = view.findViewById(R.id.no_internet);
         btnNoInternet = view.findViewById(R.id.btn_no_internet);
         container = view.findViewById(R.id.container);
-
+        swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
         recycleView.setLayoutManager(new LinearLayoutManager(getContext()));
         onCLick();
         if (!isViewShown) {
@@ -125,7 +123,7 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
         btnAllGroups.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                groupItemAdapter.updateList(allGroups);
+                groupItemAdapter.updateGroups(allGroups);
             }
         });
         btnMyGroups.setOnClickListener(new View.OnClickListener() {
@@ -140,7 +138,7 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
                     }
 
                 }
-                groupItemAdapter.updateList(myGroup);
+                groupItemAdapter.updateGroups(myGroup);
                 myDialog.dismissMyDialog();
             }
         });
@@ -148,6 +146,43 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
             @Override
             public void onClick(View v) {
                 loadGroup();
+            }
+        });
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                RequestAndResponse.getGroups(getContext(), new BaseResponseInterface<List<Group>>() {
+                    @Override
+                    public void onSuccess(final List<Group> groups) {
+                        allGroups = new ArrayList<>();
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                for (Group item : groups) {
+                                    if (item.getCreatedBy() == myId) {
+                                        allGroups.add(item);
+                                    } else if (item.getStatus()) {
+                                        allGroups.add(item);
+                                    }
+                                }
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        groupItemAdapter.updateGroups(allGroups);
+                                        btnAllGroups.setChecked(true);
+                                        swipeRefreshLayout.setRefreshing(false);
+                                    }
+                                });
+                            }
+                        }).start();
+                    }
+
+                    @Override
+                    public void onFailed(String errorMessage) {
+                        swipeRefreshLayout.setRefreshing(false);
+                        Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
     }
@@ -247,7 +282,7 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
 
     @Override
     public void getMyObject(Group group) {
-        if (group.getUserStatus().equals(Constant.USER_OUT_GROUP)&&group.getCreatedBy()!= myId) {
+        if (group.getUserStatus().equals(Constant.USER_OUT_GROUP) && group.getCreatedBy() != myId) {
             Toast.makeText(getContext(), R.string.please_join_group, Toast.LENGTH_SHORT).show();
         } else if (group.getUserStatus().equals(Constant.USER_IN_GROUP)) {
             Intent intent = new Intent(getContext(), ChatActivity.class);

@@ -104,4 +104,8 @@ public class EventItemAdapter extends RecyclerView.Adapter<EventItemAdapter.MyVi
             }
         }
     }
+    public void updateEvents(List<Event> events) {
+        this.events = events;
+        notifyDataSetChanged();
+    }
 }

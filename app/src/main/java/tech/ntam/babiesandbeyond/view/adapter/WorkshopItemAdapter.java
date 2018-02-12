@@ -151,4 +151,8 @@ public class WorkshopItemAdapter extends RecyclerView.Adapter<WorkshopItemAdapte
             }
         }).start();
     }
+    public void updateWorkshops(List<Workshop> workshops) {
+        this.workshops = workshops;
+        notifyDataSetChanged();
+    }
 }

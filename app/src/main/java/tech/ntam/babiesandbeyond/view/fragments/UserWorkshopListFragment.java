@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -43,6 +45,7 @@ public class UserWorkshopListFragment extends Fragment implements ParseObject<Wo
     private ProgressBar progress;
     private TextView noInternet;
     private Button btnNoInternet;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     public UserWorkshopListFragment() {
         // Required empty public constructor
@@ -71,6 +74,7 @@ public class UserWorkshopListFragment extends Fragment implements ParseObject<Wo
         progress = view.findViewById(R.id.progress);
         noInternet = view.findViewById(R.id.no_internet);
         btnNoInternet = view.findViewById(R.id.btn_no_internet);
+        swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
         recycleView.setLayoutManager(new LinearLayoutManager(getContext()));
         if (!isViewShown) {
             loadWorkshop();
@@ -82,6 +86,24 @@ public class UserWorkshopListFragment extends Fragment implements ParseObject<Wo
             @Override
             public void onClick(View v) {
                 loadWorkshop();
+            }
+        });
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                RequestAndResponse.getWorkshops(getContext(), new BaseResponseInterface<List<Workshop>>() {
+                    @Override
+                    public void onSuccess(List<Workshop> workshops) {
+                        swipeRefreshLayout.setRefreshing(false);
+                        workshopItemAdapter.updateWorkshops(workshops);
+                    }
+
+                    @Override
+                    public void onFailed(String errorMessage) {
+                        swipeRefreshLayout.setRefreshing(false);
+                        Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
     }

@@ -36,6 +36,6 @@ public class ServiceDialogActivity extends AppCompatActivity {
         tvServiceDateTimeTo.setText(service.getFullEndDate());
         tvLocation.setText(service.getLocation());
         tvStatus.setText(service.getServiceStatusString());
-        tvServiceType.setText(ServiceTypeList.getServiceTypeNameFromId(service.getServiceTypeId()));
+        //tvServiceType.setText(ServiceTypeList.getServiceTypeNameFromId(service.getServiceTypeId()));
     }
 }

@@ -92,7 +92,7 @@ public class UserServiceFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        loadService();
+        //loadService();
     }
 
     private void onClick() {
@@ -131,7 +131,6 @@ public class UserServiceFragment extends Fragment {
             @Override
             public void onSuccess(UserService userService) {
                 if (userService != null) {
-                    ServiceTypeList.setServiceTypes(userService.getServiceTypes());
                     setServiceInCalendar(userService.getServices());
                     myDialog.dismissMyDialog();
                 }

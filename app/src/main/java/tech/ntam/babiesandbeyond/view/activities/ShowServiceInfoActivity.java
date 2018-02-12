@@ -46,7 +46,7 @@ public class ShowServiceInfoActivity extends MyToolbar {
         tvTimeTo.setText(service.getEndTime());
         tvLocation.setText(service.getLocation());
         tvFee.setText(service.getPrice());
-        tvServiceType.setText(ServiceTypeList.getServiceTypeNameFromId(service.getServiceTypeId()));
+        tvServiceType.setText(service.getServiceTypeName());
         tvStatus.setText(service.getServiceStatusString());
         if(service.getServiceStatusString().equals(Constant.PENDING)){
             btnPay.setEnabled(false);

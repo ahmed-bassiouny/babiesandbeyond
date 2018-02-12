@@ -9,21 +9,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:visibility="invisible"
         android:gravity="center"
         android:text="@string/no_internet"
         android:textColor="@color/gray_bold"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:visibility="invisible" />
+
     <Button
+        android:id="@+id/btn_no_internet"
         android:layout_width="100dp"
         android:layout_height="45dp"
-        android:id="@+id/btn_no_internet"
-        android:text="@string/retry"
-        android:textSize="16sp"
-        android:layout_marginTop="10dp"
         android:layout_below="@+id/no_internet"
         android:layout_centerInParent="true"
-        android:visibility="invisible"/>
+        android:layout_marginTop="10dp"
+        android:text="@string/retry"
+        android:textSize="16sp"
+        android:visibility="invisible" />
 
     <ProgressBar
         android:id="@+id/progress"
@@ -33,11 +34,16 @@
         android:background="@drawable/progress"
         android:visibility="invisible" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycle_view"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/btn_send_request"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp" />
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycle_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/btn_send_request"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 </RelativeLayout>

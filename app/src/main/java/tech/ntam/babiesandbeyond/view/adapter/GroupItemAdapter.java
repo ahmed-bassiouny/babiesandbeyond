@@ -167,13 +167,8 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
         notifyItemChanged(position);
     }
 
-    public void updateList(List<Group> groups) {
-        this.groups = groups;
-        notifyDataSetChanged();
-    }
-
     public void addGroup(Group group) {
-        this.groups.add(0,group);
+        this.groups.add(0, group);
         notifyItemInserted(0);
     }
 
@@ -184,8 +179,8 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
             public void run() {
                 for (int i = 0; i < size; i++) {
                     Group item = groups.get(i);
-                    if(item.getId() == id) {
-                        final int position= i;
+                    if (item.getId() == id) {
+                        final int position = i;
                         item.setStatusApproved();
                         item.setUserStatus(Constant.USER_IN_GROUP);
                         groups.set(i, item);
@@ -201,6 +196,7 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
             }
         }).start();
     }
+
     public void updateUserStatusGroup(final int id, final String status) {
         final int size = groups.size();
         new Thread(new Runnable() {
@@ -208,8 +204,8 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
             public void run() {
                 for (int i = 0; i < size; i++) {
                     Group item = groups.get(i);
-                    if(item.getId() == id) {
-                        final int position= i;
+                    if (item.getId() == id) {
+                        final int position = i;
                         item.setUserStatus(status);
                         groups.set(i, item);
                         activity.runOnUiThread(new Runnable() {
@@ -224,6 +220,7 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
             }
         }).start();
     }
+
     public void deleteGroup(final int id) {
         final int size = groups.size();
         new Thread(new Runnable() {
@@ -231,7 +228,7 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
             public void run() {
                 for (int i = 0; i < size; i++) {
                     Group item = groups.get(i);
-                    if(item.getId() == id) {
+                    if (item.getId() == id) {
                         final int position = i;
                         groups.remove(i);
                         activity.runOnUiThread(new Runnable() {
@@ -246,4 +243,10 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
             }
         }).start();
     }
+
+    public void updateGroups(List<Group> groups) {
+        this.groups = groups;
+        notifyDataSetChanged();
+    }
+
 }

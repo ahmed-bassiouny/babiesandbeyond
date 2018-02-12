@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="tech.ntam.adminapp">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -12,8 +13,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".view.activities.SignInActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,13 +23,13 @@
         </activity>
         <activity
             android:name=".view.activities.HomeActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity android:name=".view.dialog.ServiceDetailsActivity"
-            android:theme="@style/AppThemeDialog"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".view.dialog.ServiceDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeDialog"></activity>
+
         <service android:name=".firebase.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -39,9 +40,12 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="a07905da1fb4c784f0369b04a71691297ca15843" />
+
+        <activity android:name=".view.activities.TaskAssigmentActivity"></activity>
     </application>
 
 </manifest>

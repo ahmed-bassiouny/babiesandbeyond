@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ServiceTypeList {
 
-    private static List<ServiceType> serviceTypes;
+    /*private static List<ServiceType> serviceTypes;
 
     public static List<ServiceType> getServiceTypes() {
         if (serviceTypes == null)
@@ -28,5 +28,5 @@ public class ServiceTypeList {
                 result = item.getName();
         }
         return result;
-    }
+    }*/
 }
