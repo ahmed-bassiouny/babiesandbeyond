@@ -1,7 +1,10 @@
 package tech.ntam.babiesandbeyond.view.activities;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -54,18 +57,36 @@ public class NurseTasksHomeActivity extends AppCompatActivity {
         findViewById(R.id.iv_logout).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UserSharedPref.clearShared(NurseTasksHomeActivity.this);
-                startActivity(new Intent(NurseTasksHomeActivity.this, SignIn_UpActivity.class));
-                finish();
-                RequestAndResponse.logout(NurseTasksHomeActivity.this, new BaseResponseInterface<String>() {
-                    @Override
-                    public void onSuccess(String s) {
-                    }
+                AlertDialog.Builder builder;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    builder = new AlertDialog.Builder(NurseTasksHomeActivity.this, android.R.style.Theme_DeviceDefault_Light_Dialog_NoActionBar);
+                } else {
+                    builder = new AlertDialog.Builder(NurseTasksHomeActivity.this);
+                }
+                builder.setMessage("Are you sure you want to Logout?")
+                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                RequestAndResponse.logout(NurseTasksHomeActivity.this, new BaseResponseInterface<String>() {
+                                    @Override
+                                    public void onSuccess(String s) {
+                                    }
 
-                    @Override
-                    public void onFailed(String errorMessage) {
-                    }
-                });
+                                    @Override
+                                    public void onFailed(String errorMessage) {
+                                    }
+                                });
+                                UserSharedPref.clearShared(NurseTasksHomeActivity.this);
+                                startActivity(new Intent(NurseTasksHomeActivity.this, SignIn_UpActivity.class));
+                                finish();
+                            }
+                        })
+                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do nothing
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
             }
         });
     }

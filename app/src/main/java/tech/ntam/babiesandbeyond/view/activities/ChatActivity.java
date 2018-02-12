@@ -256,9 +256,13 @@ public class ChatActivity extends MyToolbar implements ParseObject<String> {
             if (groupId == null || groupId.isEmpty())
                 return;
             String action = intent.getStringExtra(IntentDataKey.NOTIFICATION_ACTION);
-            //                  group from notification equal this group   delete group    delete user
-            if (groupId.equals(String.valueOf(group.getId())) && (action.equals("5")||action.equals("4"))) {
+            //       group from notification equal this group   delete group
+            if (groupId.equals(String.valueOf(group.getId())) && action.equals("5")) {
                 Toast.makeText(context, "Group Deleted", Toast.LENGTH_SHORT).show();
+                finish();
+                //          group from notification equal this group   delete user
+            }else if (groupId.equals(String.valueOf(group.getId())) && action.equals("")) {
+                Toast.makeText(context, "you are out of the group", Toast.LENGTH_SHORT).show();
                 finish();
             }
 

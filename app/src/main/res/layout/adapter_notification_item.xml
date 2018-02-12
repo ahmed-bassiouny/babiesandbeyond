@@ -1,71 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_marginTop="10dp"
+    android:id="@+id/relativeLayout"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/relativeLayout">
+    android:layout_marginTop="5dp">
 
     <TextView
         android:id="@+id/tv_notification_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_marginEnd="8dp"
+        android:layout_marginStart="5dp"
+        android:layout_toStartOf="@+id/tv_price"
         android:fontFamily="@font/museosans"
         android:textColor="@color/gray_bold"
         android:textSize="12sp"
-        android:layout_alignParentStart="true"
-
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/btn_pay"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         tools:text="title" />
 
     <TextView
         android:id="@+id/tv_notification_date_time"
-        android:layout_width="0dp"
-        android:layout_height="22dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_notification_title"
+        android:layout_marginStart="5dp"
+        android:layout_toStartOf="@+id/tv_price"
         android:fontFamily="@font/museosans"
-        app:layout_constraintEnd_toStartOf="@+id/btn_pay"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_notification_title"
         tools:text="time" />
+
     <TextView
+        android:id="@+id/tv_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="5dp"
+        android:gravity="center"
+        android:layout_alignTop="@+id/tv_notification_title"
+        android:layout_alignBottom="@+id/tv_notification_date_time"
         android:fontFamily="@font/museosans"
-        android:id="@+id/tv_price"
-        tools:text="price"
+        android:textColor="@color/gray_bold"
         android:textStyle="bold"
-        android:textColor="@color/gray_bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:fontFamily="@font/museosans"
-        android:id="@+id/btn_pay"
-        android:text="pay now"
-        android:visibility="invisible"
-        android:textSize="12sp"
-        android:background="@color/colorButton"
-        android:textColor="@color/gray_bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        tools:text="price" />
 
     <View
-        android:id="@+id/textView18"
         android:layout_width="wrap_content"
         android:layout_height="1dp"
-        android:background="@color/off_white"
+        android:layout_below="@+id/tv_notification_date_time"
         android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_pay" />
+        android:background="@color/off_white"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </RelativeLayout>

@@ -67,7 +67,7 @@ public class OptionsFragment extends Fragment {
                     builder = new AlertDialog.Builder(getContext());
                 }
                 builder.setMessage("Are you sure you want to Logout?")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // continue with delete
                                 RequestAndResponse.logout(getContext(), new BaseResponseInterface<String>() {
@@ -85,7 +85,7 @@ public class OptionsFragment extends Fragment {
                                 startActivity(new Intent(getContext(), SignIn_UpActivity.class));
                             }
                         })
-                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // do nothing
                             }

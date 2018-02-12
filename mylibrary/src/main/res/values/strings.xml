@@ -148,4 +148,5 @@
     <string name="retry">Retry</string>
     <string name="please_join_group">Sorry ,Please join to group</string>
     <string name="new_password">New Password</string>
+    <string name="ok">Ok</string>
 </resources>
