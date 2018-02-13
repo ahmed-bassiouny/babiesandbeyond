@@ -1,6 +1,7 @@
 package tech.ntam.adminapp.view.adapter;
 
 import android.app.Activity;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import tech.ntam.adminapp.R;
+import tech.ntam.adminapp.interfaces.ParseTasks;
 import tech.ntam.adminapp.model.Request;
 import tech.ntam.mylibrary.Utils;
 
@@ -21,11 +23,12 @@ import tech.ntam.mylibrary.Utils;
 
 public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.MyViewHolder> {
     private List<Request> requests;
-    private Activity activity;
+    private ParseTasks parseTasks;
+    private Fragment fragment;
 
-    public RequestItemAdapter(Activity activity, List<Request> requests) {
-        this.activity = activity;
+    public RequestItemAdapter(Fragment fragment, List<Request> requests) {
         this.requests = requests;
+        parseTasks = (ParseTasks) fragment;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -43,6 +46,13 @@ public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.
             tvRequestName = view.findViewById(R.id.tv_request_name);
             tvRequestLocation = view.findViewById(R.id.tv_request_location);
             btnViewDetails = view.findViewById(R.id.btn_view_details);
+            btnViewDetails.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Request item = requests.get(getAdapterPosition());
+                    parseTasks.assignmentTask(item, getAdapterPosition());
+                }
+            });
 
         }
     }
@@ -58,7 +68,7 @@ public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Request request = requests.get(position);
         if (!request.getUserPhoto().isEmpty())
-            Utils.MyGlide(activity, holder.ivUserImage, request.getUserPhoto());
+            Utils.MyGlide(fragment.getActivity(), holder.ivUserImage, request.getUserPhoto());
         holder.tvDate.setText(request.getStartDate() + " " + request.getStartTime() + " to " + request.getEndTime());
         holder.tvRequestName.setText(request.getUserName());
         holder.tvRequestLocation.setText(request.getLocation());
@@ -72,5 +82,10 @@ public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.
     public void updateRequest(List<Request> requests) {
         this.requests = requests;
         notifyDataSetChanged();
+    }
+
+    public void removeRequest(int position) {
+        requests.remove(position);
+        notifyItemRemoved(position);
     }
 }

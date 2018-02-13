@@ -12,6 +12,8 @@ public class IntentDataKey {
     public static final String SHOW_GROUP_DATA_KEY = "group";
     public static final String SHOW_IMAGE = "image";
     public static final String MY_TASK = "my_task";
+    public static final String REQUEST = "request";
+    public static final String POSITION = "position";
 
 
     public static final String CHANGE_EVENT_DATA_KEY = "change_event_value";

@@ -30,12 +30,11 @@ public class ChangePasswordDialogActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (etOldPassword.getText().toString().length() < 6) {
-                    etOldPassword.setError(getString(R.string.invalid_password));
-                }
-                if (etPassword.getText().toString().length() < 6) {
-                    etPassword.setError(getString(R.string.invalid_password));
+                    etOldPassword.setError("Please enter your current password.");
+                }else if (etPassword.getText().toString().length() < 6) {
+                    etPassword.setError("Please enter your new password.");
                 } else if (!etPassword.getText().toString().equals(etConfirmPassword.getText().toString())) {
-                    etConfirmPassword.setError(getString(R.string.invalid_confirm_password));
+                    etConfirmPassword.setError("New Password doesn’t match confirm new password.");
                 } else {
                     final MyDialog myDialog = new MyDialog();
                     myDialog.showMyDialog(ChangePasswordDialogActivity.this);

@@ -7,6 +7,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import tech.ntam.adminapp.model.Service;
 import tech.ntam.adminapp.model.Staff;
 import tech.ntam.adminapp.model.User;
 import tech.ntam.adminapp.model.Workshop;
@@ -88,6 +89,36 @@ public class RequestAndResponse {
     }
     public static void forgetPassword(String email, final BaseResponseInterface<String> anInterface) {
         Call<ParentResponse> response = baseRequestInterface.forgetPassword(email);
+        response.enqueue(new Callback<ParentResponse>() {
+            @Override
+            public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {
+                checkValidResult(response.code(), response.body().getStatus()
+                        , response.body().getMessage(), response.body().getMessage(), anInterface);
+            }
+
+            @Override
+            public void onFailure(Call<ParentResponse> call, Throwable t) {
+                anInterface.onFailed(Utils.getExceptionText(t));
+            }
+        });
+    }
+    public static void getAvaliableStaff(Context context,int serviceTypeId,String serviceStartDate,String serviceEndDate, final BaseResponseInterface<List<Service>> anInterface) {
+        Call<AvailableStaffResponse> response = baseRequestInterface.getAvaliableStaff(UserSharedPref.getTokenWithHeader(context), UserSharedPref.getId(context),serviceTypeId,serviceStartDate,serviceEndDate);
+        response.enqueue(new Callback<AvailableStaffResponse>() {
+            @Override
+            public void onResponse(Call<AvailableStaffResponse> call, Response<AvailableStaffResponse> response) {
+                checkValidResult(response.code(), response.body().getStatus()
+                        , response.body().getServices(), response.body().getMessage(), anInterface);
+            }
+
+            @Override
+            public void onFailure(Call<AvailableStaffResponse> call, Throwable t) {
+                anInterface.onFailed(Utils.getExceptionText(t));
+            }
+        });
+    }
+    public static void assignStaff(Context context,String serviceTypeName,int staffId,int requestId,int userId, final BaseResponseInterface<String> anInterface) {
+        Call<ParentResponse> response = baseRequestInterface.assignStaff(UserSharedPref.getTokenWithHeader(context), UserSharedPref.getId(context),staffId,requestId,serviceTypeName,userId);
         response.enqueue(new Callback<ParentResponse>() {
             @Override
             public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {

@@ -5,6 +5,8 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.text.ParseException;
+
 import tech.ntam.adminapp.R;
 import tech.ntam.mylibrary.MyDateTimeFactor;
 import tech.ntam.mylibrary.Utils;
@@ -57,6 +59,14 @@ public class Request implements Parcelable {
         startDate = Utils.getValueFromString(startDate);
         return MyDateTimeFactor.getDateFromDateTime(startDate);
     }
+    public String getStartDateTime() {
+        startDate = Utils.getValueFromString(startDate);
+        try {
+            return MyDateTimeFactor.changeDateFormatFromNumberToText(startDate);
+        } catch (ParseException e) {
+            return "";
+        }
+    }
 
     public String getStartTime() {
         startDate = Utils.getValueFromString(startDate);
@@ -75,6 +85,14 @@ public class Request implements Parcelable {
     public String getEndTime() {
         endDate = Utils.getValueFromString(endDate);
         return MyDateTimeFactor.getTimeFromDateTime(endDate);
+    }
+    public String getEndDateTime() {
+        endDate = Utils.getValueFromString(endDate);
+        try {
+            return MyDateTimeFactor.changeDateFormatFromNumberToText(endDate);
+        } catch (ParseException e) {
+            return "";
+        }
     }
 
     public String getFullEndDate() {
@@ -145,6 +163,9 @@ public class Request implements Parcelable {
         dest.writeInt(this.serviceStatusId);
         dest.writeInt(this.serviceTypeId);
         dest.writeString(this.serviceStatusName);
+        dest.writeString(this.serviceTypeName);
+        dest.writeString(this.userName);
+        dest.writeString(this.userPhoto);
     }
 
     public Request() {
@@ -159,10 +180,13 @@ public class Request implements Parcelable {
         this.price = in.readString();
         this.serviceStatusId = in.readInt();
         this.serviceTypeId = in.readInt();
-        this.serviceStatusName=in.readString();
+        this.serviceStatusName = in.readString();
+        this.serviceTypeName = in.readString();
+        this.userName = in.readString();
+        this.userPhoto = in.readString();
     }
 
-    public static final Creator<Request> CREATOR = new Creator<Request>() {
+    public static final Parcelable.Creator<Request> CREATOR = new Parcelable.Creator<Request>() {
         @Override
         public Request createFromParcel(Parcel source) {
             return new Request(source);

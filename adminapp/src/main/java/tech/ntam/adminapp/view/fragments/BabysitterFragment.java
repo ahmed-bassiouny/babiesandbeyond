@@ -1,6 +1,8 @@
 package tech.ntam.adminapp.view.fragments;
 
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,17 +21,23 @@ import android.widget.Toast;
 
 import tech.ntam.adminapp.R;
 import tech.ntam.adminapp.api.RequestAndResponse;
+import tech.ntam.adminapp.interfaces.ParseTasks;
+import tech.ntam.adminapp.model.Request;
+import tech.ntam.adminapp.model.Service;
 import tech.ntam.adminapp.model.Staff;
 import tech.ntam.adminapp.model.User;
+import tech.ntam.adminapp.view.activities.TaskAssigmentActivity;
 import tech.ntam.adminapp.view.adapter.RequestItemAdapter;
 import tech.ntam.adminapp.view.adapter.ServiceItemAdapter;
+import tech.ntam.mylibrary.IntentDataKey;
 import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BabysitterFragment extends Fragment {
+public class BabysitterFragment extends Fragment implements ParseTasks{
 
+    private static final int REQUEST_CODE_TASK = 2;
     private static BabysitterFragment babysitterFragment;
     private RecyclerView recyclerView;
     private ProgressBar progress;
@@ -41,6 +49,7 @@ public class BabysitterFragment extends Fragment {
     private RadioButton btnRequest;
     private RadioButton btnList;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private int currentPosition;
 
     public static BabysitterFragment newInstance() {
         if (babysitterFragment == null)
@@ -77,7 +86,7 @@ public class BabysitterFragment extends Fragment {
                 if (myStaff == null)
                     return;
                 if (requestItemAdapter == null)
-                    requestItemAdapter = new RequestItemAdapter(getActivity(), myStaff.getRequests());
+                    requestItemAdapter = new RequestItemAdapter(BabysitterFragment.this, myStaff.getRequests());
                 recyclerView.setAdapter(requestItemAdapter);
             }
         });
@@ -134,7 +143,7 @@ public class BabysitterFragment extends Fragment {
     private void fetchData() {
         if (myStaff != null) {
             if (requestItemAdapter == null)
-                requestItemAdapter = new RequestItemAdapter(getActivity(), myStaff.getRequests());
+                requestItemAdapter = new RequestItemAdapter(BabysitterFragment.this, myStaff.getRequests());
             recyclerView.setAdapter(requestItemAdapter);
             recyclerView.setVisibility(View.VISIBLE);
         } else {
@@ -146,7 +155,7 @@ public class BabysitterFragment extends Fragment {
                 @Override
                 public void onSuccess(Staff staff) {
                     myStaff = staff;
-                    requestItemAdapter = new RequestItemAdapter(getActivity(), staff.getRequests());
+                    requestItemAdapter = new RequestItemAdapter(BabysitterFragment.this, staff.getRequests());
                     recyclerView.setAdapter(requestItemAdapter);
                     progress.setVisibility(View.INVISIBLE);
                     recyclerView.setVisibility(View.VISIBLE);
@@ -161,6 +170,26 @@ public class BabysitterFragment extends Fragment {
                     swipeRefreshLayout.setEnabled(false);
                 }
             });
+        }
+    }
+
+    @Override
+    public void assignmentTask(Request request,int position) {
+        Intent intent = new Intent(getActivity(), TaskAssigmentActivity.class);
+        intent.putExtra(IntentDataKey.REQUEST,request);
+        currentPosition = position;
+        startActivityForResult(intent, REQUEST_CODE_TASK);
+    }
+
+    @Override
+    public void viewService(Service service) {
+
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_TASK) {
+            requestItemAdapter.removeRequest(currentPosition);
         }
     }
 }
