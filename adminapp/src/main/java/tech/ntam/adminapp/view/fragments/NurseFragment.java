@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import tech.ntam.adminapp.R;
 import tech.ntam.adminapp.api.RequestAndResponse;
@@ -100,7 +101,24 @@ public class NurseFragment extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                RequestAndResponse.getStaff(getContext(), User.NURSE, new BaseResponseInterface<Staff>() {
+                    @Override
+                    public void onSuccess(Staff staff) {
+                        myStaff = staff;
+                        if(btnRequest.isChecked()){
+                            requestItemAdapter.updateRequest(myStaff.getRequests());
+                        }else {
+                            serviceItemAdapter.updateService(myStaff.getServices());
+                        }
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
 
+                    @Override
+                    public void onFailed(String errorMessage) {
+                        Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                });
             }
         });
         fetchData();
@@ -131,13 +149,14 @@ public class NurseFragment extends Fragment {
                     recyclerView.setAdapter(requestItemAdapter);
                     progress.setVisibility(View.INVISIBLE);
                     recyclerView.setVisibility(View.VISIBLE);
+                    swipeRefreshLayout.setEnabled(true);
                 }
-
                 @Override
                 public void onFailed(String errorMessage) {
                     progress.setVisibility(View.INVISIBLE);
                     noInternet.setVisibility(View.VISIBLE);
                     btnNoInternet.setVisibility(View.VISIBLE);
+                    swipeRefreshLayout.setEnabled(false);
                 }
             });
         }

@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -94,7 +95,20 @@ public class WorkshopFragment extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                RequestAndResponse.getWorkshopLList(getContext(), new BaseResponseInterface<List<Workshop>>() {
+                    @Override
+                    public void onSuccess(List<Workshop> workshops) {
+                        workshopListItemAdapter.updateWorkshops(workshops);
+                        swipeRefreshLayout.setRefreshing(false);
+                        btnList.setChecked(true);
+                    }
 
+                    @Override
+                    public void onFailed(String errorMessage) {
+                        Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                });
             }
         });
         fetchWorkshopList();
@@ -116,6 +130,8 @@ public class WorkshopFragment extends Fragment {
                     recyclerView.setAdapter(workshopListItemAdapter);
                     progress.setVisibility(View.INVISIBLE);
                     recyclerView.setVisibility(View.VISIBLE);
+                    swipeRefreshLayout.setEnabled(true);
+                    btnList.setChecked(true);
                 }
 
                 @Override
@@ -123,6 +139,7 @@ public class WorkshopFragment extends Fragment {
                     progress.setVisibility(View.INVISIBLE);
                     noInternet.setVisibility(View.VISIBLE);
                     btnNoInternet.setVisibility(View.VISIBLE);
+                    swipeRefreshLayout.setEnabled(false);
                 }
             });
         }

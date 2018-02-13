@@ -68,4 +68,9 @@ public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.
     public int getItemCount() {
         return requests.size();
     }
+
+    public void updateRequest(List<Request> requests) {
+        this.requests = requests;
+        notifyDataSetChanged();
+    }
 }

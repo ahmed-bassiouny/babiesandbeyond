@@ -42,12 +42,12 @@
     <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/segmented2"
         android:id="@+id/swpie_refresh_layout">
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:visibility="gone"
-        android:layout_below="@+id/segmented2"
         android:layout_height="match_parent" />
     </android.support.v4.widget.SwipeRefreshLayout>
 

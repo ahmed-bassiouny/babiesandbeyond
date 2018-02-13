@@ -63,4 +63,9 @@ public class WorkshopListItemAdapter extends RecyclerView.Adapter<WorkshopListIt
     public int getItemCount() {
         return workshops.size();
     }
+
+    public void updateWorkshops(List<Workshop> workshops) {
+        this.workshops = workshops;
+        notifyDataSetChanged();
+    }
 }
