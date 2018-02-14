@@ -30,7 +30,7 @@ public class ShowWorkshopInfoActivity extends MyToolbar {
     private TextView tvFee;
     private TextView tvSpeakerBio;
     private TextView tvSpeakerName;
-    private Button btnPay,btnCancel;
+    private Button btnPay, btnCancel;
     private Workshop workshop;
 
     @Override
@@ -54,25 +54,26 @@ public class ShowWorkshopInfoActivity extends MyToolbar {
         tvLocation.setText(workshop.getLocation());
         tvFee.setText(workshop.getPrice());
         tvWorkshopName.setText(workshop.getName());
-        if(!workshop.getWorkshopStatusName().isEmpty()){
+        if (!workshop.getWorkshopStatusName().isEmpty()) {
             tvStatus.setText(workshop.getWorkshopStatusName());
             tvStatusName.setVisibility(View.VISIBLE);
             tvStatus.setVisibility(View.VISIBLE);
         }
         tvSpeakerName.setText(workshop.getSpeakerName());
         tvSpeakerBio.setText(workshop.getSpeakerBio());
-        if(workshop.getWorkshopStatusName().equals(Constant.PENDING)){
+        if (workshop.getWorkshopStatusName().equals(Constant.PENDING)) {
             btnPay.setVisibility(View.GONE);
             btnCancel.setVisibility(View.VISIBLE);
-        }else if(workshop.getWorkshopStatusName().equals(Constant.ASK_FOR_PAY)){
+        } else if (workshop.getWorkshopStatusName().equals(Constant.ASK_FOR_PAY)) {
             btnPay.setText(R.string.pay);
             btnPay.setVisibility(View.VISIBLE);
             btnCancel.setVisibility(View.VISIBLE);
-        }else if(workshop.getWorkshopStatusName().equals(Constant.DONE)){
+        } else if (workshop.getWorkshopStatusName().equals(Constant.DONE)) {
             btnPay.setVisibility(View.INVISIBLE);
             btnCancel.setVisibility(View.INVISIBLE);
-        }else{
+        } else {
             btnPay.setText(R.string.send_request);
+            btnCancel.setVisibility(View.GONE);
         }
     }
 
@@ -93,15 +94,41 @@ public class ShowWorkshopInfoActivity extends MyToolbar {
         btnPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(workshop.isComing())
-                    return;
+                if (workshop.getWorkshopStatusName().equals(Constant.ASK_FOR_PAY)) {
+
+                } else {
+                    final MyDialog myDialog = new MyDialog();
+                    myDialog.showMyDialog(ShowWorkshopInfoActivity.this);
+                    RequestAndResponse.sendWorkshopRequest(ShowWorkshopInfoActivity.this, workshop.getId(), new BaseResponseInterface<Workshop>() {
+                        @Override
+                        public void onSuccess(Workshop workshop) {
+                            Intent resultIntent = new Intent();
+                            resultIntent.putExtra(IntentDataKey.CHANGE_WORKSHOP_DATA_KEY, workshop);
+                            setResult(Activity.RESULT_OK, resultIntent);
+                            myDialog.dismissMyDialog();
+                            finish();
+                        }
+
+                        @Override
+                        public void onFailed(String errorMessage) {
+                            Toast.makeText(ShowWorkshopInfoActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                            myDialog.dismissMyDialog();
+                        }
+                    });
+                }
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 final MyDialog myDialog = new MyDialog();
                 myDialog.showMyDialog(ShowWorkshopInfoActivity.this);
-                RequestAndResponse.sendWorkshopRequest(ShowWorkshopInfoActivity.this, workshop.getId(), new BaseResponseInterface<Workshop>() {
+                RequestAndResponse.cancelWorkshop(ShowWorkshopInfoActivity.this, workshop.getId(), new BaseResponseInterface<String>() {
                     @Override
-                    public void onSuccess(Workshop workshop) {
-                        Toast.makeText(ShowWorkshopInfoActivity.this, R.string.waiting_confirmation, Toast.LENGTH_SHORT).show();
+                    public void onSuccess(String s) {
+                        workshop.setWorkshopStatusName("");
                         Intent resultIntent = new Intent();
+                        workshop.setWorkshopId(workshop.getId());
                         resultIntent.putExtra(IntentDataKey.CHANGE_WORKSHOP_DATA_KEY, workshop);
                         setResult(Activity.RESULT_OK, resultIntent);
                         myDialog.dismissMyDialog();
@@ -114,12 +141,6 @@ public class ShowWorkshopInfoActivity extends MyToolbar {
                         myDialog.dismissMyDialog();
                     }
                 });
-            }
-        });
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
             }
         });
     }

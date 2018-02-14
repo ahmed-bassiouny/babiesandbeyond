@@ -570,5 +570,26 @@ public class RequestAndResponse {
             }
         });
     }
+    public static void cancelWorkshop(Context context, int workshopId, final BaseResponseInterface<String> anInterface) {
+        Call<ParentResponse> response = baseRequestInterface.cancelWorkshop(
+                UserSharedPref.getTokenWithHeader(context),
+                UserSharedPref.getId(context), workshopId);
+        response.enqueue(new Callback<ParentResponse>() {
+            @Override
+            public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {
+                if (response.body() == null) {
+                    anInterface.onFailed(api_error);
+                    return;
+                }
+                checkValidResult(response.code(), response.body().getStatus()
+                        , response.body().getMessage(), response.body().getMessage(), anInterface);
+            }
+
+            @Override
+            public void onFailure(Call<ParentResponse> call, Throwable t) {
+                anInterface.onFailed(Utils.getExceptionText(t));
+            }
+        });
+    }
 
 }

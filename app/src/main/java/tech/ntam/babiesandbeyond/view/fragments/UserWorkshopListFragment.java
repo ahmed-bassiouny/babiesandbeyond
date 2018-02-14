@@ -81,6 +81,7 @@ public class UserWorkshopListFragment extends Fragment implements ParseObject<Wo
         }
         onClick();
     }
+
     private void onClick() {
         btnNoInternet.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,7 +112,7 @@ public class UserWorkshopListFragment extends Fragment implements ParseObject<Wo
     private void loadWorkshop() {
         // check if adapter is null that mean i don't load data from backend
         // if adapter not equal null that mean i loaded data so i set it in recycler view
-        if(workshopItemAdapter !=null) {
+        if (workshopItemAdapter != null) {
             recycleView.setAdapter(workshopItemAdapter);
             progress.setVisibility(View.INVISIBLE);
             noInternet.setVisibility(View.INVISIBLE);
@@ -160,6 +161,7 @@ public class UserWorkshopListFragment extends Fragment implements ParseObject<Wo
         intent.putExtra(IntentDataKey.SHOW_WORKSHOP_DATA_KEY, workshop);
         startActivityForResult(intent, IntentDataKey.CHANGE_WORKSHOP_DATA_CODE);
     }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -182,7 +184,7 @@ public class UserWorkshopListFragment extends Fragment implements ParseObject<Wo
             String action = intent.getStringExtra(IntentDataKey.NOTIFICATION_ACTION);
             switch (action) {
                 case "0":
-                    workshopItemAdapter.deleteService(Integer.parseInt(serviceId));
+                    workshopItemAdapter.deleteWorkshop(Integer.parseInt(serviceId));
                     break;
                 case "1":
                     workshopItemAdapter.updateWorkshopToConfirmationWithoutPayment(Integer.parseInt(serviceId));
@@ -197,9 +199,9 @@ public class UserWorkshopListFragment extends Fragment implements ParseObject<Wo
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == IntentDataKey.CHANGE_WORKSHOP_DATA_CODE && resultCode == Activity.RESULT_OK && data != null) {
             Workshop workshop = data.getParcelableExtra(IntentDataKey.CHANGE_WORKSHOP_DATA_KEY);
-            if (workshop != null) {
+            if (workshop != null)
                 workshopItemAdapter.updateWorkshop(workshop);
-            }
+
         }
     }
 }

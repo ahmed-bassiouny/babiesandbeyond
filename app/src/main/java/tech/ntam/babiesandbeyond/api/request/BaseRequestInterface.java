@@ -66,7 +66,7 @@ public interface BaseRequestInterface {
     String RATE = "staff_rate_and_comment";
     String FORGET_PASSWORD = "forget_password";
     String CANCEL_SERVICE = "cancel_service";
-
+    String CANCEL_WORKSHOP = "cancel_workshop";
 
     @FormUrlEncoded
     @POST(LOGIN)
@@ -234,7 +234,7 @@ public interface BaseRequestInterface {
 
     @FormUrlEncoded
     @Headers(HEADER_KEY)
-    @POST(CANCEL_SERVICE)
+    @POST(CANCEL_WORKSHOP)
     Call<ParentResponse> cancelWorkshop(@Header(AUTHORIZATION) String token,
                                        @Field(ParentRequest.USER_ID) int userId,
                                        @Field("workshop_id") int workshopId);

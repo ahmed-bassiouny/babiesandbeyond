@@ -129,7 +129,7 @@ public class WorkshopItemAdapter extends RecyclerView.Adapter<WorkshopItemAdapte
             }
         }).start();
     }
-    public void deleteService(final int id) {
+    public void deleteWorkshop(final int id) {
         final int size = workshops.size();
         new Thread(new Runnable() {
             @Override

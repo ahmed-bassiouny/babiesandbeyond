@@ -114,6 +114,10 @@ public class Workshop implements Parcelable {
         return coming;
     }
 
+    public void setWorkshopId(int workshopId) {
+        this.workshopId = workshopId;
+    }
+
     public int getWorkshopStatusColor() {
         switch (workshopStatusName) {
             case Constant.PENDING:
