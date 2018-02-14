@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tv_name"
-        android:textColor="#e2e2e2"
+        android:textColor="#d1cfcf"
         android:layout_marginStart="60dp"
         android:textSize="12sp"/>
 

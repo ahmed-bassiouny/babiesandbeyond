@@ -99,7 +99,6 @@ public class UserSendRequestController {
         RequestAndResponse.requestService(activity, serviceTypeId, startDate, endDate, location, new BaseResponseInterface<Service>() {
             @Override
             public void onSuccess(Service service) {
-                Toast.makeText(activity, R.string.waiting_confirmation, Toast.LENGTH_SHORT).show();
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra(IntentDataKey.ADD_SERVICE_DATA_KEY, service);
                 activity.setResult(Activity.RESULT_OK, resultIntent);

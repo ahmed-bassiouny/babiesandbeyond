@@ -28,8 +28,8 @@
     <string name="Workshops">Workshops</string>
     <string name="message">Messages</string>
     <string name="about_us">About Us</string>
-    <string name="confirmation_without_payment">Confirmation Without Payment</string>
-    <string name="confirmation_with_payment">Confirmation With Payment</string>
+    <string name="confirmation_without_payment">Ask For Pay</string>
+    <string name="confirmation_with_payment">Done</string>
     <string name="pending">Pending</string>
     <string name="group_pending">group is pending</string>
 

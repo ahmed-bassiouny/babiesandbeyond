@@ -246,16 +246,22 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
     public void getMyObject(Service service) {
         Intent intent = new Intent(getContext(), ShowServiceInfoActivity.class);
         intent.putExtra(IntentDataKey.SHOW_SERVICE_DATA_KEY, service);
-        startActivity(intent);
+        startActivityForResult(intent, IntentDataKey.CANCEL_NUMBER);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == IntentDataKey.ADD_SERVICE_DATA_CODE && resultCode == Activity.RESULT_OK && data != null) {
-            Service service = data.getParcelableExtra(IntentDataKey.ADD_SERVICE_DATA_KEY);
-            if (service != null) {
-                serviceItemAdapter.addService(service);
+        if (resultCode == Activity.RESULT_OK && data != null) {
+            if (requestCode == IntentDataKey.ADD_SERVICE_DATA_CODE) {
+                Service service = data.getParcelableExtra(IntentDataKey.ADD_SERVICE_DATA_KEY);
+                if (service != null) {
+                    serviceItemAdapter.addService(service);
+                }
+            } else if (requestCode == IntentDataKey.CANCEL_NUMBER) {
+                int id = data.getIntExtra(IntentDataKey.CANCEL_TEXT,0);
+                if(id == 0) return;
+                serviceItemAdapter.deleteService(id);
             }
         }
     }

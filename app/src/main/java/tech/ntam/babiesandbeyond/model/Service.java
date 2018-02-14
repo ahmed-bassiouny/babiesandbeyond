@@ -85,7 +85,15 @@ public class Service implements Parcelable {
     }
 
     public String getServiceStatusString() {
-        return Utils.getValueFromString(serviceStatusName);
+        serviceStatusName = Utils.getValueFromString(serviceStatusName);
+        if(serviceStatusName.equals(Constant.PENDING)){
+            return Constant.PENDING;
+        }else if(serviceStatusName.equals(Constant.CONFIRMATION_WITHOUT_PAYMENT)){
+            return Constant.ASK_FOR_PAY;
+        }else if(serviceStatusName.equals(Constant.CONFIRMATION_WITH_PAYMENT)){
+            return Constant.DONE;
+        }
+         return serviceStatusName;
     }
 
     public int getServiceStatusColor() {
@@ -93,6 +101,7 @@ public class Service implements Parcelable {
             case Constant.PENDING:
                 return R.color.colorButton;
             case Constant.CONFIRMATION_WITH_PAYMENT:
+            case Constant.CASH:
                 return R.color.gray_bold;
             case Constant.CONFIRMATION_WITHOUT_PAYMENT:
                 return R.color.gray;

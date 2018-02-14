@@ -45,6 +45,7 @@ public class Workshop implements Parcelable {
     private String workshopStatusName;
     @SerializedName("location")
     private String location;
+
     public int getId() {
         return id;
     }
@@ -56,6 +57,7 @@ public class Workshop implements Parcelable {
     public String getName() {
         return Utils.getValueFromString(name);
     }
+
     public String getFullStartDate() {
         return Utils.getValueFromString(startDate);
     }
@@ -111,15 +113,17 @@ public class Workshop implements Parcelable {
     public boolean isComing() {
         return coming;
     }
+
     public int getWorkshopStatusColor() {
         switch (workshopStatusName) {
             case Constant.PENDING:
                 return R.color.colorButton;
             case Constant.CONFIRMATION_WITH_PAYMENT:
+            case Constant.CASH:
                 return R.color.gray_bold;
             case Constant.CONFIRMATION_WITHOUT_PAYMENT:
                 return R.color.gray;
-            default:
+            default :
                 return R.color.white;
         }
     }
@@ -127,7 +131,8 @@ public class Workshop implements Parcelable {
     public void setWorkshopStatusName(String workshopStatusName) {
         this.workshopStatusName = workshopStatusName;
     }
-    public void updateWorkshopToConfirmationWithoutPayment(){
+
+    public void updateWorkshopToConfirmationWithoutPayment() {
         workshopStatusName = Constant.CONFIRMATION_WITHOUT_PAYMENT;
     }
 
@@ -140,7 +145,15 @@ public class Workshop implements Parcelable {
     }
 
     public String getWorkshopStatusName() {
-        return Utils.getValueFromString(workshopStatusName);
+        workshopStatusName = Utils.getValueFromString(workshopStatusName);
+        if(workshopStatusName.equals(Constant.PENDING)){
+            return Constant.PENDING;
+        }else if(workshopStatusName.equals(Constant.CONFIRMATION_WITHOUT_PAYMENT)){
+            return Constant.ASK_FOR_PAY;
+        }else if(workshopStatusName.equals(Constant.CONFIRMATION_WITH_PAYMENT)){
+            return Constant.DONE;
+        }
+        return workshopStatusName;
     }
 
     @Override
@@ -182,8 +195,8 @@ public class Workshop implements Parcelable {
         this.coming = in.readByte() != 0;
         this.paymentStatus = in.readString();
         this.workshopStatusName = in.readString();
-        this.location=in.readString();
-        this.workshopId=in.readInt();
+        this.location = in.readString();
+        this.workshopId = in.readInt();
     }
 
     public static final Parcelable.Creator<Workshop> CREATOR = new Parcelable.Creator<Workshop>() {

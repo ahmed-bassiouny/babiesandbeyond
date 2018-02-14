@@ -289,7 +289,7 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
             intent.putExtra(IntentDataKey.SHOW_GROUP_DATA_KEY, group);
             startActivity(intent);
         } else {
-            Toast.makeText(getContext(), R.string.group_pending, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.pending, Toast.LENGTH_SHORT).show();
         }
     }
 

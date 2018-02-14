@@ -30,7 +30,7 @@ public class ShowWorkshopInfoActivity extends MyToolbar {
     private TextView tvFee;
     private TextView tvSpeakerBio;
     private TextView tvSpeakerName;
-    private Button btnPay;
+    private Button btnPay,btnCancel;
     private Workshop workshop;
 
     @Override
@@ -62,15 +62,16 @@ public class ShowWorkshopInfoActivity extends MyToolbar {
         tvSpeakerName.setText(workshop.getSpeakerName());
         tvSpeakerBio.setText(workshop.getSpeakerBio());
         if(workshop.getWorkshopStatusName().equals(Constant.PENDING)){
-            btnPay.setEnabled(false);
-            btnPay.setText(R.string.waiting_confirmation);
-        }else if(workshop.getWorkshopStatusName().equals(Constant.CONFIRMATION_WITHOUT_PAYMENT)){
-            btnPay.setEnabled(false);
+            btnPay.setVisibility(View.GONE);
+            btnCancel.setVisibility(View.VISIBLE);
+        }else if(workshop.getWorkshopStatusName().equals(Constant.ASK_FOR_PAY)){
             btnPay.setText(R.string.pay);
-        }else if(workshop.getWorkshopStatusName().equals(Constant.CONFIRMATION_WITH_PAYMENT)){
+            btnPay.setVisibility(View.VISIBLE);
+            btnCancel.setVisibility(View.VISIBLE);
+        }else if(workshop.getWorkshopStatusName().equals(Constant.DONE)){
             btnPay.setVisibility(View.INVISIBLE);
+            btnCancel.setVisibility(View.INVISIBLE);
         }else{
-            btnPay.setEnabled(true);
             btnPay.setText(R.string.send_request);
         }
     }
@@ -86,6 +87,7 @@ public class ShowWorkshopInfoActivity extends MyToolbar {
         tvStatusName = findViewById(R.id.textView17);
         tvFee = findViewById(R.id.tv_fee);
         btnPay = findViewById(R.id.tv_pay);
+        btnCancel = findViewById(R.id.tv_cancel);
         tvSpeakerName = findViewById(R.id.tv_speaker_name);
         tvSpeakerBio = findViewById(R.id.tv_speaker_bio);
         btnPay.setOnClickListener(new View.OnClickListener() {
@@ -112,6 +114,12 @@ public class ShowWorkshopInfoActivity extends MyToolbar {
                         myDialog.dismissMyDialog();
                     }
                 });
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }

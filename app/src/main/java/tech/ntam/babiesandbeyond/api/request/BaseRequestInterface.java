@@ -65,6 +65,7 @@ public interface BaseRequestInterface {
     String STAFF_TASK = "staff_schedule_and_tasks";
     String RATE = "staff_rate_and_comment";
     String FORGET_PASSWORD = "forget_password";
+    String CANCEL_SERVICE = "cancel_service";
 
 
     @FormUrlEncoded
@@ -213,13 +214,28 @@ public interface BaseRequestInterface {
     @Headers(HEADER_KEY)
     @POST(RATE)
     Call<ParentResponse> rateTask(@Header(AUTHORIZATION) String token,
-                                      @Field(RateRequest.STAFF_ID) int userId,
-                                      @Field(RateRequest.SERVICE_ID) int taskId,
-                                      @Field(RateRequest.COMMENT) String comment,
-                                      @Field(RateRequest.RATE) int rate);
+                                  @Field(RateRequest.STAFF_ID) int userId,
+                                  @Field(RateRequest.SERVICE_ID) int taskId,
+                                  @Field(RateRequest.COMMENT) String comment,
+                                  @Field(RateRequest.RATE) int rate);
 
 
     @FormUrlEncoded
     @POST(FORGET_PASSWORD)
     Call<ParentResponse> forgetPassword(@Field(LoginRequest.EMAIL) String email);
+
+
+    @FormUrlEncoded
+    @Headers(HEADER_KEY)
+    @POST(CANCEL_SERVICE)
+    Call<ParentResponse> cancelService(@Header(AUTHORIZATION) String token,
+                                       @Field(ParentRequest.USER_ID) int userId,
+                                       @Field("service_id") int serviceId);
+
+    @FormUrlEncoded
+    @Headers(HEADER_KEY)
+    @POST(CANCEL_SERVICE)
+    Call<ParentResponse> cancelWorkshop(@Header(AUTHORIZATION) String token,
+                                       @Field(ParentRequest.USER_ID) int userId,
+                                       @Field("workshop_id") int workshopId);
 }

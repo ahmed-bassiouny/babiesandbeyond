@@ -213,20 +213,40 @@
         app:layout_constraintTop_toBottomOf="@+id/textView19"
         tools:text="20 $" />
 
-    <Button
-        android:id="@+id/tv_pay"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/colorButton"
-        android:fontFamily="@font/museosans"
-        android:text="@string/waiting_confirmation"
-        android:textColor="@color/gray_bold"
+        android:layout_marginTop="12dp"
+        android:weightSum="2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_fee" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_fee" >
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:id="@+id/btn_cancel"
+            android:background="@color/colorButton"
+            android:fontFamily="@font/museosans"
+            android:layout_weight="1"
+            android:text="@string/cancel"
+            android:layout_margin="10dp"
+            android:textColor="@color/gray_bold"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:id="@+id/tv_pay"
+            android:background="@color/colorButton"
+            android:fontFamily="@font/museosans"
+            android:layout_weight="1"
+            android:text="@string/pay"
+            android:layout_margin="10dp"
+            android:textColor="@color/gray_bold"/>
+    </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>
