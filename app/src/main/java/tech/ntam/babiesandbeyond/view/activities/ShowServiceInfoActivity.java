@@ -1,5 +1,6 @@
 package tech.ntam.babiesandbeyond.view.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.babiesandbeyond.model.Service;
 import tech.ntam.babiesandbeyond.model.ServiceTypeList;
+import tech.ntam.babiesandbeyond.model.Workshop;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 import tech.ntam.mylibrary.IntentDataKey;
 import tech.ntam.mylibrary.MyDialog;
@@ -84,7 +86,9 @@ public class ShowServiceInfoActivity extends MyToolbar {
         btnPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(ShowServiceInfoActivity.this,PaymentMethodActivity.class);
+                intent.putExtra(IntentDataKey.MY_SERVICE,service);
+                startActivityForResult(intent,IntentDataKey.CHANGE_WORKSHOP_DATA_CODE);
             }
         });
         btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -111,5 +115,19 @@ public class ShowServiceInfoActivity extends MyToolbar {
                 });
             }
         });
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == IntentDataKey.CHANGE_WORKSHOP_DATA_CODE && resultCode == Activity.RESULT_OK && data != null) {
+            Service service= data.getParcelableExtra(IntentDataKey.CHANGE_WORKSHOP_DATA_KEY);
+            if (service != null){
+                tvStatus.setText(Constant.CASH);
+                btnPay.setVisibility(View.INVISIBLE);
+                btnCancel.setVisibility(View.INVISIBLE);
+            }
+
+
+        }
     }
 }

@@ -62,6 +62,10 @@ public class Service implements Parcelable {
         return Utils.getValueFromString(serviceTypeName);
     }
 
+    public void setServiceStatusName(String serviceStatusName) {
+        this.serviceStatusName = serviceStatusName;
+    }
+
     public String getEndDate() {
         endDate = Utils.getValueFromString(endDate);
         return MyDateTimeFactor.getDateFromDateTime(endDate);

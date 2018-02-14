@@ -52,7 +52,7 @@ public class ShowWorkshopInfoActivity extends MyToolbar {
         tvDateTo.setText(workshop.getEndDate());
         tvTimeTo.setText(workshop.getEndTime());
         tvLocation.setText(workshop.getLocation());
-        tvFee.setText(workshop.getPrice());
+        tvFee.setText(workshop.getPrice()+"$");
         tvWorkshopName.setText(workshop.getName());
         if (!workshop.getWorkshopStatusName().isEmpty()) {
             tvStatus.setText(workshop.getWorkshopStatusName());
@@ -95,7 +95,9 @@ public class ShowWorkshopInfoActivity extends MyToolbar {
             @Override
             public void onClick(View v) {
                 if (workshop.getWorkshopStatusName().equals(Constant.ASK_FOR_PAY)) {
-
+                    Intent intent = new Intent(ShowWorkshopInfoActivity.this,PaymentMethodActivity.class);
+                    intent.putExtra(IntentDataKey.MY_WORKSHOP,workshop);
+                    startActivityForResult(intent,IntentDataKey.CHANGE_WORKSHOP_DATA_CODE);
                 } else {
                     final MyDialog myDialog = new MyDialog();
                     myDialog.showMyDialog(ShowWorkshopInfoActivity.this);
@@ -143,5 +145,19 @@ public class ShowWorkshopInfoActivity extends MyToolbar {
                 });
             }
         });
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == IntentDataKey.CHANGE_WORKSHOP_DATA_CODE && resultCode == Activity.RESULT_OK && data != null) {
+            Workshop workshop = data.getParcelableExtra(IntentDataKey.CHANGE_WORKSHOP_DATA_KEY);
+            if (workshop != null){
+                tvStatus.setText(Constant.CASH);
+                btnPay.setVisibility(View.INVISIBLE);
+                btnCancel.setVisibility(View.INVISIBLE);
+            }
+
+
+        }
     }
 }

@@ -68,6 +68,9 @@ public interface BaseRequestInterface {
     String CANCEL_SERVICE = "cancel_service";
     String CANCEL_WORKSHOP = "cancel_workshop";
 
+    String SERVICE_PAYMENT = "service_payment";
+    String WORKSHOP_PAYMENT = "workshop_payment";
+
     @FormUrlEncoded
     @POST(LOGIN)
     Call<LoginResponse> login(@Field(LoginRequest.EMAIL) String email,
@@ -238,4 +241,22 @@ public interface BaseRequestInterface {
     Call<ParentResponse> cancelWorkshop(@Header(AUTHORIZATION) String token,
                                        @Field(ParentRequest.USER_ID) int userId,
                                        @Field("workshop_id") int workshopId);
+
+
+    @FormUrlEncoded
+    @Headers(HEADER_KEY)
+    @POST(WORKSHOP_PAYMENT)
+    Call<ParentResponse> workshopPayment(@Header(AUTHORIZATION) String token,
+                                        @Field(ParentRequest.USER_ID) int userId,
+                                        @Field("workshop_id") int workshopId,
+                                        @Field("payment_method") int paymentMethod);
+
+
+    @FormUrlEncoded
+    @Headers(HEADER_KEY)
+    @POST(SERVICE_PAYMENT)
+    Call<ParentResponse> servicePayment(@Header(AUTHORIZATION) String token,
+                                         @Field(ParentRequest.USER_ID) int userId,
+                                         @Field("service_id") int serviceId,
+                                         @Field("payment_method") int paymentMethod);
 }

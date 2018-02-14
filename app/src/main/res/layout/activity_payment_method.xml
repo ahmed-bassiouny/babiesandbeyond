@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="tech.ntam.babiesandbeyond.view.activities.PaymentMethodActivity">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/museosans"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="Choose payment methods"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tv_cash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_title"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/museosans"
+        android:text="Cash Money"
+        android:textSize="18sp" />
+
+    <RadioButton
+        android:id="@+id/rd_cash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:checked="true"
+        android:backgroundTint="@color/gray_bold"
+        android:buttonTint="@color/gray_bold"
+        android:layout_below="@+id/tv_title"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="5dp" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/rd_cash"
+        android:background="#e2e2e2" />
+
+    <TextView
+        android:id="@+id/tv_cart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/museosans"
+        android:text="Credit Card"
+        android:textSize="18sp" />
+
+    <RadioButton
+        android:id="@+id/rd_cart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/view"
+        android:enabled="false"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp" />
+
+    <Button
+        android:id="@+id/tv_pay"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/rd_cart"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorButton"
+        android:fontFamily="@font/museosans"
+        android:layout_marginBottom="20dp"
+        android:text="@string/pay"
+        android:textColor="@color/gray_bold" />
+</RelativeLayout>

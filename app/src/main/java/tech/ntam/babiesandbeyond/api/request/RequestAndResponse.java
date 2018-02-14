@@ -592,4 +592,47 @@ public class RequestAndResponse {
         });
     }
 
+    public static void workshopPayment(Context context, int workshopId, final BaseResponseInterface<String> anInterface) {
+        Call<ParentResponse> response = baseRequestInterface.workshopPayment(
+                UserSharedPref.getTokenWithHeader(context),
+                UserSharedPref.getId(context), workshopId,1);
+        response.enqueue(new Callback<ParentResponse>() {
+            @Override
+            public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {
+                if (response.body() == null) {
+                    anInterface.onFailed(api_error);
+                    return;
+                }
+                checkValidResult(response.code(), response.body().getStatus()
+                        , response.body().getMessage(), response.body().getMessage(), anInterface);
+            }
+
+            @Override
+            public void onFailure(Call<ParentResponse> call, Throwable t) {
+                anInterface.onFailed(Utils.getExceptionText(t));
+            }
+        });
+    }
+    public static void servicePayment(Context context, int serviceId, final BaseResponseInterface<String> anInterface) {
+        Call<ParentResponse> response = baseRequestInterface.servicePayment(
+                UserSharedPref.getTokenWithHeader(context),
+                UserSharedPref.getId(context), serviceId,1);
+        response.enqueue(new Callback<ParentResponse>() {
+            @Override
+            public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {
+                if (response.body() == null) {
+                    anInterface.onFailed(api_error);
+                    return;
+                }
+                checkValidResult(response.code(), response.body().getStatus()
+                        , response.body().getMessage(), response.body().getMessage(), anInterface);
+            }
+
+            @Override
+            public void onFailure(Call<ParentResponse> call, Throwable t) {
+                anInterface.onFailed(Utils.getExceptionText(t));
+            }
+        });
+    }
+
 }
