@@ -2,11 +2,15 @@ package tech.ntam.babiesandbeyond.view.fragments;
 
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -125,7 +129,7 @@ public class UserEventListFragment extends Fragment implements ParseObject<Event
         RequestAndResponse.getEvents(getContext(), new BaseResponseInterface<List<Event>>() {
             @Override
             public void onSuccess(List<Event> events) {
-                eventItemAdapter = new EventItemAdapter(getContext(), UserEventListFragment.this, events);
+                eventItemAdapter = new EventItemAdapter(getActivity(), UserEventListFragment.this, events);
                 recycleView.setAdapter(eventItemAdapter);
                 progress.setVisibility(View.INVISIBLE);
                 recycleView.setVisibility(View.VISIBLE);
@@ -171,4 +175,34 @@ public class UserEventListFragment extends Fragment implements ParseObject<Event
             }
         }
     }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver((mMessageReceiver),
+                new IntentFilter(IntentDataKey.NOTIFICATION_EVENTS));
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(mMessageReceiver);
+    }
+
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String groupId = intent.getStringExtra(IntentDataKey.NOTIFICATION_ID);
+            if (groupId  == null || groupId .isEmpty() || eventItemAdapter == null)
+                return;
+            String action = intent.getStringExtra(IntentDataKey.NOTIFICATION_ACTION);
+            switch (action) {
+                case "0": // canceled group
+                    eventItemAdapter.deleteEvent(Integer.parseInt(groupId ));
+                    break;
+            }
+
+        }
+    };
+
 }

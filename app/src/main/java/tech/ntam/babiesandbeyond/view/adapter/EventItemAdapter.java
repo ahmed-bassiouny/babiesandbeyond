@@ -1,5 +1,6 @@
 package tech.ntam.babiesandbeyond.view.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,7 @@ import java.util.List;
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.interfaces.ParseObject;
 import tech.ntam.babiesandbeyond.model.Event;
+import tech.ntam.babiesandbeyond.model.Group;
 import tech.ntam.mylibrary.Utils;
 
 /**
@@ -26,12 +28,12 @@ public class EventItemAdapter extends RecyclerView.Adapter<EventItemAdapter.MyVi
 
     private List<Event> events;
     private ParseObject parseObject;
-    private Context context;
+    private Activity activity;
 
-    public EventItemAdapter(Context context, Fragment fragment, List<Event> events) {
+    public EventItemAdapter(Activity activity, Fragment fragment, List<Event> events) {
         this.events = events;
         this.parseObject = (ParseObject) fragment;
-        this.context = context;
+        this.activity = activity;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -77,7 +79,8 @@ public class EventItemAdapter extends RecyclerView.Adapter<EventItemAdapter.MyVi
         holder.tvServiceStatus.setText(event.getName());
         if (event.isComing()) {
             holder.tvServiceStatus.setText(R.string.coming);
-            holder.tvServiceStatus.setBackgroundColor(context.getResources().getColor(R.color.gray_bold));
+            holder.tvServiceStatus.setVisibility(View.VISIBLE);
+            holder.tvServiceStatus.setBackgroundColor(activity.getResources().getColor(R.color.gray_bold));
         } else {
             holder.tvServiceStatus.setVisibility(View.GONE);
         }
@@ -104,8 +107,32 @@ public class EventItemAdapter extends RecyclerView.Adapter<EventItemAdapter.MyVi
             }
         }
     }
+
     public void updateEvents(List<Event> events) {
         this.events = events;
         notifyDataSetChanged();
+    }
+
+    public void deleteEvent(final int id) {
+        final int size = events.size();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < size; i++) {
+                    Event item = events.get(i);
+                    if (item.getId() == id) {
+                        final int position = i;
+                        events.remove(i);
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                notifyItemRemoved(position);
+                            }
+                        });
+                        break;
+                    }
+                }
+            }
+        }).start();
     }
 }

@@ -22,6 +22,8 @@ import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 
 public class RequestAndResponse {
 
+    private static String api_error = "API Error";
+
     // base request
     private static BaseRequestInterface baseRequestInterface = ApiConfig.getRetrofit().create(BaseRequestInterface.class);
 
@@ -45,6 +47,10 @@ public class RequestAndResponse {
         response.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                if (response.body() == null) {
+                    anInterface.onFailed(api_error);
+                    return;
+                }
                 checkValidResult(response.code(), response.body().getStatus()
                         , response.body().getUserData().getUser(), response.body().getMessage(), anInterface);
             }
@@ -61,6 +67,10 @@ public class RequestAndResponse {
         response.enqueue(new Callback<StaffResponse>() {
             @Override
             public void onResponse(Call<StaffResponse> call, Response<StaffResponse> response) {
+                if (response.body() == null) {
+                    anInterface.onFailed(api_error);
+                    return;
+                }
                 checkValidResult(response.code(), response.body().getStatus()
                         , response.body().getStaff(), response.body().getMessage(), anInterface);
             }
@@ -77,6 +87,10 @@ public class RequestAndResponse {
         response.enqueue(new Callback<WorkshopListResponse>() {
             @Override
             public void onResponse(Call<WorkshopListResponse> call, Response<WorkshopListResponse> response) {
+                if (response.body() == null) {
+                    anInterface.onFailed(api_error);
+                    return;
+                }
                 checkValidResult(response.code(), response.body().getStatus()
                         , response.body().getWorkshops(), response.body().getMessage(), anInterface);
             }
@@ -92,6 +106,10 @@ public class RequestAndResponse {
         response.enqueue(new Callback<ParentResponse>() {
             @Override
             public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {
+                if (response.body() == null) {
+                    anInterface.onFailed(api_error);
+                    return;
+                }
                 checkValidResult(response.code(), response.body().getStatus()
                         , response.body().getMessage(), response.body().getMessage(), anInterface);
             }
@@ -107,6 +125,10 @@ public class RequestAndResponse {
         response.enqueue(new Callback<AvailableStaffResponse>() {
             @Override
             public void onResponse(Call<AvailableStaffResponse> call, Response<AvailableStaffResponse> response) {
+                if (response.body() == null) {
+                    anInterface.onFailed(api_error);
+                    return;
+                }
                 checkValidResult(response.code(), response.body().getStatus()
                         , response.body().getServices(), response.body().getMessage(), anInterface);
             }
@@ -122,6 +144,10 @@ public class RequestAndResponse {
         response.enqueue(new Callback<ParentResponse>() {
             @Override
             public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {
+                if (response.body() == null) {
+                    anInterface.onFailed(api_error);
+                    return;
+                }
                 checkValidResult(response.code(), response.body().getStatus()
                         , response.body().getMessage(), response.body().getMessage(), anInterface);
             }

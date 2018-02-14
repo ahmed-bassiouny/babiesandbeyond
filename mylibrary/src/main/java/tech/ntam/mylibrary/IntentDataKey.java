@@ -40,5 +40,6 @@ public class IntentDataKey {
     public static final String NOTIFICATION_GROUP = "3";
     public static final String NOTIFICATION_SERVICE = "0";
     public static final String NOTIFICATION_WORKSHOP = "1";
+    public static final String NOTIFICATION_EVENTS = "2";
 
 }

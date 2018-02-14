@@ -53,15 +53,19 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 case IntentDataKey.NOTIFICATION_WORKSHOP:
                     myIntent = new Intent(IntentDataKey.NOTIFICATION_WORKSHOP);
                     break;
+                case IntentDataKey.NOTIFICATION_EVENTS:
+                    myIntent = new Intent(IntentDataKey.NOTIFICATION_EVENTS);
+                    break;
+                default:
+                    return;
             }
             // get action
             myIntent.putExtra(IntentDataKey.NOTIFICATION_ACTION, object.get(IntentDataKey.NOTIFICATION_ACTION).toString());
             // get id
-            myIntent.putExtra(IntentDataKey.NOTIFICATION_ID,object.get(IntentDataKey.NOTIFICATION_ID).toString());
+            myIntent.putExtra(IntentDataKey.NOTIFICATION_ID, object.get(IntentDataKey.NOTIFICATION_ID).toString());
 
             broadcaster.sendBroadcast(myIntent);
         } catch (JSONException e) {
-            e.printStackTrace();
         }
     }
 }
