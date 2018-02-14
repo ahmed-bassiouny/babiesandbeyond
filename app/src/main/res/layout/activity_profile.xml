@@ -72,7 +72,8 @@
             android:enabled="false"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:inputType="text"
+            android:inputType="phone"
+            android:digits="0123456789+"
             android:fontFamily="@font/museosans"
             android:textSize="18sp" />
 
