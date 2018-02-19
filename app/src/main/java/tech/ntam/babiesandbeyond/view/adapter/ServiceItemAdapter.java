@@ -136,6 +136,29 @@ public class ServiceItemAdapter extends RecyclerView.Adapter<ServiceItemAdapter.
             }
         }).start();
     }
+
+    public void updateService(final Service service) {
+        final int size = services.size();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < size; i++) {
+                    Service item = services.get(i);
+                    if(item.getId() == service.getId()){
+                        final int position = i;
+                        services.set(i,service);
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                notifyItemChanged(position);
+                            }
+                        });
+                        break;
+                    }
+                }
+            }
+        }).start();
+    }
     public void updateServices(List<Service> services) {
         this.services = services;
         notifyDataSetChanged();

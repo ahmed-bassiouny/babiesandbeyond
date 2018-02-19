@@ -85,19 +85,22 @@ public class Service implements Parcelable {
     }
 
     public String getPrice() {
-        return Utils.getValueFromString(price) + "$";
+        price = Utils.getValueFromString(price);
+        if (price.isEmpty())
+            return "Not Set";
+        return price + "$";
     }
 
     public String getServiceStatusString() {
         serviceStatusName = Utils.getValueFromString(serviceStatusName);
-        if(serviceStatusName.equals(Constant.PENDING)){
+        if (serviceStatusName.equals(Constant.PENDING)) {
             return Constant.PENDING;
-        }else if(serviceStatusName.equals(Constant.CONFIRMATION_WITHOUT_PAYMENT)){
+        } else if (serviceStatusName.equals(Constant.CONFIRMATION_WITHOUT_PAYMENT)) {
             return Constant.ASK_FOR_PAY;
-        }else if(serviceStatusName.equals(Constant.CONFIRMATION_WITH_PAYMENT)){
+        } else if (serviceStatusName.equals(Constant.CONFIRMATION_WITH_PAYMENT)) {
             return Constant.DONE;
         }
-         return serviceStatusName;
+        return serviceStatusName;
     }
 
     public int getServiceStatusColor() {

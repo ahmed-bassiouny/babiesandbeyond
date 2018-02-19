@@ -61,11 +61,11 @@ public class TaskItemAdapter extends RecyclerView.Adapter<TaskItemAdapter.MyView
         holder.tvUserName.setText(task.getUserName());
         holder.ivTaskDateTime.setText(task.getStartDate() + " - " + task.getEndDate());
         holder.tvTaskLocation.setText(task.getLocation());
-        if (task.getIs_completed() && !task.getRate().isEmpty()) {
+        if (task.getIsCompleted() && !task.getRate().isEmpty()) {
             holder.btnTaskAction.setVisibility(View.VISIBLE);
             holder.btnTaskAction.setText("Completed");
             holder.btnTaskAction.setBackgroundColor(activity.getResources().getColor(R.color.gray_bold));
-        } else if (task.getIs_completed()) {
+        } else if (task.getIsCompleted()) {
             holder.btnTaskAction.setVisibility(View.VISIBLE);
             holder.btnTaskAction.setText("Rate");
             holder.btnTaskAction.setOnClickListener(new View.OnClickListener() {

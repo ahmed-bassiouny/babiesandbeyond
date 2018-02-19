@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.w9jds.FloatingActionMenu;
 
 import tech.ntam.babiesandbeyond.R;
+import tech.ntam.babiesandbeyond.helper.ServiceSharedPref;
 import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.babiesandbeyond.interfaces.ParseObject;
@@ -38,6 +39,7 @@ import tech.ntam.babiesandbeyond.view.activities.ShowServiceInfoActivity;
 import tech.ntam.babiesandbeyond.view.activities.UserRequestNurseAndBabysitterActivity;
 import tech.ntam.babiesandbeyond.view.adapter.ServiceItemAdapter;
 import tech.ntam.mylibrary.IntentDataKey;
+import tech.ntam.mylibrary.interfaces.Constant;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -244,9 +246,22 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
 
     @Override
     public void getMyObject(Service service) {
-        Intent intent = new Intent(getContext(), ShowServiceInfoActivity.class);
-        intent.putExtra(IntentDataKey.SHOW_SERVICE_DATA_KEY, service);
-        startActivityForResult(intent, IntentDataKey.CANCEL_NUMBER);
+        ServiceSharedPref.setMyService(getContext(), service);
+        startActivity(new Intent(getContext(), ShowServiceInfoActivity.class));
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Service item = ServiceSharedPref.getMyService(getContext());
+        if (serviceItemAdapter != null && item != null) {
+            if(item.getServiceStatusString().equals(Constant.CANCEL)){
+                serviceItemAdapter.deleteService(item.getId());
+            }else {
+                serviceItemAdapter.updateService(item);
+            }
+            ServiceSharedPref.clearMyService(getContext());
+        }
     }
 
     @Override
@@ -258,10 +273,6 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
                 if (service != null) {
                     serviceItemAdapter.addService(service);
                 }
-            } else if (requestCode == IntentDataKey.CANCEL_NUMBER) {
-                int id = data.getIntExtra(IntentDataKey.CANCEL_TEXT,0);
-                if(id == 0) return;
-                serviceItemAdapter.deleteService(id);
             }
         }
     }

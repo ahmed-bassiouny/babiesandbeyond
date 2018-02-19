@@ -25,6 +25,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import tech.ntam.babiesandbeyond.R;
+import tech.ntam.babiesandbeyond.helper.ServiceSharedPref;
 import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.babiesandbeyond.interfaces.ParseObject;
@@ -157,9 +158,8 @@ public class UserWorkshopListFragment extends Fragment implements ParseObject<Wo
 
     @Override
     public void getMyObject(Workshop workshop) {
-        Intent intent = new Intent(getContext(), ShowWorkshopInfoActivity.class);
-        intent.putExtra(IntentDataKey.SHOW_WORKSHOP_DATA_KEY, workshop);
-        startActivityForResult(intent, IntentDataKey.CHANGE_WORKSHOP_DATA_CODE);
+        ServiceSharedPref.setMyWorkshop(getContext(),workshop);
+        startActivity(new Intent(getContext(), ShowWorkshopInfoActivity.class));
     }
 
     @Override
@@ -195,13 +195,12 @@ public class UserWorkshopListFragment extends Fragment implements ParseObject<Wo
     };
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == IntentDataKey.CHANGE_WORKSHOP_DATA_CODE && resultCode == Activity.RESULT_OK && data != null) {
-            Workshop workshop = data.getParcelableExtra(IntentDataKey.CHANGE_WORKSHOP_DATA_KEY);
-            if (workshop != null)
-                workshopItemAdapter.updateWorkshop(workshop);
-
+    public void onResume() {
+        super.onResume();
+        Workshop workshop = ServiceSharedPref.getMyWorkshop(getContext());
+        if(workshopItemAdapter !=null && workshop != null){
+            workshopItemAdapter.updateWorkshop(workshop);
+            ServiceSharedPref.clearMyWorkshop(getContext());
         }
     }
 }

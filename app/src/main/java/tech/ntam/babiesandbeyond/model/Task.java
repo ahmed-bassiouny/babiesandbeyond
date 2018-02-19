@@ -10,7 +10,7 @@ import tech.ntam.mylibrary.Utils;
 
 public class Task extends Service {
     @SerializedName("is_completed")
-    private int is_completed;
+    private int isCompleted;
     @SerializedName("user_name")
     private String userName;
     @SerializedName("user_photo")
@@ -18,8 +18,8 @@ public class Task extends Service {
     @SerializedName("rate")
     private String rate;
 
-    public boolean getIs_completed() {
-        if (is_completed == 1)
+    public boolean getIsCompleted() {
+        if (isCompleted == 1)
             return true;
         return false;
     }

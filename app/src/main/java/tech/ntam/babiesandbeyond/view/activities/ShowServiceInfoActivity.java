@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
+import tech.ntam.babiesandbeyond.helper.ServiceSharedPref;
 import tech.ntam.babiesandbeyond.model.Service;
 import tech.ntam.babiesandbeyond.model.ServiceTypeList;
 import tech.ntam.babiesandbeyond.model.Workshop;
@@ -41,11 +42,16 @@ public class ShowServiceInfoActivity extends MyToolbar {
         setupToolbar(this, false, true, false);
         tvTitle.setText(R.string.service_information);
         findViewById();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         setData();
     }
 
     private void setData() {
-        service = getIntent().getParcelableExtra(IntentDataKey.SHOW_SERVICE_DATA_KEY);
+        service = ServiceSharedPref.getMyService(this);
         if (service == null)
             finish();
         tvDateFrom.setText(service.getStartDate());
@@ -53,7 +59,11 @@ public class ShowServiceInfoActivity extends MyToolbar {
         tvDateTo.setText(service.getEndDate());
         tvTimeTo.setText(service.getEndTime());
         tvLocation.setText(service.getLocation());
-        tvFee.setText(service.getPrice());
+        if(service.getPrice().isEmpty()){
+            tvFee.setText("Not Set");
+        }else {
+            tvFee.setText(service.getPrice());
+        }
         tvServiceType.setText(service.getServiceTypeName());
         tvStatus.setText(service.getServiceStatusString());
         if (service.getServiceStatusString().equals(Constant.PENDING)) {
@@ -62,13 +72,9 @@ public class ShowServiceInfoActivity extends MyToolbar {
         } else if (service.getServiceStatusString().equals(Constant.ASK_FOR_PAY)) {
             btnPay.setVisibility(View.VISIBLE);
             btnCancel.setVisibility(View.VISIBLE);
-        } else if (service.getServiceStatusString().equals(Constant.DONE)) {
-            btnPay.setVisibility(View.INVISIBLE);
-            btnCancel.setVisibility(View.INVISIBLE);
         } else if (service.getServiceStatusString().equals(Constant.CASH)) {
             btnPay.setVisibility(View.INVISIBLE);
             btnCancel.setVisibility(View.INVISIBLE);
-            tvStatus.setText(Constant.DONE+" ("+service.getServiceStatusString()+")");
         }
     }
 
@@ -88,7 +94,7 @@ public class ShowServiceInfoActivity extends MyToolbar {
             public void onClick(View v) {
                 Intent intent = new Intent(ShowServiceInfoActivity.this,PaymentMethodActivity.class);
                 intent.putExtra(IntentDataKey.MY_SERVICE,service);
-                startActivityForResult(intent,IntentDataKey.CHANGE_WORKSHOP_DATA_CODE);
+                startActivity(intent);
             }
         });
         btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -100,10 +106,8 @@ public class ShowServiceInfoActivity extends MyToolbar {
                     @Override
                     public void onSuccess(String s) {
                         Toast.makeText(ShowServiceInfoActivity.this, s, Toast.LENGTH_SHORT).show();
-                        myDialog.dismissMyDialog();
-                        Intent resultIntent = new Intent();
-                        resultIntent.putExtra(IntentDataKey.CANCEL_TEXT, service.getId());
-                        setResult(RESULT_OK, resultIntent);
+                        service.setServiceStatusName(Constant.CANCEL);
+                        ServiceSharedPref.setMyService(ShowServiceInfoActivity.this,service);
                         finish();
                     }
 
@@ -115,19 +119,5 @@ public class ShowServiceInfoActivity extends MyToolbar {
                 });
             }
         });
-    }
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == IntentDataKey.CHANGE_WORKSHOP_DATA_CODE && resultCode == Activity.RESULT_OK && data != null) {
-            Service service= data.getParcelableExtra(IntentDataKey.CHANGE_WORKSHOP_DATA_KEY);
-            if (service != null){
-                tvStatus.setText(Constant.CASH);
-                btnPay.setVisibility(View.INVISIBLE);
-                btnCancel.setVisibility(View.INVISIBLE);
-            }
-
-
-        }
     }
 }

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import tech.ntam.babiesandbeyond.R;
+import tech.ntam.babiesandbeyond.helper.ServiceSharedPref;
 import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.babiesandbeyond.model.Workshop;
@@ -43,8 +44,14 @@ public class ShowWorkshopInfoActivity extends MyToolbar {
         setData();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setData();
+    }
+
     private void setData() {
-        workshop = getIntent().getParcelableExtra(IntentDataKey.SHOW_WORKSHOP_DATA_KEY);
+        workshop = ServiceSharedPref.getMyWorkshop(this);
         if (workshop == null)
             finish();
         tvDateFrom.setText(workshop.getStartDate());
@@ -52,7 +59,7 @@ public class ShowWorkshopInfoActivity extends MyToolbar {
         tvDateTo.setText(workshop.getEndDate());
         tvTimeTo.setText(workshop.getEndTime());
         tvLocation.setText(workshop.getLocation());
-        tvFee.setText(workshop.getPrice()+"$");
+        tvFee.setText(workshop.getPrice());
         tvWorkshopName.setText(workshop.getName());
         if (!workshop.getWorkshopStatusName().isEmpty()) {
             tvStatus.setText(workshop.getWorkshopStatusName());
@@ -68,7 +75,7 @@ public class ShowWorkshopInfoActivity extends MyToolbar {
             btnPay.setText(R.string.pay);
             btnPay.setVisibility(View.VISIBLE);
             btnCancel.setVisibility(View.VISIBLE);
-        } else if (workshop.getWorkshopStatusName().equals(Constant.DONE)) {
+        } else if (workshop.getWorkshopStatusName().equals(Constant.CASH)) {
             btnPay.setVisibility(View.INVISIBLE);
             btnCancel.setVisibility(View.INVISIBLE);
         } else {
@@ -103,10 +110,10 @@ public class ShowWorkshopInfoActivity extends MyToolbar {
                     myDialog.showMyDialog(ShowWorkshopInfoActivity.this);
                     RequestAndResponse.sendWorkshopRequest(ShowWorkshopInfoActivity.this, workshop.getId(), new BaseResponseInterface<Workshop>() {
                         @Override
-                        public void onSuccess(Workshop workshop) {
-                            Intent resultIntent = new Intent();
-                            resultIntent.putExtra(IntentDataKey.CHANGE_WORKSHOP_DATA_KEY, workshop);
-                            setResult(Activity.RESULT_OK, resultIntent);
+                        public void onSuccess(Workshop item) {
+                            workshop.setId(item.getWorkshopId());
+                            workshop.setWorkshopStatusName(item.getWorkshopStatusName());
+                            ServiceSharedPref.setMyWorkshop(ShowWorkshopInfoActivity.this,workshop);
                             myDialog.dismissMyDialog();
                             finish();
                         }
@@ -129,10 +136,7 @@ public class ShowWorkshopInfoActivity extends MyToolbar {
                     @Override
                     public void onSuccess(String s) {
                         workshop.setWorkshopStatusName("");
-                        Intent resultIntent = new Intent();
-                        workshop.setWorkshopId(workshop.getId());
-                        resultIntent.putExtra(IntentDataKey.CHANGE_WORKSHOP_DATA_KEY, workshop);
-                        setResult(Activity.RESULT_OK, resultIntent);
+                        ServiceSharedPref.setMyWorkshop(ShowWorkshopInfoActivity.this,workshop);
                         myDialog.dismissMyDialog();
                         finish();
                     }
@@ -145,19 +149,5 @@ public class ShowWorkshopInfoActivity extends MyToolbar {
                 });
             }
         });
-    }
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == IntentDataKey.CHANGE_WORKSHOP_DATA_CODE && resultCode == Activity.RESULT_OK && data != null) {
-            Workshop workshop = data.getParcelableExtra(IntentDataKey.CHANGE_WORKSHOP_DATA_KEY);
-            if (workshop != null){
-                tvStatus.setText(Constant.CASH);
-                btnPay.setVisibility(View.INVISIBLE);
-                btnCancel.setVisibility(View.INVISIBLE);
-            }
-
-
-        }
     }
 }

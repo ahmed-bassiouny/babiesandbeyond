@@ -7,25 +7,7 @@ import android.content.SharedPreferences;
  * Created by bassiouny on 02/01/18.
  */
 
-public class UserSharedPref {
-
-    private final static String sharedPrefName = "BabiesAndBeyond";
-    private final static String USER_TOKEN = "user_token";
-    private final static String USER_EMAIL = "user_email";
-    private final static String USER_ID = "user_id";
-    private final static String USER_NAME = "user_name";
-    private final static String USER_PHOTO = "user_photo";
-    private final static String USER_PHONE = "user_phone";
-    private final static String IS_STAFF = "is_staff";
-    private final static String NOTIFICATION_TOKEN = "notification_token";
-    private final static String TOKEN_HEADER_KEY = "Bearer ";
-
-    private static SharedPreferences sharedPref;
-
-    private static void getSharedPref(Context context) {
-        if (sharedPref == null)
-            sharedPref = context.getSharedPreferences(sharedPrefName, Context.MODE_PRIVATE);
-    }
+public class UserSharedPref extends SharedPref {
 
     public static void setUserInfo(Context context, String userToken, String userEmail, int id,String name,String photo,String phone,boolean isStaff) {
         getSharedPref(context);

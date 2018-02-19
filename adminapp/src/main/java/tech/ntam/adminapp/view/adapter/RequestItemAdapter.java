@@ -29,6 +29,7 @@ public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.
     public RequestItemAdapter(Fragment fragment, List<Request> requests) {
         this.requests = requests;
         parseTasks = (ParseTasks) fragment;
+        this.fragment = fragment;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {

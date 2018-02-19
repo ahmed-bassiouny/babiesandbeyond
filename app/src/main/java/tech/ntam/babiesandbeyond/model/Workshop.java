@@ -50,6 +50,10 @@ public class Workshop implements Parcelable {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public int getWorkshopId() {
         return workshopId;
     }
@@ -99,7 +103,10 @@ public class Workshop implements Parcelable {
     }
 
     public String getPrice() {
-        return Utils.getValueFromString(price);
+        price = Utils.getValueFromString(price);
+        if(price.isEmpty())
+            return "Not Set";
+        return price+" $";
     }
 
     public void setComing(boolean coming) {

@@ -25,8 +25,6 @@ public class IntentDataKey {
     public static final int ADD_SERVICE_DATA_CODE = 122;
     public static final int ADD_GROUP_DATA_CODE = 123;
     public static final int CHANGE_TASK_DATA_CODE = 124;
-    public static final int CANCEL_NUMBER = 5;
-    public static final String CANCEL_TEXT = "cancel";
 
 
 

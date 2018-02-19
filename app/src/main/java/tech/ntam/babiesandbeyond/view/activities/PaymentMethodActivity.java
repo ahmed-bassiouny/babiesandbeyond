@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
+import tech.ntam.babiesandbeyond.helper.ServiceSharedPref;
 import tech.ntam.babiesandbeyond.model.Service;
 import tech.ntam.babiesandbeyond.model.Workshop;
 import tech.ntam.mylibrary.IntentDataKey;
@@ -61,10 +62,8 @@ public class PaymentMethodActivity extends AppCompatActivity {
                         public void onSuccess(String s) {
                             Toast.makeText(PaymentMethodActivity.this, s, Toast.LENGTH_SHORT).show();
                             myDialog.dismissMyDialog();
-                            Intent resultIntent = new Intent();
                             service.setServiceStatusName(Constant.CASH);
-                            resultIntent.putExtra(IntentDataKey.CHANGE_WORKSHOP_DATA_KEY, service);
-                            setResult(Activity.RESULT_OK, resultIntent);
+                            ServiceSharedPref.setMyService(PaymentMethodActivity.this,service);
                             finish();
                         }
 
@@ -83,11 +82,9 @@ public class PaymentMethodActivity extends AppCompatActivity {
                         public void onSuccess(String s) {
                             Toast.makeText(PaymentMethodActivity.this, s, Toast.LENGTH_SHORT).show();
                             myDialog.dismissMyDialog();
-                            Intent resultIntent = new Intent();
                             workshop.setWorkshopId(workshop.getId());
                             workshop.setWorkshopStatusName(Constant.CASH);
-                            resultIntent.putExtra(IntentDataKey.CHANGE_WORKSHOP_DATA_KEY, workshop);
-                            setResult(Activity.RESULT_OK, resultIntent);
+                            ServiceSharedPref.setMyWorkshop(PaymentMethodActivity.this,workshop);
                             finish();
                         }
 

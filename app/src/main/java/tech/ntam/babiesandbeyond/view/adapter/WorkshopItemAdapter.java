@@ -94,18 +94,6 @@ public class WorkshopItemAdapter extends RecyclerView.Adapter<WorkshopItemAdapte
         return workshops.size();
     }
 
-    public void updateWorkshop(Workshop workshop) {
-        int workshopsLenght = workshops.size();
-        for (int i = 0; i < workshopsLenght; i++) {
-            if (workshop.getWorkshopId() == workshops.get(i).getId()) {
-                workshops.get(i).setComing(true);
-                workshops.get(i).setWorkshopStatusName(workshop.getWorkshopStatusName());
-                notifyItemChanged(i);
-                break;
-            }
-        }
-    }
-
     public void updateWorkshopToConfirmationWithoutPayment(final int id) {
         final int size = workshops.size();
         new Thread(new Runnable() {
@@ -117,6 +105,28 @@ public class WorkshopItemAdapter extends RecyclerView.Adapter<WorkshopItemAdapte
                         final int position = i;
                         item.updateWorkshopToConfirmationWithoutPayment();
                         workshops.set(i, item);
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                notifyItemChanged(position);
+                            }
+                        });
+                        break;
+                    }
+                }
+            }
+        }).start();
+    }
+    public void updateWorkshop(final Workshop workshop) {
+        final int size = workshops.size();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < size; i++) {
+                    Workshop item = workshops.get(i);
+                    if (item.getId() == workshop.getId()) {
+                        final int position = i;
+                        workshops.set(i, workshop);
                         activity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
