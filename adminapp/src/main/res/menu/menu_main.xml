@@ -24,4 +24,13 @@
         android:icon="@drawable/workshop">
     </item>
 
+
+    <item
+        android:id="@+id/account"
+        android:title="@string/account"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:icon="@drawable/profile">
+    </item>
+
 </menu>

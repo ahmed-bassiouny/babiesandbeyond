@@ -13,6 +13,7 @@
     <string name="name">Name</string>
     <string name="invalid_name">Your name must be greater than 6 character</string>
     <string name="phone">Phone</string>
+    <string name="birthday">Birthday</string>
     <string name="invalid_phone">Invalid Phone</string>
 
     <string name="confirm_password">Confirm Password</string>
@@ -75,7 +76,7 @@
     <string name="midwife_name">Midwife Name</string>
     <string name="babysitter">Babysitter</string>
     <string name="nurse_request">Nurse Request</string>
-    <string name="baby_request">Baby Request</string>
+    <string name="babysitter_request">Babysitter Request</string>
     <string name="workshop_request">Workshop Request</string>
     <string name="nurse_list">Nurse List</string>
     <string name="babysitter_list">Babysitter List</string>
@@ -149,4 +150,5 @@
     <string name="please_join_group">Sorry ,Please join to group</string>
     <string name="new_password">New Password</string>
     <string name="ok">Ok</string>
+    <string name="account">Account</string>
 </resources>

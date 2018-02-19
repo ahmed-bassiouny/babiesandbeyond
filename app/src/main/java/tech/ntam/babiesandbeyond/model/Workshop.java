@@ -105,7 +105,7 @@ public class Workshop implements Parcelable {
     public String getPrice() {
         price = Utils.getValueFromString(price);
         if(price.isEmpty())
-            return "Not Set";
+            return "not determined";
         return price+" $";
     }
 

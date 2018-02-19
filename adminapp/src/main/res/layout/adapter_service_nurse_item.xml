@@ -55,7 +55,6 @@
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:textStyle="bold"
-        android:visibility="gone"
         android:textColor="@color/gray_bold"
         android:text="@string/view_details"
         android:background="@color/colorButton" />

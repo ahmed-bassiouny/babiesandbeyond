@@ -96,7 +96,7 @@ public class NurseFragment extends Fragment implements ParseTasks {
                 if (myStaff == null)
                     return;
                 if (serviceItemAdapter == null)
-                    serviceItemAdapter = new ServiceItemAdapter(getActivity(), myStaff.getServices());
+                    serviceItemAdapter = new ServiceItemAdapter(NurseFragment.this, myStaff.getServices());
                 recyclerView.setAdapter(serviceItemAdapter);
             }
         });

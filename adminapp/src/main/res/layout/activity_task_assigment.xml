@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="tech.ntam.adminapp.view.dialog.ServiceDetailsActivity">
+    tools:context="tech.ntam.adminapp.view.activities.TaskAssigmentActivity">
 
     <TextView
         android:id="@+id/tv_title"

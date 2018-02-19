@@ -1,6 +1,7 @@
 package tech.ntam.adminapp.view.adapter;
 
 import android.app.Activity;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import tech.ntam.adminapp.R;
+import tech.ntam.adminapp.interfaces.ParseTasks;
 import tech.ntam.adminapp.model.Request;
 import tech.ntam.adminapp.model.Service;
 import tech.ntam.mylibrary.Utils;
@@ -22,11 +24,14 @@ import tech.ntam.mylibrary.Utils;
 
 public class ServiceItemAdapter extends RecyclerView.Adapter<ServiceItemAdapter.MyViewHolder> {
     private List<Service> services;
-    private Activity activity;
+    private ParseTasks parseTasks;
+    private Fragment fragment;
 
-    public ServiceItemAdapter(Activity activity, List<Service> services) {
-        this.activity = activity;
+
+    public ServiceItemAdapter(Fragment fragment, List<Service> services) {
+        parseTasks = (ParseTasks) fragment;
         this.services = services;
+        this.fragment = fragment;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -42,6 +47,13 @@ public class ServiceItemAdapter extends RecyclerView.Adapter<ServiceItemAdapter.
             tvServiceName = view.findViewById(R.id.tv_service_name);
             tvServiceReserved = view.findViewById(R.id.tv_service_reserved);
             btnViewDetails = view.findViewById(R.id.btn_view_details);
+            btnViewDetails.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Service item = services.get(getAdapterPosition());
+                    parseTasks.viewService(item);
+                }
+            });
         }
     }
 
@@ -56,7 +68,7 @@ public class ServiceItemAdapter extends RecyclerView.Adapter<ServiceItemAdapter.
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Service service = services.get(position);
         if (!service.getPhoto().isEmpty())
-            Utils.MyGlide(activity, holder.ivUserImage, service.getPhone());
+            Utils.MyGlide(fragment.getActivity(), holder.ivUserImage, service.getPhone());
         holder.tvServiceName.setText(service.getName());
         holder.tvServiceReserved.setText(service.isReserved());
     }

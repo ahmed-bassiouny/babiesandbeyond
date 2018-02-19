@@ -22,11 +22,6 @@ import tech.ntam.mylibrary.interfaces.Constant;
 
 public class PaymentMethodActivity extends AppCompatActivity {
 
-    private TextView tvTitle;
-    private TextView tvCash;
-    private RadioButton rdCash;
-    private TextView tvCart;
-    private RadioButton rdCart;
     private Button tvPay;
     private Service service;
     private Workshop workshop;
@@ -44,11 +39,6 @@ public class PaymentMethodActivity extends AppCompatActivity {
     }
 
     private void findViewById() {
-        tvTitle = findViewById(R.id.tv_title);
-        tvCash = findViewById(R.id.tv_cash);
-        rdCash = findViewById(R.id.rd_cash);
-        tvCart = findViewById(R.id.tv_cart);
-        rdCart = findViewById(R.id.rd_cart);
         tvPay = findViewById(R.id.tv_pay);
         tvPay.setOnClickListener(new View.OnClickListener() {
             @Override

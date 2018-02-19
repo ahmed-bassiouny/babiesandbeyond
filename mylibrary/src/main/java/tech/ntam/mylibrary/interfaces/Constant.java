@@ -9,7 +9,7 @@ public class Constant {
     public static final String PENDING = "Pending";
     public static final String CONFIRMATION_WITHOUT_PAYMENT = "Confirm Without Payment";
     public static final String CONFIRMATION_WITH_PAYMENT  = "Confirm With Payment";
-    public static final String ASK_FOR_PAY = "Ask For Pay";
+    public static final String ASK_FOR_PAY = "Ask For Payment";
     public static final String DONE  = "Done";
     public static final String CASH = "Cash On Delivery";
     public static final String CANCEL = "Cancel";

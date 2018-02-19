@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:checked="true"
             android:fontFamily="@font/museosans"
-            android:text="@string/baby_request"
+            android:text="@string/babysitter_request"
             android:textSize="12sp" />
 
         <RadioButton
