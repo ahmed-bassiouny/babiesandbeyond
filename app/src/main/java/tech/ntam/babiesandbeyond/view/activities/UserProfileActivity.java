@@ -153,15 +153,21 @@ public class UserProfileActivity extends MyToolbar {
         if (item.getItemId() == R.id.edit) {
             if (editable) {
                 // here i will save new data
-                getUserProfileController().updateProfile(photo, etName, etPhone, new UserProfileController.UpdateSuccess() {
-                    @Override
-                    public void updated() {
-                        etName.setEnabled(false);
-                        etPhone.setEnabled(false);
-                        item.setIcon(R.drawable.ic_edit_24dp);
-                        editable = false;
-                    }
-                });
+                if(etName.getText().toString().trim().isEmpty()){
+                    etName.setError(getString(R.string.invalid_name));
+                }else if(!Utils.validatePhone(etPhone.getText().toString())){
+                    etPhone.setError(getString(R.string.invalid_phone));
+                }else {
+                    getUserProfileController().updateProfile(photo, etName, etPhone, new UserProfileController.UpdateSuccess() {
+                        @Override
+                        public void updated() {
+                            etName.setEnabled(false);
+                            etPhone.setEnabled(false);
+                            item.setIcon(R.drawable.ic_edit_24dp);
+                            editable = false;
+                        }
+                    });
+                }
             } else {
                 // here make edit text editable
                 item.setIcon(R.drawable.ic_check_24dp);

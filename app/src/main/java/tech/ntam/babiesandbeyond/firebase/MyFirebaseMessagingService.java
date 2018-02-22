@@ -3,7 +3,6 @@ package tech.ntam.babiesandbeyond.firebase;
 import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -31,15 +30,15 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
+        new MyNotification(this, remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody()).showNotification();
     }
 
     @Override
     public void handleIntent(Intent intent) {
         super.handleIntent(intent);
-        new MyNotification(this, intent.getExtras().get("gcm.notification.title").toString(), intent.getExtras().get("gcm.notification.body").toString()).showNotification();
-        Intent myIntent = null;
         try {
-
+            //new MyNotification(this, intent.getExtras().get("gcm.notification.title").toString(), intent.getExtras().get("gcm.notification.body").toString()).showNotification();
+            Intent myIntent;
             // convert notification to json object
             JSONObject object = new JSONObject(intent.getExtras().get("a_data").toString());
             // get notification type and create intent

@@ -15,7 +15,7 @@
         android:layout_gravity="center_horizontal"
         android:fontFamily="@font/museosans"
         android:textSize="20sp"
-        tools:text="Nurse " />
+        android:text="@string/service_information" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -23,7 +23,7 @@
         android:fontFamily="@font/museosans"
         android:textStyle="bold"
         android:layout_marginTop="15dp"
-        tools:text="@string/name" />
+        android:text="@string/name" />
 
     <TextView
         android:id="@+id/tv_name"
@@ -40,7 +40,7 @@
         android:fontFamily="@font/museosans"
         android:textStyle="bold"
         android:layout_marginTop="5dp"
-        tools:text="@string/email" />
+        android:text="@string/email" />
 
     <TextView
         android:id="@+id/tv_email"
@@ -57,7 +57,7 @@
         android:fontFamily="@font/museosans"
         android:textStyle="bold"
         android:layout_marginTop="5dp"
-        tools:text="@string/phone" />
+        android:text="@string/phone" />
 
     <TextView
         android:id="@+id/tv_phone"
@@ -74,7 +74,7 @@
         android:fontFamily="@font/museosans"
         android:textStyle="bold"
         android:layout_marginTop="5dp"
-        tools:text="@string/birthday" />
+        android:text="@string/birthday" />
 
     <TextView
         android:id="@+id/tv_birthday"

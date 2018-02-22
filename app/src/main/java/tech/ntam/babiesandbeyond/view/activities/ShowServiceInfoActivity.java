@@ -59,11 +59,7 @@ public class ShowServiceInfoActivity extends MyToolbar {
         tvDateTo.setText(service.getEndDate());
         tvTimeTo.setText(service.getEndTime());
         tvLocation.setText(service.getLocation());
-        if(service.getPrice().isEmpty()){
-            tvFee.setText("Not Set");
-        }else {
-            tvFee.setText(service.getPrice());
-        }
+        tvFee.setText(service.getPrice());
         tvServiceType.setText(service.getServiceTypeName());
         tvStatus.setText(service.getServiceStatusString());
         if (service.getServiceStatusString().equals(Constant.PENDING)) {

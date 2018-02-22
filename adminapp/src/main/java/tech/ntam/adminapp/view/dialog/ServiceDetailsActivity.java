@@ -10,7 +10,6 @@ import tech.ntam.mylibrary.IntentDataKey;
 
 public class ServiceDetailsActivity extends AppCompatActivity {
 
-    private TextView tvTitle;
     private TextView tvName;
     private TextView tvEmail;
     private TextView tvPhone;
@@ -26,7 +25,6 @@ public class ServiceDetailsActivity extends AppCompatActivity {
     }
     
     private void findViewById() {
-        tvTitle = findViewById(R.id.tv_title);
         tvName = findViewById(R.id.tv_name);
         tvEmail = findViewById(R.id.tv_email);
         tvPhone = findViewById(R.id.tv_phone);

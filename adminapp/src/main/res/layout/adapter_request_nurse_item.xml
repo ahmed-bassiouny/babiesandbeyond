@@ -28,6 +28,9 @@
         android:layout_marginStart="8dp"
         android:layout_toEndOf="@+id/iv_user_image"
         android:layout_marginTop="8dp"
+        android:lines="1"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:textSize="12sp"
         android:layout_toStartOf="@+id/btn_view_details"
         tools:text="date" />
@@ -38,6 +41,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
+        android:lines="1"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:layout_below="@+id/tv_date"
         android:textColor="@color/gray_bold"
         android:layout_toStartOf="@+id/btn_view_details"
@@ -75,10 +81,5 @@
         android:textStyle="bold"
         android:text="@string/view_details"
         android:background="@color/colorButton" />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/off_white"
-        android:layout_below="@+id/tv_request_location"/>
 
 </RelativeLayout>

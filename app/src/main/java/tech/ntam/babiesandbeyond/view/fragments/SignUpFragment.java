@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.Toast;
 
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.controller.fragments.SignUpController;
@@ -69,7 +68,7 @@ public class SignUpFragment extends Fragment {
             public void onClick(View v) {
                 if (etName.getText().toString().length() < 6) {
                     etName.setError(getString(R.string.invalid_name));
-                } else if (etPhone.getText().toString().trim().isEmpty()) {
+                } else if (!Utils.validatePhone(etPhone.getText().toString())) {
                     etPhone.setError(getString(R.string.invalid_phone));
                 } else if (etEmail.getText().toString().trim().isEmpty()) {
                     etEmail.setError(getString(R.string.invalid_email));
@@ -77,7 +76,7 @@ public class SignUpFragment extends Fragment {
                     etPassword.setError(getString(R.string.invalid_password));
                 } else if (!etPassword.getText().toString().equals(etConfirmPassword.getText().toString())) {
                     etConfirmPassword.setError(getString(R.string.invalid_confirm_password));
-                } else if (!Utils.validate(etEmail.getText().toString())) {
+                } else if (!Utils.validateEmail(etEmail.getText().toString())) {
                     etEmail.setError(getString(R.string.invalid_email));
                 } else {
                     // valid name , phone , etEmail and password

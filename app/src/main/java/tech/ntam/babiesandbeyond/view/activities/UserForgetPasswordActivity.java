@@ -2,12 +2,8 @@ package tech.ntam.babiesandbeyond.view.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import tech.ntam.babiesandbeyond.R;
@@ -38,7 +34,7 @@ public class UserForgetPasswordActivity extends AppCompatActivity {
         });
     }
     private void sendEmail(){
-        if(!Utils.validate(etEmail.getText().toString())){
+        if(!Utils.validateEmail(etEmail.getText().toString())){
             etEmail.setError(getString(R.string.invalid_email));
         }else {
             final MyDialog myDialog = new MyDialog();

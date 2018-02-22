@@ -35,7 +35,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
         });
     }
     private void sendEmail(){
-        if(!Utils.validate(etEmail.getText().toString())){
+        if(!Utils.validateEmail(etEmail.getText().toString())){
             etEmail.setError(getString(R.string.invalid_email));
         }else {
             final MyDialog myDialog = new MyDialog();

@@ -87,7 +87,7 @@ public class Service implements Parcelable {
     public String getPrice() {
         price = Utils.getValueFromString(price);
         if (price.isEmpty())
-            return "not determined";
+            return Constant.NOT_SET;
         return price + "$";
     }
 

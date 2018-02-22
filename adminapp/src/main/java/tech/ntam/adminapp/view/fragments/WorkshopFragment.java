@@ -1,6 +1,7 @@
 package tech.ntam.adminapp.view.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -21,18 +22,22 @@ import java.util.List;
 
 import tech.ntam.adminapp.R;
 import tech.ntam.adminapp.api.RequestAndResponse;
+import tech.ntam.adminapp.interfaces.ParseWorkshop;
 import tech.ntam.adminapp.model.Staff;
 import tech.ntam.adminapp.model.User;
 import tech.ntam.adminapp.model.Workshop;
+import tech.ntam.adminapp.view.activities.WorkshopDetailsActivity;
 import tech.ntam.adminapp.view.adapter.RequestItemAdapter;
 import tech.ntam.adminapp.view.adapter.ServiceItemAdapter;
 import tech.ntam.adminapp.view.adapter.WorkshopListItemAdapter;
+import tech.ntam.mylibrary.IntentDataKey;
+import tech.ntam.mylibrary.SimpleDividerItemDecoration;
 import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class WorkshopFragment extends Fragment {
+public class WorkshopFragment extends Fragment implements ParseWorkshop {
 
     private static WorkshopFragment workshopFragment;
     private RecyclerView recyclerView;
@@ -73,6 +78,7 @@ public class WorkshopFragment extends Fragment {
         btnList = view.findViewById(R.id.btn_list);
         swipeRefreshLayout = view.findViewById(R.id.swpie_refresh_layout);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getContext()));
         btnRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,7 +132,7 @@ public class WorkshopFragment extends Fragment {
             RequestAndResponse.getWorkshopLList(getContext(), new BaseResponseInterface<List<Workshop>>() {
                 @Override
                 public void onSuccess(List<Workshop> workshops) {
-                    workshopListItemAdapter = new WorkshopListItemAdapter(getActivity(), workshops);
+                    workshopListItemAdapter = new WorkshopListItemAdapter(WorkshopFragment.this, workshops);
                     recyclerView.setAdapter(workshopListItemAdapter);
                     progress.setVisibility(View.INVISIBLE);
                     recyclerView.setVisibility(View.VISIBLE);
@@ -143,5 +149,12 @@ public class WorkshopFragment extends Fragment {
                 }
             });
         }
+    }
+
+    @Override
+    public void viewWorkshop(Workshop workshop) {
+        Intent i = new Intent(getActivity(), WorkshopDetailsActivity.class);
+        i.putExtra(IntentDataKey.MY_WORKSHOP, workshop);
+        startActivity(i);
     }
 }

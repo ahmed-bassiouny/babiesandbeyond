@@ -29,7 +29,9 @@ import tech.ntam.adminapp.model.User;
 import tech.ntam.adminapp.view.activities.TaskAssigmentActivity;
 import tech.ntam.adminapp.view.adapter.RequestItemAdapter;
 import tech.ntam.adminapp.view.adapter.ServiceItemAdapter;
+import tech.ntam.adminapp.view.dialog.ServiceDetailsActivity;
 import tech.ntam.mylibrary.IntentDataKey;
+import tech.ntam.mylibrary.SimpleDividerItemDecoration;
 import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 
 /**
@@ -80,6 +82,7 @@ public class NurseFragment extends Fragment implements ParseTasks {
         btnList = view.findViewById(R.id.btn_list);
         swipeRefreshLayout = view.findViewById(R.id.swpie_refresh_layout);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getContext()));
         btnRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,12 +136,6 @@ public class NurseFragment extends Fragment implements ParseTasks {
         fetchData();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        btnRequest.setChecked(true);
-    }
-
     private void fetchData() {
         if (myStaff != null) {
             if (requestItemAdapter == null)
@@ -182,7 +179,9 @@ public class NurseFragment extends Fragment implements ParseTasks {
 
     @Override
     public void viewService(Service service) {
-
+        Intent intent = new Intent(getActivity(), ServiceDetailsActivity.class);
+        intent.putExtra(IntentDataKey.SERVICE,service);
+        startActivity(intent);
     }
 
     @Override

@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import tech.ntam.mylibrary.MyDateTimeFactor;
 import tech.ntam.mylibrary.Utils;
 
 /**
@@ -58,7 +59,8 @@ public class Service implements Parcelable {
     }
 
     public String getBirthday() {
-        return Utils.getValueFromString(birthday);
+        birthday = Utils.getValueFromString(birthday);
+        return MyDateTimeFactor.getDateFromDateTime(birthday);
     }
 
     public boolean getIsLoggedIn() {

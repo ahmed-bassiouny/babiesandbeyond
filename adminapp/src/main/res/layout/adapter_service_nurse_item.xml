@@ -58,10 +58,5 @@
         android:textColor="@color/gray_bold"
         android:text="@string/view_details"
         android:background="@color/colorButton" />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/off_white"
-        android:layout_below="@+id/iv_user_image"/>
 
 </RelativeLayout>
