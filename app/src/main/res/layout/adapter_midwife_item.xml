@@ -8,8 +8,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_profile_photo"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:src="@drawable/person"
         app:civ_border_color="@color/gray_bold"
         app:civ_border_width="0dp" />
@@ -19,8 +19,8 @@
         android:textSize="14sp"
         android:id="@+id/tv_name"
         android:layout_toStartOf="@+id/more"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_centerVertical="true"
         android:layout_toEndOf="@+id/iv_profile_photo"/>
     <ImageView

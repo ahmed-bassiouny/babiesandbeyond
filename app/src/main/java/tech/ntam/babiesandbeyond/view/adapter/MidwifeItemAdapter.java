@@ -61,7 +61,7 @@ public class MidwifeItemAdapter extends RecyclerView.Adapter<MidwifeItemAdapter.
 
     @Override
     public int getItemCount() {
-        return 3;
+        return midwifeList.size();
     }
 
 }
