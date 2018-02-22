@@ -35,16 +35,17 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
     private List<Group> groups;
     private Fragment fragment;
     private GroupOption groupOption;
-    private boolean showAddLeaveGroup = false;
     private ParseObject parseObject;
     private Activity activity;
+    private int myId;
 
-    public GroupItemAdapter(List<Group> groups, Fragment fragment, Activity activity) {
+    public GroupItemAdapter(List<Group> groups, Fragment fragment, Activity activity,int myId) {
         this.groups = groups;
         this.fragment = fragment;
         groupOption = (GroupOption) fragment;
         parseObject = (ParseObject) fragment;
         this.activity = activity;
+        this.myId = myId;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -102,7 +103,13 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyVi
 
         if (group.getStatus()) {
             // group approved
-            if (group.getUserStatus().equals(Constant.USER_PENDING_GROUP)) {
+            if(group.getCreatedBy() == myId){
+                holder.ivMore.setVisibility(View.INVISIBLE);
+                holder.ivGroupStatus.setImageDrawable(activity.getDrawable(R.drawable.joined));
+                holder.tvGroupStatus.setText(Constant.USER_IN_GROUP_TEXT);
+                holder.ivGroupStatus.setVisibility(View.VISIBLE);
+                holder.tvGroupStatus.setVisibility(View.VISIBLE);
+            } else if (group.getUserStatus().equals(Constant.USER_PENDING_GROUP)) {
                 holder.ivMore.setVisibility(View.INVISIBLE);
                 holder.ivGroupStatus.setImageDrawable(activity.getDrawable(R.drawable.pendingjoin));
                 holder.tvGroupStatus.setText(Constant.USER_PENDING_GROUP_TEXT);

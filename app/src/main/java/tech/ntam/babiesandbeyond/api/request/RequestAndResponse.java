@@ -21,6 +21,7 @@ import tech.ntam.babiesandbeyond.api.api_model.response.EventsResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.GroupResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.HistoryResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.LoginResponse;
+import tech.ntam.babiesandbeyond.api.api_model.response.MidwifeResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.MyServiceResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.NotificationResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.ParentResponse;
@@ -31,6 +32,7 @@ import tech.ntam.babiesandbeyond.api.api_model.response.WorkshopResponse;
 import tech.ntam.babiesandbeyond.model.Event;
 import tech.ntam.babiesandbeyond.model.Group;
 import tech.ntam.babiesandbeyond.model.History;
+import tech.ntam.babiesandbeyond.model.Midwife;
 import tech.ntam.babiesandbeyond.model.Notification;
 import tech.ntam.babiesandbeyond.model.Service;
 import tech.ntam.babiesandbeyond.model.Task;
@@ -630,6 +632,27 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<ParentResponse> call, Throwable t) {
+                anInterface.onFailed(Utils.getExceptionText(t));
+            }
+        });
+    }
+
+    public static void getAllMidwife(Context context, final BaseResponseInterface<List<Midwife>> anInterface) {
+        Call<MidwifeResponse> response = baseRequestInterface.getAllMidwife(
+                UserSharedPref.getTokenWithHeader(context));
+        response.enqueue(new Callback<MidwifeResponse>() {
+            @Override
+            public void onResponse(Call<MidwifeResponse> call, Response<MidwifeResponse> response) {
+                if (response.body() == null) {
+                    anInterface.onFailed(api_error);
+                    return;
+                }
+                checkValidResult(response.code(), response.body().getStatus()
+                        , response.body().getMidwifeList(), response.body().getMessage(), anInterface);
+            }
+
+            @Override
+            public void onFailure(Call<MidwifeResponse> call, Throwable t) {
                 anInterface.onFailed(Utils.getExceptionText(t));
             }
         });

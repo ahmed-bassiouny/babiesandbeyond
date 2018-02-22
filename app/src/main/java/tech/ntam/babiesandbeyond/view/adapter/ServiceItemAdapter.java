@@ -113,7 +113,7 @@ public class ServiceItemAdapter extends RecyclerView.Adapter<ServiceItemAdapter.
             }
         }).start();
     }
-    public void updateService(final int id) {
+    public void updateService(final int id, final String price,final String staffName) {
         final int size = services.size();
         new Thread(new Runnable() {
             @Override
@@ -123,6 +123,8 @@ public class ServiceItemAdapter extends RecyclerView.Adapter<ServiceItemAdapter.
                     if(item.getId() == id){
                         final int position = i;
                         item.updateServiceStatusName();
+                        item.setPrice(price);
+                        item.setStaffName(staffName);
                         services.set(i,item);
                         activity.runOnUiThread(new Runnable() {
                             @Override

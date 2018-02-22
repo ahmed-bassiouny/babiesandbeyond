@@ -112,7 +112,6 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), MidwifeActivity.class);
-                //intent.putExtra(IntentDataKey.SERVICE,IntentDataKey.NURSE_SERVICE);
                 startActivityForResult(intent, IntentDataKey.ADD_SERVICE_DATA_CODE);
                 multipleActions.close();
             }
@@ -181,12 +180,14 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
             if (serviceId == null || serviceId.isEmpty() || serviceItemAdapter == null)
                 return;
             String action = intent.getStringExtra(IntentDataKey.NOTIFICATION_ACTION);
+            String price = intent.getStringExtra(IntentDataKey.NOTIFICATION_SERVICE_PRICE);
+            String staffName = intent.getStringExtra(IntentDataKey.NOTIFICATION_STAFF_NAME);
             switch (action) {
                 case "0":
                     serviceItemAdapter.deleteService(Integer.parseInt(serviceId));
                     break;
                 case "1":
-                    serviceItemAdapter.updateService(Integer.parseInt(serviceId));
+                    serviceItemAdapter.updateService(Integer.parseInt(serviceId),price,staffName);
                     break;
             }
 

@@ -260,7 +260,7 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                groupItemAdapter = new GroupItemAdapter(allGroups, UserGroupsFragment.this, getActivity());
+                                groupItemAdapter = new GroupItemAdapter(allGroups, UserGroupsFragment.this, getActivity(),myId);
                                 recycleView.setAdapter(groupItemAdapter);
                                 progress.setVisibility(View.GONE);
                                 container.setVisibility(View.VISIBLE);

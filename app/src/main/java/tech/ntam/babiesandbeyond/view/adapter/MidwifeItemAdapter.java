@@ -1,5 +1,6 @@
 package tech.ntam.babiesandbeyond.view.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
@@ -11,10 +12,13 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.interfaces.ParseObject;
+import tech.ntam.babiesandbeyond.model.Midwife;
 import tech.ntam.babiesandbeyond.model.Service;
 import tech.ntam.babiesandbeyond.model.ServiceTypeList;
+import tech.ntam.mylibrary.Utils;
 
 /**
  * Created by bassiouny on 22/12/17.
@@ -22,28 +26,21 @@ import tech.ntam.babiesandbeyond.model.ServiceTypeList;
 
 public class MidwifeItemAdapter extends RecyclerView.Adapter<MidwifeItemAdapter.MyViewHolder> {
 
-
-    public MidwifeItemAdapter() {
+    private List<Midwife> midwifeList;
+    private Activity activity;
+    public MidwifeItemAdapter(Activity activity,List<Midwife> midwifeList) {
+        this.midwifeList = midwifeList;
+        this.activity = activity;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-       /* private TextView tvServiceStatus;
-        private TextView tvServiceType;
-        private TextView tvDateFrom;
-        private TextView tvTimeFrom;
-        private TextView tvDateTo;
-        private TextView tvTimeTo;
-        private ImageView imageView;*/
+        private CircleImageView ivProfilePhoto;
+        private TextView tvName;
 
         public MyViewHolder(View view) {
-            super(view);/*
-            tvServiceStatus = view.findViewById(R.id.tv_service_status);
-            tvServiceType = view.findViewById(R.id.tv_service_type);
-            tvDateFrom = view.findViewById(R.id.tv_date_from);
-            tvTimeFrom = view.findViewById(R.id.tv_time_from);
-            tvDateTo = view.findViewById(R.id.tv_date_to_value);
-            tvTimeTo = view.findViewById(R.id.tv_time_to);
-            imageView = view.findViewById(R.id.imageView);*/
+            super(view);
+            ivProfilePhoto = view.findViewById(R.id.iv_profile_photo);
+            tvName = view.findViewById(R.id.tv_name);
         }
     }
 
@@ -56,6 +53,10 @@ public class MidwifeItemAdapter extends RecyclerView.Adapter<MidwifeItemAdapter.
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
+        Midwife item = midwifeList.get(position);
+        holder.tvName.setText(item.getName());
+        if(!item.getPhoto().isEmpty())
+            Utils.MyGlide(activity,holder.ivProfilePhoto,item.getPhoto());
     }
 
     @Override

@@ -89,8 +89,6 @@ public class TaskAssigmentActivity extends AppCompatActivity {
             finish();
         availableServiceId = new ArrayList<>();
         availableServiceName = new ArrayList<>();
-        adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, availableServiceName);
-        spService.setAdapter(adapter);
     }
 
     private void setDataRequest() {

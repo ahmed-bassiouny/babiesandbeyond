@@ -48,6 +48,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     break;
                 case IntentDataKey.NOTIFICATION_SERVICE:
                     myIntent = new Intent(IntentDataKey.NOTIFICATION_SERVICE);
+                    // get price (service)
+                    myIntent.putExtra(IntentDataKey.NOTIFICATION_SERVICE_PRICE, object.get(IntentDataKey.NOTIFICATION_SERVICE_PRICE).toString());
+                    // get staff name
+                    myIntent.putExtra(IntentDataKey.NOTIFICATION_STAFF_NAME, object.get(IntentDataKey.NOTIFICATION_STAFF_NAME).toString());
                     break;
                 case IntentDataKey.NOTIFICATION_WORKSHOP:
                     myIntent = new Intent(IntentDataKey.NOTIFICATION_WORKSHOP);
@@ -62,7 +66,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             myIntent.putExtra(IntentDataKey.NOTIFICATION_ACTION, object.get(IntentDataKey.NOTIFICATION_ACTION).toString());
             // get id
             myIntent.putExtra(IntentDataKey.NOTIFICATION_ID, object.get(IntentDataKey.NOTIFICATION_ID).toString());
-
             broadcaster.sendBroadcast(myIntent);
         } catch (JSONException e) {
         }

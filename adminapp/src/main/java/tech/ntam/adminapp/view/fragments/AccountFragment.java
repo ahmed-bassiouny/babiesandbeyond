@@ -14,10 +14,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import tech.ntam.adminapp.R;
 import tech.ntam.adminapp.view.activities.SignInActivity;
 import tech.ntam.mylibrary.UserSharedPref;
+import tech.ntam.mylibrary.Utils;
 import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 
 /**
@@ -29,6 +31,8 @@ public class AccountFragment extends Fragment {
     private static AccountFragment accountFragment;
     private EditText etName;
     private EditText etPhone;
+    private EditText etEmail;
+    private ImageView ivProfilePhoto;
 
 
     public AccountFragment() {
@@ -84,10 +88,14 @@ public class AccountFragment extends Fragment {
     private void setData() {
         etName.setText(UserSharedPref.getName(getContext()));
         etPhone.setText(UserSharedPref.getPhone(getContext()));
+        etEmail.setText(UserSharedPref.getEmail(getContext()));
+        Utils.MyGlide(getActivity(),ivProfilePhoto,UserSharedPref.getPhoto(getContext()));
     }
 
     private void findViewById(View view) {
         etName = view.findViewById(R.id.et_name);
         etPhone = view.findViewById(R.id.et_phone);
+        etEmail = view.findViewById(R.id.et_email);
+        ivProfilePhoto = view.findViewById(R.id.iv_profile_photo);
     }
 }

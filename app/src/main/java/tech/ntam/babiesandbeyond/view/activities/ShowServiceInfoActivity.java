@@ -33,7 +33,9 @@ public class ShowServiceInfoActivity extends MyToolbar {
     private TextView tvStatus;
     private TextView tvFee;
     private Button btnPay, btnCancel;
+    private TextView tvName,tvNameValue;
     private Service service;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +64,14 @@ public class ShowServiceInfoActivity extends MyToolbar {
         tvFee.setText(service.getPrice());
         tvServiceType.setText(service.getServiceTypeName());
         tvStatus.setText(service.getServiceStatusString());
+        if(service.getStaffName().isEmpty()){
+            tvName.setVisibility(View.INVISIBLE);
+            tvNameValue.setVisibility(View.INVISIBLE);
+        }else {
+            tvName.setVisibility(View.VISIBLE);
+            tvNameValue.setVisibility(View.VISIBLE);
+            tvNameValue.setText(service.getStaffName());
+        }
         if (service.getServiceStatusString().equals(Constant.PENDING)) {
             btnPay.setVisibility(View.GONE);
             btnCancel.setVisibility(View.VISIBLE);
@@ -84,6 +94,8 @@ public class ShowServiceInfoActivity extends MyToolbar {
         tvStatus = findViewById(R.id.tv_status);
         tvFee = findViewById(R.id.tv_fee);
         btnPay = findViewById(R.id.tv_pay);
+        tvName = findViewById(R.id.tv_name);
+        tvNameValue = findViewById(R.id.tv_name_value);
         btnCancel = findViewById(R.id.btn_cancel);
         btnPay.setOnClickListener(new View.OnClickListener() {
             @Override

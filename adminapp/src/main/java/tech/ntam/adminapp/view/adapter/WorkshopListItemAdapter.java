@@ -72,6 +72,7 @@ public class WorkshopListItemAdapter extends RecyclerView.Adapter<WorkshopListIt
         Workshop workshop= workshops.get(position);
         holder.tvWorkshopName.setText(workshop.getName());
         holder.tvWorkshopLocation.setText(workshop.getLocation());
+        holder.ivUserImage.setVisibility(View.GONE);
     }
 
     @Override

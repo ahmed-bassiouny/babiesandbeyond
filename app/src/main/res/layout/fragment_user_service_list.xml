@@ -55,7 +55,6 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/request_midwife"
             android:src="@drawable/my_midwife"
-            android:visibility="gone"
             app:backgroundTint="@android:color/white"
             app:fabSize="mini" />
 

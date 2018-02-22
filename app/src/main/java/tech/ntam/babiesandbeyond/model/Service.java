@@ -35,6 +35,8 @@ public class Service implements Parcelable {
     private String serviceStatusName;
     @SerializedName("service_type_name")
     private String serviceTypeName;
+    @SerializedName("staff_name")
+    private String staffName;
 
     public int getId() {
         return id;
@@ -103,6 +105,10 @@ public class Service implements Parcelable {
         return serviceStatusName;
     }
 
+    public String getStaffName() {
+        return Utils.getValueFromString(staffName);
+    }
+
     public int getServiceStatusColor() {
         switch (serviceStatusName) {
             case Constant.PENDING:
@@ -121,6 +127,13 @@ public class Service implements Parcelable {
         this.serviceStatusName = Constant.CONFIRMATION_WITHOUT_PAYMENT;
     }
 
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public void setStaffName(String staffName) {
+        this.staffName = staffName;
+    }
 
     @Override
     public int describeContents() {
@@ -139,6 +152,7 @@ public class Service implements Parcelable {
         dest.writeInt(this.serviceTypeId);
         dest.writeString(this.serviceStatusName);
         dest.writeString(this.serviceTypeName);
+        dest.writeString(this.staffName);
     }
 
     public Service() {
@@ -155,6 +169,7 @@ public class Service implements Parcelable {
         this.serviceTypeId = in.readInt();
         this.serviceStatusName = in.readString();
         this.serviceTypeName = in.readString();
+        this.staffName = in.readString();
     }
 
     public static final Parcelable.Creator<Service> CREATOR = new Parcelable.Creator<Service>() {

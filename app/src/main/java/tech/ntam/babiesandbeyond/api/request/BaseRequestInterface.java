@@ -26,6 +26,7 @@ import tech.ntam.babiesandbeyond.api.api_model.response.EventsResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.GroupResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.HistoryResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.LoginResponse;
+import tech.ntam.babiesandbeyond.api.api_model.response.MidwifeResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.MyServiceResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.NotificationResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.ParentResponse;
@@ -67,9 +68,9 @@ public interface BaseRequestInterface {
     String FORGET_PASSWORD = "forget_password";
     String CANCEL_SERVICE = "cancel_service";
     String CANCEL_WORKSHOP = "cancel_workshop";
-
     String SERVICE_PAYMENT = "service_payment";
     String WORKSHOP_PAYMENT = "workshop_payment";
+    String ALL_MIDWIFE = "all_midwives";
 
     @FormUrlEncoded
     @POST(LOGIN)
@@ -259,4 +260,10 @@ public interface BaseRequestInterface {
                                          @Field(ParentRequest.USER_ID) int userId,
                                          @Field("service_id") int serviceId,
                                          @Field("payment_method") int paymentMethod);
+
+
+
+    @Headers(HEADER_KEY)
+    @POST(ALL_MIDWIFE)
+    Call<MidwifeResponse> getAllMidwife(@Header(AUTHORIZATION) String token);
 }
