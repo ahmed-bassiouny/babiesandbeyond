@@ -12,6 +12,8 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 import tech.ntam.adminapp.R;
 import tech.ntam.adminapp.view.activities.SignInActivity;
@@ -25,13 +27,16 @@ public class AccountFragment extends Fragment {
 
 
     private static AccountFragment accountFragment;
+    private EditText etName;
+    private EditText etPhone;
+
 
     public AccountFragment() {
         // Required empty public constructor
     }
 
-    public static AccountFragment newInstance(){
-        if(accountFragment == null)
+    public static AccountFragment newInstance() {
+        if (accountFragment == null)
             accountFragment = new AccountFragment();
         return accountFragment;
     }
@@ -46,7 +51,9 @@ public class AccountFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        view.findViewById(R.id.linear_logout).setOnClickListener(new View.OnClickListener() {
+        findViewById(view);
+        setData();
+        view.findViewById(R.id.btn_logout).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder;
@@ -72,5 +79,15 @@ public class AccountFragment extends Fragment {
                         .show();
             }
         });
+    }
+
+    private void setData() {
+        etName.setText(UserSharedPref.getName(getContext()));
+        etPhone.setText(UserSharedPref.getPhone(getContext()));
+    }
+
+    private void findViewById(View view) {
+        etName = view.findViewById(R.id.et_name);
+        etPhone = view.findViewById(R.id.et_phone);
     }
 }

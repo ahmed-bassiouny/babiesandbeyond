@@ -10,38 +10,91 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/gray_bold"
-        android:textColor="@color/white"
+        android:gravity="center"
+        android:padding="15dp"
         android:text="@string/account"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:padding="10dp"
-        android:gravity="center"/>
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:padding="5dp"
-            android:src="@drawable/logout" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/iv_profile_photo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/person"
+            app:civ_border_color="@color/gray_bold"
+            app:civ_border_width="2dp" />
+
+        <TextView
+            android:id="@+id/tv_upload_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:visibility="invisible"
+            android:fontFamily="@font/museosans"
+            android:text="@string/upload_photo"
+            android:textColor="@color/gray_bold"
+            android:textSize="18sp" />
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/museosans"
-            android:gravity="center"
-            android:text="@string/logout"
-            android:textColor="@color/gray_bold"
-            android:textSize="16sp" />
-    </LinearLayout>
+            android:text="@string/name" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_margin="5dp"
-        android:background="@color/off_white" />
+        <EditText
+            android:id="@+id/et_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:enabled="false"
+            android:fontFamily="@font/museosans"
+            android:inputType="textPersonName"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/museosans"
+            android:text="@string/phone" />
+
+        <EditText
+            android:id="@+id/et_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:digits="0123456789+"
+            android:enabled="false"
+            android:fontFamily="@font/museosans"
+            android:inputType="phone"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btn_logout"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="40dp"
+            android:background="@color/colorButton"
+            android:fontFamily="@font/museosans"
+            android:text="@string/logout"
+            android:textAllCaps="false" />
+
+    </LinearLayout>
 </LinearLayout>
