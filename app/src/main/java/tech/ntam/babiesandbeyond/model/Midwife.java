@@ -5,6 +5,9 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import tech.ntam.mylibrary.Utils;
 
 /**
@@ -18,6 +21,8 @@ public class Midwife implements Parcelable {
     private String name;
     @SerializedName("photo")
     private String photo;
+    @SerializedName("time_slots")
+    private List<TimeSlotsMidwife> timeSlotsMidwifeList;
 
     public int getId() {
         return id;
@@ -31,6 +36,13 @@ public class Midwife implements Parcelable {
         return Utils.getValueFromString(photo);
     }
 
+    public List<TimeSlotsMidwife> getTimeSlotsMidwifeList() {
+        if(timeSlotsMidwifeList == null)
+            timeSlotsMidwifeList = new ArrayList<>();
+        return timeSlotsMidwifeList;
+    }
+
+
     @Override
     public int describeContents() {
         return 0;
@@ -41,6 +53,7 @@ public class Midwife implements Parcelable {
         dest.writeInt(this.id);
         dest.writeString(this.name);
         dest.writeString(this.photo);
+        dest.writeList(this.timeSlotsMidwifeList);
     }
 
     public Midwife() {
@@ -50,9 +63,11 @@ public class Midwife implements Parcelable {
         this.id = in.readInt();
         this.name = in.readString();
         this.photo = in.readString();
+        this.timeSlotsMidwifeList = new ArrayList<>();
+        in.readList(this.timeSlotsMidwifeList, TimeSlotsMidwife.class.getClassLoader());
     }
 
-    public static final Parcelable.Creator<Midwife> CREATOR = new Parcelable.Creator<Midwife>() {
+    public static final Creator<Midwife> CREATOR = new Creator<Midwife>() {
         @Override
         public Midwife createFromParcel(Parcel source) {
             return new Midwife(source);

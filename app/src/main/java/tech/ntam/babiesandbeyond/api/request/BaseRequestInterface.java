@@ -3,6 +3,7 @@ package tech.ntam.babiesandbeyond.api.request;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -70,7 +71,7 @@ public interface BaseRequestInterface {
     String CANCEL_WORKSHOP = "cancel_workshop";
     String SERVICE_PAYMENT = "service_payment";
     String WORKSHOP_PAYMENT = "workshop_payment";
-    String ALL_MIDWIFE = "all_midwives";
+    String ALL_MIDWIFE = "midwife/all";
 
     @FormUrlEncoded
     @POST(LOGIN)
@@ -264,6 +265,6 @@ public interface BaseRequestInterface {
 
 
     @Headers(HEADER_KEY)
-    @POST(ALL_MIDWIFE)
+    @GET(ALL_MIDWIFE)
     Call<MidwifeResponse> getAllMidwife(@Header(AUTHORIZATION) String token);
 }

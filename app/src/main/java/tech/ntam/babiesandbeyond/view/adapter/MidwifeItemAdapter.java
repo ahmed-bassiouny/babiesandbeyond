@@ -28,9 +28,11 @@ public class MidwifeItemAdapter extends RecyclerView.Adapter<MidwifeItemAdapter.
 
     private List<Midwife> midwifeList;
     private Activity activity;
+    private ParseObject<Midwife> parseObject;
     public MidwifeItemAdapter(Activity activity,List<Midwife> midwifeList) {
         this.midwifeList = midwifeList;
         this.activity = activity;
+        parseObject = (ParseObject<Midwife>) activity;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -41,6 +43,13 @@ public class MidwifeItemAdapter extends RecyclerView.Adapter<MidwifeItemAdapter.
             super(view);
             ivProfilePhoto = view.findViewById(R.id.iv_profile_photo);
             tvName = view.findViewById(R.id.tv_name);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Midwife item = midwifeList.get(getAdapterPosition());
+                    parseObject.getMyObject(item);
+                }
+            });
         }
     }
 

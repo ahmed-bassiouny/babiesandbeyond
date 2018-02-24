@@ -140,9 +140,11 @@
             android:name="io.fabric.ApiKey"
             android:value="a07905da1fb4c784f0369b04a71691297ca15843" />
 
-        <activity android:name=".view.activities.PaymentMethodActivity"
-            android:theme="@style/AppThemeDialog"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".view.activities.PaymentMethodActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeDialog" />
+        <activity android:name=".view.activities.MidewifeTimeslotsActivity"></activity>
     </application>
 
 </manifest>
