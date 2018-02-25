@@ -1,5 +1,8 @@
 package tech.ntam.babiesandbeyond.view.activities;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,12 +12,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.babiesandbeyond.controller.activities.UserSendRequestController;
 import tech.ntam.babiesandbeyond.model.Midwife;
+import tech.ntam.babiesandbeyond.model.MidwifeRequest;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 import tech.ntam.mylibrary.IntentDataKey;
 import tech.ntam.mylibrary.MyDateTimeFactor;
@@ -76,7 +81,7 @@ public class AddRequestMidwifeActivity extends MyToolbar {
                 } else {
                     tvFrom.setError(null);
                     tvTo.setError(null);
-                    checkMidwife(MyDateTimeFactor.convertTimestampToString(calendarView.getDate()));
+                    checkMidwife(MyDateTimeFactor.convertTimestampToString(calendarView.getDate()),MyDateTimeFactor.convertTimestampToDayOfWeek(calendarView.getDate()));
                 }
             }
         });
@@ -97,15 +102,19 @@ public class AddRequestMidwifeActivity extends MyToolbar {
         return userSendRequestController;
     }
 
-    private void checkMidwife(String date) {
+    private void checkMidwife(final String date, final String day) {
         final MyDialog dialog = new MyDialog();
         dialog.showMyDialog(this);
         RequestAndResponse.checkMidwife(this, midwifeId, tvFrom.getText().toString()
                 , tvTo.getText().toString(), date, new BaseResponseInterface<String>() {
                     @Override
                     public void onSuccess(String s) {
-                        Toast.makeText(AddRequestMidwifeActivity.this, "Success", Toast.LENGTH_SHORT).show();
                         dialog.dismissMyDialog();
+                        Intent resultIntent = new Intent();
+                        resultIntent.putExtra(IntentDataKey.ADD_MIDWIFE_REQUEST,
+                                new MidwifeRequest(tvFrom.getText().toString(),tvTo.getText().toString(),date,day));
+                        setResult(Activity.RESULT_OK, resultIntent);
+                        finish();
                         finish();
                     }
 

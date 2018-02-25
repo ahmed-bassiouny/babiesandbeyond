@@ -21,6 +21,7 @@ public class IntentDataKey {
     public static final String CHANGE_WORKSHOP_DATA_KEY = "change_workshop_value";
     public static final String ADD_SERVICE_DATA_KEY = "add_service_value";
     public static final String ADD_GROUP_DATA_KEY = "add_group_value";
+    public static final String ADD_MIDWIFE_REQUEST = "add_midwife_request";
     public static final int CHANGE_EVENT_DATA_CODE = 120;
     public static final int CHANGE_WORKSHOP_DATA_CODE = 121;
     public static final int ADD_SERVICE_DATA_CODE = 122;

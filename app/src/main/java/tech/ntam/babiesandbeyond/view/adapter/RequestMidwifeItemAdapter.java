@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import tech.ntam.babiesandbeyond.R;
@@ -25,8 +26,8 @@ public class RequestMidwifeItemAdapter extends RecyclerView.Adapter<RequestMidwi
 
     private List<MidwifeRequest> midwifeRequests;
 
-    public RequestMidwifeItemAdapter(List<MidwifeRequest> midwifeRequests) {
-        this.midwifeRequests = midwifeRequests;
+    public RequestMidwifeItemAdapter() {
+        this.midwifeRequests = new ArrayList<>();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -67,5 +68,9 @@ public class RequestMidwifeItemAdapter extends RecyclerView.Adapter<RequestMidwi
         return midwifeRequests.size();
     }
 
+    public void insertItem(MidwifeRequest midwifeRequest){
+        midwifeRequests.add(midwifeRequest);
+        notifyItemInserted(midwifeRequests.size()-1);
+    }
 
 }

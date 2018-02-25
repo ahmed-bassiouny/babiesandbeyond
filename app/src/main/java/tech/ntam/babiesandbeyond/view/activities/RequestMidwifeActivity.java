@@ -19,27 +19,22 @@ import tech.ntam.mylibrary.IntentDataKey;
 
 public class RequestMidwifeActivity extends MyToolbar {
 
+    private final int REQUEST_CODE = 154;
     private List<MidwifeRequest> midwifeRequests;
     private RecyclerView recyclerView;
     private RequestMidwifeItemAdapter adapter;
     private Button btnAddAppointment;
     private int midwifeId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_midwife);
         findViewById();
         onClick();
-        midwifeRequests = new ArrayList<>();
-        midwifeId = getIntent().getIntExtra(IntentDataKey.MIDWIFE,0);
-        if(midwifeId == 0)
+        midwifeId = getIntent().getIntExtra(IntentDataKey.MIDWIFE, 0);
+        if (midwifeId == 0)
             finish();
-        // create dummy data
-        midwifeRequests.add(new MidwifeRequest("12:30","16:30","8-8-2018","Sunday"));
-        midwifeRequests.add(new MidwifeRequest("12:30","16:30","8-8-2018","Sunday"));
-        midwifeRequests.add(new MidwifeRequest("12:30","16:30","8-8-2018","Sunday"));
-        adapter = new RequestMidwifeItemAdapter(midwifeRequests);
-        recyclerView.setAdapter(adapter);
 
     }
 
@@ -47,9 +42,9 @@ public class RequestMidwifeActivity extends MyToolbar {
         btnAddAppointment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RequestMidwifeActivity.this,AddRequestMidwifeActivity.class);
-                intent.putExtra(IntentDataKey.MIDWIFE,midwifeId);
-                startActivity(intent);
+                Intent intent = new Intent(RequestMidwifeActivity.this, AddRequestMidwifeActivity.class);
+                intent.putExtra(IntentDataKey.MIDWIFE, midwifeId);
+                startActivityForResult(intent, REQUEST_CODE);
             }
         });
     }
@@ -60,6 +55,22 @@ public class RequestMidwifeActivity extends MyToolbar {
         btnAddAppointment = findViewById(R.id.btn_add_appointment);
         recyclerView = findViewById(R.id.recycle_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE && data != null) {
+            MidwifeRequest request = data.getParcelableExtra(IntentDataKey.ADD_MIDWIFE_REQUEST);
+            if (request != null) {
+                if (adapter == null) {
+                    adapter = new RequestMidwifeItemAdapter();
+                    recyclerView.setAdapter(adapter);
+                }
+                adapter.insertItem(request);
+            }
+
+        }
     }
 
 }
