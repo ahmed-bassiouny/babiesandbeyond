@@ -103,6 +103,12 @@ public class MyDateTimeFactor {
         return sf.format(date);
     }
 
+    public static long convertStringToTimestamp(String date) throws ParseException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_DASH_FORMAT_TEXT);
+        Date parsedDate = dateFormat.parse(date);
+        return parsedDate.getTime();
+    }
+
     public static String convertTimestampToDayOfWeek(long timestamp) {
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(timestamp);

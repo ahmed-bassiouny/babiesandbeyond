@@ -10,6 +10,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.ParseException;
+
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.babiesandbeyond.controller.activities.UserSendRequestController;
@@ -31,6 +33,7 @@ public class AddRequestMidwifeActivity extends MyToolbar {
     private UserSendRequestController userSendRequestController;
     private String time = "00:00";
     private int midwifeId;
+    private MidwifeRequestModel midwifeRequestModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +42,11 @@ public class AddRequestMidwifeActivity extends MyToolbar {
         setupToolbar(this, false, true, false);
         tvTitle.setText(R.string.add_appointment);
         midwifeId = getIntent().getIntExtra(IntentDataKey.MIDWIFE, 0);
+        if(midwifeId == 0)
+            finish();
         findViewById();
         onClick();
+        setOlderRequest();
     }
 
     private void onClick() {
@@ -88,6 +94,7 @@ public class AddRequestMidwifeActivity extends MyToolbar {
         linearTo = findViewById(R.id.linear_to);
         tvTo = findViewById(R.id.tv_to);
         btnAdd = findViewById(R.id.btn_add);
+        calendarView.setMinDate(MyDateTimeFactor.getDateTimeAfter24Hour().getTimeInMillis());
     }
 
     private UserSendRequestController getUserSendRequestController() {
@@ -118,5 +125,17 @@ public class AddRequestMidwifeActivity extends MyToolbar {
                         dialog.dismissMyDialog();
                     }
                 });
+    }
+    private void setOlderRequest(){
+        midwifeRequestModel = getIntent().getParcelableExtra(IntentDataKey.REQUEST);
+        if(midwifeRequestModel == null)
+            return;
+        tvFrom.setText(midwifeRequestModel.getTimeFrom());
+        tvTo.setText(midwifeRequestModel.getTimeTo());
+        try {
+            calendarView.setDate(MyDateTimeFactor.convertStringToTimestamp(midwifeRequestModel.getDate()));
+        } catch (ParseException e) {
+
+        }
     }
 }

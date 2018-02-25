@@ -71,7 +71,7 @@ public class MidewifeTimeslotsActivity extends MyToolbar {
             @Override
             public void onClick(View v) {
               Intent intent = new Intent(MidewifeTimeslotsActivity.this,RequestMidwifeActivity.class);
-                intent.putExtra(IntentDataKey.MIDWIFE,midwife.getId());
+                intent.putExtra(IntentDataKey.MIDWIFE,midwife);
                 startActivity(intent);
             }
         });

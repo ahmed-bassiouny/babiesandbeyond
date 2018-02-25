@@ -1,6 +1,7 @@
 package tech.ntam.babiesandbeyond.view.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tech.ntam.babiesandbeyond.R;
+import tech.ntam.babiesandbeyond.interfaces.MidwifeRequestInterface;
 import tech.ntam.babiesandbeyond.interfaces.ParseObject;
 import tech.ntam.babiesandbeyond.model.MidwifeRequestModel;
+import tech.ntam.babiesandbeyond.view.activities.RequestMidwifeActivity;
+import tech.ntam.mylibrary.IntentDataKey;
 
 /**
  * Created by bassiouny on 22/12/17.
@@ -23,11 +27,11 @@ public class RequestMidwifeItemAdapter extends RecyclerView.Adapter<RequestMidwi
 
 
     private List<MidwifeRequestModel> midwifeRequestModels;
-    private ParseObject parseObject;
+    private MidwifeRequestInterface anInterface;
 
     public RequestMidwifeItemAdapter(Activity activity) {
         this.midwifeRequestModels = new ArrayList<>();
-        parseObject = (ParseObject) activity;
+        anInterface = (MidwifeRequestInterface) activity;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -48,9 +52,15 @@ public class RequestMidwifeItemAdapter extends RecyclerView.Adapter<RequestMidwi
             ivDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    parseObject.getMyObject(midwifeRequestModels.get(getAdapterPosition()));
+                    anInterface.removeRequest(midwifeRequestModels.get(getAdapterPosition()));
                     midwifeRequestModels.remove(getAdapterPosition());
                     notifyItemRemoved(getAdapterPosition());
+                }
+            });
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    anInterface.editRequest(midwifeRequestModels.get(getAdapterPosition()),getAdapterPosition());
                 }
             });
         }
@@ -82,8 +92,15 @@ public class RequestMidwifeItemAdapter extends RecyclerView.Adapter<RequestMidwi
         midwifeRequestModels.add(midwifeRequestModel);
         notifyItemInserted(midwifeRequestModels.size()-1);
     }
+    public void updateItem(MidwifeRequestModel midwifeRequestModel,int position){
+        midwifeRequestModels.set(position,midwifeRequestModel);
+        notifyItemChanged(position);
+    }
     public List<MidwifeRequestModel> getList(){
         return midwifeRequestModels;
+    }
+    public MidwifeRequestModel getItem(int position){
+        return midwifeRequestModels.get(position);
     }
 
 }
