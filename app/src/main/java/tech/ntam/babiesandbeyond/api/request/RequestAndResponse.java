@@ -658,4 +658,26 @@ public class RequestAndResponse {
         });
     }
 
+    public static void checkMidwife(Context context,int midwifeId
+            ,String timeFrom,String timeTo,String date
+            , final BaseResponseInterface<String> anInterface) {
+        Call<ParentResponse> response = baseRequestInterface.checkMidwife(
+                UserSharedPref.getTokenWithHeader(context),midwifeId,timeFrom,timeTo,date);
+        response.enqueue(new Callback<ParentResponse>() {
+            @Override
+            public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {
+                if (response.body() == null) {
+                    anInterface.onFailed(api_error);
+                    return;
+                }
+                checkValidResult(response.code(), response.body().getStatus()
+                        , response.body().getMessage(), response.body().getMessage(), anInterface);
+            }
+
+            @Override
+            public void onFailure(Call<ParentResponse> call, Throwable t) {
+                anInterface.onFailed(Utils.getExceptionText(t));
+            }
+        });
+    }
 }

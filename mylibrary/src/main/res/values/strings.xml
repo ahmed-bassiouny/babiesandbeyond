@@ -40,6 +40,7 @@
     <string name="choose_service">Choose Service</string>
     <string name="choose_date_from">Choose Date From</string>
     <string name="choose_date_to">Choose Date To</string>
+    <string name="choose_date">Choose Date</string>
     <string name="location">Location</string>
     <string name="type_here">Type Here</string>
     <string name="any">Any</string>
@@ -47,7 +48,9 @@
     <string name="not_coming">Cancel</string>
 
     <string name="workshop">Workshop</string>
-
+    <string name="choose_time">Choose Time</string>
+    <string name="add">Add</string>
+    <string name="add_appointment">Add Appointment</string>
     <string name="event_name">Event Name</string>
     <string name="event_date_time_to">Event Date Time To</string>
     <string name="event_date_time_from">Event Date Time From</string>
@@ -107,6 +110,7 @@
 
     <string name="request_save">Request Saved</string>
     <string name="invalid_Date">Invalid Date</string>
+    <string name="invalid_Time">Invalid Time</string>
     <string name="service_type">Service Type</string>
     <string name="pay">Pay</string>
     <string name="email_already_taken">The email has already been taken</string>
@@ -154,4 +158,5 @@
     <string name="new_password">New Password</string>
     <string name="ok">Ok</string>
     <string name="account">Account</string>
+    <string name="please_choose_midwife">Please choose time and date \n according to midwife available time</string>
 </resources>

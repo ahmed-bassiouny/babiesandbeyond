@@ -39,4 +39,8 @@
         <item name="android:src">@drawable/logo</item>
         <item name="android:fontFamily">@font/museosans</item>
     </style>
+
+    <style name="Widget.CalendarView.Custom" parent="android:Widget.CalendarView">
+        <item name="android:dayOfWeekBackground">#f0f</item>
+    </style>
 </resources>

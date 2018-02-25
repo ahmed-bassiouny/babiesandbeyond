@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -76,20 +77,21 @@ public class UserSendRequestController {
                 .getColor(R.color.colorPrimary));
         timePickerDialog.show(fragmentManager, "Timepickerdialog");
     }
+    public void showTime(FragmentManager fragmentManager, final TextView textView,int minH,int minM) {
+        TimePickerDialog timePickerDialog;
+        timePickerDialog = TimePickerDialog.newInstance(new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
+                textView.setText(getValueDateDigit(hourOfDay) + ":" + getValueDateDigit(minute));
+            }
+        }, now.get(Calendar.HOUR_OF_DAY), now.get(Calendar.MINUTE), now.get(Calendar.SECOND), false);
 
-    public void loadServiceType(Spinner spinner) {
-        //load service type form backend
-        // ex nurse , midwife,babysitting
-
-        /* this list temp*/
-       /* List<String> list = new ArrayList<String>();
-        for (ServiceType item : ServiceTypeList.getServiceTypes()) {
-            list.add(item.getName());
-        }
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(activity,
-                android.R.layout.simple_spinner_item, list);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(dataAdapter);*/
+        timePickerDialog.setVersion(TimePickerDialog.Version.VERSION_2);
+        timePickerDialog.setThemeDark(true);
+        timePickerDialog.setMinTime(minH,minM,00);
+        timePickerDialog.setAccentColor(activity.getResources()
+                .getColor(R.color.colorPrimary));
+        timePickerDialog.show(fragmentManager, "Timepickerdialog");
     }
 
     public void saveData(int serviceTypeId, String startDate, String endDate, String location) {
@@ -114,17 +116,6 @@ public class UserSendRequestController {
         });
     }
 
-   /* public int getIdFromSpinner(String text) {
-        int result = 0;
-        // TODO :i will copy that to service Type database
-        for (ServiceType item : ServiceTypeList.getServiceTypes()) {
-            if (item.getName().equals(text)) {
-                result = item.getId();
-                break;
-            }
-        }
-        return result;
-    }*/
 
     private String getValueDateDigit(int value) {
         if (value < 10)

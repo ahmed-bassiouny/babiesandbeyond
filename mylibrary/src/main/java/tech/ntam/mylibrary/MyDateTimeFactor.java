@@ -16,6 +16,7 @@ public class MyDateTimeFactor {
     public static final String DATE_TIME_FORMAT_NUMBER = "yyyy-MM-dd HH:mm:ss";
     public static final String DATE_TIME_FORMAT_TEXT = "dd MMM yyyy HH:mm a";
     public static final String DATE_FORMAT_TEXT = "dd MMM yyyy";
+    public static final String DATE_DASH_FORMAT_TEXT = "yyyy-MM-dd ";
     public static final String DAY_MONTH_FORMAT_TEXT = "dd MMM";
     public static final String TIME_FORMAT_AM_PM = "HH:mm a";
     public static final String TIME_FORMAT = "HH:mm:ss";
@@ -91,5 +92,10 @@ public class MyDateTimeFactor {
         } catch (ParseException e) {
             return "";
         }
+    }
+    public static String convertTimestampToString(long timestamp){
+        SimpleDateFormat sf = new SimpleDateFormat(DATE_DASH_FORMAT_TEXT);
+        Date date = new Date(timestamp);
+        return sf.format(date);
     }
 }

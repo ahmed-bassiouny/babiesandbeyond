@@ -44,7 +44,6 @@ public class EventItemAdapter extends RecyclerView.Adapter<EventItemAdapter.MyVi
         private TextView tvDateTo;
         private TextView tvTimeTo;
         private TextView tvTextType;
-        private ConstraintLayout constraintLayout;
 
         public MyViewHolder(View view) {
             super(view);
@@ -55,7 +54,13 @@ public class EventItemAdapter extends RecyclerView.Adapter<EventItemAdapter.MyVi
             tvDateTo = view.findViewById(R.id.tv_date_to_value);
             tvTimeTo = view.findViewById(R.id.tv_time_to);
             tvTextType = view.findViewById(R.id.textView2);
-            constraintLayout = view.findViewById(R.id.constraint);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Event event = events.get(getAdapterPosition());
+                    parseObject.getMyObject(event);
+                }
+            });
         }
     }
 
@@ -68,8 +73,7 @@ public class EventItemAdapter extends RecyclerView.Adapter<EventItemAdapter.MyVi
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        final Event event = events.get(position);
-
+        Event event = events.get(position);
         holder.tvTextType.setText(R.string.event_name);
         holder.tvDateFrom.setText(event.getStartDate());
         holder.tvTimeFrom.setText(event.getStartTime());
@@ -84,12 +88,7 @@ public class EventItemAdapter extends RecyclerView.Adapter<EventItemAdapter.MyVi
         } else {
             holder.tvServiceStatus.setVisibility(View.GONE);
         }
-        holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                parseObject.getMyObject(event);
-            }
-        });
+
     }
 
     @Override

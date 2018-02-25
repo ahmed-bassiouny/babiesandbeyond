@@ -42,7 +42,6 @@ public class UserSendRequestActivity extends MyToolbar {
         setContentView(R.layout.activity_user_send_request);
         findViewById();
         onClick();
-        getController().loadServiceType(spService);
         setupToolbar(this, false, true, true);
         tvTitle.setText(R.string.request);
     }

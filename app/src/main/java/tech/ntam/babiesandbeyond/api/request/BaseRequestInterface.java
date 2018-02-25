@@ -72,6 +72,7 @@ public interface BaseRequestInterface {
     String SERVICE_PAYMENT = "service_payment";
     String WORKSHOP_PAYMENT = "workshop_payment";
     String ALL_MIDWIFE = "midwife/all";
+    String CHECK_MIDWIFE = "midwife/check-midwife";
 
     @FormUrlEncoded
     @POST(LOGIN)
@@ -241,30 +242,39 @@ public interface BaseRequestInterface {
     @Headers(HEADER_KEY)
     @POST(CANCEL_WORKSHOP)
     Call<ParentResponse> cancelWorkshop(@Header(AUTHORIZATION) String token,
-                                       @Field(ParentRequest.USER_ID) int userId,
-                                       @Field("workshop_id") int workshopId);
+                                        @Field(ParentRequest.USER_ID) int userId,
+                                        @Field("workshop_id") int workshopId);
 
 
     @FormUrlEncoded
     @Headers(HEADER_KEY)
     @POST(WORKSHOP_PAYMENT)
     Call<ParentResponse> workshopPayment(@Header(AUTHORIZATION) String token,
-                                        @Field(ParentRequest.USER_ID) int userId,
-                                        @Field("workshop_id") int workshopId,
-                                        @Field("payment_method") int paymentMethod);
+                                         @Field(ParentRequest.USER_ID) int userId,
+                                         @Field("workshop_id") int workshopId,
+                                         @Field("payment_method") int paymentMethod);
 
 
     @FormUrlEncoded
     @Headers(HEADER_KEY)
     @POST(SERVICE_PAYMENT)
     Call<ParentResponse> servicePayment(@Header(AUTHORIZATION) String token,
-                                         @Field(ParentRequest.USER_ID) int userId,
-                                         @Field("service_id") int serviceId,
-                                         @Field("payment_method") int paymentMethod);
-
+                                        @Field(ParentRequest.USER_ID) int userId,
+                                        @Field("service_id") int serviceId,
+                                        @Field("payment_method") int paymentMethod);
 
 
     @Headers(HEADER_KEY)
     @GET(ALL_MIDWIFE)
     Call<MidwifeResponse> getAllMidwife(@Header(AUTHORIZATION) String token);
+
+
+    @FormUrlEncoded
+    @Headers(HEADER_KEY)
+    @POST(CHECK_MIDWIFE)
+    Call<ParentResponse> checkMidwife(@Header(AUTHORIZATION) String token,
+                                      @Field("midwife_id") int midwifeId,
+                                      @Field("from") String from,
+                                      @Field("to") String to,
+                                      @Field("date") String date);
 }

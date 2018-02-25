@@ -1,5 +1,6 @@
 package tech.ntam.babiesandbeyond.view.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -69,7 +70,9 @@ public class MidewifeTimeslotsActivity extends MyToolbar {
         btnAddRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+              Intent intent = new Intent(MidewifeTimeslotsActivity.this,RequestMidwifeActivity.class);
+                intent.putExtra(IntentDataKey.MIDWIFE,midwife.getId());
+                startActivity(intent);
             }
         });
     }
