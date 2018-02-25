@@ -1,12 +1,11 @@
 package tech.ntam.babiesandbeyond.view.adapter;
 
 import android.app.Activity;
-import android.support.constraint.ConstraintLayout;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -14,8 +13,7 @@ import java.util.List;
 
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.interfaces.ParseObject;
-import tech.ntam.babiesandbeyond.model.Event;
-import tech.ntam.babiesandbeyond.model.MidwifeRequest;
+import tech.ntam.babiesandbeyond.model.MidwifeRequestModel;
 
 /**
  * Created by bassiouny on 22/12/17.
@@ -24,10 +22,12 @@ import tech.ntam.babiesandbeyond.model.MidwifeRequest;
 public class RequestMidwifeItemAdapter extends RecyclerView.Adapter<RequestMidwifeItemAdapter.MyViewHolder> {
 
 
-    private List<MidwifeRequest> midwifeRequests;
+    private List<MidwifeRequestModel> midwifeRequestModels;
+    private ParseObject parseObject;
 
-    public RequestMidwifeItemAdapter() {
-        this.midwifeRequests = new ArrayList<>();
+    public RequestMidwifeItemAdapter(Activity activity) {
+        this.midwifeRequestModels = new ArrayList<>();
+        parseObject = (ParseObject) activity;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -36,6 +36,7 @@ public class RequestMidwifeItemAdapter extends RecyclerView.Adapter<RequestMidwi
         private TextView tvRequestDate;
         private TextView tvFrom;
         private TextView tvTo;
+        private ImageView ivDelete;
 
         public MyViewHolder(View view) {
             super(view);
@@ -43,6 +44,15 @@ public class RequestMidwifeItemAdapter extends RecyclerView.Adapter<RequestMidwi
             tvRequestDate = view.findViewById(R.id.tv_request_date);
             tvFrom = view.findViewById(R.id.tv_from);
             tvTo = view.findViewById(R.id.tv_to);
+            ivDelete = view.findViewById(R.id.iv_delete);
+            ivDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    parseObject.getMyObject(midwifeRequestModels.get(getAdapterPosition()));
+                    midwifeRequestModels.remove(getAdapterPosition());
+                    notifyItemRemoved(getAdapterPosition());
+                }
+            });
         }
     }
 
@@ -55,7 +65,7 @@ public class RequestMidwifeItemAdapter extends RecyclerView.Adapter<RequestMidwi
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        MidwifeRequest item = midwifeRequests.get(position);
+        MidwifeRequestModel item = midwifeRequestModels.get(position);
         holder.tvRequestDay.setText(item.getDay());
         holder.tvRequestDate.setText(item.getDate());
         holder.tvFrom.setText(item.getTimeFrom());
@@ -65,12 +75,15 @@ public class RequestMidwifeItemAdapter extends RecyclerView.Adapter<RequestMidwi
 
     @Override
     public int getItemCount() {
-        return midwifeRequests.size();
+        return midwifeRequestModels.size();
     }
 
-    public void insertItem(MidwifeRequest midwifeRequest){
-        midwifeRequests.add(midwifeRequest);
-        notifyItemInserted(midwifeRequests.size()-1);
+    public void insertItem(MidwifeRequestModel midwifeRequestModel){
+        midwifeRequestModels.add(midwifeRequestModel);
+        notifyItemInserted(midwifeRequestModels.size()-1);
+    }
+    public List<MidwifeRequestModel> getList(){
+        return midwifeRequestModels;
     }
 
 }

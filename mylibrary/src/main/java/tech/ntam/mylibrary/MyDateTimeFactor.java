@@ -108,6 +108,13 @@ public class MyDateTimeFactor {
         cal.setTimeInMillis(timestamp);
         return getDayStringFromNumber(cal.get(Calendar.DAY_OF_WEEK));
     }
+    public static long getHourBetweenTwoDate(Date firstDate,Date secondDate){
+        long secs = (firstDate.getTime() - secondDate.getTime()) / 1000;
+        long h =  secs / 3600;
+        secs = secs % 3600;
+        long mins = secs / 60;
+        return mins > 1 ? (h+1):h;
+    }
 
     private static String getDayStringFromNumber(int day) {
         switch (day) {

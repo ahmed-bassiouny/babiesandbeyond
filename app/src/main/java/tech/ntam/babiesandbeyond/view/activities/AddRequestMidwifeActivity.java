@@ -2,8 +2,6 @@ package tech.ntam.babiesandbeyond.view.activities;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,14 +10,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Calendar;
-import java.util.Date;
-
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.babiesandbeyond.controller.activities.UserSendRequestController;
-import tech.ntam.babiesandbeyond.model.Midwife;
-import tech.ntam.babiesandbeyond.model.MidwifeRequest;
+import tech.ntam.babiesandbeyond.model.MidwifeRequestModel;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 import tech.ntam.mylibrary.IntentDataKey;
 import tech.ntam.mylibrary.MyDateTimeFactor;
@@ -112,7 +106,7 @@ public class AddRequestMidwifeActivity extends MyToolbar {
                         dialog.dismissMyDialog();
                         Intent resultIntent = new Intent();
                         resultIntent.putExtra(IntentDataKey.ADD_MIDWIFE_REQUEST,
-                                new MidwifeRequest(tvFrom.getText().toString(),tvTo.getText().toString(),date,day));
+                                new MidwifeRequestModel(tvFrom.getText().toString(),tvTo.getText().toString(),date,day));
                         setResult(Activity.RESULT_OK, resultIntent);
                         finish();
                         finish();

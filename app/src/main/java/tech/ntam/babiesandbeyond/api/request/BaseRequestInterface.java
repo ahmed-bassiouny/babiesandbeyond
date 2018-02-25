@@ -1,6 +1,9 @@
 package tech.ntam.babiesandbeyond.api.request;
 
+import java.util.List;
+
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -12,6 +15,7 @@ import tech.ntam.babiesandbeyond.api.api_model.request.AskWorkshopRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.CreateGroupRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.GroupOptionRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.LoginRequest;
+import tech.ntam.babiesandbeyond.api.api_model.request.MidwifeRequestRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.ParentRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.RateRequest;
 import tech.ntam.babiesandbeyond.api.api_model.request.RegisterRequest;
@@ -35,7 +39,7 @@ import tech.ntam.babiesandbeyond.api.api_model.response.ProfileResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.RegisterResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.StaffTasksResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.WorkshopResponse;
-import tech.ntam.babiesandbeyond.model.Group;
+import tech.ntam.babiesandbeyond.model.MidwifeRequestModel;
 
 /**
  * Created by bassiouny on 31/12/17.
@@ -73,6 +77,7 @@ public interface BaseRequestInterface {
     String WORKSHOP_PAYMENT = "workshop_payment";
     String ALL_MIDWIFE = "midwife/all";
     String CHECK_MIDWIFE = "midwife/check-midwife";
+    String RESERVE_MIDWIFE = "midwife/reserve";
 
     @FormUrlEncoded
     @POST(LOGIN)
@@ -277,4 +282,12 @@ public interface BaseRequestInterface {
                                       @Field("from") String from,
                                       @Field("to") String to,
                                       @Field("date") String date);
+
+
+    @Headers(HEADER_KEY)
+    @POST(RESERVE_MIDWIFE)
+    Call<ParentResponse> reserveMidwife(@Header(AUTHORIZATION) String token,
+                                        @Body() MidwifeRequestRequest request);
+
+
 }

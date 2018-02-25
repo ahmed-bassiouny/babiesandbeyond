@@ -3,26 +3,44 @@ package tech.ntam.babiesandbeyond.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.util.Date;
+
+import tech.ntam.mylibrary.MyDateTimeFactor;
 import tech.ntam.mylibrary.Utils;
 
 /**
  * Created by bassiouny on 25/02/18.
  */
 
-public class MidwifeRequest implements Parcelable {
+public class MidwifeRequestModel implements Parcelable {
+    @SerializedName("from")
     private String timeFrom;
+    @SerializedName("to")
     private String timeTo;
+    @SerializedName("date")
     private String date;
+    @SerializedName("day")
     private String day;
 
-    public MidwifeRequest() {
+    public MidwifeRequestModel() {
     }
 
-    public MidwifeRequest(String timeFrom, String timeTo, String date, String day) {
+    public MidwifeRequestModel(String timeFrom, String timeTo, String date, String day) {
         this.timeFrom = timeFrom;
         this.timeTo = timeTo;
         this.date = date;
         this.day = day;
+    }
+
+    public Date getDateTimeFrom(){
+        // convert string date time to date                             // add second
+        return MyDateTimeFactor.convertStringToDate(getDate()+" "+getTimeFrom()+":00");
+    }
+    public Date getDateTimeTo(){
+        // convert string date time to date                             // add second
+        return MyDateTimeFactor.convertStringToDate(getDate()+" "+getTimeTo()+":00");
     }
 
     public String getTimeFrom() {
@@ -55,22 +73,22 @@ public class MidwifeRequest implements Parcelable {
         dest.writeString(this.day);
     }
 
-    protected MidwifeRequest(Parcel in) {
+    protected MidwifeRequestModel(Parcel in) {
         this.timeFrom = in.readString();
         this.timeTo = in.readString();
         this.date = in.readString();
         this.day = in.readString();
     }
 
-    public static final Parcelable.Creator<MidwifeRequest> CREATOR = new Parcelable.Creator<MidwifeRequest>() {
+    public static final Parcelable.Creator<MidwifeRequestModel> CREATOR = new Parcelable.Creator<MidwifeRequestModel>() {
         @Override
-        public MidwifeRequest createFromParcel(Parcel source) {
-            return new MidwifeRequest(source);
+        public MidwifeRequestModel createFromParcel(Parcel source) {
+            return new MidwifeRequestModel(source);
         }
 
         @Override
-        public MidwifeRequest[] newArray(int size) {
-            return new MidwifeRequest[size];
+        public MidwifeRequestModel[] newArray(int size) {
+            return new MidwifeRequestModel[size];
         }
     };
 }

@@ -1,18 +1,14 @@
 package tech.ntam.babiesandbeyond.api.request;
 
 import android.content.Context;
-import android.util.Log;
 
 
-import java.net.SocketException;
-import java.net.UnknownHostException;
 import java.util.List;
-import java.util.concurrent.TimeoutException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import tech.ntam.babiesandbeyond.R;
+import tech.ntam.babiesandbeyond.api.api_model.request.MidwifeRequestRequest;
 import tech.ntam.babiesandbeyond.api.api_model.response.AboutResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.AddServiceResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.AddWorkshopResponse;
@@ -33,11 +29,11 @@ import tech.ntam.babiesandbeyond.model.Event;
 import tech.ntam.babiesandbeyond.model.Group;
 import tech.ntam.babiesandbeyond.model.History;
 import tech.ntam.babiesandbeyond.model.Midwife;
+import tech.ntam.babiesandbeyond.model.MidwifeRequestModel;
 import tech.ntam.babiesandbeyond.model.Notification;
 import tech.ntam.babiesandbeyond.model.Service;
 import tech.ntam.babiesandbeyond.model.Task;
 import tech.ntam.babiesandbeyond.model.User;
-import tech.ntam.babiesandbeyond.model.UserData;
 import tech.ntam.babiesandbeyond.model.UserService;
 import tech.ntam.babiesandbeyond.model.Workshop;
 import tech.ntam.mylibrary.UserSharedPref;
@@ -663,6 +659,29 @@ public class RequestAndResponse {
             , final BaseResponseInterface<String> anInterface) {
         Call<ParentResponse> response = baseRequestInterface.checkMidwife(
                 UserSharedPref.getTokenWithHeader(context),midwifeId,timeFrom,timeTo,date);
+        response.enqueue(new Callback<ParentResponse>() {
+            @Override
+            public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {
+                if (response.body() == null) {
+                    anInterface.onFailed(api_error);
+                    return;
+                }
+                checkValidResult(response.code(), response.body().getStatus()
+                        , response.body().getMessage(), response.body().getMessage(), anInterface);
+            }
+
+            @Override
+            public void onFailure(Call<ParentResponse> call, Throwable t) {
+                anInterface.onFailed(Utils.getExceptionText(t));
+            }
+        });
+    }
+
+    public static void reserveMidwife(Context context, int midwifeId
+            , List<MidwifeRequestModel> midwifeRequestModels, final BaseResponseInterface<String> anInterface) {
+        MidwifeRequestRequest request = new MidwifeRequestRequest(midwifeId, midwifeRequestModels);
+        Call<ParentResponse> response = baseRequestInterface.reserveMidwife(
+                UserSharedPref.getTokenWithHeader(context),request);
         response.enqueue(new Callback<ParentResponse>() {
             @Override
             public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {

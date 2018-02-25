@@ -22,8 +22,22 @@
         android:id="@+id/recycle_view" />
 
 
+
     <Button
         android:id="@+id/btn_add_appointment"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp"
+        android:background="@color/colorButton"
+        android:fontFamily="@font/museosans"
+        android:textSize="18sp"
+        android:layout_above="@+id/btn_pay"
+        android:textColor="@color/gray_bold"
+        android:text="@string/add_appointment"
+        android:textAllCaps="false" />
+    <Button
+        android:id="@+id/btn_pay"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -33,6 +47,6 @@
         android:fontFamily="@font/museosans"
         android:textSize="18sp"
         android:textColor="@color/gray_bold"
-        android:text="@string/add_appointment"
+        android:text="@string/pay"
         android:textAllCaps="false" />
 </RelativeLayout>
