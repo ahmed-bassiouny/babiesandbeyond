@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import tech.ntam.mylibrary.MyDateTimeFactor;
 import tech.ntam.mylibrary.Utils;
 
 /**
@@ -19,11 +20,11 @@ public class AvailableTimeMidwife implements Parcelable {
     private String to;
 
     public String getFrom() {
-        return Utils.getValueFromString(from);
+        return MyDateTimeFactor.convertTimeFrom24To12(Utils.getValueFromString(from));
     }
 
     public String getTo() {
-        return Utils.getValueFromString(to);
+        return MyDateTimeFactor.convertTimeFrom24To12(Utils.getValueFromString(to));
     }
 
 

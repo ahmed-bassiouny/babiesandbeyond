@@ -7,12 +7,14 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorControlNormal">@color/white</item>
+        <item name="android:fontFamily">@font/museosans</item>
     </style>
 
 
     <style name="AppTheme.NoActionBar" parent="AppTheme">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:fontFamily">@font/museosans</item>
     </style>
 
     <style name="AppThemeDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
@@ -22,16 +24,19 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="windowNoTitle">true</item>
         <item name="android:excludeFromRecents">true</item>
+        <item name="android:fontFamily">@font/museosans</item>
     </style>
 
     <style name="RatingBar" parent="Theme.AppCompat">
         <item name="colorControlNormal">@color/gray_bold</item>
         <item name="colorControlActivated">@color/gray_bold</item>
+        <item name="android:fontFamily">@font/museosans</item>
     </style>
 
     <style name="menu_labels_style">
         <item name="android:background">@color/white</item>
         <item name="android:textColor">@color/gray_bold</item>
         <item name="android:src">@drawable/logo</item>
+        <item name="android:fontFamily">@font/museosans</item>
     </style>
 </resources>

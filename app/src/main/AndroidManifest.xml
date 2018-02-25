@@ -144,7 +144,9 @@
             android:name=".view.activities.PaymentMethodActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeDialog" />
-        <activity android:name=".view.activities.MidewifeTimeslotsActivity"></activity>
+        <activity android:name=".view.activities.MidewifeTimeslotsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

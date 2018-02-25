@@ -1,9 +1,11 @@
 package tech.ntam.babiesandbeyond.view.adapter;
 
+import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -20,18 +22,22 @@ public class MidwifeTimeSlots extends RecyclerView.Adapter<RecyclerView.ViewHold
     private List<SectionOrRowMidwife> sectionOrRowMidwives;
     private int SECTION = 0;
     private int ROW = 1;
+    private Activity activity;
 
-    public MidwifeTimeSlots(List<SectionOrRowMidwife> sectionOrRowMidwives) {
+    public MidwifeTimeSlots(Activity activity,List<SectionOrRowMidwife> sectionOrRowMidwives) {
         this.sectionOrRowMidwives = sectionOrRowMidwives;
+        this.activity = activity;
     }
 
     public class RowViewHolder extends RecyclerView.ViewHolder{
         private TextView tvFrom;
         private TextView tvTo;
+        private RelativeLayout relativeLayout;
         public RowViewHolder(View itemView) {
             super(itemView);
             tvFrom = itemView.findViewById(R.id.tv_from);
             tvTo = itemView.findViewById(R.id.tv_to);
+            relativeLayout = itemView.findViewById(R.id.relativeLayout);
         }
     }
 
@@ -67,6 +73,11 @@ public class MidwifeTimeSlots extends RecyclerView.Adapter<RecyclerView.ViewHold
             RowViewHolder h = (RowViewHolder) holder;
             h.tvFrom.setText(item.getRow().getFrom());
             h.tvTo.setText(item.getRow().getTo());
+            if(position % 2 ==0){
+                h.relativeLayout.setBackgroundColor(activity.getResources().getColor(R.color.background_row));
+            }else {
+                h.relativeLayout.setBackgroundColor(activity.getResources().getColor(R.color.white));
+            }
         } else {
             SectionViewHolder h = (SectionViewHolder) holder;
             h.tvSectionName.setText(item.getSection());

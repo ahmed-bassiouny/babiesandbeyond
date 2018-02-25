@@ -125,6 +125,7 @@
     <string name="notification">Notification</string>
     <string name="photo_large">this photo is too large</string>
     <string name="request">Request</string>
+    <string name="add_request">Add Request</string>
     <string name="date_from">Date From</string>
     <string name="from">From</string>
     <string name="date_to">Date To</string>
