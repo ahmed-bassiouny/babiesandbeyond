@@ -73,11 +73,11 @@ public class MidwifeTimeSlots extends RecyclerView.Adapter<RecyclerView.ViewHold
             RowViewHolder h = (RowViewHolder) holder;
             h.tvFrom.setText(item.getRow().getFrom());
             h.tvTo.setText(item.getRow().getTo());
-            if(position % 2 ==0){
+            /*if(position % 2 ==0){
                 h.relativeLayout.setBackgroundColor(activity.getResources().getColor(R.color.background_row));
             }else {
                 h.relativeLayout.setBackgroundColor(activity.getResources().getColor(R.color.white));
-            }
+            }*/
         } else {
             SectionViewHolder h = (SectionViewHolder) holder;
             h.tvSectionName.setText(item.getSection());

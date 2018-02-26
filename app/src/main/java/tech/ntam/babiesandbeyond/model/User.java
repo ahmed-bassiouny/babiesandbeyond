@@ -35,6 +35,10 @@ public class User {
     private String created_by;
     @SerializedName("user_token")
     private String user_token;
+    @SerializedName("is_activate")
+    private String active;
+    @SerializedName("verification_code")
+    private String verificationCode;
 
     public int getId() {
         return id;
@@ -74,5 +78,17 @@ public class User {
 
     public String getUser_token() {
         return Utils.getValueFromString(user_token);
+    }
+
+    public boolean getIsActive(){
+        return active.equals("1");
+    }
+
+    public String getVerificationCode() {
+        return Utils.getValueFromString(verificationCode);
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
     }
 }

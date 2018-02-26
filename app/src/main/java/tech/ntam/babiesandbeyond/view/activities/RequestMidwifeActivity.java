@@ -6,6 +6,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.time.Period;
@@ -30,9 +32,11 @@ public class RequestMidwifeActivity extends MyToolbar implements MidwifeRequestI
     private int position = 0;
     private RecyclerView recyclerView;
     private RequestMidwifeItemAdapter adapter;
-    private Button btnAddAppointment, btnPay;
+    private Button btnAddAppointment;
     private Midwife midwife;
     private int total = 0;
+    private TextView tvTotal;
+    private LinearLayout btnPay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +75,7 @@ public class RequestMidwifeActivity extends MyToolbar implements MidwifeRequestI
         tvTitle.setText(midwife.getName());
         btnAddAppointment = findViewById(R.id.btn_add_appointment);
         btnPay = findViewById(R.id.btn_pay);
+        tvTotal = findViewById(R.id.tv_total);
         recyclerView = findViewById(R.id.recycle_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -112,7 +117,8 @@ public class RequestMidwifeActivity extends MyToolbar implements MidwifeRequestI
             @Override
             public void onSuccess(String s) {
                 dialog.dismissMyDialog();
-                Toast.makeText(RequestMidwifeActivity.this, s, Toast.LENGTH_SHORT).show();
+                Toast.makeText(RequestMidwifeActivity.this, "Waiting admin approve", Toast.LENGTH_SHORT).show();
+                finish();
             }
 
             @Override
@@ -129,9 +135,12 @@ public class RequestMidwifeActivity extends MyToolbar implements MidwifeRequestI
             total = total + (pricePerHour * numberOfHour);
         else
             total = total - (pricePerHour * numberOfHour);
-        btnPay.setText(getString(R.string.pay));
-        if (total > 0)
-            btnPay.append(" total cost " + total);
+        if (total > 0) {
+            tvTotal.setText(" (cost " + total + ")");
+            btnPay.setVisibility(View.VISIBLE);
+        }else {
+            btnPay.setVisibility(View.GONE);
+        }
     }
 
 

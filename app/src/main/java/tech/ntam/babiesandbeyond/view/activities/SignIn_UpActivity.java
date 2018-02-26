@@ -27,23 +27,12 @@ public class SignIn_UpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in__up);
         findViewById();
         onClick();
-        checkIfUserLoggedIn();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         initObject();
-    }
-
-    private void checkIfUserLoggedIn() {
-        if (!UserSharedPref.getEmail(this).isEmpty() && UserSharedPref.isStaff(this)) {
-            startActivity(new Intent(SignIn_UpActivity.this, NurseTasksHomeActivity.class));
-            finish();
-        }else if (!UserSharedPref.getEmail(this).isEmpty()) {
-            startActivity(new Intent(SignIn_UpActivity.this, UserHomeActivity.class));
-            finish();
-        }
     }
 
     private void initObject() {

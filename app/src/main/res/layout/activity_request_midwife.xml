@@ -14,39 +14,62 @@
         android:layout_height="wrap_content" />
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycle_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="15dp"
         android:layout_below="@+id/my_toolbar"
         android:layout_marginBottom="15dp"
-        android:id="@+id/recycle_view" />
+        android:layout_marginTop="15dp" />
 
 
-
-    <Button
-        android:id="@+id/btn_add_appointment"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="5dp"
-        android:background="@color/colorButton"
-        android:fontFamily="@font/museosans"
-        android:textSize="18sp"
-        android:layout_above="@+id/btn_pay"
-        android:textColor="@color/gray_bold"
-        android:text="@string/add_appointment"
-        android:textAllCaps="false" />
-    <Button
-        android:id="@+id/btn_pay"
-        android:layout_width="250dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
-        android:background="@color/colorButton"
-        android:fontFamily="@font/museosans"
-        android:textSize="18sp"
-        android:textColor="@color/gray_bold"
-        android:text="@string/pay"
-        android:textAllCaps="false" />
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_add_appointment"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:background="@color/colorButton"
+            android:fontFamily="@font/museosans"
+            android:text="@string/add_appointment"
+            android:textAllCaps="false"
+            android:textColor="@color/gray_bold"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:id="@+id/btn_pay"
+            android:layout_width="250dp"
+            android:layout_height="45dp"
+            android:background="@color/colorButton"
+            android:fontFamily="@font/museosans"
+            android:gravity="center"
+            android:visibility="gone"
+            android:orientation="horizontal"
+            android:textAllCaps="false">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/museosans"
+                android:text="@string/send_request"
+                android:textColor="@color/gray_bold"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/museosans"
+                android:id="@+id/tv_total"
+                android:textColor="@color/gray_bold"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+
 </RelativeLayout>

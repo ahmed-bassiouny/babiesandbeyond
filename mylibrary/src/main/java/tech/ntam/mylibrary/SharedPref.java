@@ -20,6 +20,8 @@ public class SharedPref {
     public final static String TOKEN_HEADER_KEY = "Bearer ";
     public final static String SERVICE = "service";
     public final static String WORKSHOP = "workshop";
+    public final static String IS_ACTIVE = "active";
+    public final static String ACTIVATION_CODE = "code";
 
     public static SharedPreferences sharedPref;
 

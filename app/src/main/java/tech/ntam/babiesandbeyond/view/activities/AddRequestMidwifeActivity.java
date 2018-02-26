@@ -95,6 +95,7 @@ public class AddRequestMidwifeActivity extends MyToolbar {
         tvTo = findViewById(R.id.tv_to);
         btnAdd = findViewById(R.id.btn_add);
         calendarView.setMinDate(MyDateTimeFactor.getDateTimeAfter24Hour().getTimeInMillis());
+        calendarView.setDate(MyDateTimeFactor.getDateTimeAfter24Hour().getTimeInMillis());
     }
 
     private UserSendRequestController getUserSendRequestController() {

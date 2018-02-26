@@ -31,6 +31,7 @@ public class MidewifeTimeslotsActivity extends MyToolbar {
     private TextView tvName;
     private Button btnAddRequest;
     private List<SectionOrRowMidwife> sectionOrRowMidwives;
+    private TextView tvNotAvailable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +58,18 @@ public class MidewifeTimeslotsActivity extends MyToolbar {
                 sectionOrRowMidwives.add(new SectionOrRowMidwife(itemTime));
             }
         }
-        MidwifeTimeSlots adapter = new MidwifeTimeSlots(this,sectionOrRowMidwives);
-        recyclerView.setAdapter(adapter);
+        if(sectionOrRowMidwives.size()>0) {
+            MidwifeTimeSlots adapter = new MidwifeTimeSlots(this, sectionOrRowMidwives);
+            recyclerView.setAdapter(adapter);
+            recyclerView.setVisibility(View.VISIBLE);
+            tvNotAvailable.setVisibility(View.GONE);
+            btnAddRequest.setEnabled(true);
+        }else {
+            recyclerView.setVisibility(View.GONE);
+            tvNotAvailable.setVisibility(View.VISIBLE);
+            btnAddRequest.setEnabled(false);
+        }
+
     }
 
     private void findViewById() {
@@ -66,6 +77,7 @@ public class MidewifeTimeslotsActivity extends MyToolbar {
         tvName = findViewById(R.id.tv_name);
         btnAddRequest = findViewById(R.id.btn_add_request);
         recyclerView = findViewById(R.id.recycle_view);
+        tvNotAvailable = findViewById(R.id.tv_not_available);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         btnAddRequest.setOnClickListener(new View.OnClickListener() {
             @Override

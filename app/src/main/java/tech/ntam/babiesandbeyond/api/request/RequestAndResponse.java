@@ -34,6 +34,7 @@ import tech.ntam.babiesandbeyond.model.Notification;
 import tech.ntam.babiesandbeyond.model.Service;
 import tech.ntam.babiesandbeyond.model.Task;
 import tech.ntam.babiesandbeyond.model.User;
+import tech.ntam.babiesandbeyond.model.UserData;
 import tech.ntam.babiesandbeyond.model.UserService;
 import tech.ntam.babiesandbeyond.model.Workshop;
 import tech.ntam.mylibrary.UserSharedPref;
@@ -86,7 +87,7 @@ public class RequestAndResponse {
         });
     }
 
-    public static void register(final Context context, String email, String password, String name, String phone, final BaseResponseInterface<User> anInterface) {
+    public static void register(final Context context, String email, String password, String name, String phone, final BaseResponseInterface<UserData> anInterface) {
         Call<RegisterResponse> response = baseRequestInterface.register(name, email, password, phone, UserSharedPref.getNotificationToken(context));
         response.enqueue(new Callback<RegisterResponse>() {
             @Override
@@ -96,7 +97,7 @@ public class RequestAndResponse {
                     return;
                 }
                 checkValidResult(response.code(), response.body().getStatus()
-                        , response.body().getUserData().getUser(), response.body().getMessage(), anInterface);
+                        , response.body().getUserData(), response.body().getMessage(), anInterface);
             }
 
             @Override

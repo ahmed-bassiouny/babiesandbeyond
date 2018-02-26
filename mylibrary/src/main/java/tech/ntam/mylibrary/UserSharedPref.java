@@ -9,7 +9,10 @@ import android.content.SharedPreferences;
 
 public class UserSharedPref extends SharedPref {
 
-    public static void setUserInfo(Context context, String userToken, String userEmail, int id,String name,String photo,String phone,boolean isStaff) {
+    // shared pref belong to user
+    public static void setUserInfo(Context context, String userToken, String userEmail,
+                                   int id,String name,String photo,String phone,
+                                   boolean isStaff,String activationCode,boolean isActive) {
         getSharedPref(context);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(USER_TOKEN, userToken);
@@ -19,7 +22,24 @@ public class UserSharedPref extends SharedPref {
         editor.putString(USER_PHOTO, photo);
         editor.putString(USER_PHONE, phone);
         editor.putBoolean(IS_STAFF, isStaff);
-        editor.commit();
+        editor.putString(ACTIVATION_CODE,activationCode);
+        editor.putBoolean(IS_ACTIVE, isActive);
+        editor.apply();
+    }
+    // shared pref belong to nurse
+    public static void setUserInfo(Context context, String userToken, String userEmail,
+                                   int id,String name,String photo,String phone,
+                                   boolean isStaff) {
+        getSharedPref(context);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(USER_TOKEN, userToken);
+        editor.putString(USER_EMAIL, userEmail);
+        editor.putInt(USER_ID, id);
+        editor.putString(USER_NAME, name);
+        editor.putString(USER_PHOTO, photo);
+        editor.putString(USER_PHONE, phone);
+        editor.putBoolean(IS_STAFF, isStaff);
+        editor.apply();
     }
     public static void setUserInfo(Context context,String name,String photo,String phone) {
         getSharedPref(context);
@@ -27,14 +47,14 @@ public class UserSharedPref extends SharedPref {
         editor.putString(USER_NAME, name);
         editor.putString(USER_PHOTO, photo);
         editor.putString(USER_PHONE, phone);
-        editor.commit();
+        editor.apply();
     }
     public static void setUserInfo(Context context,String name,String phone) {
         getSharedPref(context);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(USER_NAME, name);
         editor.putString(USER_PHONE, phone);
-        editor.commit();
+        editor.apply();
     }
     public static void setNotificationToken(Context context, String notificationToken) {
         getSharedPref(context);
@@ -80,6 +100,16 @@ public class UserSharedPref extends SharedPref {
         getSharedPref(context);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(USER_EMAIL, "");
-        editor.commit();
+        editor.putString(ACTIVATION_CODE, "");
+        editor.putBoolean(IS_ACTIVE, false);
+        editor.apply();
+    }
+    public static boolean isActive(Context context) {
+        getSharedPref(context);
+        return sharedPref.getBoolean(IS_ACTIVE,false);
+    }
+    public static String getActivationCode(Context context) {
+        getSharedPref(context);
+        return sharedPref.getString(ACTIVATION_CODE, "");
     }
 }

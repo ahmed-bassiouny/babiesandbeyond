@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.widget.Toast;
 
 import tech.ntam.babiesandbeyond.R;
+import tech.ntam.babiesandbeyond.view.activities.ActiveAccountActivity;
 import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.babiesandbeyond.model.User;
@@ -34,8 +35,11 @@ public class SignInController {
                 myDialog.dismissMyDialog();
                 if (user.getUserTypeId().equals(User.USER)) {
                     // save user information in sharedpref
-                    UserSharedPref.setUserInfo(activity, user.getUser_token(),user.getEmail(),user.getId(),user.getName(),user.getPhoto(),user.getPhone(),false);
-                    activity.startActivity(new Intent(activity, UserHomeActivity.class));
+                    UserSharedPref.setUserInfo(activity, user.getUser_token(),user.getEmail(),user.getId(),user.getName(),user.getPhoto(),user.getPhone(),false,user.getVerificationCode(),user.getIsActive());
+                    if(user.getIsActive())
+                        activity.startActivity(new Intent(activity, UserHomeActivity.class));
+                    else
+                        activity.startActivity(new Intent(activity, ActiveAccountActivity.class));
                     activity.finish();
                 } else if (user.getUserTypeId().equals(User.NURSE)||user.getUserTypeId().equals(User.MIDWIFE)||user.getUserTypeId().equals(User.BABYSITTER)) {
                     UserSharedPref.setUserInfo(activity, user.getUser_token(),user.getEmail(),user.getId(),user.getName(),user.getPhoto(),user.getPhone(),true);

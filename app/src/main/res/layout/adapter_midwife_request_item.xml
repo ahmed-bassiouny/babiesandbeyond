@@ -14,10 +14,11 @@
         android:textColor="@color/gray_bold"
         android:textSize="16sp" />
     <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_alignParentEnd="true"
         android:id="@+id/iv_delete"
+        android:layout_marginEnd="10dp"
         android:layout_centerVertical="true"
         android:src="@drawable/ic_close_black_24dp"/>
     <TextView
@@ -31,10 +32,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginStart="5dp"
+        android:layout_marginEnd="40dp"
         android:id="@+id/linear"
         android:layout_below="@+id/tv_request_day"
         android:layout_weight="2">

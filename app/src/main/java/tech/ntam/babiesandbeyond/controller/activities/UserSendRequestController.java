@@ -82,12 +82,13 @@ public class UserSendRequestController {
         timePickerDialog = TimePickerDialog.newInstance(new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
-                textView.setText(getValueDateDigit(hourOfDay) + ":" + getValueDateDigit(minute));
+                textView.setText(getValueDateDigit(hourOfDay) + ":" + "00");
             }
         }, now.get(Calendar.HOUR_OF_DAY), now.get(Calendar.MINUTE), now.get(Calendar.SECOND), false);
 
         timePickerDialog.setVersion(TimePickerDialog.Version.VERSION_2);
         timePickerDialog.setThemeDark(true);
+        timePickerDialog.enableMinutes(false);
         timePickerDialog.setMinTime(minH,minM,00);
         timePickerDialog.setAccentColor(activity.getResources()
                 .getColor(R.color.colorPrimary));
