@@ -23,7 +23,7 @@
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:textColor="@color/white"
-            android:text="@string/active_account" />
+            android:text="@string/verify_email" />
     </LinearLayout>
 
     <ImageView
@@ -32,6 +32,15 @@
         android:layout_marginTop="15dp"
         android:layout_gravity="center_horizontal"
         android:src="@drawable/locker"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:textColor="@color/white"
+        android:id="@+id/hint"
+        android:layout_marginTop="10dp" />
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_gravity="center"
@@ -47,7 +56,7 @@
             android:textColor="@color/white"
             android:id="@+id/et_active_account"
             android:inputType="textEmailAddress"
-            android:hint="@string/active_account" />
+            android:hint="@string/validation_code" />
     </android.support.design.widget.TextInputLayout>
 
     <Button
