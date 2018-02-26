@@ -62,7 +62,7 @@ public class AccountFragment extends Fragment {
             public void onClick(View v) {
                 AlertDialog.Builder builder;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    builder = new AlertDialog.Builder(getContext(), android.R.style.Theme_DeviceDefault_Light_Dialog_NoActionBar);
+                    builder = new AlertDialog.Builder(getContext(), R.style.AlertDialogStyle);
                 } else {
                     builder = new AlertDialog.Builder(getContext());
                 }

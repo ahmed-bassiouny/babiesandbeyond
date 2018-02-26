@@ -43,4 +43,10 @@
     <style name="Widget.CalendarView.Custom" parent="android:Widget.CalendarView">
         <item name="android:dayOfWeekBackground">#f0f</item>
     </style>
+
+    <style name="AlertDialogStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:colorAccent">@color/blue</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorPrimary">@color/black</item>
+    </style>
 </resources>
