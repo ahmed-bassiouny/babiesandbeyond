@@ -31,14 +31,10 @@ public class SplashActivity extends AppCompatActivity {
         if (!UserSharedPref.getEmail(this).isEmpty() && UserSharedPref.isStaff(this)) {
             startActivity(new Intent(SplashActivity.this, NurseTasksHomeActivity.class));
             finish();
-        } else if (!UserSharedPref.getEmail(this).isEmpty()&&UserSharedPref.isActive(this)) {
+        } else if (!UserSharedPref.getEmail(this).isEmpty() && UserSharedPref.isActive(this)) {
             startActivity(new Intent(SplashActivity.this, UserHomeActivity.class));
             finish();
-        } else if (!UserSharedPref.getEmail(this).isEmpty()) {
-            startActivity(new Intent(SplashActivity.this, ActiveAccountActivity
-                    .class));
-            finish();
-        }else {
+        } else {
             startActivity(new Intent(SplashActivity.this, SignIn_UpActivity.class));
             finish();
         }

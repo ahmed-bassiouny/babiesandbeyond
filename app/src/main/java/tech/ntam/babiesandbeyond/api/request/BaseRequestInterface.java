@@ -37,6 +37,7 @@ import tech.ntam.babiesandbeyond.api.api_model.response.NotificationResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.ParentResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.ProfileResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.RegisterResponse;
+import tech.ntam.babiesandbeyond.api.api_model.response.ResendCodeResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.StaffTasksResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.WorkshopResponse;
 import tech.ntam.babiesandbeyond.model.MidwifeRequestModel;
@@ -78,6 +79,8 @@ public interface BaseRequestInterface {
     String ALL_MIDWIFE = "midwife/all";
     String CHECK_MIDWIFE = "midwife/check-midwife";
     String RESERVE_MIDWIFE = "midwife/reserve";
+    String ACTIVE_ACCOUNT = "active_account";
+    String RESEND_CODE = "resend_verification_code";
 
     @FormUrlEncoded
     @POST(LOGIN)
@@ -288,6 +291,18 @@ public interface BaseRequestInterface {
     @POST(RESERVE_MIDWIFE)
     Call<ParentResponse> reserveMidwife(@Header(AUTHORIZATION) String token,
                                         @Body() MidwifeRequestRequest request);
+
+
+    @FormUrlEncoded
+    @Headers(HEADER_KEY)
+    @POST(ACTIVE_ACCOUNT)
+    Call<ParentResponse> activeAccount(@Field("email") String email);
+
+
+    @FormUrlEncoded
+    @Headers(HEADER_KEY)
+    @POST(RESEND_CODE)
+    Call<ResendCodeResponse> resendActiveCode(@Field("email") String email);
 
 
 }

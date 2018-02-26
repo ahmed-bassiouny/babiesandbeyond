@@ -23,6 +23,7 @@ import tech.ntam.babiesandbeyond.api.api_model.response.NotificationResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.ParentResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.ProfileResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.RegisterResponse;
+import tech.ntam.babiesandbeyond.api.api_model.response.ResendCodeResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.StaffTasksResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.WorkshopResponse;
 import tech.ntam.babiesandbeyond.model.Event;
@@ -696,6 +697,45 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<ParentResponse> call, Throwable t) {
+                anInterface.onFailed(Utils.getExceptionText(t));
+            }
+        });
+    }
+    public static void activeAccount(Context context,final BaseResponseInterface anInterface){
+        Call<ParentResponse> response = baseRequestInterface.activeAccount(UserSharedPref.getEmail(context));
+        response.enqueue(new Callback<ParentResponse>() {
+            @Override
+            public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {
+                if (response.body() == null) {
+                    anInterface.onFailed(api_error);
+                    return;
+                }
+                checkValidResult(response.code(), response.body().getStatus()
+                        , response.body().getMessage(), response.body().getMessage(), anInterface);
+            }
+
+            @Override
+            public void onFailure(Call<ParentResponse> call, Throwable t) {
+                anInterface.onFailed(Utils.getExceptionText(t));
+            }
+        });
+    }
+
+    public static void resendCode(Context context,final BaseResponseInterface<String> anInterface){
+        Call<ResendCodeResponse> response = baseRequestInterface.resendActiveCode(UserSharedPref.getEmail(context));
+        response.enqueue(new Callback<ResendCodeResponse>() {
+            @Override
+            public void onResponse(Call<ResendCodeResponse> call, Response<ResendCodeResponse> response) {
+                if (response.body() == null) {
+                    anInterface.onFailed(api_error);
+                    return;
+                }
+                checkValidResult(response.code(), response.body().getStatus()
+                        , response.body().getCode(), response.body().getMessage(), anInterface);
+            }
+
+            @Override
+            public void onFailure(Call<ResendCodeResponse> call, Throwable t) {
                 anInterface.onFailed(Utils.getExceptionText(t));
             }
         });

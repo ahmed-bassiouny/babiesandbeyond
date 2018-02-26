@@ -112,4 +112,17 @@ public class UserSharedPref extends SharedPref {
         getSharedPref(context);
         return sharedPref.getString(ACTIVATION_CODE, "");
     }
+
+    public static void setActiveCode(Context context,String activationCode) {
+        getSharedPref(context);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(ACTIVATION_CODE,activationCode);
+        editor.apply();
+    }
+    public static void setIsActive(Context context) {
+        getSharedPref(context);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putBoolean(IS_ACTIVE,true);
+        editor.apply();
+    }
 }
