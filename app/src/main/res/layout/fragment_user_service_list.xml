@@ -41,7 +41,6 @@
         app:overlay_color="#66000000">
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/request_nurse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/request_nurse"
@@ -50,11 +49,9 @@
             app:fabSize="mini" />
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/request_midwife"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/request_midwife"
-            android:src="@drawable/my_midwife"
             app:backgroundTint="@android:color/white"
             app:fabSize="mini" />
 

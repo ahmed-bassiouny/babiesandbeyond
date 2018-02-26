@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 
 import com.w9jds.FloatingActionMenu;
+import com.w9jds.floatingactionmenu.OnMenuItemClickListener;
 
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.helper.ServiceSharedPref;
@@ -50,10 +51,6 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
     private static UserServiceListFragment userServiceListFragment;
     private ServiceItemAdapter serviceItemAdapter;
     private boolean isViewShown = false;
-
-    private FloatingActionButton requestNurse;
-    private FloatingActionButton requestMidwife;
-    private FloatingActionButton requestBabysitter;
     private FloatingActionMenu multipleActions;
     private ProgressBar progress;
 
@@ -82,9 +79,6 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recycleView = view.findViewById(R.id.recycle_view);
-        requestNurse = view.findViewById(R.id.request_nurse);
-        requestMidwife = view.findViewById(R.id.request_midwife);
-        requestBabysitter = view.findViewById(R.id.request_babysitter);
         multipleActions = view.findViewById(R.id.action_menu);
         progress = view.findViewById(R.id.progress);
         noInternet = view.findViewById(R.id.no_internet);
@@ -99,30 +93,29 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
     }
 
     private void onClick() {
-        requestNurse.setOnClickListener(new View.OnClickListener() {
+        multipleActions.addOnMenuItemClickListener(new OnMenuItemClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), UserRequestNurseAndBabysitterActivity.class);
-                intent.putExtra(IntentDataKey.SERVICE, IntentDataKey.NURSE_SERVICE);
-                startActivityForResult(intent, IntentDataKey.ADD_SERVICE_DATA_CODE);
-                multipleActions.close();
-            }
-        });
-        requestMidwife.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), MidwifeActivity.class);
-                startActivityForResult(intent, IntentDataKey.ADD_SERVICE_DATA_CODE);
-                multipleActions.close();
-            }
-        });
-        requestBabysitter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), UserRequestNurseAndBabysitterActivity.class);
-                intent.putExtra(IntentDataKey.SERVICE, IntentDataKey.BABYSITTER_SERVICE);
-                startActivityForResult(intent, IntentDataKey.ADD_SERVICE_DATA_CODE);
-                multipleActions.close();
+            public void onMenuItemClick(FloatingActionMenu floatingActionMenu, int i, FloatingActionButton floatingActionButton) {
+                Intent intent ;
+                switch (i){
+                    // request nurse
+                    case 0:
+                        intent = new Intent(getContext(), UserRequestNurseAndBabysitterActivity.class);
+                        intent.putExtra(IntentDataKey.SERVICE, IntentDataKey.NURSE_SERVICE);
+                        startActivityForResult(intent, IntentDataKey.ADD_SERVICE_DATA_CODE);
+                        break;
+                    // request midwife
+                    case 1:
+                        intent = new Intent(getContext(), MidwifeActivity.class);
+                        startActivityForResult(intent, IntentDataKey.ADD_SERVICE_DATA_CODE);
+                        break;
+                    // request babysitter
+                    case 2:
+                        intent = new Intent(getContext(), UserRequestNurseAndBabysitterActivity.class);
+                        intent.putExtra(IntentDataKey.SERVICE, IntentDataKey.BABYSITTER_SERVICE);
+                        startActivityForResult(intent, IntentDataKey.ADD_SERVICE_DATA_CODE);
+                        break;
+                }
             }
         });
         btnNoInternet.setOnClickListener(new View.OnClickListener() {
