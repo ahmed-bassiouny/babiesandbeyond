@@ -1,6 +1,7 @@
 package tech.ntam.adminapp.view.fragments;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -39,12 +40,14 @@ import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
  */
 public class WorkshopFragment extends Fragment implements ParseWorkshop {
 
+    private final int REQUEST_CODE_WORKSHOP =3 ;
     private static WorkshopFragment workshopFragment;
     private RecyclerView recyclerView;
     private ProgressBar progress;
     private TextView noInternet;
     private Button btnNoInternet;
-    private WorkshopListItemAdapter workshopListItemAdapter;
+    private WorkshopListItemAdapter listAdapter;
+    private WorkshopListItemAdapter requestAdapter;
     private RadioButton btnRequest;
     private RadioButton btnList;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -82,7 +85,7 @@ public class WorkshopFragment extends Fragment implements ParseWorkshop {
         btnRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recyclerView.setVisibility(View.INVISIBLE);
+                fetchWorkshopRequest();
             }
         });
         btnList.setOnClickListener(new View.OnClickListener() {
@@ -94,35 +97,57 @@ public class WorkshopFragment extends Fragment implements ParseWorkshop {
         btnNoInternet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btnRequest.setChecked(true);
-                fetchWorkshopList();
+                if(btnRequest.isChecked()){
+                    fetchWorkshopRequest();
+                }else {
+                    fetchWorkshopList();
+                }
+
             }
         });
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                RequestAndResponse.getWorkshopLList(getContext(), new BaseResponseInterface<List<Workshop>>() {
-                    @Override
-                    public void onSuccess(List<Workshop> workshops) {
-                        workshopListItemAdapter.updateWorkshops(workshops);
-                        swipeRefreshLayout.setRefreshing(false);
-                        btnList.setChecked(true);
-                    }
+                if(btnRequest.isChecked()){
+                    // get requests
+                    RequestAndResponse.getWorkshopLRequest(getContext(), new BaseResponseInterface<List<Workshop>>() {
+                        @Override
+                        public void onSuccess(List<Workshop> workshops) {
+                            requestAdapter.updateWorkshops(workshops);
+                            swipeRefreshLayout.setRefreshing(false);
+                        }
 
-                    @Override
-                    public void onFailed(String errorMessage) {
-                        Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
-                        swipeRefreshLayout.setRefreshing(false);
-                    }
-                });
+                        @Override
+                        public void onFailed(String errorMessage) {
+                            Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
+                            swipeRefreshLayout.setRefreshing(false);
+                        }
+                    });
+                }else {
+                    // get lists
+                    RequestAndResponse.getWorkshopLList(getContext(), new BaseResponseInterface<List<Workshop>>() {
+                        @Override
+                        public void onSuccess(List<Workshop> workshops) {
+                            listAdapter.updateWorkshops(workshops);
+                            swipeRefreshLayout.setRefreshing(false);
+                        }
+
+                        @Override
+                        public void onFailed(String errorMessage) {
+                            Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
+                            swipeRefreshLayout.setRefreshing(false);
+                        }
+                    });
+                }
+
             }
         });
-        fetchWorkshopList();
+        fetchWorkshopRequest();
     }
 
     private void fetchWorkshopList() {
-        if (workshopListItemAdapter != null) {
-            recyclerView.setAdapter(workshopListItemAdapter);
+        if (listAdapter != null) {
+            recyclerView.setAdapter(listAdapter);
             recyclerView.setVisibility(View.VISIBLE);
         } else {
             progress.setVisibility(View.VISIBLE);
@@ -132,12 +157,41 @@ public class WorkshopFragment extends Fragment implements ParseWorkshop {
             RequestAndResponse.getWorkshopLList(getContext(), new BaseResponseInterface<List<Workshop>>() {
                 @Override
                 public void onSuccess(List<Workshop> workshops) {
-                    workshopListItemAdapter = new WorkshopListItemAdapter(WorkshopFragment.this, workshops);
-                    recyclerView.setAdapter(workshopListItemAdapter);
+                    listAdapter = new WorkshopListItemAdapter(WorkshopFragment.this, workshops,false);
+                    recyclerView.setAdapter(listAdapter);
                     progress.setVisibility(View.INVISIBLE);
                     recyclerView.setVisibility(View.VISIBLE);
                     swipeRefreshLayout.setEnabled(true);
-                    btnList.setChecked(true);
+                }
+
+                @Override
+                public void onFailed(String errorMessage) {
+                    progress.setVisibility(View.INVISIBLE);
+                    noInternet.setVisibility(View.VISIBLE);
+                    btnNoInternet.setVisibility(View.VISIBLE);
+                    swipeRefreshLayout.setEnabled(false);
+                }
+            });
+        }
+    }
+
+    private void fetchWorkshopRequest() {
+        if (requestAdapter != null) {
+            recyclerView.setAdapter(requestAdapter);
+            recyclerView.setVisibility(View.VISIBLE);
+        } else {
+            progress.setVisibility(View.VISIBLE);
+            noInternet.setVisibility(View.INVISIBLE);
+            btnNoInternet.setVisibility(View.INVISIBLE);
+            recyclerView.setVisibility(View.INVISIBLE);
+            RequestAndResponse.getWorkshopLRequest(getContext(), new BaseResponseInterface<List<Workshop>>() {
+                @Override
+                public void onSuccess(List<Workshop> workshops) {
+                    requestAdapter = new WorkshopListItemAdapter(WorkshopFragment.this, workshops,true);
+                    recyclerView.setAdapter(requestAdapter);
+                    progress.setVisibility(View.INVISIBLE);
+                    recyclerView.setVisibility(View.VISIBLE);
+                    swipeRefreshLayout.setEnabled(true);
                 }
 
                 @Override
@@ -155,6 +209,18 @@ public class WorkshopFragment extends Fragment implements ParseWorkshop {
     public void viewWorkshop(Workshop workshop) {
         Intent i = new Intent(getActivity(), WorkshopDetailsActivity.class);
         i.putExtra(IntentDataKey.MY_WORKSHOP, workshop);
-        startActivity(i);
+        startActivityForResult(i,REQUEST_CODE_WORKSHOP);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_WORKSHOP){
+            int workshopId = data.getIntExtra(IntentDataKey.CHANGE_WORKSHOP_DATA_KEY,0);
+            if(workshopId == 0)
+                return;
+            requestAdapter.removeWorkshopRequest(workshopId);
+
+        }
     }
 }

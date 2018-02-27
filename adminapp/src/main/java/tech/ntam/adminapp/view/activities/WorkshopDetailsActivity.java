@@ -1,5 +1,6 @@
 package tech.ntam.adminapp.view.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import tech.ntam.adminapp.R;
+import tech.ntam.adminapp.api.RequestAndResponse;
 import tech.ntam.adminapp.model.Workshop;
 import tech.ntam.mylibrary.IntentDataKey;
 import tech.ntam.mylibrary.MyDialog;
@@ -29,6 +31,7 @@ public class WorkshopDetailsActivity extends AppCompatActivity {
     private TextView tvSpeakerBio;
     private TextView tvSpeakerName;
     private Workshop workshop;
+    private Button btnPay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +52,18 @@ public class WorkshopDetailsActivity extends AppCompatActivity {
         tvLocation.setText(workshop.getLocation());
         tvFee.setText(workshop.getPrice());
         tvWorkshopName.setText(workshop.getName());
-        if (!workshop.getWorkshopStatusName().isEmpty()) {
+        /*if (!workshop.getWorkshopStatusName().isEmpty()) {
             tvStatus.setText(workshop.getWorkshopStatusName());
             tvStatusName.setVisibility(View.VISIBLE);
             tvStatus.setVisibility(View.VISIBLE);
-        }
+        }*/
         tvSpeakerName.setText(workshop.getSpeakerName());
         tvSpeakerBio.setText(workshop.getSpeakerBio());
+        if (workshop.getUserId().isEmpty()) {
+            btnPay.setVisibility(View.GONE);
+        } else {
+            btnPay.setVisibility(View.VISIBLE);
+        }
 
     }
 
@@ -71,5 +79,33 @@ public class WorkshopDetailsActivity extends AppCompatActivity {
         tvFee = findViewById(R.id.tv_fee);
         tvSpeakerName = findViewById(R.id.tv_speaker_name);
         tvSpeakerBio = findViewById(R.id.tv_speaker_bio);
+        btnPay = findViewById(R.id.btn_pay);
+        btnPay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createWorkshopInvoice();
+            }
+        });
+    }
+
+    private void createWorkshopInvoice() {
+        final MyDialog dialog = new MyDialog();
+        dialog.showMyDialog(this);
+        RequestAndResponse.createWorkshopInvoice(this, workshop.getUserWorkshopId(), workshop.getUserId(), new BaseResponseInterface<String>() {
+            @Override
+            public void onSuccess(String s) {
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra(IntentDataKey.CHANGE_WORKSHOP_DATA_KEY, workshop.getId());
+                setResult(Activity.RESULT_OK, resultIntent);
+                dialog.dismissMyDialog();
+                finish();
+            }
+
+            @Override
+            public void onFailed(String errorMessage) {
+                Toast.makeText(WorkshopDetailsActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                dialog.dismissMyDialog();
+            }
+        });
     }
 }

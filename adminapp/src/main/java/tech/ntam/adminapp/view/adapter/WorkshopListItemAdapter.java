@@ -30,11 +30,13 @@ public class WorkshopListItemAdapter extends RecyclerView.Adapter<WorkshopListIt
     private List<Workshop> workshops;
     private Fragment fragment;
     private ParseWorkshop parseWorkshop;
+    boolean showUserName;
 
-    public WorkshopListItemAdapter(Fragment fragment, List<Workshop> workshops) {
+    public WorkshopListItemAdapter(Fragment fragment, List<Workshop> workshops, boolean showUserName) {
         this.fragment = fragment;
         this.workshops = workshops;
         this.parseWorkshop = (ParseWorkshop) fragment;
+        this.showUserName = showUserName;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -69,10 +71,14 @@ public class WorkshopListItemAdapter extends RecyclerView.Adapter<WorkshopListIt
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        Workshop workshop= workshops.get(position);
-        holder.tvWorkshopName.setText(workshop.getName());
+        Workshop workshop = workshops.get(position);
         holder.tvWorkshopLocation.setText(workshop.getLocation());
         holder.ivUserImage.setVisibility(View.GONE);
+        if (showUserName) {
+            holder.tvWorkshopName.setText(workshop.getUserName());
+        } else {
+            holder.tvWorkshopName.setText(workshop.getName());
+        }
     }
 
     @Override
@@ -83,5 +89,21 @@ public class WorkshopListItemAdapter extends RecyclerView.Adapter<WorkshopListIt
     public void updateWorkshops(List<Workshop> workshops) {
         this.workshops = workshops;
         notifyDataSetChanged();
+    }
+
+    public void removeWorkshopRequest(final int id) {
+        final int size = workshops.size();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < size; i++) {
+                    if (workshops.get(i).getId() == id) {
+                        workshops.remove(i);
+                        notifyItemRemoved(i);
+                        break;
+                    }
+                }
+            }
+        }).start();
     }
 }

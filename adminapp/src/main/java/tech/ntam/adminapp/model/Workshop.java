@@ -17,8 +17,6 @@ import tech.ntam.mylibrary.interfaces.Constant;
 public class Workshop implements Parcelable{
     @SerializedName("id")
     private int id;
-    @SerializedName("workshop_id")
-    private int workshopId;
     @SerializedName("name")
     private String name;
     @SerializedName("start_date")
@@ -35,14 +33,14 @@ public class Workshop implements Parcelable{
     private String price;
     @SerializedName("point")
     private String point;
-    @SerializedName("is_comming")
-    private boolean coming;
-    @SerializedName("payment_status")
-    private String paymentStatus;
-    @SerializedName("service_workshop_status_name")
-    private String workshopStatusName;
     @SerializedName("location")
     private String location;
+    @SerializedName("user_name")
+    private String userName;
+    @SerializedName("user_id")
+    private String userId;
+    @SerializedName("user_workshop_id")
+    private String userWorkshopId;
 
     public int getId() {
         return id;
@@ -52,9 +50,6 @@ public class Workshop implements Parcelable{
         this.id = id;
     }
 
-    public int getWorkshopId() {
-        return workshopId;
-    }
 
     public String getName() {
         return Utils.getValueFromString(name);
@@ -107,63 +102,26 @@ public class Workshop implements Parcelable{
         return price+" $";
     }
 
-    public void setComing(boolean coming) {
-        this.coming = coming;
+    public String getUserName() {
+        return Utils.getValueFromString(userName);
+    }
+
+    public String getUserId() {
+        return Utils.getValueFromString(userId);
     }
 
     public String getPoint() {
         return Utils.getValueFromString(point);
     }
 
-    public boolean isComing() {
-        return coming;
-    }
-
-    public void setWorkshopId(int workshopId) {
-        this.workshopId = workshopId;
-    }
-
-    public int getWorkshopStatusColor() {
-        switch (workshopStatusName) {
-            case Constant.PENDING:
-                return R.color.colorButton;
-            case Constant.CONFIRMATION_WITH_PAYMENT:
-            case Constant.CASH:
-                return R.color.gray_bold;
-            case Constant.CONFIRMATION_WITHOUT_PAYMENT:
-                return R.color.gray;
-            default :
-                return R.color.white;
-        }
-    }
-
-    public void setWorkshopStatusName(String workshopStatusName) {
-        this.workshopStatusName = workshopStatusName;
-    }
-
-    public void updateWorkshopToConfirmationWithoutPayment() {
-        workshopStatusName = Constant.CONFIRMATION_WITHOUT_PAYMENT;
+    public String getUserWorkshopId() {
+        return Utils.getValueFromString(userWorkshopId);
     }
 
     public String getLocation() {
         return Utils.getValueFromString(location);
     }
 
-    public String getPaymentStatus() {
-        return paymentStatus;
-    }
-
-    public String getWorkshopStatusName() {
-        workshopStatusName = Utils.getValueFromString(workshopStatusName);
-        if(workshopStatusName.equals(Constant.PENDING)){
-            return Constant.PENDING;
-        }else if(workshopStatusName.equals(Constant.CONFIRMATION_WITHOUT_PAYMENT)){
-            return Constant.ASK_FOR_PAY;
-        }else if(workshopStatusName.equals(Constant.CONFIRMATION_WITH_PAYMENT)){
-            return Constant.DONE;
-        }
-        return workshopStatusName;
-    }
 
     @Override
     public int describeContents() {
@@ -181,11 +139,9 @@ public class Workshop implements Parcelable{
         dest.writeString(this.speakerName);
         dest.writeString(this.price);
         dest.writeString(this.point);
-        dest.writeByte(this.coming ? (byte) 1 : (byte) 0);
-        dest.writeString(this.paymentStatus);
-        dest.writeString(this.workshopStatusName);
         dest.writeString(this.location);
-        dest.writeInt(this.workshopId);
+        dest.writeString(this.userName);
+        dest.writeString(this.userId);
     }
 
     public Workshop() {
@@ -201,14 +157,12 @@ public class Workshop implements Parcelable{
         this.speakerName = in.readString();
         this.price = in.readString();
         this.point = in.readString();
-        this.coming = in.readByte() != 0;
-        this.paymentStatus = in.readString();
-        this.workshopStatusName = in.readString();
         this.location = in.readString();
-        this.workshopId = in.readInt();
+        this.userName = in.readString();
+        this.userId = in.readString();
     }
 
-    public static final Parcelable.Creator<Workshop> CREATOR = new Parcelable.Creator<Workshop>() {
+    public static final Creator<Workshop> CREATOR = new Creator<Workshop>() {
         @Override
         public Workshop createFromParcel(Parcel source) {
             return new Workshop(source);

@@ -101,6 +101,25 @@ public class RequestAndResponse {
             }
         });
     }
+    public static void getWorkshopLRequest(Context context, final BaseResponseInterface<List<Workshop>> anInterface) {
+        Call<WorkshopListResponse> response = baseRequestInterface.getWorkshopLRequest(UserSharedPref.getTokenWithHeader(context), UserSharedPref.getId(context));
+        response.enqueue(new Callback<WorkshopListResponse>() {
+            @Override
+            public void onResponse(Call<WorkshopListResponse> call, Response<WorkshopListResponse> response) {
+                if (response.body() == null) {
+                    anInterface.onFailed(api_error);
+                    return;
+                }
+                checkValidResult(response.code(), response.body().getStatus()
+                        , response.body().getWorkshops(), response.body().getMessage(), anInterface);
+            }
+
+            @Override
+            public void onFailure(Call<WorkshopListResponse> call, Throwable t) {
+                anInterface.onFailed(Utils.getExceptionText(t));
+            }
+        });
+    }
     public static void forgetPassword(String email, final BaseResponseInterface<String> anInterface) {
         Call<ParentResponse> response = baseRequestInterface.forgetPassword(email);
         response.enqueue(new Callback<ParentResponse>() {
@@ -141,6 +160,26 @@ public class RequestAndResponse {
     }
     public static void assignStaff(Context context,String serviceTypeName,int staffId,int requestId,int userId, final BaseResponseInterface<String> anInterface) {
         Call<ParentResponse> response = baseRequestInterface.assignStaff(UserSharedPref.getTokenWithHeader(context), UserSharedPref.getId(context),staffId,requestId,serviceTypeName,userId);
+        response.enqueue(new Callback<ParentResponse>() {
+            @Override
+            public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {
+                if (response.body() == null) {
+                    anInterface.onFailed(api_error);
+                    return;
+                }
+                checkValidResult(response.code(), response.body().getStatus()
+                        , response.body().getMessage(), response.body().getMessage(), anInterface);
+            }
+
+            @Override
+            public void onFailure(Call<ParentResponse> call, Throwable t) {
+                anInterface.onFailed(Utils.getExceptionText(t));
+            }
+        });
+    }
+
+    public static void createWorkshopInvoice(Context context,String userWorkshopId,String userId, final BaseResponseInterface<String> anInterface) {
+        Call<ParentResponse> response = baseRequestInterface.createWorkshopInvoice(UserSharedPref.getTokenWithHeader(context), UserSharedPref.getId(context),userId,userWorkshopId);
         response.enqueue(new Callback<ParentResponse>() {
             @Override
             public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {

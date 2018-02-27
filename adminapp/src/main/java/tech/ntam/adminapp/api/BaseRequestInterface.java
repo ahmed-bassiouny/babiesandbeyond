@@ -18,9 +18,12 @@ public interface BaseRequestInterface {
     String LOGIN = "login";
     String STAFF_REQUESTS = "staff_requests";
     String WORKSHOP_LIST = "admin_workshops";
+    String WORKSHOP_REQUESTS = "workshop_requests";
+
     String FORGET_PASSWORD = "forget_password";
     String GET_AVALIABLE_STAFF = "get_avaliable_staff";
     String ASSIGN_TASK = "assign_service_to_staff";
+    String WORKSHOP_INVOICE = "create_workshop_invoice";
 
 
     @FormUrlEncoded
@@ -41,6 +44,13 @@ public interface BaseRequestInterface {
     @Headers(HEADER_KEY)
     @POST(WORKSHOP_LIST)
     Call<WorkshopListResponse> getWorkshopLList(@Header(AUTHORIZATION) String token,
+                                                @Field("admin_id") int adminId);
+
+
+    @FormUrlEncoded
+    @Headers(HEADER_KEY)
+    @POST(WORKSHOP_REQUESTS)
+    Call<WorkshopListResponse> getWorkshopLRequest(@Header(AUTHORIZATION) String token,
                                                 @Field("admin_id") int adminId);
 
     @FormUrlEncoded
@@ -66,4 +76,13 @@ public interface BaseRequestInterface {
                                                    @Field("service_id") int requestId,
                                                    @Field("service_type_name") String serviceTypeName,
                                                    @Field("user_id") int userId);
+
+
+    @FormUrlEncoded
+    @Headers(HEADER_KEY)
+    @POST(WORKSHOP_INVOICE)
+    Call<ParentResponse> createWorkshopInvoice(@Header(AUTHORIZATION) String token,
+                                     @Field("admin_id") int adminId,
+                                     @Field("user_id") String userId,
+                                     @Field("user_workshop_id") String userWorkshopId);
 }
