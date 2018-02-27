@@ -16,6 +16,7 @@ import tech.ntam.babiesandbeyond.interfaces.ParseObject;
 import tech.ntam.babiesandbeyond.interfaces.ParseService;
 import tech.ntam.babiesandbeyond.model.MidwifeService;
 import tech.ntam.babiesandbeyond.model.Service;
+import tech.ntam.mylibrary.interfaces.Constant;
 
 /**
  * Created by bassiouny on 22/12/17.
@@ -99,20 +100,18 @@ public class MidwifeServiceItemAdapter extends RecyclerView.Adapter<MidwifeServi
                 }
             }
         }).start();
-    }/*
-    public void updateService(final int id, final String price,final String staffName) {
+    }
+    public void updateService(final String uniqueKey) {
         final int size = services.size();
         new Thread(new Runnable() {
             @Override
             public void run() {
                 for (int i = 0; i < size; i++) {
-                    Service item = services.get(i);
-                    if(item.getId() == id){
+                    MidwifeService item = services.get(i);
+                    if(item.getUniqueKey().equals(uniqueKey)){
                         final int position = i;
-                        item.updateServiceStatusName();
-                        item.setPrice(price);
-                        item.setStaffName(staffName);
-                        services.set(i,item);
+                        item.setMidwifeStatus(Constant.CONFIRMATION_WITHOUT_PAYMENT);
+                        services.set(position,item);
                         activity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -125,7 +124,7 @@ public class MidwifeServiceItemAdapter extends RecyclerView.Adapter<MidwifeServi
             }
         }).start();
     }
-*/
+
     public void updateService(final MidwifeService midwifeService) {
         final int size = services.size();
         new Thread(new Runnable() {

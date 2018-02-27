@@ -72,12 +72,15 @@ public class UserRequestMidwifeActivity extends MyToolbar {
         }
         MidwifeTimeSlots adapter = new MidwifeTimeSlots(this, sectionOrRowMidwives);
         recycleView.setAdapter(adapter);
-        if(midwifeService.getMidwifeStatus().equals(Constant.PENDING)){
+        if (midwifeService.getMidwifeStatus().equals(Constant.PENDING)) {
+            btnPay.setVisibility(View.GONE);
             btnCancel.setVisibility(View.VISIBLE);
-            btnPay.setVisibility(View.GONE);
-        }else {
-            btnCancel.setVisibility(View.GONE);
-            btnPay.setVisibility(View.GONE);
+        } else if (midwifeService.getMidwifeStatus().equals(Constant.ASK_FOR_PAY)) {
+            btnPay.setVisibility(View.VISIBLE);
+            btnCancel.setVisibility(View.VISIBLE);
+        } else if (midwifeService.getMidwifeStatus().equals(Constant.CASH)) {
+            btnPay.setVisibility(View.INVISIBLE);
+            btnCancel.setVisibility(View.INVISIBLE);
         }
 
     }

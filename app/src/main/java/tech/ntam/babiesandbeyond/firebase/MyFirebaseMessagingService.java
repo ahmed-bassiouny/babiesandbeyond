@@ -59,6 +59,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 case IntentDataKey.NOTIFICATION_EVENTS:
                     myIntent = new Intent(IntentDataKey.NOTIFICATION_EVENTS);
                     break;
+                case IntentDataKey.NOTIFICATION_MIDWIFE:
+                    myIntent = new Intent(IntentDataKey.NOTIFICATION_SERVICE);
+                    break;
                 default:
                     return;
             }

@@ -176,18 +176,22 @@ public class UserServiceListFragment extends Fragment implements ParseService {
         @Override
         public void onReceive(Context context, Intent intent) {
             String serviceId = intent.getStringExtra(IntentDataKey.NOTIFICATION_ID);
-            if (serviceId == null || serviceId.isEmpty() || serviceItemAdapter == null)
+            if (serviceItemAdapter == null && midwifeServiceItemAdapter == null)
                 return;
             String action = intent.getStringExtra(IntentDataKey.NOTIFICATION_ACTION);
             String price = intent.getStringExtra(IntentDataKey.NOTIFICATION_SERVICE_PRICE);
             String staffName = intent.getStringExtra(IntentDataKey.NOTIFICATION_STAFF_NAME);
             switch (action) {
-                case "0":
+                case "0": // delete service
                     serviceItemAdapter.deleteService(Integer.parseInt(serviceId));
                     break;
-                case "1":
+                case "1": // update service ask for payment
                     serviceItemAdapter.updateService(Integer.parseInt(serviceId),price,staffName);
                     break;
+                case "2": // update midwife ask for payment
+                    midwifeServiceItemAdapter.updateService(serviceId);
+                case "3": // delete midwife ask for payment
+                    midwifeServiceItemAdapter.deleteService(serviceId);
             }
 
         }
