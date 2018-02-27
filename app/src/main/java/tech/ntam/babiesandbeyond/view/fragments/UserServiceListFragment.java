@@ -101,8 +101,8 @@ public class UserServiceListFragment extends Fragment implements ParseService {
         multipleActions.addOnMenuItemClickListener(new OnMenuItemClickListener() {
             @Override
             public void onMenuItemClick(FloatingActionMenu floatingActionMenu, int i, FloatingActionButton floatingActionButton) {
-                Intent intent ;
-                switch (i){
+                Intent intent;
+                switch (i) {
                     // request nurse
                     case 0:
                         intent = new Intent(getContext(), UserRequestNurseAndBabysitterActivity.class);
@@ -186,7 +186,7 @@ public class UserServiceListFragment extends Fragment implements ParseService {
                     serviceItemAdapter.deleteService(Integer.parseInt(serviceId));
                     break;
                 case "1": // update service ask for payment
-                    serviceItemAdapter.updateService(Integer.parseInt(serviceId),price,staffName);
+                    serviceItemAdapter.updateService(Integer.parseInt(serviceId), price, staffName);
                     break;
                 case "2": // update midwife ask for payment
                     midwifeServiceItemAdapter.updateService(serviceId);
@@ -213,7 +213,7 @@ public class UserServiceListFragment extends Fragment implements ParseService {
     private void loadService() {
         // check if adapter is null that mean i don't load data from backend
         // if adapter not equal null that mean i loaded data so i set it in recycler view
-        if (serviceItemAdapter != null && midwifeServiceItemAdapter !=null) {
+        if (serviceItemAdapter != null && midwifeServiceItemAdapter != null) {
             recycleViewService.setAdapter(serviceItemAdapter);
             recycleViewMidwife.setAdapter(midwifeServiceItemAdapter);
             progress.setVisibility(View.INVISIBLE);
@@ -255,15 +255,14 @@ public class UserServiceListFragment extends Fragment implements ParseService {
         });
     }
 
-
     @Override
     public void onResume() {
         super.onResume();
         Service item = ServiceSharedPref.getMyService(getContext());
         if (serviceItemAdapter != null && item != null) {
-            if(item.getServiceStatusString().equals(Constant.CANCEL)){
+            if (item.getServiceStatusString().equals(Constant.CANCEL)) {
                 serviceItemAdapter.deleteService(item.getId());
-            }else {
+            } else {
                 serviceItemAdapter.updateService(item);
             }
             ServiceSharedPref.clearMyService(getContext());
@@ -271,10 +270,12 @@ public class UserServiceListFragment extends Fragment implements ParseService {
 
         MidwifeService midwifeService = ServiceSharedPref.getMyMidwife(getContext());
         if (midwifeServiceItemAdapter != null && midwifeService != null) {
-            if(midwifeService.getMidwifeStatus().equals(Constant.CANCEL)){
+            if (midwifeService.getMidwifeStatus().equals(Constant.CANCEL)) {
                 midwifeServiceItemAdapter.deleteService(midwifeService.getUniqueKey());
-            }else {
+            } else if (midwifeService.getMidwifeStatus().equals(Constant.PENDING)) {
                 midwifeServiceItemAdapter.insertService(midwifeService);
+            } else {
+                midwifeServiceItemAdapter.updateService(midwifeService);
             }
             ServiceSharedPref.clearMyMidwife(getContext());
         }
@@ -301,8 +302,9 @@ public class UserServiceListFragment extends Fragment implements ParseService {
 
     @Override
     public void getMidwife(MidwifeService midwifeService) {
-        ServiceSharedPref.setMyMidwife(getContext(),midwifeService);
-        startActivity(new Intent(getContext(), UserRequestMidwifeActivity.class));
+        Intent intent = new Intent(getContext(), UserRequestMidwifeActivity.class);
+        intent.putExtra(IntentDataKey.MIDWIFE, midwifeService);
+        startActivity(intent);
 
     }
 }

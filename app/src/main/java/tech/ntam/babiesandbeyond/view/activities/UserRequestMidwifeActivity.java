@@ -53,7 +53,7 @@ public class UserRequestMidwifeActivity extends MyToolbar {
     }
 
     private void setData() {
-        midwifeService = ServiceSharedPref.getMyMidwife(this);
+        midwifeService = getIntent().getParcelableExtra(IntentDataKey.MIDWIFE);
         if(midwifeService == null)
             finish();
         tvName.setText(midwifeService.getMidwifeName());
