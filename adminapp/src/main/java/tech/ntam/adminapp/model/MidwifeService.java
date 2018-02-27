@@ -1,4 +1,4 @@
-package tech.ntam.babiesandbeyond.model;
+package tech.ntam.adminapp.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
-import tech.ntam.babiesandbeyond.R;
+import tech.ntam.adminapp.R;
 import tech.ntam.mylibrary.Utils;
 import tech.ntam.mylibrary.interfaces.Constant;
 
@@ -31,8 +31,10 @@ public class MidwifeService implements Parcelable {
     private List<MidwifeRequestModel> timeSlots;
     @SerializedName("unique_key")
     private String uniqueKey;
-    @SerializedName("price_per_hour")
-    private String pricePerHour;
+    @SerializedName("user_name")
+    private String userName;
+    @SerializedName("user_photo")
+    private String userPhoto;
 
     public String getMidwifeName() {
         return Utils.getValueFromString(midwifeName);
@@ -74,6 +76,15 @@ public class MidwifeService implements Parcelable {
                 return R.color.white;
         }
     }
+
+    public String getUserName() {
+        return Utils.getValueFromString(userName);
+    }
+
+    public String getUserPhoto() {
+        return Utils.getValueFromString(userPhoto);
+    }
+
     public String getMidwifeStatus() {
         midwifeStatus = Utils.getValueFromString(midwifeStatus);
         if (midwifeStatus.equals(Constant.PENDING)) {
@@ -104,7 +115,8 @@ public class MidwifeService implements Parcelable {
         dest.writeString(this.midwifeStatus);
         dest.writeTypedList(this.timeSlots);
         dest.writeString(this.uniqueKey);
-        dest.writeString(this.pricePerHour);
+        dest.writeString(this.userName);
+        dest.writeString(this.userPhoto);
     }
 
     public MidwifeService() {
@@ -118,7 +130,8 @@ public class MidwifeService implements Parcelable {
         this.midwifeStatus = in.readString();
         this.timeSlots = in.createTypedArrayList(MidwifeRequestModel.CREATOR);
         this.uniqueKey = in.readString();
-        this.pricePerHour = in.readString();
+        this.userName = in.readString();
+        this.userPhoto = in.readString();
     }
 
     public static final Creator<MidwifeService> CREATOR = new Creator<MidwifeService>() {

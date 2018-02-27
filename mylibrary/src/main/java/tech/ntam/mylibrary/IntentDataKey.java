@@ -14,6 +14,7 @@ public class IntentDataKey {
     public static final String MY_TASK = "my_task";
     public static final String REQUEST = "request";
     public static final String MIDWIFE = "midwife";
+    public static final String MIDWIFE_SERVICE = "midwife_service";
     public static final String BUNDLE = "bundle";
 
 

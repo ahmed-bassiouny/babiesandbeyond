@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:background="@color/gray_bold">
+
+    <TextView
+        android:id="@+id/tv_section_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Sunday"
+        android:textStyle="bold"
+        android:layout_alignParentStart="false"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+    <TextView
+        android:id="@+id/tv_section_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        tools:text="14-5-2018"
+        android:layout_alignParentEnd="true"
+        android:textSize="12sp" />
+
+</RelativeLayout>

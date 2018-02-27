@@ -38,6 +38,7 @@ import tech.ntam.babiesandbeyond.api.api_model.response.ParentResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.ProfileResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.RegisterResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.ResendCodeResponse;
+import tech.ntam.babiesandbeyond.api.api_model.response.ReserveMidwifeResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.StaffTasksResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.WorkshopResponse;
 import tech.ntam.babiesandbeyond.model.MidwifeRequestModel;
@@ -291,8 +292,8 @@ public interface BaseRequestInterface {
 
     @Headers(HEADER_KEY)
     @POST(RESERVE_MIDWIFE)
-    Call<ParentResponse> reserveMidwife(@Header(AUTHORIZATION) String token,
-                                        @Body() MidwifeRequestRequest request);
+    Call<ReserveMidwifeResponse> reserveMidwife(@Header(AUTHORIZATION) String token,
+                                                @Body() MidwifeRequestRequest request);
 
 
     @FormUrlEncoded

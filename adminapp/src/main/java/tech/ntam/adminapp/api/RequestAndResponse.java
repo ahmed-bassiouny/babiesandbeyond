@@ -7,6 +7,8 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import tech.ntam.adminapp.model.Midwife;
+import tech.ntam.adminapp.model.MidwifeService;
 import tech.ntam.adminapp.model.Service;
 import tech.ntam.adminapp.model.Staff;
 import tech.ntam.adminapp.model.User;
@@ -22,7 +24,7 @@ import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 
 public class RequestAndResponse {
 
-    private static String api_error = "API Error";
+    private static String api_error = "Server is not responding";
 
     // base request
     private static BaseRequestInterface baseRequestInterface = ApiConfig.getRetrofit().create(BaseRequestInterface.class);
@@ -180,6 +182,72 @@ public class RequestAndResponse {
 
     public static void createWorkshopInvoice(Context context,String userWorkshopId,String userId, final BaseResponseInterface<String> anInterface) {
         Call<ParentResponse> response = baseRequestInterface.createWorkshopInvoice(UserSharedPref.getTokenWithHeader(context), UserSharedPref.getId(context),userId,userWorkshopId);
+        response.enqueue(new Callback<ParentResponse>() {
+            @Override
+            public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {
+                if (response.body() == null) {
+                    anInterface.onFailed(api_error);
+                    return;
+                }
+                checkValidResult(response.code(), response.body().getStatus()
+                        , response.body().getMessage(), response.body().getMessage(), anInterface);
+            }
+
+            @Override
+            public void onFailure(Call<ParentResponse> call, Throwable t) {
+                anInterface.onFailed(Utils.getExceptionText(t));
+            }
+        });
+    }
+
+
+    public static void getAllMidwife(Context context, final BaseResponseInterface<List<Midwife>> anInterface) {
+        Call<MidwifeResponse> response = baseRequestInterface.getAllMidwife(
+                UserSharedPref.getTokenWithHeader(context));
+        response.enqueue(new Callback<MidwifeResponse>() {
+            @Override
+            public void onResponse(Call<MidwifeResponse> call, Response<MidwifeResponse> response) {
+                if (response.body() == null) {
+                    anInterface.onFailed(api_error);
+                    return;
+                }
+                checkValidResult(response.code(), response.body().getStatus()
+                        , response.body().getMidwifeList(), response.body().getMessage(), anInterface);
+            }
+
+            @Override
+            public void onFailure(Call<MidwifeResponse> call, Throwable t) {
+                anInterface.onFailed(Utils.getExceptionText(t));
+            }
+        });
+    }
+
+
+    public static void getMidwifeRequests(Context context, final BaseResponseInterface<List<MidwifeService>> anInterface) {
+        Call<MidwifeRequestsResponse> response = baseRequestInterface.getMidwifeRequests(
+                UserSharedPref.getTokenWithHeader(context));
+        response.enqueue(new Callback<MidwifeRequestsResponse>() {
+            @Override
+            public void onResponse(Call<MidwifeRequestsResponse> call, Response<MidwifeRequestsResponse> response) {
+                if (response.body() == null) {
+                    anInterface.onFailed(api_error);
+                    return;
+                }
+                checkValidResult(response.code(), response.body().getStatus()
+                        , response.body().getMidwifeServices(), response.body().getMessage(), anInterface);
+            }
+
+            @Override
+            public void onFailure(Call<MidwifeRequestsResponse> call, Throwable t) {
+                anInterface.onFailed(Utils.getExceptionText(t));
+            }
+        });
+    }
+
+    public static void approveMidwifeRequest(Context context,String uniqueKey, final BaseResponseInterface<String> anInterface) {
+        Call<ParentResponse> response = baseRequestInterface.approveMidwifeRequest(
+                UserSharedPref.getTokenWithHeader(context),
+                UserSharedPref.getId(context), uniqueKey);
         response.enqueue(new Callback<ParentResponse>() {
             @Override
             public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {

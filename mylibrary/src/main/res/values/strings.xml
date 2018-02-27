@@ -81,9 +81,11 @@
     <string name="nurse_request">Nurse Request</string>
     <string name="babysitter_request">Babysitter Request</string>
     <string name="workshop_request">Workshop Request</string>
+    <string name="midwife_request">Midwife Request</string>
     <string name="nurse_list">Nurse List</string>
     <string name="babysitter_list">Babysitter List</string>
     <string name="workshop_list">Workshop List</string>
+    <string name="midwife_list">Midwife List</string>
     <string name="choose_nurse">Choose Nurse</string>
     <string name="view_details">View Details</string>
     <string name="nurses_tasks">Nurses Tasks</string>
@@ -166,5 +168,6 @@
     <string name="not_available">Not Available</string>
     <string name="invalid_code">wrong activation Code</string>
     <string name="resend_code">Resend Code</string>
+    <string name="approve">Approve</string>
 
 </resources>

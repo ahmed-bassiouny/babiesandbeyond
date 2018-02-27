@@ -1,17 +1,16 @@
-package tech.ntam.babiesandbeyond.view.adapter;
+package tech.ntam.adminapp.view.adapter;
 
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
 
-import tech.ntam.babiesandbeyond.R;
-import tech.ntam.babiesandbeyond.model.SectionOrRowMidwife;
+import tech.ntam.adminapp.R;
+import tech.ntam.adminapp.model.SectionOrRowMidwife;
 
 /**
  * Created by bassiouny on 24/02/18.
@@ -24,7 +23,7 @@ public class MidwifeTimeSlots extends RecyclerView.Adapter<RecyclerView.ViewHold
     private int ROW = 1;
     private Activity activity;
 
-    public MidwifeTimeSlots(Activity activity,List<SectionOrRowMidwife> sectionOrRowMidwives) {
+    public MidwifeTimeSlots(Activity activity, List<SectionOrRowMidwife> sectionOrRowMidwives) {
         this.sectionOrRowMidwives = sectionOrRowMidwives;
         this.activity = activity;
     }

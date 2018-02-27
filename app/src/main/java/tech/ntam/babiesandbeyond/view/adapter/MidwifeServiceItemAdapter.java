@@ -125,27 +125,9 @@ public class MidwifeServiceItemAdapter extends RecyclerView.Adapter<MidwifeServi
         }).start();
     }
 
-    public void updateService(final MidwifeService midwifeService) {
-        final int size = services.size();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                for (int i = 0; i < size; i++) {
-                    MidwifeService item = services.get(i);
-                    if(item.getUniqueKey().equals(midwifeService.getUniqueKey())){
-                        final int position = i;
-                        services.set(i,midwifeService);
-                        activity.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                notifyItemChanged(position);
-                            }
-                        });
-                        break;
-                    }
-                }
-            }
-        }).start();
+    public void insertService(final MidwifeService midwifeService) {
+        services.add(midwifeService);
+        notifyItemChanged(services.size()-1);
     }
     public void updateMidwifeServices(List<MidwifeService> midwifeServices) {
         this.services = midwifeServices;

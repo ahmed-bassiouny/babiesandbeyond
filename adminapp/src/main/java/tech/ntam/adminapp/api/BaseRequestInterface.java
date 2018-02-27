@@ -3,6 +3,7 @@ package tech.ntam.adminapp.api;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -24,6 +25,10 @@ public interface BaseRequestInterface {
     String GET_AVALIABLE_STAFF = "get_avaliable_staff";
     String ASSIGN_TASK = "assign_service_to_staff";
     String WORKSHOP_INVOICE = "create_workshop_invoice";
+    String ALL_MIDWIFE = "midwife/all";
+    String MIDWIFE_REQUESTS = "midwife/get-reservations";
+    String APPROVE_MIDWIFE_REQUEST = "midwife/confirm-without-payment";
+
 
 
     @FormUrlEncoded
@@ -85,4 +90,21 @@ public interface BaseRequestInterface {
                                      @Field("admin_id") int adminId,
                                      @Field("user_id") String userId,
                                      @Field("user_workshop_id") String userWorkshopId);
+
+
+    @Headers(HEADER_KEY)
+    @GET(ALL_MIDWIFE)
+    Call<MidwifeResponse> getAllMidwife(@Header(AUTHORIZATION) String token);
+
+    @Headers(HEADER_KEY)
+    @POST(MIDWIFE_REQUESTS)
+    Call<MidwifeRequestsResponse> getMidwifeRequests(@Header(AUTHORIZATION) String token);
+
+
+    @FormUrlEncoded
+    @Headers(HEADER_KEY)
+    @POST(APPROVE_MIDWIFE_REQUEST)
+    Call<ParentResponse> approveMidwifeRequest(@Header(AUTHORIZATION) String token,
+                                                     @Field("admin_id") int adminId,
+                                                     @Field("unique_key") String uniqueKey);
 }

@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import tech.ntam.adminapp.R;
 import tech.ntam.adminapp.view.fragments.AccountFragment;
 import tech.ntam.adminapp.view.fragments.BabysitterFragment;
+import tech.ntam.adminapp.view.fragments.MidwifeFragment;
 import tech.ntam.adminapp.view.fragments.NurseFragment;
 import tech.ntam.adminapp.view.fragments.WorkshopFragment;
 import tech.ntam.mylibrary.BottomNavigationViewHelper;
@@ -51,11 +52,15 @@ public class HomeActivity extends AppCompatActivity {
                     case R.id.babysitter:
                         mViewPager.setCurrentItem(1);
                         break;
-                    case R.id.workshop:
+
+                    case R.id.midwife:
                         mViewPager.setCurrentItem(2);
                         break;
-                    case R.id.account:
+                    case R.id.workshop:
                         mViewPager.setCurrentItem(3);
+                        break;
+                    case R.id.account:
+                        mViewPager.setCurrentItem(4);
                         break;
                 }
                 return true;
@@ -107,8 +112,10 @@ public class HomeActivity extends AppCompatActivity {
                 case 1:
                     return BabysitterFragment.newInstance();
                 case 2:
-                    return WorkshopFragment.newInstance();
+                    return MidwifeFragment.newInstance();
                 case 3:
+                    return WorkshopFragment.newInstance();
+                case 4:
                     return AccountFragment.newInstance();
                 default:
                     return null;
@@ -117,7 +124,7 @@ public class HomeActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 4;
+            return 5;
         }
     }
 }

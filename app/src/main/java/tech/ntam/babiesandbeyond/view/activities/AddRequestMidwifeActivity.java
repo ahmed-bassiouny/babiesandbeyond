@@ -3,6 +3,7 @@ package tech.ntam.babiesandbeyond.view.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.ParseException;
+import java.util.Calendar;
 
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
@@ -34,6 +36,7 @@ public class AddRequestMidwifeActivity extends MyToolbar {
     private String time = "00:00";
     private int midwifeId;
     private MidwifeRequestModel midwifeRequestModel;
+    private long timeStampSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,7 @@ public class AddRequestMidwifeActivity extends MyToolbar {
         findViewById();
         onClick();
         setOlderRequest();
+        timeStampSelected = calendarView.getDate();
     }
 
     private void onClick() {
@@ -81,8 +85,16 @@ public class AddRequestMidwifeActivity extends MyToolbar {
                 } else {
                     tvFrom.setError(null);
                     tvTo.setError(null);
-                    checkMidwife(MyDateTimeFactor.convertTimestampToString(calendarView.getDate()),MyDateTimeFactor.convertTimestampToDayOfWeek(calendarView.getDate()));
+                    checkMidwife(MyDateTimeFactor.convertTimestampToString(timeStampSelected),MyDateTimeFactor.convertTimestampToDayOfWeek(calendarView.getDate()));
                 }
+            }
+        });
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                Calendar cal = Calendar.getInstance();
+                cal.set(year,month,dayOfMonth);
+                timeStampSelected = cal.getTimeInMillis();
             }
         });
     }
@@ -116,7 +128,6 @@ public class AddRequestMidwifeActivity extends MyToolbar {
                         resultIntent.putExtra(IntentDataKey.ADD_MIDWIFE_REQUEST,
                                 new MidwifeRequestModel(tvFrom.getText().toString(),tvTo.getText().toString(),date,day));
                         setResult(Activity.RESULT_OK, resultIntent);
-                        finish();
                         finish();
                     }
 

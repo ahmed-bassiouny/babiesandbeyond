@@ -274,7 +274,7 @@ public class UserServiceListFragment extends Fragment implements ParseService {
             if(midwifeService.getMidwifeStatus().equals(Constant.CANCEL)){
                 midwifeServiceItemAdapter.deleteService(midwifeService.getUniqueKey());
             }else {
-                midwifeServiceItemAdapter.updateService(midwifeService);
+                midwifeServiceItemAdapter.insertService(midwifeService);
             }
             ServiceSharedPref.clearMyMidwife(getContext());
         }

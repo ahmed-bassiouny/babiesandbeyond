@@ -24,6 +24,7 @@ import tech.ntam.babiesandbeyond.api.api_model.response.ParentResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.ProfileResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.RegisterResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.ResendCodeResponse;
+import tech.ntam.babiesandbeyond.api.api_model.response.ReserveMidwifeResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.StaffTasksResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.WorkshopResponse;
 import tech.ntam.babiesandbeyond.model.Event;
@@ -31,6 +32,7 @@ import tech.ntam.babiesandbeyond.model.Group;
 import tech.ntam.babiesandbeyond.model.History;
 import tech.ntam.babiesandbeyond.model.Midwife;
 import tech.ntam.babiesandbeyond.model.MidwifeRequestModel;
+import tech.ntam.babiesandbeyond.model.MidwifeService;
 import tech.ntam.babiesandbeyond.model.Notification;
 import tech.ntam.babiesandbeyond.model.Service;
 import tech.ntam.babiesandbeyond.model.Task;
@@ -680,23 +682,23 @@ public class RequestAndResponse {
     }
 
     public static void reserveMidwife(Context context, int midwifeId
-            , List<MidwifeRequestModel> midwifeRequestModels, final BaseResponseInterface<String> anInterface) {
+            , List<MidwifeRequestModel> midwifeRequestModels, final BaseResponseInterface<MidwifeService> anInterface) {
         MidwifeRequestRequest request = new MidwifeRequestRequest(midwifeId, midwifeRequestModels);
-        Call<ParentResponse> response = baseRequestInterface.reserveMidwife(
+        Call<ReserveMidwifeResponse> response = baseRequestInterface.reserveMidwife(
                 UserSharedPref.getTokenWithHeader(context),request);
-        response.enqueue(new Callback<ParentResponse>() {
+        response.enqueue(new Callback<ReserveMidwifeResponse>() {
             @Override
-            public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {
+            public void onResponse(Call<ReserveMidwifeResponse> call, Response<ReserveMidwifeResponse> response) {
                 if (response.body() == null) {
                     anInterface.onFailed(api_error);
                     return;
                 }
                 checkValidResult(response.code(), response.body().getStatus()
-                        , response.body().getMessage(), response.body().getMessage(), anInterface);
+                        , response.body().getMidwifeService(), response.body().getMessage(), anInterface);
             }
 
             @Override
-            public void onFailure(Call<ParentResponse> call, Throwable t) {
+            public void onFailure(Call<ReserveMidwifeResponse> call, Throwable t) {
                 anInterface.onFailed(Utils.getExceptionText(t));
             }
         });

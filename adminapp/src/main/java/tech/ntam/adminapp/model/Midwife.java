@@ -1,4 +1,4 @@
-package tech.ntam.babiesandbeyond.model;
+package tech.ntam.adminapp.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -21,8 +21,6 @@ public class Midwife implements Parcelable {
     private String name;
     @SerializedName("photo")
     private String photo;
-    @SerializedName("price_per_hour")
-    private String price;
     @SerializedName("midwife_times")
     private List<MidwifeRequestModel> timeSlotsMidwifeList;
 
@@ -37,10 +35,6 @@ public class Midwife implements Parcelable {
     public String getPhoto() {
         return Utils.getValueFromString(photo);
     }
-    public String getPrice() {
-        return Utils.getValueFromString(price);
-    }
-
 
     public List<MidwifeRequestModel> getTimeSlotsMidwifeList() {
         if(timeSlotsMidwifeList == null)
@@ -61,7 +55,6 @@ public class Midwife implements Parcelable {
         dest.writeInt(this.id);
         dest.writeString(this.name);
         dest.writeString(this.photo);
-        dest.writeString(this.price);
         dest.writeTypedList(this.timeSlotsMidwifeList);
     }
 
@@ -69,7 +62,6 @@ public class Midwife implements Parcelable {
         this.id = in.readInt();
         this.name = in.readString();
         this.photo = in.readString();
-        this.price = in.readString();
         this.timeSlotsMidwifeList = in.createTypedArrayList(MidwifeRequestModel.CREATOR);
     }
 

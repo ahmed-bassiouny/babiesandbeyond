@@ -14,16 +14,19 @@ import java.time.Period;
 
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
+import tech.ntam.babiesandbeyond.helper.ServiceSharedPref;
 import tech.ntam.babiesandbeyond.interfaces.MidwifeRequestInterface;
 import tech.ntam.babiesandbeyond.interfaces.ParseObject;
 import tech.ntam.babiesandbeyond.model.Midwife;
 import tech.ntam.babiesandbeyond.model.MidwifeRequestModel;
+import tech.ntam.babiesandbeyond.model.MidwifeService;
 import tech.ntam.babiesandbeyond.view.adapter.RequestMidwifeItemAdapter;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 import tech.ntam.mylibrary.IntentDataKey;
 import tech.ntam.mylibrary.MyDateTimeFactor;
 import tech.ntam.mylibrary.MyDialog;
 import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
+import tech.ntam.mylibrary.interfaces.Constant;
 
 public class RequestMidwifeActivity extends MyToolbar implements MidwifeRequestInterface {
 
@@ -113,11 +116,13 @@ public class RequestMidwifeActivity extends MyToolbar implements MidwifeRequestI
     private void reserveMidwife() {
         final MyDialog dialog = new MyDialog();
         dialog.showMyDialog(this);
-        RequestAndResponse.reserveMidwife(this, midwife.getId(), adapter.getList(), new BaseResponseInterface<String>() {
+        RequestAndResponse.reserveMidwife(this, midwife.getId(), adapter.getList(), new BaseResponseInterface<MidwifeService>() {
             @Override
-            public void onSuccess(String s) {
+            public void onSuccess(MidwifeService midwifeService) {
                 dialog.dismissMyDialog();
+                midwifeService.setMidwifeStatus(Constant.PENDING);
                 Toast.makeText(RequestMidwifeActivity.this, "Waiting admin approve", Toast.LENGTH_SHORT).show();
+                ServiceSharedPref.setMyMidwife(RequestMidwifeActivity.this,midwifeService);
                 finish();
             }
 
@@ -130,7 +135,7 @@ public class RequestMidwifeActivity extends MyToolbar implements MidwifeRequestI
     }
 
     private void updateTotalCost(int numberOfHour, boolean positive) {
-        int pricePerHour = 100;
+        int pricePerHour = Integer.parseInt(midwife.getPrice());
         if (positive)
             total = total + (pricePerHour * numberOfHour);
         else
