@@ -13,6 +13,7 @@ import android.widget.Toast;
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.babiesandbeyond.helper.ServiceSharedPref;
+import tech.ntam.babiesandbeyond.model.MidwifeService;
 import tech.ntam.babiesandbeyond.model.Service;
 import tech.ntam.babiesandbeyond.model.Workshop;
 import tech.ntam.mylibrary.IntentDataKey;
@@ -25,6 +26,7 @@ public class PaymentMethodActivity extends AppCompatActivity {
     private Button tvPay;
     private Service service;
     private Workshop workshop;
+    private MidwifeService midwifeService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +35,9 @@ public class PaymentMethodActivity extends AppCompatActivity {
         findViewById();
         service = getIntent().getParcelableExtra(IntentDataKey.MY_SERVICE);
         workshop = getIntent().getParcelableExtra(IntentDataKey.MY_WORKSHOP);
+        midwifeService = getIntent().getParcelableExtra(IntentDataKey.MIDWIFE);
 
-        if (service == null && workshop == null)
+        if (service == null && workshop == null && midwifeService == null)
             finish();
     }
 
@@ -75,6 +78,26 @@ public class PaymentMethodActivity extends AppCompatActivity {
                             workshop.setWorkshopId(workshop.getId());
                             workshop.setWorkshopStatusName(Constant.CASH);
                             ServiceSharedPref.setMyWorkshop(PaymentMethodActivity.this,workshop);
+                            finish();
+                        }
+
+                        @Override
+                        public void onFailed(String errorMessage) {
+                            Toast.makeText(PaymentMethodActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                            myDialog.dismissMyDialog();
+                        }
+                    });
+                }else if(midwifeService != null){
+                    // send pay midwife
+                    final MyDialog myDialog = new MyDialog();
+                    myDialog.showMyDialog(PaymentMethodActivity.this);
+                    RequestAndResponse.midwifePayment(PaymentMethodActivity.this, midwifeService.getUniqueKey(), new BaseResponseInterface<String>() {
+                        @Override
+                        public void onSuccess(String s) {
+                            Toast.makeText(PaymentMethodActivity.this, s, Toast.LENGTH_SHORT).show();
+                            myDialog.dismissMyDialog();
+                            midwifeService.setMidwifeStatus(Constant.CASH);
+                            ServiceSharedPref.setMyMidwife(PaymentMethodActivity.this,midwifeService);
                             finish();
                         }
 

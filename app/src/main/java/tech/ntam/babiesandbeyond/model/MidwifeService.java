@@ -29,6 +29,8 @@ public class MidwifeService implements Parcelable {
     private String midwifeStatus;
     @SerializedName("time_slots")
     private List<MidwifeRequestModel> timeSlots;
+    @SerializedName("unique_key")
+    private String uniqueKey;
 
     public String getMidwifeName() {
         return Utils.getValueFromString(midwifeName);
@@ -50,6 +52,10 @@ public class MidwifeService implements Parcelable {
         if (timeSlots == null)
             timeSlots = new ArrayList<>();
         return timeSlots;
+    }
+
+    public String getUniqueKey() {
+        return Utils.getValueFromString(uniqueKey);
     }
 
     public int getMidwifeStatusColor() {
@@ -78,6 +84,10 @@ public class MidwifeService implements Parcelable {
         return midwifeStatus;
     }
 
+    public void setMidwifeStatus(String midwifeStatus) {
+        this.midwifeStatus = midwifeStatus;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -91,6 +101,7 @@ public class MidwifeService implements Parcelable {
         dest.writeString(this.midwifePhoto);
         dest.writeString(this.midwifeStatus);
         dest.writeTypedList(this.timeSlots);
+        dest.writeString(this.uniqueKey);
     }
 
     public MidwifeService() {
@@ -103,9 +114,10 @@ public class MidwifeService implements Parcelable {
         this.midwifePhoto = in.readString();
         this.midwifeStatus = in.readString();
         this.timeSlots = in.createTypedArrayList(MidwifeRequestModel.CREATOR);
+        this.uniqueKey = in.readString();
     }
 
-    public static final Parcelable.Creator<MidwifeService> CREATOR = new Parcelable.Creator<MidwifeService>() {
+    public static final Creator<MidwifeService> CREATOR = new Creator<MidwifeService>() {
         @Override
         public MidwifeService createFromParcel(Parcel source) {
             return new MidwifeService(source);

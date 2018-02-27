@@ -81,6 +81,8 @@ public interface BaseRequestInterface {
     String RESERVE_MIDWIFE = "midwife/reserve";
     String ACTIVE_ACCOUNT = "active_account";
     String RESEND_CODE = "resend_verification_code";
+    String CANCEL_RESERVATION_MIDWIFE = "midwife/cancel-reservation";
+    String MIDWIFE_PAYMENT = "midwife/confirm-with-payment";
 
     @FormUrlEncoded
     @POST(LOGIN)
@@ -303,6 +305,21 @@ public interface BaseRequestInterface {
     @Headers(HEADER_KEY)
     @POST(RESEND_CODE)
     Call<ResendCodeResponse> resendActiveCode(@Field("email") String email);
+
+
+    @FormUrlEncoded
+    @Headers(HEADER_KEY)
+    @POST(CANCEL_RESERVATION_MIDWIFE)
+    Call<ParentResponse> cancelReservationMidwife(@Header(AUTHORIZATION) String token,
+                                                  @Field("unique_key") String uniquekey);
+
+
+    @FormUrlEncoded
+    @Headers(HEADER_KEY)
+    @POST(MIDWIFE_PAYMENT)
+    Call<ParentResponse> midwifePayment(@Header(AUTHORIZATION) String token,
+                                                  @Field("unique_key") String uniquekey,
+                                                  @Field("payment_method") int paymentMethod);
 
 
 }

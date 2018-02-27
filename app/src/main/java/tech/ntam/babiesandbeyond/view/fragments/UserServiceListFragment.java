@@ -264,6 +264,16 @@ public class UserServiceListFragment extends Fragment implements ParseService {
             }
             ServiceSharedPref.clearMyService(getContext());
         }
+
+        MidwifeService midwifeService = ServiceSharedPref.getMyMidwife(getContext());
+        if (midwifeServiceItemAdapter != null && midwifeService != null) {
+            if(midwifeService.getMidwifeStatus().equals(Constant.CANCEL)){
+                midwifeServiceItemAdapter.deleteService(midwifeService.getUniqueKey());
+            }else {
+                midwifeServiceItemAdapter.updateService(midwifeService);
+            }
+            ServiceSharedPref.clearMyMidwife(getContext());
+        }
     }
 
     @Override
@@ -287,9 +297,8 @@ public class UserServiceListFragment extends Fragment implements ParseService {
 
     @Override
     public void getMidwife(MidwifeService midwifeService) {
-        Intent i = new Intent(getContext(), UserRequestMidwifeActivity.class);
-        i.putExtra(IntentDataKey.MIDWIFE,midwifeService);
-        startActivity(i);
+        ServiceSharedPref.setMyMidwife(getContext(),midwifeService);
+        startActivity(new Intent(getContext(), UserRequestMidwifeActivity.class));
 
     }
 }
