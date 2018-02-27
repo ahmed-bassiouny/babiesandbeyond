@@ -142,6 +142,7 @@ public class Workshop implements Parcelable{
         dest.writeString(this.location);
         dest.writeString(this.userName);
         dest.writeString(this.userId);
+        dest.writeString(this.userWorkshopId);
     }
 
     public Workshop() {
@@ -160,6 +161,7 @@ public class Workshop implements Parcelable{
         this.location = in.readString();
         this.userName = in.readString();
         this.userId = in.readString();
+        this.userWorkshopId = in.readString();
     }
 
     public static final Creator<Workshop> CREATOR = new Creator<Workshop>() {

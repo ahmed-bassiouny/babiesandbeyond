@@ -10,14 +10,37 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycle_view"
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/btn_send_request"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
-            android:visibility="visible" />
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycle_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/btn_send_request"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
+                    android:nestedScrollingEnabled="false"
+                    android:visibility="visible" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycle_view_midwife"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/btn_send_request"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
+                    android:nestedScrollingEnabled="false"
+                    android:visibility="visible" />
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <ProgressBar
@@ -53,6 +76,7 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/request_midwife"
             app:backgroundTint="@android:color/white"
+            android:src="@drawable/midwife"
             app:fabSize="mini" />
 
         <android.support.design.widget.FloatingActionButton

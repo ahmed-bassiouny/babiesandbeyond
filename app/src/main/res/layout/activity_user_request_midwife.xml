@@ -43,7 +43,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/linear"
-
         android:layout_below="@+id/iv_profile_photo"
         android:layout_marginTop="10dp" />
 

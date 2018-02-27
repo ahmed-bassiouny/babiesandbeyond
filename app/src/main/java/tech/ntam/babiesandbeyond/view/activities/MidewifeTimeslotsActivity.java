@@ -16,6 +16,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.model.AvailableTimeMidwife;
 import tech.ntam.babiesandbeyond.model.Midwife;
+import tech.ntam.babiesandbeyond.model.MidwifeRequestModel;
 import tech.ntam.babiesandbeyond.model.SectionOrRowMidwife;
 import tech.ntam.babiesandbeyond.model.TimeSlotsMidwife;
 import tech.ntam.babiesandbeyond.view.adapter.MidwifeTimeSlots;
@@ -32,7 +33,7 @@ public class MidewifeTimeslotsActivity extends MyToolbar {
     private Button btnAddRequest;
     private List<SectionOrRowMidwife> sectionOrRowMidwives;
     private TextView tvNotAvailable;
-
+    private String day;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,11 +53,14 @@ public class MidewifeTimeslotsActivity extends MyToolbar {
         if(!midwife.getPhoto().isEmpty())
             Utils.MyGlide(this,ivProfilePhoto,midwife.getPhoto());
         sectionOrRowMidwives = new ArrayList<>();
-        for (TimeSlotsMidwife item : midwife.getTimeSlotsMidwifeList()) {
-            sectionOrRowMidwives.add(new SectionOrRowMidwife(item.getDay()));
-            for(AvailableTimeMidwife itemTime:item.getAvailableTimeMidwives()){
-                sectionOrRowMidwives.add(new SectionOrRowMidwife(itemTime));
+        for (MidwifeRequestModel item : midwife.getTimeSlotsMidwifeList()) {
+            if(!item.getDay().equals(day)){
+                // different day add section
+                sectionOrRowMidwives.add(new SectionOrRowMidwife(item.getDay(),""));
+                day = item.getDay();
             }
+            // add row
+            sectionOrRowMidwives.add(new SectionOrRowMidwife(new AvailableTimeMidwife(item.getTimeFrom(),item.getTimeTo())));
         }
         if(sectionOrRowMidwives.size()>0) {
             MidwifeTimeSlots adapter = new MidwifeTimeSlots(this, sectionOrRowMidwives);

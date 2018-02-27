@@ -32,12 +32,10 @@ public class MidwifeTimeSlots extends RecyclerView.Adapter<RecyclerView.ViewHold
     public class RowViewHolder extends RecyclerView.ViewHolder{
         private TextView tvFrom;
         private TextView tvTo;
-        private RelativeLayout relativeLayout;
         public RowViewHolder(View itemView) {
             super(itemView);
             tvFrom = itemView.findViewById(R.id.tv_from);
             tvTo = itemView.findViewById(R.id.tv_to);
-            relativeLayout = itemView.findViewById(R.id.relativeLayout);
         }
     }
 
@@ -81,6 +79,7 @@ public class MidwifeTimeSlots extends RecyclerView.Adapter<RecyclerView.ViewHold
         } else {
             SectionViewHolder h = (SectionViewHolder) holder;
             h.tvSectionName.setText(item.getSection());
+            h.tvSectionDate.setText(item.getDate());
         }
     }
 

@@ -21,8 +21,8 @@ public class Midwife implements Parcelable {
     private String name;
     @SerializedName("photo")
     private String photo;
-    @SerializedName("time_slots")
-    private List<TimeSlotsMidwife> timeSlotsMidwifeList;
+    @SerializedName("midwife_times")
+    private List<MidwifeRequestModel> timeSlotsMidwifeList;
 
     public int getId() {
         return id;
@@ -36,12 +36,14 @@ public class Midwife implements Parcelable {
         return Utils.getValueFromString(photo);
     }
 
-    public List<TimeSlotsMidwife> getTimeSlotsMidwifeList() {
+    public List<MidwifeRequestModel> getTimeSlotsMidwifeList() {
         if(timeSlotsMidwifeList == null)
             timeSlotsMidwifeList = new ArrayList<>();
         return timeSlotsMidwifeList;
     }
 
+    public Midwife() {
+    }
 
     @Override
     public int describeContents() {
@@ -53,18 +55,14 @@ public class Midwife implements Parcelable {
         dest.writeInt(this.id);
         dest.writeString(this.name);
         dest.writeString(this.photo);
-        dest.writeList(this.timeSlotsMidwifeList);
-    }
-
-    public Midwife() {
+        dest.writeTypedList(this.timeSlotsMidwifeList);
     }
 
     protected Midwife(Parcel in) {
         this.id = in.readInt();
         this.name = in.readString();
         this.photo = in.readString();
-        this.timeSlotsMidwifeList = new ArrayList<>();
-        in.readList(this.timeSlotsMidwifeList, TimeSlotsMidwife.class.getClassLoader());
+        this.timeSlotsMidwifeList = in.createTypedArrayList(MidwifeRequestModel.CREATOR);
     }
 
     public static final Creator<Midwife> CREATOR = new Creator<Midwife>() {

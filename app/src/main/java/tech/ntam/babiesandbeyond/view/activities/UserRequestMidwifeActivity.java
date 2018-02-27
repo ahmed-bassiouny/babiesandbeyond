@@ -2,27 +2,69 @@ package tech.ntam.babiesandbeyond.view.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import tech.ntam.babiesandbeyond.R;
+import tech.ntam.babiesandbeyond.model.AvailableTimeMidwife;
+import tech.ntam.babiesandbeyond.model.MidwifeRequestModel;
+import tech.ntam.babiesandbeyond.model.MidwifeService;
+import tech.ntam.babiesandbeyond.model.SectionOrRowMidwife;
+import tech.ntam.babiesandbeyond.view.adapter.MidwifeTimeSlots;
+import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
+import tech.ntam.mylibrary.IntentDataKey;
+import tech.ntam.mylibrary.MyDateTimeFactor;
+import tech.ntam.mylibrary.Utils;
 
-public class UserRequestMidwifeActivity extends AppCompatActivity {
+public class UserRequestMidwifeActivity extends MyToolbar {
 
     private CircleImageView ivProfilePhoto;
     private TextView tvName;
     private RecyclerView recycleView;
     private Button btnCancel;
     private Button btnPay;
+    private MidwifeService midwifeService;
+    private String date;
+    private List<SectionOrRowMidwife> sectionOrRowMidwives;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_request_midwife);
+        setupToolbar(this,false,true,false);
         findViewById();
         onClick();
+        setData();
+    }
+
+    private void setData() {
+        midwifeService = getIntent().getParcelableExtra(IntentDataKey.MIDWIFE);
+        if(midwifeService == null)
+            finish();
+        tvName.setText(midwifeService.getMidwifeName());
+        if (!midwifeService.getMidwifePhoto().isEmpty())
+            Utils.MyGlide(this, ivProfilePhoto, midwifeService.getMidwifePhoto());
+        sectionOrRowMidwives = new ArrayList<>();
+        for (MidwifeRequestModel item : midwifeService.getTimeSlots()) {
+            if (!item.getDate().equals(date)) {
+                // different day add section
+                sectionOrRowMidwives.add(new SectionOrRowMidwife(
+                        MyDateTimeFactor.convertDateStringToDayOfWeek(item.getDate()), item.getDate()));
+                date = item.getDay();
+            }
+            // add row
+            sectionOrRowMidwives.add(new SectionOrRowMidwife(new AvailableTimeMidwife(item.getTimeFrom(), item.getTimeTo())));
+        }
+        MidwifeTimeSlots adapter = new MidwifeTimeSlots(this, sectionOrRowMidwives);
+        recycleView.setAdapter(adapter);
+
     }
 
     private void onClick() {
@@ -34,5 +76,7 @@ public class UserRequestMidwifeActivity extends AppCompatActivity {
         recycleView = findViewById(R.id.recycle_view);
         btnCancel = findViewById(R.id.btn_cancel);
         btnPay = findViewById(R.id.btn_pay);
+        recycleView.setLayoutManager(new LinearLayoutManager(this));
     }
+
 }

@@ -27,6 +27,10 @@ public class AvailableTimeMidwife implements Parcelable {
         return MyDateTimeFactor.convertTimeFrom24To12(Utils.getValueFromString(to));
     }
 
+    public AvailableTimeMidwife(String from, String to) {
+        this.from = from;
+        this.to = to;
+    }
 
     @Override
     public int describeContents() {

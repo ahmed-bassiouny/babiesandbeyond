@@ -27,7 +27,7 @@ public class ActiveAccountActivity extends AppCompatActivity {
         setContentView(R.layout.activity_active_account);
         etActiveAccount = findViewById(R.id.et_active_account);
         hint = findViewById(R.id.hint);
-        hint.setText(getString(R.string.enter_code)+" '"+UserSharedPref.getEmail(this)+"'");
+        hint.setText(getString(R.string.enter_code)+" \'"+UserSharedPref.getEmail(this)+"\'");
         findViewById(R.id.btn_send).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

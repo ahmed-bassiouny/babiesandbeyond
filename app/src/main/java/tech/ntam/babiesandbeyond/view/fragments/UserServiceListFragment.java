@@ -29,11 +29,13 @@ import com.w9jds.floatingactionmenu.OnMenuItemClickListener;
 
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.helper.ServiceSharedPref;
+import tech.ntam.babiesandbeyond.interfaces.ParseService;
+import tech.ntam.babiesandbeyond.model.MidwifeService;
+import tech.ntam.babiesandbeyond.view.activities.UserRequestMidwifeActivity;
+import tech.ntam.babiesandbeyond.view.adapter.MidwifeServiceItemAdapter;
 import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
-import tech.ntam.babiesandbeyond.interfaces.ParseObject;
 import tech.ntam.babiesandbeyond.model.Service;
-import tech.ntam.babiesandbeyond.model.ServiceTypeList;
 import tech.ntam.babiesandbeyond.model.UserService;
 import tech.ntam.babiesandbeyond.view.activities.MidwifeActivity;
 import tech.ntam.babiesandbeyond.view.activities.ShowServiceInfoActivity;
@@ -45,11 +47,13 @@ import tech.ntam.mylibrary.interfaces.Constant;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class UserServiceListFragment extends Fragment implements ParseObject<Service> {
+public class UserServiceListFragment extends Fragment implements ParseService {
 
-    private RecyclerView recycleView;
+    private RecyclerView recycleViewService;
+    private RecyclerView recycleViewMidwife;
     private static UserServiceListFragment userServiceListFragment;
     private ServiceItemAdapter serviceItemAdapter;
+    private MidwifeServiceItemAdapter midwifeServiceItemAdapter;
     private boolean isViewShown = false;
     private FloatingActionMenu multipleActions;
     private ProgressBar progress;
@@ -78,14 +82,15 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        recycleView = view.findViewById(R.id.recycle_view);
+        recycleViewService = view.findViewById(R.id.recycle_view);
+        recycleViewMidwife = view.findViewById(R.id.recycle_view_midwife);
         multipleActions = view.findViewById(R.id.action_menu);
         progress = view.findViewById(R.id.progress);
         noInternet = view.findViewById(R.id.no_internet);
         btnNoInternet = view.findViewById(R.id.btn_no_internet);
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        recycleView.setLayoutManager(linearLayoutManager);
+        recycleViewService.setLayoutManager(new LinearLayoutManager(getContext()));
+        recycleViewMidwife.setLayoutManager(new LinearLayoutManager(getContext()));
         if (!isViewShown) {
             loadService();
         }
@@ -131,6 +136,7 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
                     @Override
                     public void onSuccess(UserService userService) {
                         serviceItemAdapter.updateServices(userService.getServices());
+                        midwifeServiceItemAdapter.updateMidwifeServices(userService.getMidwifeServices());
                         swipeRefreshLayout.setRefreshing(false);
 
                     }
@@ -203,16 +209,20 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
     private void loadService() {
         // check if adapter is null that mean i don't load data from backend
         // if adapter not equal null that mean i loaded data so i set it in recycler view
-        if (serviceItemAdapter != null) {
-            recycleView.setAdapter(serviceItemAdapter);
+        if (serviceItemAdapter != null && midwifeServiceItemAdapter !=null) {
+            recycleViewService.setAdapter(serviceItemAdapter);
+            recycleViewMidwife.setAdapter(midwifeServiceItemAdapter);
             progress.setVisibility(View.INVISIBLE);
             noInternet.setVisibility(View.INVISIBLE);
             btnNoInternet.setVisibility(View.INVISIBLE);
-            recycleView.setVisibility(View.VISIBLE);
+            recycleViewService.setVisibility(View.VISIBLE);
+            recycleViewMidwife.setVisibility(View.VISIBLE);
+
             return;
         }
         progress.setVisibility(View.VISIBLE);
-        recycleView.setVisibility(View.INVISIBLE);
+        recycleViewService.setVisibility(View.INVISIBLE);
+        recycleViewMidwife.setVisibility(View.INVISIBLE);
         noInternet.setVisibility(View.INVISIBLE);
         btnNoInternet.setVisibility(View.INVISIBLE);
         RequestAndResponse.getMyService(getContext(), new BaseResponseInterface<UserService>() {
@@ -220,9 +230,12 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
             public void onSuccess(UserService userService) {
                 if (userService != null) {
                     serviceItemAdapter = new ServiceItemAdapter(getActivity(), UserServiceListFragment.this, userService.getServices());
-                    recycleView.setAdapter(serviceItemAdapter);
+                    midwifeServiceItemAdapter = new MidwifeServiceItemAdapter(getActivity(), UserServiceListFragment.this, userService.getMidwifeServices());
+                    recycleViewService.setAdapter(serviceItemAdapter);
+                    recycleViewMidwife.setAdapter(midwifeServiceItemAdapter);
                     progress.setVisibility(View.INVISIBLE);
-                    recycleView.setVisibility(View.VISIBLE);
+                    recycleViewService.setVisibility(View.VISIBLE);
+                    recycleViewMidwife.setVisibility(View.VISIBLE);
                     swipeRefreshLayout.setEnabled(true);
                 }
             }
@@ -238,11 +251,6 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
         });
     }
 
-    @Override
-    public void getMyObject(Service service) {
-        ServiceSharedPref.setMyService(getContext(), service);
-        startActivity(new Intent(getContext(), ShowServiceInfoActivity.class));
-    }
 
     @Override
     public void onResume() {
@@ -269,5 +277,19 @@ public class UserServiceListFragment extends Fragment implements ParseObject<Ser
                 }
             }
         }
+    }
+
+    @Override
+    public void getService(Service service) {
+        ServiceSharedPref.setMyService(getContext(), service);
+        startActivity(new Intent(getContext(), ShowServiceInfoActivity.class));
+    }
+
+    @Override
+    public void getMidwife(MidwifeService midwifeService) {
+        Intent i = new Intent(getContext(), UserRequestMidwifeActivity.class);
+        i.putExtra(IntentDataKey.MIDWIFE,midwifeService);
+        startActivity(i);
+
     }
 }

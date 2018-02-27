@@ -13,19 +13,18 @@ public class UserService {
 
     @SerializedName("services")
     private List<Service> services;
-
-    @SerializedName("service_types")
-    private List<ServiceType> serviceTypes;
-
-    public List<ServiceType> getServiceTypes() {
-        if (serviceTypes == null)
-            serviceTypes = new ArrayList<>();
-        return serviceTypes;
-    }
+    @SerializedName("midwife_times")
+    private List<MidwifeService> midwifeServices;
 
     public List<Service> getServices() {
         if (services == null)
             services = new ArrayList<>();
         return services;
+    }
+
+    public List<MidwifeService> getMidwifeServices() {
+        if(midwifeServices == null)
+            midwifeServices = new ArrayList<>();
+        return midwifeServices;
     }
 }

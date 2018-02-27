@@ -9,10 +9,12 @@ import java.util.List;
 public class SectionOrRowMidwife {
     private AvailableTimeMidwife row;
     private String section;
+    private String date;
     private boolean isRow;
 
-    public SectionOrRowMidwife (String section) {
+    public SectionOrRowMidwife (String section,String date) {
         this.section = section;
+        this.date = date;
         this.isRow = false;
 
     }
@@ -32,5 +34,9 @@ public class SectionOrRowMidwife {
 
     public boolean isRow() {
         return isRow;
+    }
+
+    public String getDate() {
+        return date;
     }
 }

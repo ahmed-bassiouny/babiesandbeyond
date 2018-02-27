@@ -110,6 +110,7 @@ public class Service implements Parcelable {
     }
 
     public int getServiceStatusColor() {
+        serviceStatusName = Utils.getValueFromString(serviceStatusName);
         switch (serviceStatusName) {
             case Constant.PENDING:
                 return R.color.colorButton;
