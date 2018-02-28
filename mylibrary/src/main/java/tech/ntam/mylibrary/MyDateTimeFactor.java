@@ -21,6 +21,7 @@ public class MyDateTimeFactor {
     public static final String TIME_FORMAT_AM_PM = "KK:mm a";
     public static final String TIME_FORMAT = "HH:mm:ss";
     public static final String TIME_FORMAT_WITHOUT_SECOND = "HH:mm";
+    public static final String DATE_TIME_FORMAT_NUMBER_WITHOUT_SECOND = "yyyy-MM-dd KK:mm a";
 
     public static String changeDateFormatFromNumberToText(String dateStr) throws ParseException {
         DateFormat originalFormat = new SimpleDateFormat(DATE_TIME_FORMAT_NUMBER, Locale.ENGLISH);
@@ -29,9 +30,44 @@ public class MyDateTimeFactor {
         return targetFormat.format(date);
     }
 
+    public static String changeFullDateTimeTODateTimeWithoutSecond(String dateStr) {
+        DateFormat originalFormat = new SimpleDateFormat(DATE_TIME_FORMAT_NUMBER, Locale.ENGLISH);
+        DateFormat targetFormat = new SimpleDateFormat(DATE_TIME_FORMAT_NUMBER_WITHOUT_SECOND, Locale.ENGLISH);
+        Date date;
+        try {
+            date = originalFormat.parse(dateStr);
+            return targetFormat.format(date);
+        } catch (ParseException e) {
+            return "";
+        }
+
+    }
+    public static String changeDateTimeWithoutSecondToFullDateTime(String dateStr) {
+        DateFormat originalFormat = new SimpleDateFormat(DATE_TIME_FORMAT_NUMBER_WITHOUT_SECOND, Locale.ENGLISH);
+        DateFormat targetFormat = new SimpleDateFormat(DATE_TIME_FORMAT_NUMBER, Locale.ENGLISH);
+        Date date ;
+        try {
+            date = originalFormat.parse(dateStr);
+            return targetFormat.format(date);
+        } catch (ParseException e) {
+            return "";
+        }
+
+    }
+
+
     public static Date convertStringToDate(String date) {
 
         DateFormat format = new SimpleDateFormat(DATE_TIME_FORMAT_NUMBER, Locale.ENGLISH);
+        try {
+            return format.parse(date);
+        } catch (ParseException e) {
+            return new Date();
+        }
+    }
+    public static Date convertStringToDateWithoutSecond(String date) {
+
+        DateFormat format = new SimpleDateFormat(DATE_TIME_FORMAT_NUMBER_WITHOUT_SECOND, Locale.ENGLISH);
         try {
             return format.parse(date);
         } catch (ParseException e) {

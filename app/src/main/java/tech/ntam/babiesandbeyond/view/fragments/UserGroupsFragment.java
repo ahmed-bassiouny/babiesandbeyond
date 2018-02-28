@@ -298,7 +298,7 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == IntentDataKey.ADD_GROUP_DATA_CODE && resultCode == Activity.RESULT_OK && data != null) {
             Group group = data.getParcelableExtra(IntentDataKey.ADD_GROUP_DATA_KEY);
-            if (group != null) {
+            if (groupItemAdapter !=null && group != null) {
                 groupItemAdapter.addGroup(group);
             }
         }

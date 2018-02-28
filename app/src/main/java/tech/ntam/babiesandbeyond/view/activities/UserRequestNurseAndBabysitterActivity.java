@@ -106,13 +106,15 @@ public class UserRequestNurseAndBabysitterActivity extends MyToolbar {
             etChooseDateTo.setError(getString(R.string.select_date));
         } else if (etLocation.getText().toString().trim().length() < 10) {
             etLocation.setError(getString(R.string.enter_location));
-        } else if (MyDateTimeFactor.convertStringToDate(etChooseDateFrom.getText().toString()).before(MyDateTimeFactor.getDateTimeAfter24Hour().getTime())) {
+        } else if (MyDateTimeFactor.convertStringToDateWithoutSecond(etChooseDateFrom.getText().toString()).before(MyDateTimeFactor.getDateTimeAfter24Hour().getTime())) {
             Toast.makeText(this, "date from must be after 24 hours", Toast.LENGTH_LONG).show();
-        } else if (MyDateTimeFactor.convertStringToDate(etChooseDateTo.getText().toString()).before(MyDateTimeFactor.convertStringToDate(etChooseDateFrom.getText().toString()))) {
+        } else if (MyDateTimeFactor.convertStringToDateWithoutSecond(etChooseDateTo.getText().toString()).before(MyDateTimeFactor.convertStringToDateWithoutSecond(etChooseDateFrom.getText().toString()))) {
             Toast.makeText(this, "date to must be after "+etChooseDateFrom.getText().toString(), Toast.LENGTH_LONG).show();
         } else {
             getController().saveData(serviceSelected
-                    , etChooseDateFrom.getText().toString(), etChooseDateTo.getText().toString(), etLocation.getText().toString());
+                    , MyDateTimeFactor.changeDateTimeWithoutSecondToFullDateTime(etChooseDateFrom.getText().toString())
+                    , MyDateTimeFactor.changeDateTimeWithoutSecondToFullDateTime(etChooseDateTo.getText().toString())
+                    , etLocation.getText().toString());
         }
     }
 }
