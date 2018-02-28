@@ -36,18 +36,26 @@ public class MidwifeRequestModel implements Parcelable {
 
     public Date getDateTimeFrom(){
         // convert string date time to date                             // add second
-        return MyDateTimeFactor.convertStringToDate(getDate()+" "+getTimeFrom()+":00");
+        return MyDateTimeFactor.convertStringToDate(getDate()+" "+getTimeFrom24H()+":00");
     }
     public Date getDateTimeTo(){
         // convert string date time to date                             // add second
-        return MyDateTimeFactor.convertStringToDate(getDate()+" "+getTimeTo()+":00");
+        return MyDateTimeFactor.convertStringToDate(getDate()+" "+getTimeTo24H()+":00");
     }
 
-    public String getTimeFrom() {
+    public String getTimeFrom24H() {
         return Utils.getValueFromString(timeFrom);
     }
+    public String getTimeFrom12H() {
+        timeFrom = Utils.getValueFromString(timeFrom);
+        return MyDateTimeFactor.convertTimeFrom24To12WithoutSecond(timeFrom);
+    }
+    public String getTimeTo12H() {
+        timeTo = Utils.getValueFromString(timeTo);
+        return MyDateTimeFactor.convertTimeFrom24To12WithoutSecond(timeTo);
+    }
 
-    public String getTimeTo() {
+    public String getTimeTo24H() {
         return Utils.getValueFromString(timeTo);
     }
 

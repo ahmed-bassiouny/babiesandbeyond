@@ -18,8 +18,9 @@ public class MyDateTimeFactor {
     public static final String DATE_FORMAT_TEXT = "dd MMM yyyy";
     public static final String DATE_DASH_FORMAT_TEXT = "yyyy-MM-dd";
     public static final String DAY_MONTH_FORMAT_TEXT = "dd MMM";
-    public static final String TIME_FORMAT_AM_PM = "HH:mm a";
+    public static final String TIME_FORMAT_AM_PM = "KK:mm a";
     public static final String TIME_FORMAT = "HH:mm:ss";
+    public static final String TIME_FORMAT_WITHOUT_SECOND = "HH:mm";
 
     public static String changeDateFormatFromNumberToText(String dateStr) throws ParseException {
         DateFormat originalFormat = new SimpleDateFormat(DATE_TIME_FORMAT_NUMBER, Locale.ENGLISH);
@@ -88,6 +89,40 @@ public class MyDateTimeFactor {
     public static String convertTimeFrom24To12(String dateStr) {
         DateFormat originalFormat = new SimpleDateFormat(TIME_FORMAT, Locale.ENGLISH);
         DateFormat targetFormat = new SimpleDateFormat(TIME_FORMAT_AM_PM, Locale.ENGLISH);
+        Date date;
+        try {
+            date = originalFormat.parse(dateStr);
+            return targetFormat.format(date);
+        } catch (ParseException e) {
+            return "";
+        }
+    }
+    public static String convertTimeFrom24To12WithoutSecond(String dateStr) {
+        DateFormat originalFormat = new SimpleDateFormat(TIME_FORMAT_WITHOUT_SECOND, Locale.ENGLISH);
+        DateFormat targetFormat = new SimpleDateFormat(TIME_FORMAT_AM_PM, Locale.ENGLISH);
+        Date date;
+        try {
+            date = originalFormat.parse(dateStr);
+            return targetFormat.format(date);
+        } catch (ParseException e) {
+            return "";
+        }
+    }
+    public static String convertTimeFrom12To24(String dateStr) {
+        DateFormat originalFormat = new SimpleDateFormat(TIME_FORMAT_AM_PM, Locale.ENGLISH);
+        DateFormat targetFormat = new SimpleDateFormat(TIME_FORMAT, Locale.ENGLISH);
+        Date date;
+        try {
+            date = originalFormat.parse(dateStr);
+            return targetFormat.format(date);
+        } catch (ParseException e) {
+            return "";
+        }
+    }
+
+    public static String convertTimeFrom12To24WithoutSecond(String dateStr) {
+        DateFormat originalFormat = new SimpleDateFormat(TIME_FORMAT_AM_PM, Locale.ENGLISH);
+        DateFormat targetFormat = new SimpleDateFormat(TIME_FORMAT_WITHOUT_SECOND, Locale.ENGLISH);
         Date date;
         try {
             date = originalFormat.parse(dateStr);

@@ -68,7 +68,7 @@ public class UserRequestMidwifeActivity extends MyToolbar {
                 date = item.getDay();
             }
             // add row
-            sectionOrRowMidwives.add(new SectionOrRowMidwife(new AvailableTimeMidwife(item.getTimeFrom(), item.getTimeTo())));
+            sectionOrRowMidwives.add(new SectionOrRowMidwife(new AvailableTimeMidwife(item.getTimeFrom24H(), item.getTimeTo24H())));
         }
         MidwifeTimeSlots adapter = new MidwifeTimeSlots(this, sectionOrRowMidwives);
         recycleView.setAdapter(adapter);

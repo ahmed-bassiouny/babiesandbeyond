@@ -60,7 +60,7 @@ public class MidewifeTimeslotsActivity extends MyToolbar {
                 day = item.getDay();
             }
             // add row
-            sectionOrRowMidwives.add(new SectionOrRowMidwife(new AvailableTimeMidwife(item.getTimeFrom(),item.getTimeTo())));
+            sectionOrRowMidwives.add(new SectionOrRowMidwife(new AvailableTimeMidwife(item.getTimeFrom24H(),item.getTimeTo24H())));
         }
         if(sectionOrRowMidwives.size()>0) {
             MidwifeTimeSlots adapter = new MidwifeTimeSlots(this, sectionOrRowMidwives);

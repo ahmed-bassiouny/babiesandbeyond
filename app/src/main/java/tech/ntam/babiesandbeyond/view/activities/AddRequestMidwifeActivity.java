@@ -22,6 +22,7 @@ import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 import tech.ntam.mylibrary.IntentDataKey;
 import tech.ntam.mylibrary.MyDateTimeFactor;
 import tech.ntam.mylibrary.MyDialog;
+import tech.ntam.mylibrary.Utils;
 import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 
 public class AddRequestMidwifeActivity extends MyToolbar {
@@ -45,7 +46,7 @@ public class AddRequestMidwifeActivity extends MyToolbar {
         setupToolbar(this, false, true, false);
         tvTitle.setText(R.string.add_appointment);
         midwifeId = getIntent().getIntExtra(IntentDataKey.MIDWIFE, 0);
-        if(midwifeId == 0)
+        if (midwifeId == 0)
             finish();
         findViewById();
         onClick();
@@ -57,7 +58,7 @@ public class AddRequestMidwifeActivity extends MyToolbar {
         linearFrom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getUserSendRequestController().showTime(getFragmentManager(), tvFrom, 00, 00);
+                getUserSendRequestController().showTime(getFragmentManager(), tvFrom, 00);
             }
         });
         linearTo.setOnClickListener(new View.OnClickListener() {
@@ -67,10 +68,12 @@ public class AddRequestMidwifeActivity extends MyToolbar {
                     tvFrom.setError(getString(R.string.invalid_Time));
                 } else {
                     tvFrom.setError(null);
+                    // 01 : 00 pm
                     String[] time = tvFrom.getText().toString().split(":");
-                    int h = Integer.parseInt(time[0]);
-                    int m = Integer.parseInt(time[1]);
-                    getUserSendRequestController().showTime(getFragmentManager(), tvTo, h, m);
+                    int h = Integer.parseInt(time[0]); // 01
+                    if (time[1].contains("PM"))
+                        h = h + 12;
+                    getUserSendRequestController().showTime(getFragmentManager(), tvTo, h);
                 }
             }
         });
@@ -85,7 +88,7 @@ public class AddRequestMidwifeActivity extends MyToolbar {
                 } else {
                     tvFrom.setError(null);
                     tvTo.setError(null);
-                    checkMidwife(MyDateTimeFactor.convertTimestampToString(timeStampSelected),MyDateTimeFactor.convertTimestampToDayOfWeek(calendarView.getDate()));
+                    checkMidwife(MyDateTimeFactor.convertTimestampToString(timeStampSelected), MyDateTimeFactor.convertTimestampToDayOfWeek(timeStampSelected));
                 }
             }
         });
@@ -93,7 +96,7 @@ public class AddRequestMidwifeActivity extends MyToolbar {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                 Calendar cal = Calendar.getInstance();
-                cal.set(year,month,dayOfMonth);
+                cal.set(year, month, dayOfMonth);
                 timeStampSelected = cal.getTimeInMillis();
             }
         });
@@ -119,14 +122,15 @@ public class AddRequestMidwifeActivity extends MyToolbar {
     private void checkMidwife(final String date, final String day) {
         final MyDialog dialog = new MyDialog();
         dialog.showMyDialog(this);
-        RequestAndResponse.checkMidwife(this, midwifeId, tvFrom.getText().toString()
-                , tvTo.getText().toString(), date, new BaseResponseInterface<String>() {
+        RequestAndResponse.checkMidwife(this, midwifeId, MyDateTimeFactor.convertTimeFrom12To24WithoutSecond(tvFrom.getText().toString())
+                , MyDateTimeFactor.convertTimeFrom12To24WithoutSecond(tvTo.getText().toString()), date, new BaseResponseInterface<String>() {
                     @Override
                     public void onSuccess(String s) {
                         dialog.dismissMyDialog();
                         Intent resultIntent = new Intent();
                         resultIntent.putExtra(IntentDataKey.ADD_MIDWIFE_REQUEST,
-                                new MidwifeRequestModel(tvFrom.getText().toString(),tvTo.getText().toString(),date,day));
+                                new MidwifeRequestModel(MyDateTimeFactor.convertTimeFrom12To24WithoutSecond(tvFrom.getText().toString())
+                                        , MyDateTimeFactor.convertTimeFrom12To24WithoutSecond(tvTo.getText().toString()), date, day));
                         setResult(Activity.RESULT_OK, resultIntent);
                         finish();
                     }
@@ -138,12 +142,13 @@ public class AddRequestMidwifeActivity extends MyToolbar {
                     }
                 });
     }
-    private void setOlderRequest(){
+
+    private void setOlderRequest() {
         midwifeRequestModel = getIntent().getParcelableExtra(IntentDataKey.REQUEST);
-        if(midwifeRequestModel == null)
+        if (midwifeRequestModel == null)
             return;
-        tvFrom.setText(midwifeRequestModel.getTimeFrom());
-        tvTo.setText(midwifeRequestModel.getTimeTo());
+        tvFrom.setText(midwifeRequestModel.getTimeFrom12H());
+        tvTo.setText(midwifeRequestModel.getTimeTo12H());
         try {
             calendarView.setDate(MyDateTimeFactor.convertStringToTimestamp(midwifeRequestModel.getDate()));
         } catch (ParseException e) {

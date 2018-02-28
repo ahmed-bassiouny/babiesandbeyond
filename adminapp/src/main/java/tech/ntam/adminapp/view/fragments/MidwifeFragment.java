@@ -30,6 +30,7 @@ import tech.ntam.adminapp.view.activities.MidwifeRequestAndDetailsActivity;
 import tech.ntam.adminapp.view.adapter.MidwifeItemListAdapter;
 import tech.ntam.adminapp.view.adapter.MidwifeRequestItemAdapter;
 import tech.ntam.mylibrary.IntentDataKey;
+import tech.ntam.mylibrary.SimpleDividerItemDecoration;
 import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 
 /**
@@ -78,6 +79,7 @@ public class MidwifeFragment extends Fragment implements ParseMidwife {
         btnList = view.findViewById(R.id.btn_list);
         swipeRefreshLayout = view.findViewById(R.id.swpie_refresh_layout);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getContext()));
         btnList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

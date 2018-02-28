@@ -78,8 +78,8 @@ public class RequestMidwifeItemAdapter extends RecyclerView.Adapter<RequestMidwi
         MidwifeRequestModel item = midwifeRequestModels.get(position);
         holder.tvRequestDay.setText(item.getDay());
         holder.tvRequestDate.setText(item.getDate());
-        holder.tvFrom.setText(item.getTimeFrom());
-        holder.tvTo.setText(item.getTimeTo());
+        holder.tvFrom.setText(item.getTimeFrom12H());
+        holder.tvTo.setText(item.getTimeTo12H());
 
     }
 
