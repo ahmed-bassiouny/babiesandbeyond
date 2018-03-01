@@ -90,6 +90,10 @@ public class WorkshopListItemAdapter extends RecyclerView.Adapter<WorkshopListIt
         this.workshops = workshops;
         notifyDataSetChanged();
     }
+    public void addWorkshop(Workshop workshop) {
+        this.workshops.add(0,workshop);
+        notifyItemInserted(0);
+    }
 
     public void removeWorkshopRequest(final int id) {
         final int size = workshops.size();
@@ -98,6 +102,29 @@ public class WorkshopListItemAdapter extends RecyclerView.Adapter<WorkshopListIt
             public void run() {
                 for (int i = 0; i < size; i++) {
                     if (workshops.get(i).getId() == id) {
+                        final int position = i;
+                        workshops.remove(i);
+                        fragment.getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                notifyItemRemoved(position);
+                            }
+                        });
+                        break;
+                    }
+                }
+            }
+        }).start();
+    }
+
+    public void deleteRequest(final int id) {
+        final int size = workshops.size();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < size; i++) {
+                    Workshop item = workshops.get(i);
+                    if (item.getId() == id) {
                         final int position = i;
                         workshops.remove(i);
                         fragment.getActivity().runOnUiThread(new Runnable() {

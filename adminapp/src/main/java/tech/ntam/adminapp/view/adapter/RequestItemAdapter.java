@@ -84,9 +84,37 @@ public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.
         this.requests = requests;
         notifyDataSetChanged();
     }
+    public void addRequest(Request request){
+        this.requests.add(0,request);
+        notifyItemInserted(0);
+    }
 
     public void removeRequest(int position) {
         requests.remove(position);
         notifyItemRemoved(position);
+    }
+
+
+    public void deleteRequest(final int id) {
+        final int size = requests.size();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < size; i++) {
+                    Request item = requests.get(i);
+                    if (item.getId() == id) {
+                        final int position = i;
+                        requests.remove(i);
+                        fragment.getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                notifyItemRemoved(position);
+                            }
+                        });
+                        break;
+                    }
+                }
+            }
+        }).start();
     }
 }

@@ -46,11 +46,19 @@ public class IntentDataKey {
     public static final String NOTIFICATION_ID ="id";
     public static final String NOTIFICATION_SERVICE_PRICE ="service_price";
     public static final String NOTIFICATION_STAFF_NAME ="staff_name";
+    public static final String NOTIFICATION_SERVICE_OBJECT ="service_obj";
+    public static final String NOTIFICATION_WORKSHOP_OBJECT ="workshop_obj";
     // Group Notification
     public static final String NOTIFICATION_GROUP = "3";
     public static final String NOTIFICATION_SERVICE = "0";
     public static final String NOTIFICATION_WORKSHOP = "1";
     public static final String NOTIFICATION_EVENTS = "2";
     public static final String NOTIFICATION_MIDWIFE = "4";
+    public static final String NOTIFICATION_NURSE = "5";
+    public static final String NOTIFICATION_BABYSITTER = "6";
+
+    // action notification for admin
+    public static final String ADD_REQUEST = "3";
+    public static final String CANCEL_REQUEST = "0";
 
 }

@@ -2,11 +2,15 @@ package tech.ntam.adminapp.view.fragments;
 
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -89,7 +93,7 @@ public class NurseFragment extends Fragment implements ParseTasks {
                 if (myStaff == null)
                     return;
                 if (requestItemAdapter == null)
-                    requestItemAdapter = new RequestItemAdapter(NurseFragment.this, myStaff.getRequests());
+                    requestItemAdapter = new RequestItemAdapter(NurseFragment.this, myStaff.getRequests(), getActivity());
                 recyclerView.setAdapter(requestItemAdapter);
             }
         });
@@ -139,7 +143,7 @@ public class NurseFragment extends Fragment implements ParseTasks {
     private void fetchData() {
         if (myStaff != null) {
             if (requestItemAdapter == null)
-                requestItemAdapter = new RequestItemAdapter(this, myStaff.getRequests());
+                requestItemAdapter = new RequestItemAdapter(this, myStaff.getRequests(), getActivity());
             recyclerView.setAdapter(requestItemAdapter);
             recyclerView.setVisibility(View.VISIBLE);
         } else {
@@ -151,7 +155,7 @@ public class NurseFragment extends Fragment implements ParseTasks {
                 @Override
                 public void onSuccess(Staff staff) {
                     myStaff = staff;
-                    requestItemAdapter = new RequestItemAdapter(NurseFragment.this, staff.getRequests());
+                    requestItemAdapter = new RequestItemAdapter(NurseFragment.this, staff.getRequests(), getActivity());
                     recyclerView.setAdapter(requestItemAdapter);
                     progress.setVisibility(View.INVISIBLE);
                     recyclerView.setVisibility(View.VISIBLE);
@@ -161,6 +165,7 @@ public class NurseFragment extends Fragment implements ParseTasks {
                 @Override
                 public void onFailed(String errorMessage) {
                     progress.setVisibility(View.INVISIBLE);
+                    noInternet.setText(errorMessage);
                     noInternet.setVisibility(View.VISIBLE);
                     btnNoInternet.setVisibility(View.VISIBLE);
                     swipeRefreshLayout.setEnabled(false);
@@ -170,7 +175,7 @@ public class NurseFragment extends Fragment implements ParseTasks {
     }
 
     @Override
-    public void assignmentTask(Request request,int position) {
+    public void assignmentTask(Request request, int position) {
         Intent intent = new Intent(getActivity(), TaskAssigmentActivity.class);
         intent.putExtra(IntentDataKey.REQUEST, request);
         currentPosition = position;
@@ -180,7 +185,7 @@ public class NurseFragment extends Fragment implements ParseTasks {
     @Override
     public void viewService(Service service) {
         Intent intent = new Intent(getActivity(), ServiceDetailsActivity.class);
-        intent.putExtra(IntentDataKey.SERVICE,service);
+        intent.putExtra(IntentDataKey.SERVICE, service);
         startActivity(intent);
     }
 
@@ -191,4 +196,36 @@ public class NurseFragment extends Fragment implements ParseTasks {
             requestItemAdapter.removeRequest(currentPosition);
         }
     }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver((mMessageReceiver),
+                new IntentFilter(IntentDataKey.NOTIFICATION_NURSE));
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(mMessageReceiver);
+    }
+
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (requestItemAdapter == null)
+                return;
+            String action = intent.getStringExtra(IntentDataKey.NOTIFICATION_ACTION);
+            switch (action) {
+                case IntentDataKey.CANCEL_REQUEST: // delete request
+                    String requestId = intent.getStringExtra(IntentDataKey.NOTIFICATION_ID);
+                    requestItemAdapter.deleteRequest(Integer.parseInt(requestId));
+                    break;
+                case IntentDataKey.ADD_REQUEST: // add request
+                    Request request = intent.getParcelableExtra(IntentDataKey.NOTIFICATION_SERVICE_OBJECT);
+                    requestItemAdapter.addRequest(request);
+                    break;
+            }
+        }
+    };
 }

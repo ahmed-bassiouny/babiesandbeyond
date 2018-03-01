@@ -78,6 +78,10 @@ public class MidwifeRequestItemAdapter extends RecyclerView.Adapter<MidwifeReque
         this.midwifeList = midwifeList;
         notifyDataSetChanged();
     }
+    public void addRequest(MidwifeService midwifeService){
+        this.midwifeList.add(0,midwifeService);
+        notifyItemInserted(0);
+    }
     public void deleteService(final String uniqueKey) {
         final int size = midwifeList.size();
         new Thread(new Runnable() {

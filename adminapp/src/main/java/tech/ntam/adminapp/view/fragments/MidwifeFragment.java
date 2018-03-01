@@ -2,11 +2,15 @@ package tech.ntam.adminapp.view.fragments;
 
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,6 +30,7 @@ import tech.ntam.adminapp.api.RequestAndResponse;
 import tech.ntam.adminapp.interfaces.ParseMidwife;
 import tech.ntam.adminapp.model.Midwife;
 import tech.ntam.adminapp.model.MidwifeService;
+import tech.ntam.adminapp.model.Workshop;
 import tech.ntam.adminapp.view.activities.MidwifeRequestAndDetailsActivity;
 import tech.ntam.adminapp.view.adapter.MidwifeItemListAdapter;
 import tech.ntam.adminapp.view.adapter.MidwifeRequestItemAdapter;
@@ -54,8 +59,8 @@ public class MidwifeFragment extends Fragment implements ParseMidwife {
         // Required empty public constructor
     }
 
-    public static MidwifeFragment newInstance(){
-        if(midwifeFragment == null)
+    public static MidwifeFragment newInstance() {
+        if (midwifeFragment == null)
             midwifeFragment = new MidwifeFragment();
         return midwifeFragment;
     }
@@ -92,10 +97,20 @@ public class MidwifeFragment extends Fragment implements ParseMidwife {
                 fetchMidwifeRequests();
             }
         });
+        btnNoInternet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (btnRequest.isChecked()) {
+                    fetchMidwifeRequests();
+                } else {
+                    fetchMidwifeList();
+                }
+            }
+        });
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if(btnRequest.isChecked()){
+                if (btnRequest.isChecked()) {
                     // get requests
                     RequestAndResponse.getMidwifeRequests(getContext(), new BaseResponseInterface<List<MidwifeService>>() {
                         @Override
@@ -110,7 +125,7 @@ public class MidwifeFragment extends Fragment implements ParseMidwife {
                             swipeRefreshLayout.setRefreshing(false);
                         }
                     });
-                }else {
+                } else {
                     // get lists
                     RequestAndResponse.getAllMidwife(getContext(), new BaseResponseInterface<List<Midwife>>() {
                         @Override
@@ -145,7 +160,7 @@ public class MidwifeFragment extends Fragment implements ParseMidwife {
             RequestAndResponse.getAllMidwife(getContext(), new BaseResponseInterface<List<Midwife>>() {
                 @Override
                 public void onSuccess(List<Midwife> midwives) {
-                    midwifeItemListAdapter = new MidwifeItemListAdapter(getActivity(),MidwifeFragment.this,midwives);
+                    midwifeItemListAdapter = new MidwifeItemListAdapter(getActivity(), MidwifeFragment.this, midwives);
                     recyclerView.setAdapter(midwifeItemListAdapter);
                     progress.setVisibility(View.INVISIBLE);
                     recyclerView.setVisibility(View.VISIBLE);
@@ -155,6 +170,7 @@ public class MidwifeFragment extends Fragment implements ParseMidwife {
                 @Override
                 public void onFailed(String errorMessage) {
                     progress.setVisibility(View.INVISIBLE);
+                    noInternet.setText(errorMessage);
                     noInternet.setVisibility(View.VISIBLE);
                     btnNoInternet.setVisibility(View.VISIBLE);
                     swipeRefreshLayout.setEnabled(false);
@@ -177,7 +193,7 @@ public class MidwifeFragment extends Fragment implements ParseMidwife {
             RequestAndResponse.getMidwifeRequests(getContext(), new BaseResponseInterface<List<MidwifeService>>() {
                 @Override
                 public void onSuccess(List<MidwifeService> midwifeServices) {
-                    midwifeRequestItemAdapter = new MidwifeRequestItemAdapter(getActivity(),MidwifeFragment.this,midwifeServices);
+                    midwifeRequestItemAdapter = new MidwifeRequestItemAdapter(getActivity(), MidwifeFragment.this, midwifeServices);
                     recyclerView.setAdapter(midwifeRequestItemAdapter);
                     progress.setVisibility(View.INVISIBLE);
                     recyclerView.setVisibility(View.VISIBLE);
@@ -187,6 +203,7 @@ public class MidwifeFragment extends Fragment implements ParseMidwife {
                 @Override
                 public void onFailed(String errorMessage) {
                     progress.setVisibility(View.INVISIBLE);
+                    noInternet.setText(errorMessage);
                     noInternet.setVisibility(View.VISIBLE);
                     btnNoInternet.setVisibility(View.VISIBLE);
                     swipeRefreshLayout.setEnabled(false);
@@ -198,25 +215,57 @@ public class MidwifeFragment extends Fragment implements ParseMidwife {
     @Override
     public void assignmentMidwife(MidwifeService request, int position) {
         Intent intent = new Intent(getActivity(), MidwifeRequestAndDetailsActivity.class);
-        intent.putExtra(IntentDataKey.MIDWIFE_SERVICE,request);
-        startActivityForResult(intent,REQUEST_CODE_MIDWIFE);
+        intent.putExtra(IntentDataKey.MIDWIFE_SERVICE, request);
+        startActivityForResult(intent, REQUEST_CODE_MIDWIFE);
     }
 
     @Override
     public void viewMidwife(Midwife midwife) {
         Intent intent = new Intent(getActivity(), MidwifeRequestAndDetailsActivity.class);
-        intent.putExtra(IntentDataKey.MIDWIFE,midwife);
+        intent.putExtra(IntentDataKey.MIDWIFE, midwife);
         startActivity(intent);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_MIDWIFE){
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_MIDWIFE) {
             String uniquKey = data.getStringExtra(IntentDataKey.MIDWIFE_SERVICE);
-            if(uniquKey == null || uniquKey.isEmpty())
+            if (uniquKey == null || uniquKey.isEmpty())
                 return;
             midwifeRequestItemAdapter.deleteService(uniquKey);
         }
     }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver((mMessageReceiver),
+                new IntentFilter(IntentDataKey.NOTIFICATION_MIDWIFE));
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(mMessageReceiver);
+    }
+
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (midwifeRequestItemAdapter == null)
+                return;
+            String action = intent.getStringExtra(IntentDataKey.NOTIFICATION_ACTION);
+            switch (action) {
+                case IntentDataKey.CANCEL_REQUEST: // delete request
+                    String uniqueKey = intent.getStringExtra(IntentDataKey.NOTIFICATION_ID);
+                midwifeRequestItemAdapter.deleteService(uniqueKey);
+                    break;
+                case IntentDataKey.ADD_REQUEST: // add request
+                    MidwifeService midwifeService = intent.getParcelableExtra(IntentDataKey.NOTIFICATION_WORKSHOP_OBJECT);
+                    midwifeRequestItemAdapter.addRequest(midwifeService);
+                    break;
+            }
+        }
+    };
 }

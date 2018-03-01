@@ -18,10 +18,10 @@ public class MyDateTimeFactor {
     public static final String DATE_FORMAT_TEXT = "dd MMM yyyy";
     public static final String DATE_DASH_FORMAT_TEXT = "yyyy-MM-dd";
     public static final String DAY_MONTH_FORMAT_TEXT = "dd MMM";
-    public static final String TIME_FORMAT_AM_PM = "KK:mm a";
-    public static final String TIME_FORMAT = "HH:mm:ss";
-    public static final String TIME_FORMAT_WITHOUT_SECOND = "HH:mm";
-    public static final String DATE_TIME_FORMAT_NUMBER_WITHOUT_SECOND = "yyyy-MM-dd KK:mm a";
+    public static final String TIME_FORMAT_AM_PM = "hh:mm a";
+    public static final String TIME_FORMAT = "kk:mm:ss";
+    public static final String TIME_FORMAT_WITHOUT_SECOND = "kk:mm";
+    public static final String DATE_TIME_FORMAT_NUMBER_WITHOUT_SECOND = "yyyy-MM-dd kk:mm a";
 
     public static String changeDateFormatFromNumberToText(String dateStr) throws ParseException {
         DateFormat originalFormat = new SimpleDateFormat(DATE_TIME_FORMAT_NUMBER, Locale.ENGLISH);

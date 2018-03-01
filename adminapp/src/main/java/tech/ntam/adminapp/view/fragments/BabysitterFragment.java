@@ -2,11 +2,15 @@ package tech.ntam.adminapp.view.fragments;
 
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -37,7 +41,7 @@ import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BabysitterFragment extends Fragment implements ParseTasks{
+public class BabysitterFragment extends Fragment implements ParseTasks {
 
     private static final int REQUEST_CODE_TASK = 2;
     private static BabysitterFragment babysitterFragment;
@@ -117,9 +121,9 @@ public class BabysitterFragment extends Fragment implements ParseTasks{
                     @Override
                     public void onSuccess(Staff staff) {
                         myStaff = staff;
-                        if(btnRequest.isChecked()){
+                        if (btnRequest.isChecked()) {
                             requestItemAdapter.updateRequest(myStaff.getRequests());
-                        }else {
+                        } else {
                             serviceItemAdapter.updateService(myStaff.getServices());
                         }
                         swipeRefreshLayout.setRefreshing(false);
@@ -162,6 +166,7 @@ public class BabysitterFragment extends Fragment implements ParseTasks{
                 @Override
                 public void onFailed(String errorMessage) {
                     progress.setVisibility(View.INVISIBLE);
+                    noInternet.setText(errorMessage);
                     noInternet.setVisibility(View.VISIBLE);
                     btnNoInternet.setVisibility(View.VISIBLE);
                     swipeRefreshLayout.setEnabled(false);
@@ -171,9 +176,9 @@ public class BabysitterFragment extends Fragment implements ParseTasks{
     }
 
     @Override
-    public void assignmentTask(Request request,int position) {
+    public void assignmentTask(Request request, int position) {
         Intent intent = new Intent(getActivity(), TaskAssigmentActivity.class);
-        intent.putExtra(IntentDataKey.REQUEST,request);
+        intent.putExtra(IntentDataKey.REQUEST, request);
         currentPosition = position;
         startActivityForResult(intent, REQUEST_CODE_TASK);
     }
@@ -181,9 +186,10 @@ public class BabysitterFragment extends Fragment implements ParseTasks{
     @Override
     public void viewService(Service service) {
         Intent intent = new Intent(getActivity(), ServiceDetailsActivity.class);
-        intent.putExtra(IntentDataKey.SERVICE,service);
+        intent.putExtra(IntentDataKey.SERVICE, service);
         startActivity(intent);
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -191,4 +197,36 @@ public class BabysitterFragment extends Fragment implements ParseTasks{
             requestItemAdapter.removeRequest(currentPosition);
         }
     }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver((mMessageReceiver),
+                new IntentFilter(IntentDataKey.NOTIFICATION_BABYSITTER));
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(mMessageReceiver);
+    }
+
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (requestItemAdapter == null)
+                return;
+            String action = intent.getStringExtra(IntentDataKey.NOTIFICATION_ACTION);
+            switch (action) {
+                case IntentDataKey.CANCEL_REQUEST: // delete request
+                    String requestId = intent.getStringExtra(IntentDataKey.NOTIFICATION_ID);
+                    requestItemAdapter.deleteRequest(Integer.parseInt(requestId));
+                    break;
+                case IntentDataKey.ADD_REQUEST: // add request
+                    Request request = intent.getParcelableExtra(IntentDataKey.NOTIFICATION_SERVICE_OBJECT);
+                    requestItemAdapter.addRequest(request);
+                    break;
+            }
+        }
+    };
 }
