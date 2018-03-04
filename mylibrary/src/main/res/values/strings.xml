@@ -162,6 +162,7 @@
     <string name="retry">Retry</string>
     <string name="please_join_group">Sorry ,Please join to group</string>
     <string name="new_password">New Password</string>
+    <string name="current_password">Current Password</string>
     <string name="ok">Ok</string>
     <string name="account">Account</string>
     <string name="please_choose_midwife">Please choose time and date \n according to midwife available time</string>

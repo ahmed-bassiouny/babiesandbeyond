@@ -19,9 +19,10 @@ public class MyDateTimeFactor {
     public static final String DATE_DASH_FORMAT_TEXT = "yyyy-MM-dd";
     public static final String DAY_MONTH_FORMAT_TEXT = "dd MMM";
     public static final String TIME_FORMAT_AM_PM = "hh:mm a";
-    public static final String TIME_FORMAT = "kk:mm:ss";
-    public static final String TIME_FORMAT_WITHOUT_SECOND = "kk:mm";
-    public static final String DATE_TIME_FORMAT_NUMBER_WITHOUT_SECOND = "yyyy-MM-dd kk:mm a";
+    public static final String TIME_FORMAT = "HH:mm:ss";
+    public static final String TIME_FORMAT_WITHOUT_SECOND = "hh:mm";
+    public static final String TIME_FORMAT_WITHOUT_SECOND_LARGE = "HH:mm";
+    public static final String DATE_TIME_FORMAT_NUMBER_WITHOUT_SECOND = "yyyy-MM-dd HH:mm a";
 
     public static String changeDateFormatFromNumberToText(String dateStr) throws ParseException {
         DateFormat originalFormat = new SimpleDateFormat(DATE_TIME_FORMAT_NUMBER, Locale.ENGLISH);
@@ -158,7 +159,7 @@ public class MyDateTimeFactor {
 
     public static String convertTimeFrom12To24WithoutSecond(String dateStr) {
         DateFormat originalFormat = new SimpleDateFormat(TIME_FORMAT_AM_PM, Locale.ENGLISH);
-        DateFormat targetFormat = new SimpleDateFormat(TIME_FORMAT_WITHOUT_SECOND, Locale.ENGLISH);
+        DateFormat targetFormat = new SimpleDateFormat(TIME_FORMAT_WITHOUT_SECOND_LARGE, Locale.ENGLISH);
         Date date;
         try {
             date = originalFormat.parse(dateStr);

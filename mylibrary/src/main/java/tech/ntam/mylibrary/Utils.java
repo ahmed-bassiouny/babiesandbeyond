@@ -51,9 +51,9 @@ public class Utils {
 
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
-
+/*
     public static final Pattern VALID_PHONE_REGEX =
-            Pattern.compile("^\\+[0-9]", Pattern.CASE_INSENSITIVE);
+            Pattern.compile("^\\+[0-9]", Pattern.CASE_INSENSITIVE);*/
 
     public static final String errorConnection = "Please Check Your Internet Connection!";
     public static final String timeoutConnection = "The connection has timed out!";
@@ -105,10 +105,10 @@ public class Utils {
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
         return matcher.find();
     }
-    public static boolean validatePhone(String phone) {
+    /*public static boolean validatePhone(String phone) {
         Matcher matcher = VALID_PHONE_REGEX.matcher(phone);
         return matcher.find();
-    }
+    }*/
 
 
     public static void MyGlide(Activity activity, ImageView imageView, String url) {

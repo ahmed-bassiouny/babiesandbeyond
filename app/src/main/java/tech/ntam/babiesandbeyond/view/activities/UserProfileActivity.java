@@ -155,7 +155,7 @@ public class UserProfileActivity extends MyToolbar {
                 // here i will save new data
                 if(etName.getText().toString().trim().isEmpty()){
                     etName.setError(getString(R.string.invalid_name));
-                }else if(!Utils.validatePhone(etPhone.getText().toString())){
+                }else if(etPhone.getText().toString().isEmpty()){
                     etPhone.setError(getString(R.string.invalid_phone));
                 }else {
                     getUserProfileController().updateProfile(photo, etName, etPhone, new UserProfileController.UpdateSuccess() {

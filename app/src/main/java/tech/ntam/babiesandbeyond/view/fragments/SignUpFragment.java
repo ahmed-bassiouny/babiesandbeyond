@@ -68,7 +68,7 @@ public class SignUpFragment extends Fragment {
             public void onClick(View v) {
                 if (etName.getText().toString().length() < 6) {
                     etName.setError(getString(R.string.invalid_name));
-                } else if (!Utils.validatePhone(etPhone.getText().toString())) {
+                } else if (etPhone.getText().toString().isEmpty()) {
                     etPhone.setError(getString(R.string.invalid_phone));
                 } else if (etEmail.getText().toString().trim().isEmpty()) {
                     etEmail.setError(getString(R.string.invalid_email));
