@@ -262,7 +262,7 @@ public class MidwifeFragment extends Fragment implements ParseMidwife {
                 midwifeRequestItemAdapter.deleteService(uniqueKey);
                     break;
                 case IntentDataKey.ADD_REQUEST: // add request
-                    MidwifeService midwifeService = intent.getParcelableExtra(IntentDataKey.NOTIFICATION_WORKSHOP_OBJECT);
+                    MidwifeService midwifeService = intent.getParcelableExtra(IntentDataKey.NOTIFICATION_SERVICE_OBJECT);
                     midwifeRequestItemAdapter.addRequest(midwifeService);
                     break;
             }

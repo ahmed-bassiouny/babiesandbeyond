@@ -37,6 +37,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
         //Toast.makeText(this,"",Toast.LENGTH_LONG);
+        new MyNotification(this, remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody()).showNotification();
     }
 
     @Override
@@ -97,6 +98,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 default:
                     return;
             }
+            // get action
+            myIntent.putExtra(IntentDataKey.NOTIFICATION_ACTION, object.get(IntentDataKey.NOTIFICATION_ACTION).toString());
             broadcaster.sendBroadcast(myIntent);
         } catch (JSONException e) {
         }

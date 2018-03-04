@@ -93,7 +93,7 @@ public class NurseFragment extends Fragment implements ParseTasks {
                 if (myStaff == null)
                     return;
                 if (requestItemAdapter == null)
-                    requestItemAdapter = new RequestItemAdapter(NurseFragment.this, myStaff.getRequests(), getActivity());
+                    requestItemAdapter = new RequestItemAdapter(NurseFragment.this, myStaff.getRequests());
                 recyclerView.setAdapter(requestItemAdapter);
             }
         });
@@ -143,7 +143,7 @@ public class NurseFragment extends Fragment implements ParseTasks {
     private void fetchData() {
         if (myStaff != null) {
             if (requestItemAdapter == null)
-                requestItemAdapter = new RequestItemAdapter(this, myStaff.getRequests(), getActivity());
+                requestItemAdapter = new RequestItemAdapter(this, myStaff.getRequests());
             recyclerView.setAdapter(requestItemAdapter);
             recyclerView.setVisibility(View.VISIBLE);
         } else {
@@ -155,7 +155,7 @@ public class NurseFragment extends Fragment implements ParseTasks {
                 @Override
                 public void onSuccess(Staff staff) {
                     myStaff = staff;
-                    requestItemAdapter = new RequestItemAdapter(NurseFragment.this, staff.getRequests(), getActivity());
+                    requestItemAdapter = new RequestItemAdapter(NurseFragment.this, staff.getRequests());
                     recyclerView.setAdapter(requestItemAdapter);
                     progress.setVisibility(View.INVISIBLE);
                     recyclerView.setVisibility(View.VISIBLE);
@@ -224,6 +224,7 @@ public class NurseFragment extends Fragment implements ParseTasks {
                 case IntentDataKey.ADD_REQUEST: // add request
                     Request request = intent.getParcelableExtra(IntentDataKey.NOTIFICATION_SERVICE_OBJECT);
                     requestItemAdapter.addRequest(request);
+                    recyclerView.scrollToPosition(0);
                     break;
             }
         }
