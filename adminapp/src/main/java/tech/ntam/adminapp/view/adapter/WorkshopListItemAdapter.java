@@ -124,7 +124,7 @@ public class WorkshopListItemAdapter extends RecyclerView.Adapter<WorkshopListIt
             public void run() {
                 for (int i = 0; i < size; i++) {
                     Workshop item = workshops.get(i);
-                    if (item.getId() == id) {
+                    if (item.getUserWorkshopId() == id) {
                         final int position = i;
                         workshops.remove(i);
                         fragment.getActivity().runOnUiThread(new Runnable() {

@@ -190,7 +190,6 @@ public class UserWorkshopListFragment extends Fragment implements ParseObject<Wo
                     workshopItemAdapter.updateWorkshopToConfirmationWithoutPayment(Integer.parseInt(serviceId));
                     break;
             }
-
         }
     };
 

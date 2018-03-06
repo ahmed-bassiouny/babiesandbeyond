@@ -50,7 +50,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         } catch (JSONException e) {
             e.printStackTrace();
         }*/
-
+        Log.e("handleIntent: ",intent.getExtras().get("a_data").toString() );
         try {
             Intent myIntent;
             // convert notification to json object

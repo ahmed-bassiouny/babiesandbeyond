@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.time.Period;
+import java.util.List;
 
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
@@ -40,6 +42,7 @@ public class RequestMidwifeActivity extends MyToolbar implements MidwifeRequestI
     private int total = 0;
     private TextView tvTotal;
     private LinearLayout btnPay;
+    private List<MidwifeRequestModel> midwifeRequestModels;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +69,24 @@ public class RequestMidwifeActivity extends MyToolbar implements MidwifeRequestI
             public void onClick(View v) {
                 if (adapter == null || adapter.getList().size() == 0) {
                     Toast.makeText(RequestMidwifeActivity.this, "please " + getString(R.string.add_appointment), Toast.LENGTH_SHORT).show();
+                } else if (adapter.getItemCount() == 1) {
+                    reserveMidwife();
                 } else {
+                    midwifeRequestModels = adapter.getList();
+                    int size = midwifeRequestModels.size();
+                    for(int i=1;i<size;i++){
+                        MidwifeRequestModel firstRequest = midwifeRequestModels.get(i-1);
+                        MidwifeRequestModel secondRequest = midwifeRequestModels.get(i);
+                        if(firstRequest.getDate().equals(secondRequest.getDate())){
+                            if(firstRequest.getHourFrom()<=secondRequest.getHourTo()
+                                    && secondRequest.getHourFrom()<=firstRequest.getHourFrom() ){
+                                Toast.makeText(RequestMidwifeActivity.this, "please check your requests", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            //(StartDate1 <= EndDate2) and (StartDate2 <= EndDate1)
+                        }
+                    }
+                    //fireToast.makeText(RequestMidwifeActivity.this, "good", Toast.LENGTH_SHORT).show();
                     reserveMidwife();
                 }
             }
@@ -86,24 +106,24 @@ public class RequestMidwifeActivity extends MyToolbar implements MidwifeRequestI
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK  && data != null) {
+        if (resultCode == RESULT_OK && data != null) {
             MidwifeRequestModel request = data.getParcelableExtra(IntentDataKey.ADD_MIDWIFE_REQUEST);
             if (request != null) {
                 if (adapter == null) {
                     adapter = new RequestMidwifeItemAdapter(this);
                     recyclerView.setAdapter(adapter);
                 }
-                if(requestCode == REQUEST_CODE_NEW) {
+                if (requestCode == REQUEST_CODE_NEW) {
                     adapter.insertItem(request);
                     updateTotalCost((int) MyDateTimeFactor.getHourBetweenTwoDate(request.getDateTimeTo(), request.getDateTimeFrom()), true);
-                }else {
+                } else {
                     // edit request
                     // 1- get old price
                     MidwifeRequestModel oldRequest = adapter.getItem(position);
                     // 2- remove old price
                     updateTotalCost((int) MyDateTimeFactor.getHourBetweenTwoDate(oldRequest.getDateTimeTo(), oldRequest.getDateTimeFrom()), false);
                     // 3- set new item
-                    adapter.updateItem(request,position);
+                    adapter.updateItem(request, position);
                     // 4- set new price
                     updateTotalCost((int) MyDateTimeFactor.getHourBetweenTwoDate(request.getDateTimeTo(), request.getDateTimeFrom()), true);
 
@@ -122,7 +142,7 @@ public class RequestMidwifeActivity extends MyToolbar implements MidwifeRequestI
                 dialog.dismissMyDialog();
                 midwifeService.setMidwifeStatus(Constant.PENDING);
                 Toast.makeText(RequestMidwifeActivity.this, "Waiting admin approve", Toast.LENGTH_SHORT).show();
-                ServiceSharedPref.setMyMidwife(RequestMidwifeActivity.this,midwifeService);
+                ServiceSharedPref.setMyMidwife(RequestMidwifeActivity.this, midwifeService);
                 finish();
             }
 
@@ -143,19 +163,19 @@ public class RequestMidwifeActivity extends MyToolbar implements MidwifeRequestI
         if (total > 0) {
             tvTotal.setText(" (cost " + total + ")");
             btnPay.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             btnPay.setVisibility(View.GONE);
         }
     }
 
 
     @Override
-    public void editRequest(MidwifeRequestModel midwifeRequestModel ,int position) {
+    public void editRequest(MidwifeRequestModel midwifeRequestModel, int position) {
         this.position = position;
         Intent i = new Intent(this, AddRequestMidwifeActivity.class);
         i.putExtra(IntentDataKey.REQUEST, midwifeRequestModel);
         i.putExtra(IntentDataKey.MIDWIFE, midwife.getId());
-        startActivityForResult(i,REQUEST_CODE_EDIT);
+        startActivityForResult(i, REQUEST_CODE_EDIT);
     }
 
     @Override

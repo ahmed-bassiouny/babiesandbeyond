@@ -1,8 +1,12 @@
 package tech.ntam.babiesandbeyond.view.activities;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -41,19 +45,18 @@ public class ShowWorkshopInfoActivity extends MyToolbar {
         setupToolbar(this, false, true, false);
         tvTitle.setText(R.string.workshop_information);
         findViewById();
-        setData();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        workshop = ServiceSharedPref.getMyWorkshop(this);
+        if (workshop == null)
+            finish();
         setData();
     }
 
     private void setData() {
-        workshop = ServiceSharedPref.getMyWorkshop(this);
-        if (workshop == null)
-            finish();
         tvDateFrom.setText(workshop.getStartDate());
         tvTimeFrom.setText(workshop.getStartTime());
         tvDateTo.setText(workshop.getEndDate());
@@ -102,9 +105,9 @@ public class ShowWorkshopInfoActivity extends MyToolbar {
             @Override
             public void onClick(View v) {
                 if (workshop.getWorkshopStatusName().equals(Constant.ASK_FOR_PAY)) {
-                    Intent intent = new Intent(ShowWorkshopInfoActivity.this,PaymentMethodActivity.class);
-                    intent.putExtra(IntentDataKey.MY_WORKSHOP,workshop);
-                    startActivityForResult(intent,IntentDataKey.CHANGE_WORKSHOP_DATA_CODE);
+                    Intent intent = new Intent(ShowWorkshopInfoActivity.this, PaymentMethodActivity.class);
+                    intent.putExtra(IntentDataKey.MY_WORKSHOP, workshop);
+                    startActivityForResult(intent, IntentDataKey.CHANGE_WORKSHOP_DATA_CODE);
                 } else {
                     final MyDialog myDialog = new MyDialog();
                     myDialog.showMyDialog(ShowWorkshopInfoActivity.this);
@@ -113,7 +116,7 @@ public class ShowWorkshopInfoActivity extends MyToolbar {
                         public void onSuccess(Workshop item) {
                             workshop.setId(item.getWorkshopId());
                             workshop.setWorkshopStatusName(item.getWorkshopStatusName());
-                            ServiceSharedPref.setMyWorkshop(ShowWorkshopInfoActivity.this,workshop);
+                            ServiceSharedPref.setMyWorkshop(ShowWorkshopInfoActivity.this, workshop);
                             myDialog.dismissMyDialog();
                             finish();
                         }
@@ -136,7 +139,7 @@ public class ShowWorkshopInfoActivity extends MyToolbar {
                     @Override
                     public void onSuccess(String s) {
                         workshop.setWorkshopStatusName("");
-                        ServiceSharedPref.setMyWorkshop(ShowWorkshopInfoActivity.this,workshop);
+                        ServiceSharedPref.setMyWorkshop(ShowWorkshopInfoActivity.this, workshop);
                         myDialog.dismissMyDialog();
                         finish();
                     }
@@ -150,4 +153,38 @@ public class ShowWorkshopInfoActivity extends MyToolbar {
             }
         });
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        LocalBroadcastManager.getInstance(this).registerReceiver((mMessageReceiver),
+                new IntentFilter(IntentDataKey.NOTIFICATION_WORKSHOP));
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
+
+    }
+
+
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getStringExtra(IntentDataKey.NOTIFICATION_ACTION);
+            switch (action) {
+                case "0":
+                    Toast.makeText(context, "Your Request Deleted", Toast.LENGTH_SHORT).show();
+                    finish();
+                    break;
+                case "1":
+                    workshop.updateWorkshopToConfirmationWithoutPayment();
+                    setData();
+                    ServiceSharedPref.setMyWorkshop(ShowWorkshopInfoActivity.this,workshop);
+                    break;
+            }
+        }
+    };
+
 }

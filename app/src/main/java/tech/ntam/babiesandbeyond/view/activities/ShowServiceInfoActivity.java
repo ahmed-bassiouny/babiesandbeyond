@@ -1,7 +1,11 @@
 package tech.ntam.babiesandbeyond.view.activities;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -33,7 +37,7 @@ public class ShowServiceInfoActivity extends MyToolbar {
     private TextView tvStatus;
     private TextView tvFee;
     private Button btnPay, btnCancel;
-    private TextView tvName,tvNameValue;
+    private TextView tvName, tvNameValue;
     private Service service;
 
 
@@ -49,13 +53,13 @@ public class ShowServiceInfoActivity extends MyToolbar {
     @Override
     protected void onResume() {
         super.onResume();
+        service = ServiceSharedPref.getMyService(this);
+        if (service == null)
+            finish();
         setData();
     }
 
     private void setData() {
-        service = ServiceSharedPref.getMyService(this);
-        if (service == null)
-            finish();
         tvDateFrom.setText(service.getStartDate());
         tvTimeFrom.setText(service.getStartTime());
         tvDateTo.setText(service.getEndDate());
@@ -64,10 +68,10 @@ public class ShowServiceInfoActivity extends MyToolbar {
         tvFee.setText(service.getPrice());
         tvServiceType.setText(service.getServiceTypeName());
         tvStatus.setText(service.getServiceStatusString());
-        if(service.getStaffName().isEmpty()){
+        if (service.getStaffName().isEmpty()) {
             tvName.setVisibility(View.INVISIBLE);
             tvNameValue.setVisibility(View.INVISIBLE);
-        }else {
+        } else {
             tvName.setVisibility(View.VISIBLE);
             tvNameValue.setVisibility(View.VISIBLE);
             tvNameValue.setText(service.getStaffName());
@@ -100,8 +104,8 @@ public class ShowServiceInfoActivity extends MyToolbar {
         btnPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ShowServiceInfoActivity.this,PaymentMethodActivity.class);
-                intent.putExtra(IntentDataKey.MY_SERVICE,service);
+                Intent intent = new Intent(ShowServiceInfoActivity.this, PaymentMethodActivity.class);
+                intent.putExtra(IntentDataKey.MY_SERVICE, service);
                 startActivity(intent);
             }
         });
@@ -115,7 +119,7 @@ public class ShowServiceInfoActivity extends MyToolbar {
                     public void onSuccess(String s) {
                         Toast.makeText(ShowServiceInfoActivity.this, s, Toast.LENGTH_SHORT).show();
                         service.setServiceStatusName(Constant.CANCEL);
-                        ServiceSharedPref.setMyService(ShowServiceInfoActivity.this,service);
+                        ServiceSharedPref.setMyService(ShowServiceInfoActivity.this, service);
                         finish();
                     }
 
@@ -128,4 +132,41 @@ public class ShowServiceInfoActivity extends MyToolbar {
             }
         });
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        LocalBroadcastManager.getInstance(this).registerReceiver((mMessageReceiver),
+                new IntentFilter(IntentDataKey.NOTIFICATION_SERVICE));
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
+    }
+
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getStringExtra(IntentDataKey.NOTIFICATION_ACTION);
+            String price = intent.getStringExtra(IntentDataKey.NOTIFICATION_SERVICE_PRICE);
+            String staffName = intent.getStringExtra(IntentDataKey.NOTIFICATION_STAFF_NAME);
+            switch (action) {
+                case "0": // delete service
+                    Toast.makeText(context, "Your Request Deleted", Toast.LENGTH_SHORT).show();
+                    finish();
+                    break;
+                case "1": // update service ask for payment
+                    service.updateServiceStatusName();
+                    service.setPrice(price);
+                    service.setStaffName(staffName);
+                    setData();
+                    ServiceSharedPref.setMyService(ShowServiceInfoActivity.this,service);
+                    break;
+            }
+
+        }
+    };
+
 }

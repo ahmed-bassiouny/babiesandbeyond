@@ -114,8 +114,9 @@ public class Workshop implements Parcelable{
         return Utils.getValueFromString(point);
     }
 
-    public String getUserWorkshopId() {
-        return Utils.getValueFromString(userWorkshopId);
+    public int getUserWorkshopId() {
+        userWorkshopId = Utils.getValueFromString(userWorkshopId);
+        return Integer.parseInt(userWorkshopId);
     }
 
     public String getLocation() {

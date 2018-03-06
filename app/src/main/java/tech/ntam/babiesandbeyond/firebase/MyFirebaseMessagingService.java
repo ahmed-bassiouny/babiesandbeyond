@@ -37,6 +37,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void handleIntent(Intent intent) {
         super.handleIntent(intent);
         try {
+            Log.e( "handleIntent: ", intent.getExtras().get("a_data").toString());
             //new MyNotification(this, intent.getExtras().get("gcm.notification.title").toString(), intent.getExtras().get("gcm.notification.body").toString()).showNotification();
             Intent myIntent;
             // convert notification to json object

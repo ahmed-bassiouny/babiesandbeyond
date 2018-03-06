@@ -180,7 +180,7 @@ public class RequestAndResponse {
         });
     }
 
-    public static void createWorkshopInvoice(Context context,String userWorkshopId,String userId, final BaseResponseInterface<String> anInterface) {
+    public static void createWorkshopInvoice(Context context,int userWorkshopId,String userId, final BaseResponseInterface<String> anInterface) {
         Call<ParentResponse> response = baseRequestInterface.createWorkshopInvoice(UserSharedPref.getTokenWithHeader(context), UserSharedPref.getId(context),userId,userWorkshopId);
         response.enqueue(new Callback<ParentResponse>() {
             @Override

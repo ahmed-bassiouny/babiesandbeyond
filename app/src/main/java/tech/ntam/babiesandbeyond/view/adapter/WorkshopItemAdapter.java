@@ -104,7 +104,7 @@ public class WorkshopItemAdapter extends RecyclerView.Adapter<WorkshopItemAdapte
                     if (item.getId() == id) {
                         final int position = i;
                         item.updateWorkshopToConfirmationWithoutPayment();
-                        workshops.set(i, item);
+                        workshops.set(position, item);
                         activity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {

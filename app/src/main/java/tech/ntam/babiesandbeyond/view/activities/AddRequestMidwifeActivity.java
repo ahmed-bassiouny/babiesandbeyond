@@ -73,7 +73,7 @@ public class AddRequestMidwifeActivity extends MyToolbar {
                     int h = Integer.parseInt(time[0]); // 01
                     if (time[1].contains("PM"))
                         h = h + 12;
-                    getUserSendRequestController().showTime(getFragmentManager(), tvTo, h);
+                    getUserSendRequestController().showTime(getFragmentManager(), tvTo, (h+1));
                 }
             }
         });

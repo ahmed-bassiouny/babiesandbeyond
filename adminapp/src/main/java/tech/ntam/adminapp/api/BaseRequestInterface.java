@@ -89,7 +89,7 @@ public interface BaseRequestInterface {
     Call<ParentResponse> createWorkshopInvoice(@Header(AUTHORIZATION) String token,
                                      @Field("admin_id") int adminId,
                                      @Field("user_id") String userId,
-                                     @Field("user_workshop_id") String userWorkshopId);
+                                     @Field("user_workshop_id") int userWorkshopId);
 
 
     @Headers(HEADER_KEY)
