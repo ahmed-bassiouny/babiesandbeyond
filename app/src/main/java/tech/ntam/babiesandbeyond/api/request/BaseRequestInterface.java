@@ -84,11 +84,19 @@ public interface BaseRequestInterface {
     String RESEND_CODE = "resend_verification_code";
     String CANCEL_RESERVATION_MIDWIFE = "midwife/cancel-reservation";
     String MIDWIFE_PAYMENT = "midwife/confirm-with-payment";
+    String LOGIN_WITH_SOCIAL = "social_login";
 
     @FormUrlEncoded
     @POST(LOGIN)
     Call<LoginResponse> login(@Field(LoginRequest.EMAIL) String email,
                               @Field(LoginRequest.PASSWORD) String password,
+                              @Field(LoginRequest.NOTIFICATION_TOKEN) String notificationToken);
+
+
+    @FormUrlEncoded
+    @POST(LOGIN_WITH_SOCIAL)
+    Call<LoginResponse> loginWithSocial(@Field(LoginRequest.EMAIL) String email,
+                              @Field(LoginRequest.NAME) String name,
                               @Field(LoginRequest.NOTIFICATION_TOKEN) String notificationToken);
 
     @FormUrlEncoded

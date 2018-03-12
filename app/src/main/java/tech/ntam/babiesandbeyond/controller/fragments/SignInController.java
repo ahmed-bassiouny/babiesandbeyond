@@ -46,22 +46,8 @@ public class SignInController {
         RequestAndResponse.login(activity, email, password, new BaseResponseInterface<User>() {
             @Override
             public void onSuccess(User user) {
+                checkUserType(user);
                 myDialog.dismissMyDialog();
-                if (user.getUserTypeId().equals(User.USER)) {
-                    // save user information in sharedpref
-                    UserSharedPref.setUserInfo(activity, user.getUser_token(), user.getEmail(), user.getId(), user.getName(), user.getPhoto(), user.getPhone(), false, user.getVerificationCode(), user.getIsActive());
-                    if (user.getIsActive())
-                        activity.startActivity(new Intent(activity, UserHomeActivity.class));
-                    else
-                        activity.startActivity(new Intent(activity, ActiveAccountActivity.class));
-                    activity.finish();
-                } else if (user.getUserTypeId().equals(User.NURSE) || user.getUserTypeId().equals(User.MIDWIFE) || user.getUserTypeId().equals(User.BABYSITTER)) {
-                    UserSharedPref.setUserInfo(activity, user.getUser_token(), user.getEmail(), user.getId(), user.getName(), user.getPhoto(), user.getPhone(), true);
-                    activity.startActivity(new Intent(activity, NurseTasksHomeActivity.class));
-                    activity.finish();
-                } else {
-                    Toast.makeText(activity, R.string.user_not_found, Toast.LENGTH_SHORT).show();
-                }
             }
 
             @Override
@@ -89,7 +75,6 @@ public class SignInController {
 
     public void firebaseAuthWithGoogle(GoogleSignInAccount acct, final MyDialog myDialog) {
         final FirebaseAuth mAuth = FirebaseAuth.getInstance();
-
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
@@ -98,9 +83,20 @@ public class SignInController {
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
                                     FirebaseUser user = mAuth.getCurrentUser();
-                                    //updateUI(user);
-                                    Toast.makeText(activity, user.getEmail(), Toast.LENGTH_SHORT).show();
-                                    myDialog.dismissMyDialog();
+                                    RequestAndResponse.loginWithSocial(activity, user.getEmail(), user.getDisplayName(), new BaseResponseInterface<User>() {
+                                        @Override
+                                        public void onSuccess(User user) {
+                                            checkUserType(user);
+                                            myDialog.dismissMyDialog();
+                                        }
+
+                                        @Override
+                                        public void onFailed(String errorMessage) {
+                                            Toast.makeText(activity, errorMessage, Toast.LENGTH_SHORT).show();
+                                            FirebaseAuth.getInstance().signOut();
+                                            myDialog.dismissMyDialog();
+                                        }
+                                    });
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     Toast.makeText(activity, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
@@ -109,5 +105,22 @@ public class SignInController {
                             }
                         }
                 );
+    }
+    private void checkUserType(User user){
+        if (user.getUserTypeId().equals(User.USER)) {
+            // save user information in sharedpref
+            UserSharedPref.setUserInfo(activity, user.getUser_token(), user.getEmail(), user.getId(), user.getName(), user.getPhoto(), user.getPhone(), false, user.getVerificationCode(), user.getIsActive());
+            if (user.getIsActive())
+                activity.startActivity(new Intent(activity, UserHomeActivity.class));
+            else
+                activity.startActivity(new Intent(activity, ActiveAccountActivity.class));
+            activity.finish();
+        } else if (user.getUserTypeId().equals(User.NURSE) || user.getUserTypeId().equals(User.MIDWIFE) || user.getUserTypeId().equals(User.BABYSITTER)) {
+            UserSharedPref.setUserInfo(activity, user.getUser_token(), user.getEmail(), user.getId(), user.getName(), user.getPhoto(), user.getPhone(), true);
+            activity.startActivity(new Intent(activity, NurseTasksHomeActivity.class));
+            activity.finish();
+        } else {
+            Toast.makeText(activity, R.string.user_not_found, Toast.LENGTH_SHORT).show();
+        }
     }
 }

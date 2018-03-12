@@ -53,6 +53,18 @@
         android:background="@color/colorButton"
         android:text="@string/sign_in" />
 
+
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:id="@+id/iv_google"
+        android:fitsSystemWindows="true"
+        android:fontFamily="@font/museosans"
+        android:contentDescription="@null"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/google"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -62,13 +74,5 @@
         android:layout_marginTop="20dp"
         android:text="@string/forget_password" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:id="@+id/tv_google"
-        android:fontFamily="@font/museosans"
-        android:layout_marginTop="20dp"
-        android:text="google" />
 
 </LinearLayout>

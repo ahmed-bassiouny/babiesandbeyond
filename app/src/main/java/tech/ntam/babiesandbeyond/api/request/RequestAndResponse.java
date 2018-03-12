@@ -90,6 +90,26 @@ public class RequestAndResponse {
         });
     }
 
+    public static void loginWithSocial(Context context, String email, String name, final BaseResponseInterface<User> anInterface) {
+        Call<LoginResponse> response = baseRequestInterface.loginWithSocial(email, name, UserSharedPref.getNotificationToken(context));
+        response.enqueue(new Callback<LoginResponse>() {
+            @Override
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                if (response.body() == null) {
+                    anInterface.onFailed(api_error);
+                    return;
+                }
+                checkValidResult(response.code(), response.body().getStatus()
+                        , response.body().getUserData().getUser(), response.body().getMessage(), anInterface);
+            }
+
+            @Override
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+                anInterface.onFailed(Utils.getExceptionText(t));
+            }
+        });
+    }
+
     public static void register(final Context context, String email, String password, String name, String phone, final BaseResponseInterface<UserData> anInterface) {
         Call<RegisterResponse> response = baseRequestInterface.register(name, email, password, phone, UserSharedPref.getNotificationToken(context));
         response.enqueue(new Callback<RegisterResponse>() {

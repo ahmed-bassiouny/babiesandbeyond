@@ -16,8 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.api.Api;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
@@ -94,7 +94,7 @@ public class SignInFragment extends Fragment {
             }
         });
 
-        view.findViewById(R.id.tv_google).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.iv_google).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 myDialog = new MyDialog();
@@ -127,15 +127,14 @@ public class SignInFragment extends Fragment {
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try {
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            if (result.isSuccess()) {
                 // Google Sign In was successful, authenticate with Firebase
-                GoogleSignInAccount account = task.getResult(ApiException.class);
+                GoogleSignInAccount account = result.getSignInAccount();
                 getController().firebaseAuthWithGoogle(account,myDialog);
-            } catch (ApiException e) {
-                Toast.makeText(getActivity(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }else {
                 myDialog.dismissMyDialog();
-                // ...
+
             }
         }
     }
