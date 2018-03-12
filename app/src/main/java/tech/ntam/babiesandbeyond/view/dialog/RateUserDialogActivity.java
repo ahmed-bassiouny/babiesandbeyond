@@ -16,7 +16,7 @@ import tech.ntam.mylibrary.IntentDataKey;
 import tech.ntam.mylibrary.MyDialog;
 
 public class RateUserDialogActivity extends AppCompatActivity implements View.OnClickListener {
-    private RatingBar ratingBar;
+    //private RatingBar ratingBar;
     private EditText etComment;
     private int taskId;
 
@@ -27,17 +27,17 @@ public class RateUserDialogActivity extends AppCompatActivity implements View.On
         taskId = getIntent().getIntExtra(IntentDataKey.MY_TASK, 0);
         if (taskId == 0)
             finish();
-        ratingBar = findViewById(R.id.rating_bar);
+        //ratingBar = findViewById(R.id.rating_bar);
         etComment = findViewById(R.id.et_comment);
         findViewById(R.id.btn_submit).setOnClickListener(this);
         findViewById(R.id.btn_cancel).setOnClickListener(this);
-        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+        /*ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                 if (rating < 1)
                     ratingBar.setRating(1);
             }
-        });
+        });*/
     }
 
     @Override
@@ -46,7 +46,7 @@ public class RateUserDialogActivity extends AppCompatActivity implements View.On
             case R.id.btn_submit:
                 final MyDialog myDialog = new MyDialog();
                 myDialog.showMyDialog(this);
-                RequestAndResponse.rateTask(this, taskId, etComment.getText().toString(), (int) ratingBar.getRating(), new BaseResponseInterface<String>() {
+                RequestAndResponse.rateTask(this, taskId, etComment.getText().toString(), new BaseResponseInterface<String>() {
                     @Override
                     public void onSuccess(String s) {
                         Toast.makeText(RateUserDialogActivity.this, s, Toast.LENGTH_SHORT).show();

@@ -170,5 +170,6 @@
     <string name="invalid_code">wrong activation Code</string>
     <string name="resend_code">Resend Code</string>
     <string name="approve">Approve</string>
+    <string name="feedback">Feedback</string>
 
 </resources>
