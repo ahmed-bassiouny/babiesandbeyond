@@ -150,11 +150,14 @@ public class RequestAndResponse {
         });
     }
 
-    public static void requestService(Context context, int serviceTypeId, String startDate, String endDate, String location, final BaseResponseInterface<Service> anInterface) {
+    public static void requestService(Context context, int serviceTypeId, String startDate,
+                                      String endDate, String location,
+                                      double lat,double lng,
+                                      final BaseResponseInterface<Service> anInterface) {
         Call<AddServiceResponse> response = baseRequestInterface.requestService(
                 UserSharedPref.getTokenWithHeader(context),
                 UserSharedPref.getId(context),
-                serviceTypeId, startDate, endDate, location);
+                serviceTypeId, startDate, endDate, location,lat,lng);
         response.enqueue(new Callback<AddServiceResponse>() {
             @Override
             public void onResponse(Call<AddServiceResponse> call, Response<AddServiceResponse> response) {
@@ -701,9 +704,9 @@ public class RequestAndResponse {
         });
     }
 
-    public static void reserveMidwife(Context context, int midwifeId
+    public static void reserveMidwife(Context context, int midwifeId,String location, double lng, double lat
             , List<MidwifeRequestModel> midwifeRequestModels, final BaseResponseInterface<MidwifeService> anInterface) {
-        MidwifeRequestRequest request = new MidwifeRequestRequest(midwifeId, midwifeRequestModels);
+        MidwifeRequestRequest request = new MidwifeRequestRequest(midwifeId,location,lng,lat, midwifeRequestModels);
         Call<ReserveMidwifeResponse> response = baseRequestInterface.reserveMidwife(
                 UserSharedPref.getTokenWithHeader(context),request);
         response.enqueue(new Callback<ReserveMidwifeResponse>() {

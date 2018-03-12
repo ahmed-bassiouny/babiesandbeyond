@@ -26,6 +26,7 @@ public class UserRequestNurseAndBabysitterActivity extends MyToolbar {
     private Button btnSend;
     private int PLACE_PICKER_REQUEST = 1;
     private int serviceSelected;
+    private double lat,lng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +89,8 @@ public class UserRequestNurseAndBabysitterActivity extends MyToolbar {
                 Place place = PlacePicker.getPlace(this, data);
                 etLocation.setText(place.getAddress().toString());
                 etLocation.setError(null);
+                lat = place.getLatLng().latitude;
+                lng = place.getLatLng().longitude;
             }
         }
     }
@@ -114,7 +117,8 @@ public class UserRequestNurseAndBabysitterActivity extends MyToolbar {
             getController().saveData(serviceSelected
                     , MyDateTimeFactor.changeDateTimeWithoutSecondToFullDateTime(etChooseDateFrom.getText().toString())
                     , MyDateTimeFactor.changeDateTimeWithoutSecondToFullDateTime(etChooseDateTo.getText().toString())
-                    , etLocation.getText().toString());
+                    , etLocation.getText().toString()
+                    ,lat,lng);
         }
     }
 }

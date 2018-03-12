@@ -122,7 +122,9 @@ public interface BaseRequestInterface {
                                             @Field(AskServiceRequest.USER_TYPE_ID) int userTypeId,
                                             @Field(AskServiceRequest.START_DATE) String startDate,
                                             @Field(AskServiceRequest.END_DATE) String endDate,
-                                            @Field(AskServiceRequest.LOCATION) String location);
+                                            @Field(AskServiceRequest.LOCATION) String location,
+                                            @Field(AskServiceRequest.LATITUDE) double latitude,
+                                            @Field(AskServiceRequest.LONGITUDE) double longitude);
 
 
     @FormUrlEncoded

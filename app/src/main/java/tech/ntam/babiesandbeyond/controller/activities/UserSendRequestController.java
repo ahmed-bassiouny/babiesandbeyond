@@ -96,11 +96,12 @@ public class UserSendRequestController {
         timePickerDialog.show(fragmentManager, "Timepickerdialog");
     }
 
-    public void saveData(int serviceTypeId, String startDate, String endDate, String location) {
+    public void saveData(int serviceTypeId, String startDate, String endDate, String location,double lat,double lng) {
         final MyDialog myDialog =new MyDialog();
         myDialog.showMyDialog(activity);
         // send new request to service to save it
-        RequestAndResponse.requestService(activity, serviceTypeId, startDate, endDate, location, new BaseResponseInterface<Service>() {
+        RequestAndResponse.requestService(activity, serviceTypeId, startDate, endDate, location
+                ,lat,lng, new BaseResponseInterface<Service>() {
             @Override
             public void onSuccess(Service service) {
                 Intent resultIntent = new Intent();
