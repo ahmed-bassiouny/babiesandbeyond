@@ -50,6 +50,11 @@ public class MidwifeService implements Parcelable {
         return Utils.getValueFromString(midwifePhoto);
     }
 
+    public int getPricePerHour() {
+        pricePerHour = Utils.getValueFromString(pricePerHour);
+        return Integer.parseInt(pricePerHour);
+    }
+
     public List<MidwifeRequestModel> getTimeSlots() {
         if (timeSlots == null)
             timeSlots = new ArrayList<>();

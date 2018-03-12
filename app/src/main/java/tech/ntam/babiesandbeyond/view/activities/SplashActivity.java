@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.mylibrary.UserSharedPref;
@@ -25,6 +26,9 @@ public class SplashActivity extends AppCompatActivity {
                 finish();
             }
         }, SPLASH_TIME_OUT);
+        if (getIntent().getExtras() != null) {
+            Log.e( "onCreate: ",getIntent().getExtras().toString() );
+        }
     }
 
     private void checkIfUserLoggedIn() {

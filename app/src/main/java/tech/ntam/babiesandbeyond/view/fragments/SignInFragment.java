@@ -13,10 +13,19 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.common.api.Api;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
 
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.controller.fragments.SignInController;
 import tech.ntam.babiesandbeyond.view.activities.UserForgetPasswordActivity;
+import tech.ntam.mylibrary.MyDialog;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,6 +39,8 @@ public class SignInFragment extends Fragment {
     private Button btnSignIn;
     private SignInController controller;
     private static SignInFragment signInFragment;
+    private int RC_SIGN_IN = 5;
+    private MyDialog myDialog;
 
     public static SignInFragment newInstance() {
         if (signInFragment == null) {
@@ -57,10 +68,10 @@ public class SignInFragment extends Fragment {
         etPassword = view.findViewById(R.id.et_password);
         btnSignIn = view.findViewById(R.id.btn_sign_in);
         tvForgetPassword = view.findViewById(R.id.tv_forget_password);
-        onClick();
+        onClick(view);
     }
 
-    private void onClick() {
+    private void onClick(View view) {
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,6 +93,16 @@ public class SignInFragment extends Fragment {
                 startActivity(new Intent(getContext(), UserForgetPasswordActivity.class));
             }
         });
+
+        view.findViewById(R.id.tv_google).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myDialog = new MyDialog();
+                myDialog.showMyDialog(getActivity());
+                Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(getController().getGoogleApiClient());
+                startActivityForResult(signInIntent, RC_SIGN_IN);
+            }
+        });
     }
 
     private SignInController getController() {
@@ -99,4 +120,24 @@ public class SignInFragment extends Fragment {
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
         }
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try {
+                // Google Sign In was successful, authenticate with Firebase
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                getController().firebaseAuthWithGoogle(account,myDialog);
+            } catch (ApiException e) {
+                Toast.makeText(getActivity(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                myDialog.dismissMyDialog();
+                // ...
+            }
+        }
+    }
+
 }

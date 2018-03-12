@@ -7,10 +7,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -33,12 +35,13 @@ import tech.ntam.mylibrary.interfaces.Constant;
 public class UserRequestMidwifeActivity extends MyToolbar {
 
     private CircleImageView ivProfilePhoto;
-    private TextView tvName;
+    private TextView tvName,tvTotal;
     private RecyclerView recycleView;
     private Button btnCancel;
-    private Button btnPay;
+    private LinearLayout btnPay;
     private MidwifeService midwifeService;
     private String date;
+    private int totalPrice = 0;
     private List<SectionOrRowMidwife> sectionOrRowMidwives;
 
     @Override
@@ -69,7 +72,10 @@ public class UserRequestMidwifeActivity extends MyToolbar {
             }
             // add row
             sectionOrRowMidwives.add(new SectionOrRowMidwife(new AvailableTimeMidwife(item.getTimeFrom24H(), item.getTimeTo24H())));
+            calTotalCost(item.getDateTimeFrom(),item.getDateTimeTo());
         }
+        // set total cost
+        tvTotal.setText(" ( "+ totalPrice +" ) ");
         MidwifeTimeSlots adapter = new MidwifeTimeSlots(this, sectionOrRowMidwives);
         recycleView.setAdapter(adapter);
         if (midwifeService.getMidwifeStatus().equals(Constant.PENDING)) {
@@ -82,7 +88,6 @@ public class UserRequestMidwifeActivity extends MyToolbar {
             btnPay.setVisibility(View.INVISIBLE);
             btnCancel.setVisibility(View.INVISIBLE);
         }
-
     }
 
     private void onClick() {
@@ -124,7 +129,15 @@ public class UserRequestMidwifeActivity extends MyToolbar {
         recycleView = findViewById(R.id.recycle_view);
         btnCancel = findViewById(R.id.btn_cancel);
         btnPay = findViewById(R.id.btn_pay);
+        tvTotal = findViewById(R.id.tv_total);
         recycleView.setLayoutManager(new LinearLayoutManager(this));
+    }
+    private void calTotalCost(Date startHour , Date endHour ){
+        // this method calculate total cost depend on hours
+
+        // get number of hour between times
+        int numberOfHour = (int)MyDateTimeFactor.getHourBetweenTwoDate(endHour, startHour);
+        totalPrice = totalPrice + (midwifeService.getPricePerHour()*numberOfHour);
     }
 
 }
