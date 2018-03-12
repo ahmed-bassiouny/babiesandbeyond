@@ -532,10 +532,31 @@ public class RequestAndResponse {
         });
     }
 
-    public static void rateTask(Context context, int taskId, String comment, int rate, final BaseResponseInterface<String> anInterface) {
+    public static void rateTask(Context context, int taskId, String comment, final BaseResponseInterface<String> anInterface) {
         Call<ParentResponse> response = baseRequestInterface.rateTask(
                 UserSharedPref.getTokenWithHeader(context),
-                UserSharedPref.getId(context), taskId, comment, rate);
+                UserSharedPref.getId(context), taskId, comment);
+        response.enqueue(new Callback<ParentResponse>() {
+            @Override
+            public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {
+                if (response.body() == null) {
+                    anInterface.onFailed(api_error);
+                    return;
+                }
+                checkValidResult(response.code(), response.body().getStatus()
+                        , response.body().getMessage(), response.body().getMessage(), anInterface);
+            }
+
+            @Override
+            public void onFailure(Call<ParentResponse> call, Throwable t) {
+                anInterface.onFailed(Utils.getExceptionText(t));
+            }
+        });
+    }
+    public static void userRateService(Context context, int serviceId, float rate, final BaseResponseInterface<String> anInterface) {
+        Call<ParentResponse> response = baseRequestInterface.userRateService(
+                UserSharedPref.getTokenWithHeader(context),
+                serviceId, rate);
         response.enqueue(new Callback<ParentResponse>() {
             @Override
             public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {

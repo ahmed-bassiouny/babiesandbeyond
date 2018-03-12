@@ -85,6 +85,7 @@ public interface BaseRequestInterface {
     String CANCEL_RESERVATION_MIDWIFE = "midwife/cancel-reservation";
     String MIDWIFE_PAYMENT = "midwife/confirm-with-payment";
     String LOGIN_WITH_SOCIAL = "social_login";
+    String USER_SERVICE_RATE = "user_service_rate";
 
     @FormUrlEncoded
     @POST(LOGIN)
@@ -243,9 +244,15 @@ public interface BaseRequestInterface {
     Call<ParentResponse> rateTask(@Header(AUTHORIZATION) String token,
                                   @Field(RateRequest.STAFF_ID) int userId,
                                   @Field(RateRequest.SERVICE_ID) int taskId,
-                                  @Field(RateRequest.COMMENT) String comment,
-                                  @Field(RateRequest.RATE) int rate);
+                                  @Field(RateRequest.COMMENT) String comment);
 
+
+    @FormUrlEncoded
+    @Headers(HEADER_KEY)
+    @POST(USER_SERVICE_RATE)
+    Call<ParentResponse> userRateService(@Header(AUTHORIZATION) String token,
+                                  @Field(RateRequest.SERVICE_ID) int serviceId,
+                                  @Field(RateRequest.RATE) float rate);
 
     @FormUrlEncoded
     @POST(FORGET_PASSWORD)
