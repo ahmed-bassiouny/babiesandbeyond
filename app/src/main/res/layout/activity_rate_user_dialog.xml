@@ -27,14 +27,12 @@
             android:layout_marginTop="15dp"
             android:id="@+id/rating_bar"
             android:rating="1.0"
-            android:visibility="gone"
             android:stepSize="1.0"
             android:theme="@style/RatingBar" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             android:layout_gravity="center_horizontal"
             android:text="@string/rate_customer"
             android:textSize="12sp" />

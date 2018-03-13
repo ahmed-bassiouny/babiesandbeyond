@@ -16,7 +16,10 @@ public class IntentDataKey {
     public static final String MIDWIFE = "midwife";
     public static final String MIDWIFE_SERVICE = "midwife_service";
     public static final String BUNDLE = "bundle";
-
+    public static final String RATE = "rate";
+    public static final String COMMENT = "comment";
+    public static final String USER_TYPE = "user_type";
+    public static final String FEEDBACK = "feedback";
 
     public static final String CHANGE_EVENT_DATA_KEY = "change_event_value";
     public static final String CHANGE_WORKSHOP_DATA_KEY = "change_workshop_value";

@@ -11,6 +11,7 @@ import java.util.List;
 
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.interfaces.ParseObject;
+import tech.ntam.babiesandbeyond.interfaces.ParseObjectWithPosition;
 import tech.ntam.babiesandbeyond.model.History;
 import tech.ntam.babiesandbeyond.model.UserHistory;
 
@@ -21,10 +22,10 @@ import tech.ntam.babiesandbeyond.model.UserHistory;
 public class HistoryItemAdapter extends RecyclerView.Adapter<HistoryItemAdapter.MyViewHolder> {
 
     private List<UserHistory> historyList;
-    private ParseObject parseObject;
+    private ParseObjectWithPosition parseObject;
     public HistoryItemAdapter(Activity activity, List<UserHistory> historyList) {
         this.historyList = historyList;
-        this.parseObject = (ParseObject) activity;
+        this.parseObject = (ParseObjectWithPosition) activity;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -42,7 +43,7 @@ public class HistoryItemAdapter extends RecyclerView.Adapter<HistoryItemAdapter.
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    parseObject.getMyObject(historyList.get(getAdapterPosition()));
+                    parseObject.getMyObject(historyList.get(getAdapterPosition()),getAdapterPosition());
                 }
             });
         }
@@ -60,12 +61,25 @@ public class HistoryItemAdapter extends RecyclerView.Adapter<HistoryItemAdapter.
         UserHistory history = historyList.get(position);
         holder.ivServiceName.setText(history.getName());
         //holder.tvServiceDateTime.setText(history.getStartDate()+"\n"+history.getEndDate());
-        holder.tvServiceLocation.setText(history.getLocation());
+        holder.tvServiceLocation.setText(history.getComment());
         //holder.tvServicePrice.setText(history.getPrice());
     }
 
     @Override
     public int getItemCount() {
         return historyList.size();
+    }
+
+    public void updateRate(String rate,int position){
+        UserHistory item = historyList.get(position);
+        item.setRate(rate);
+        historyList.set(position,item);
+        notifyItemChanged(position);
+    }
+    public void updateComment(String comment,int position){
+        UserHistory item = historyList.get(position);
+        item.setComment(comment);
+        historyList.set(position,item);
+        notifyItemChanged(position);
     }
 }

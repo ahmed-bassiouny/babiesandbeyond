@@ -118,7 +118,6 @@ public interface BaseRequestInterface {
                                    @Field(RegisterRequest.EMAIL) String email);
 
 
-    @FormUrlEncoded
     @Headers(HEADER_KEY)
     @POST(USER_HISTORY)
     Call<UserHistoryResponse> getUserHistory(@Header(AUTHORIZATION) String token);

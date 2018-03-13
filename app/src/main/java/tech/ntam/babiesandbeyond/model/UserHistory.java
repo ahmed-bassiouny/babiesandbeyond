@@ -11,7 +11,7 @@ import tech.ntam.mylibrary.Utils;
  * Created by bassiouny on 13/03/18.
  */
 
-public class UserHistory {
+public class UserHistory extends ServiceFeedback {
 
     private final static int EVENT = 0;
     private final static int WORKSHOP = 1;
@@ -20,12 +20,8 @@ public class UserHistory {
 
     @SerializedName("type")
     private int type;
-    @SerializedName("rate")
-    private String rate;
     @SerializedName("name")
     private String name;
-    @SerializedName("comment")
-    private String comment;
     @SerializedName("location")
     private String location;
     @SerializedName("dates")
@@ -35,16 +31,8 @@ public class UserHistory {
         return type;
     }
 
-    public String getRate() {
-        return Utils.getValueFromString(rate);
-    }
-
     public String getName() {
         return Utils.getValueFromString(name);
-    }
-
-    public String getComment() {
-        return Utils.getValueFromString(comment);
     }
 
     public String getLocation() {
