@@ -33,6 +33,9 @@ public class MidwifeService implements Parcelable {
     private String uniqueKey;
     @SerializedName("price_per_hour")
     private String pricePerHour;
+    @SerializedName("bio")
+    private String bio;
+
 
     public String getMidwifeName() {
         return Utils.getValueFromString(midwifeName);
@@ -65,6 +68,9 @@ public class MidwifeService implements Parcelable {
         return Utils.getValueFromString(uniqueKey);
     }
 
+    public String getBio() {
+        return Utils.getValueFromString(bio);
+    }
     public int getMidwifeStatusColor() {
         midwifeStatus = Utils.getValueFromString(midwifeStatus);
         switch (midwifeStatus) {
@@ -110,6 +116,7 @@ public class MidwifeService implements Parcelable {
         dest.writeTypedList(this.timeSlots);
         dest.writeString(this.uniqueKey);
         dest.writeString(this.pricePerHour);
+        dest.writeString(this.bio);
     }
 
     public MidwifeService() {
@@ -124,6 +131,7 @@ public class MidwifeService implements Parcelable {
         this.timeSlots = in.createTypedArrayList(MidwifeRequestModel.CREATOR);
         this.uniqueKey = in.readString();
         this.pricePerHour = in.readString();
+        this.bio = in.readString();
     }
 
     public static final Creator<MidwifeService> CREATOR = new Creator<MidwifeService>() {

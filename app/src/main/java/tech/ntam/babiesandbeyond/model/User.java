@@ -80,7 +80,9 @@ public class User {
         return Utils.getValueFromString(user_token);
     }
 
-    public boolean getIsActive(){
+    public boolean getIsActive() {
+        if (active == null)
+            return false;
         return active.equals("1");
     }
 

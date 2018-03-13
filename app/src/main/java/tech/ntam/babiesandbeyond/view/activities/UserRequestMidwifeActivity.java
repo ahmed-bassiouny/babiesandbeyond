@@ -59,7 +59,7 @@ public class UserRequestMidwifeActivity extends MyToolbar {
         midwifeService = getIntent().getParcelableExtra(IntentDataKey.MIDWIFE);
         if(midwifeService == null)
             finish();
-        tvName.setText(midwifeService.getMidwifeName());
+        tvName.setText(midwifeService.getMidwifeName()+"\n"+midwifeService.getBio());
         if (!midwifeService.getMidwifePhoto().isEmpty())
             Utils.MyGlide(this, ivProfilePhoto, midwifeService.getMidwifePhoto());
         sectionOrRowMidwives = new ArrayList<>();

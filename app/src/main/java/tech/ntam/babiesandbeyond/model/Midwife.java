@@ -25,6 +25,8 @@ public class Midwife implements Parcelable {
     private String price;
     @SerializedName("midwife_times")
     private List<MidwifeRequestModel> timeSlotsMidwifeList;
+    @SerializedName("bio")
+    private String bio;
 
     public int getId() {
         return id;
@@ -41,6 +43,9 @@ public class Midwife implements Parcelable {
         return Utils.getValueFromString(price);
     }
 
+    public String getBio() {
+        return Utils.getValueFromString(bio);
+    }
 
     public List<MidwifeRequestModel> getTimeSlotsMidwifeList() {
         if(timeSlotsMidwifeList == null)
@@ -63,6 +68,7 @@ public class Midwife implements Parcelable {
         dest.writeString(this.photo);
         dest.writeString(this.price);
         dest.writeTypedList(this.timeSlotsMidwifeList);
+        dest.writeString(this.bio);
     }
 
     protected Midwife(Parcel in) {
@@ -70,6 +76,7 @@ public class Midwife implements Parcelable {
         this.name = in.readString();
         this.photo = in.readString();
         this.price = in.readString();
+        this.bio = in.readString();
         this.timeSlotsMidwifeList = in.createTypedArrayList(MidwifeRequestModel.CREATOR);
     }
 

@@ -49,7 +49,7 @@ public class MidewifeTimeslotsActivity extends MyToolbar {
         if(midwife == null)
             finish();
         tvTitle.setText(midwife.getName());
-        tvName.setText(midwife.getName());
+        tvName.setText(midwife.getBio());
         if(!midwife.getPhoto().isEmpty())
             Utils.MyGlide(this,ivProfilePhoto,midwife.getPhoto());
         sectionOrRowMidwives = new ArrayList<>();
