@@ -13,15 +13,23 @@ import tech.ntam.mylibrary.Utils;
 
 public class ServiceFeedback implements Parcelable {
 
+
+    private final static int EVENT = 0;
+    private final static int WORKSHOP = 1;
+    private final static int SERVICE = 2;
+    private final static int MIDWIFE = 3;
+
+    @SerializedName("type")
+    private int type;
     @SerializedName("id")
-    private int id;
+    private String id;
     @SerializedName("rate")
     private String rate;
     @SerializedName("comment")
     private String comment;
 
-    public int getId() {
-        return id;
+    public String getId() {
+        return Utils.getValueFromString(id);
     }
 
     public float getRate() {
@@ -43,6 +51,10 @@ public class ServiceFeedback implements Parcelable {
         this.comment = comment;
     }
 
+    public boolean isMidwife(){
+        return type == MIDWIFE;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -50,7 +62,8 @@ public class ServiceFeedback implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.id);
+        dest.writeInt(this.type);
+        dest.writeString(this.id);
         dest.writeString(this.rate);
         dest.writeString(this.comment);
     }
@@ -59,12 +72,13 @@ public class ServiceFeedback implements Parcelable {
     }
 
     protected ServiceFeedback(Parcel in) {
-        this.id = in.readInt();
+        this.type = in.readInt();
+        this.id = in.readString();
         this.rate = in.readString();
         this.comment = in.readString();
     }
 
-    public static final Parcelable.Creator<ServiceFeedback> CREATOR = new Parcelable.Creator<ServiceFeedback>() {
+    public static final Creator<ServiceFeedback> CREATOR = new Creator<ServiceFeedback>() {
         @Override
         public ServiceFeedback createFromParcel(Parcel source) {
             return new ServiceFeedback(source);

@@ -13,23 +13,12 @@ import tech.ntam.mylibrary.Utils;
 
 public class UserHistory extends ServiceFeedback {
 
-    private final static int EVENT = 0;
-    private final static int WORKSHOP = 1;
-    private final static int SERVICE = 2;
-    private final static int MIDWIFE = 3;
-
-    @SerializedName("type")
-    private int type;
     @SerializedName("name")
     private String name;
     @SerializedName("location")
     private String location;
     @SerializedName("dates")
     private List<HistoryDate> historyDates;
-
-    public int getType() {
-        return type;
-    }
 
     public String getName() {
         return Utils.getValueFromString(name);

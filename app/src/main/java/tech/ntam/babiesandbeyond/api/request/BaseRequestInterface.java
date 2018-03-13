@@ -88,6 +88,8 @@ public interface BaseRequestInterface {
     String LOGIN_WITH_SOCIAL = "social_login";
     String USER_SERVICE_RATE = "user_service_rate";
     String USER_HISTORY = "user/history";
+    String USER_MIDWIFE_RATE= "rate-service";
+    String USER_MIDWIFE_COMMENT= "comment-service";
 
     @FormUrlEncoded
     @POST(LOGIN)
@@ -248,9 +250,9 @@ public interface BaseRequestInterface {
     @FormUrlEncoded
     @Headers(HEADER_KEY)
     @POST(RATE)
-    Call<ParentResponse> rateTask(@Header(AUTHORIZATION) String token,
+    Call<ParentResponse> userCommentService(@Header(AUTHORIZATION) String token,
                                   @Field(RateRequest.STAFF_ID) int userId,
-                                  @Field(RateRequest.SERVICE_ID) int taskId,
+                                  @Field(RateRequest.SERVICE_ID) String taskId,
                                   @Field(RateRequest.COMMENT) String comment);
 
 
@@ -258,8 +260,23 @@ public interface BaseRequestInterface {
     @Headers(HEADER_KEY)
     @POST(USER_SERVICE_RATE)
     Call<ParentResponse> userRateService(@Header(AUTHORIZATION) String token,
-                                  @Field(RateRequest.SERVICE_ID) int serviceId,
+                                  @Field(RateRequest.SERVICE_ID) String serviceId,
                                   @Field(RateRequest.RATE) float rate);
+
+
+    @FormUrlEncoded
+    @Headers(HEADER_KEY)
+    @POST(USER_MIDWIFE_RATE)
+    Call<ParentResponse> userRateMidwife(@Header(AUTHORIZATION) String token,
+                                         @Field(RateRequest.UNIQUE_KEY) String uniqueKey,
+                                         @Field(RateRequest.RATE) float rate);
+
+    @FormUrlEncoded
+    @Headers(HEADER_KEY)
+    @POST(USER_MIDWIFE_COMMENT)
+    Call<ParentResponse> userCommentMidwife(@Header(AUTHORIZATION) String token,
+                                         @Field(RateRequest.UNIQUE_KEY) String uniqueKey,
+                                         @Field(RateRequest.COMMENT) String comment);
 
     @FormUrlEncoded
     @POST(FORGET_PASSWORD)

@@ -45,10 +45,14 @@ public class RateUserDialogActivity extends AppCompatActivity implements View.On
         switch (view.getId()) {
             case R.id.btn_submit:
                 if(!UserSharedPref.isStaff(this)){
+                    if(ratingBar.getRating()==0){
+                        Toast.makeText(this, "Please Enter Rate", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     // send rate
                     final MyDialog myDialog = new MyDialog();
                     myDialog.showMyDialog(this);
-                    RequestAndResponse.userRateService(this, feedback.getId(), ratingBar.getRating(), new BaseResponseInterface<String>() {
+                    RequestAndResponse.userRateService(this,feedback.isMidwife(), feedback.getId(), ratingBar.getRating(), new BaseResponseInterface<String>() {
                         @Override
                         public void onSuccess(String s) {
                             Toast.makeText(RateUserDialogActivity.this, s, Toast.LENGTH_SHORT).show();
@@ -69,7 +73,7 @@ public class RateUserDialogActivity extends AppCompatActivity implements View.On
                     // send comment
                     final MyDialog myDialog = new MyDialog();
                     myDialog.showMyDialog(this);
-                    RequestAndResponse.rateTask(this, feedback.getId(), etComment.getText().toString(), new BaseResponseInterface<String>() {
+                    RequestAndResponse.userCommentService(this,feedback.isMidwife(),feedback.getId(), etComment.getText().toString(), new BaseResponseInterface<String>() {
                         @Override
                         public void onSuccess(String s) {
                             Toast.makeText(RateUserDialogActivity.this, s, Toast.LENGTH_SHORT).show();

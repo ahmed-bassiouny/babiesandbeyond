@@ -534,10 +534,17 @@ public class RequestAndResponse {
         });
     }
 
-    public static void rateTask(Context context, int taskId, String comment, final BaseResponseInterface<String> anInterface) {
-        Call<ParentResponse> response = baseRequestInterface.rateTask(
-                UserSharedPref.getTokenWithHeader(context),
-                UserSharedPref.getId(context), taskId, comment);
+    public static void userCommentService(Context context,boolean isMidwife, String taskId, String comment, final BaseResponseInterface<String> anInterface) {
+        Call<ParentResponse> response;
+        if(isMidwife){
+            response = baseRequestInterface.userCommentMidwife(
+                    UserSharedPref.getTokenWithHeader(context),
+                    taskId, comment);
+        }else {
+            response = baseRequestInterface.userCommentService(
+                    UserSharedPref.getTokenWithHeader(context),
+                    UserSharedPref.getId(context), taskId, comment);
+        }
         response.enqueue(new Callback<ParentResponse>() {
             @Override
             public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {
@@ -555,10 +562,18 @@ public class RequestAndResponse {
             }
         });
     }
-    public static void userRateService(Context context, int serviceId, float rate, final BaseResponseInterface<String> anInterface) {
-        Call<ParentResponse> response = baseRequestInterface.userRateService(
-                UserSharedPref.getTokenWithHeader(context),
-                serviceId, rate);
+    public static void userRateService(Context context,boolean isMidwife, String serviceId, float rate, final BaseResponseInterface<String> anInterface) {
+        Call<ParentResponse> response;
+        if(isMidwife){
+            response = baseRequestInterface.userRateMidwife(
+                    UserSharedPref.getTokenWithHeader(context),
+                    serviceId, rate);
+        }else {
+            response = baseRequestInterface.userRateService(
+                    UserSharedPref.getTokenWithHeader(context),
+                    serviceId, rate);
+        }
+
         response.enqueue(new Callback<ParentResponse>() {
             @Override
             public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {
