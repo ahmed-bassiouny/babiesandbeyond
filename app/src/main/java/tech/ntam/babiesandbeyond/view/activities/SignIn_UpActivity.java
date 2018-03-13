@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.crashlytics.android.Crashlytics;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+
 import io.fabric.sdk.android.Fabric;
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.mylibrary.UserSharedPref;
@@ -23,6 +26,7 @@ public class SignIn_UpActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_sign_in__up);
         findViewById();

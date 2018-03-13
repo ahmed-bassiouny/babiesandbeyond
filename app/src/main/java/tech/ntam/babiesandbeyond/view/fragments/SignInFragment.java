@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +16,19 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.api.Api;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+
+import java.util.Arrays;
 
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.controller.fragments.SignInController;
@@ -41,6 +49,8 @@ public class SignInFragment extends Fragment {
     private static SignInFragment signInFragment;
     private int RC_SIGN_IN = 5;
     private MyDialog myDialog;
+    private CallbackManager mCallbackManager;
+    private LoginButton loginButton;
 
     public static SignInFragment newInstance() {
         if (signInFragment == null) {
@@ -68,6 +78,10 @@ public class SignInFragment extends Fragment {
         etPassword = view.findViewById(R.id.et_password);
         btnSignIn = view.findViewById(R.id.btn_sign_in);
         tvForgetPassword = view.findViewById(R.id.tv_forget_password);
+        mCallbackManager = CallbackManager.Factory.create();
+        loginButton = view.findViewById(R.id.login_button);
+        loginButton.setReadPermissions("email", "public_profile");
+
         onClick(view);
     }
 
@@ -103,6 +117,23 @@ public class SignInFragment extends Fragment {
                 startActivityForResult(signInIntent, RC_SIGN_IN);
             }
         });
+        loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                getController().handleFacebookAccessToken(loginResult.getAccessToken());
+                Log.e( "onError: ",loginResult.toString() );
+            }
+
+            @Override
+            public void onCancel() {
+                Log.e( "onError: ","Eror");
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.e( "onError: ",error.toString() );
+            }
+        });
     }
 
     private SignInController getController() {
@@ -136,6 +167,8 @@ public class SignInFragment extends Fragment {
                 myDialog.dismissMyDialog();
 
             }
+        }else {
+            mCallbackManager.onActivityResult(requestCode, resultCode, data);
         }
     }
 

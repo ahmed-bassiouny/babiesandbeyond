@@ -31,7 +31,7 @@ public class Service implements Parcelable {
     private int serviceStatusId;
     @SerializedName("service_type_id")
     private int serviceTypeId;
-    @SerializedName("service_workshop_status_name")
+    @SerializedName("status")
     private String serviceStatusName;
     @SerializedName("service_type_name")
     private String serviceTypeName;
