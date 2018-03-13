@@ -40,6 +40,7 @@ import tech.ntam.babiesandbeyond.api.api_model.response.RegisterResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.ResendCodeResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.ReserveMidwifeResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.StaffTasksResponse;
+import tech.ntam.babiesandbeyond.api.api_model.response.UserHistoryResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.WorkshopResponse;
 import tech.ntam.babiesandbeyond.model.MidwifeRequestModel;
 
@@ -86,6 +87,7 @@ public interface BaseRequestInterface {
     String MIDWIFE_PAYMENT = "midwife/confirm-with-payment";
     String LOGIN_WITH_SOCIAL = "social_login";
     String USER_SERVICE_RATE = "user_service_rate";
+    String USER_HISTORY = "user/history";
 
     @FormUrlEncoded
     @POST(LOGIN)
@@ -114,6 +116,12 @@ public interface BaseRequestInterface {
     @POST(EVENTS)
     Call<EventsResponse> getEvents(@Header(AUTHORIZATION) String token,
                                    @Field(RegisterRequest.EMAIL) String email);
+
+
+    @FormUrlEncoded
+    @Headers(HEADER_KEY)
+    @POST(USER_HISTORY)
+    Call<UserHistoryResponse> getUserHistory(@Header(AUTHORIZATION) String token);
 
     @FormUrlEncoded
     @Headers(HEADER_KEY)

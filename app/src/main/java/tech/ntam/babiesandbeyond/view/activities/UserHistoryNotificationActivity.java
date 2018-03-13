@@ -8,6 +8,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import tech.ntam.babiesandbeyond.R;
+import tech.ntam.babiesandbeyond.model.UserHistory;
 import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.babiesandbeyond.model.History;
@@ -42,10 +43,10 @@ public class UserHistoryNotificationActivity extends MyToolbar {
     private void loadHistory() {
         final MyDialog myDialog = new MyDialog();
         myDialog.showMyDialog(this);
-        RequestAndResponse.getHistory(this, new BaseResponseInterface<List<History>>() {
+        RequestAndResponse.getUserHistory(this, new BaseResponseInterface<List<UserHistory>>() {
             @Override
-            public void onSuccess(List<History> historyList) {
-                HistoryItemAdapter historyItemAdapter = new HistoryItemAdapter(historyList);
+            public void onSuccess(List<UserHistory> userHistories) {
+                HistoryItemAdapter historyItemAdapter = new HistoryItemAdapter(UserHistoryNotificationActivity.this,userHistories);
                 recycleView.setAdapter(historyItemAdapter);
                 myDialog.dismissMyDialog();
             }

@@ -1,5 +1,6 @@
 package tech.ntam.babiesandbeyond.view.adapter;
 
+import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +10,9 @@ import android.widget.TextView;
 import java.util.List;
 
 import tech.ntam.babiesandbeyond.R;
+import tech.ntam.babiesandbeyond.interfaces.ParseObject;
 import tech.ntam.babiesandbeyond.model.History;
+import tech.ntam.babiesandbeyond.model.UserHistory;
 
 /**
  * Created by bassiouny on 22/12/17.
@@ -17,10 +20,11 @@ import tech.ntam.babiesandbeyond.model.History;
 
 public class HistoryItemAdapter extends RecyclerView.Adapter<HistoryItemAdapter.MyViewHolder> {
 
-    List<History> historyList;
-
-    public HistoryItemAdapter(List<History> historyList) {
+    private List<UserHistory> historyList;
+    private ParseObject parseObject;
+    public HistoryItemAdapter(Activity activity, List<UserHistory> historyList) {
         this.historyList = historyList;
+        this.parseObject = (ParseObject) activity;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -35,6 +39,12 @@ public class HistoryItemAdapter extends RecyclerView.Adapter<HistoryItemAdapter.
             tvServiceLocation = view.findViewById(R.id.tv_location);
             tvServiceDateTime = view.findViewById(R.id.tv_date_time);
             tvServicePrice = view.findViewById(R.id.tv_price);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    parseObject.getMyObject(historyList.get(getAdapterPosition()));
+                }
+            });
         }
     }
 
@@ -47,11 +57,11 @@ public class HistoryItemAdapter extends RecyclerView.Adapter<HistoryItemAdapter.
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        History history = historyList.get(position);
+        UserHistory history = historyList.get(position);
         holder.ivServiceName.setText(history.getName());
-        holder.tvServiceDateTime.setText(history.getStartDate()+"\n"+history.getEndDate());
+        //holder.tvServiceDateTime.setText(history.getStartDate()+"\n"+history.getEndDate());
         holder.tvServiceLocation.setText(history.getLocation());
-        holder.tvServicePrice.setText(history.getPrice());
+        //holder.tvServicePrice.setText(history.getPrice());
     }
 
     @Override

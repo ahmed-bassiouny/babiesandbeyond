@@ -26,6 +26,7 @@ import tech.ntam.babiesandbeyond.api.api_model.response.RegisterResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.ResendCodeResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.ReserveMidwifeResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.StaffTasksResponse;
+import tech.ntam.babiesandbeyond.api.api_model.response.UserHistoryResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.WorkshopResponse;
 import tech.ntam.babiesandbeyond.model.Event;
 import tech.ntam.babiesandbeyond.model.Group;
@@ -38,6 +39,7 @@ import tech.ntam.babiesandbeyond.model.Service;
 import tech.ntam.babiesandbeyond.model.Task;
 import tech.ntam.babiesandbeyond.model.User;
 import tech.ntam.babiesandbeyond.model.UserData;
+import tech.ntam.babiesandbeyond.model.UserHistory;
 import tech.ntam.babiesandbeyond.model.UserService;
 import tech.ntam.babiesandbeyond.model.Workshop;
 import tech.ntam.mylibrary.UserSharedPref;
@@ -825,6 +827,27 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<ParentResponse> call, Throwable t) {
+                anInterface.onFailed(Utils.getExceptionText(t));
+            }
+        });
+    }
+
+    public static void getUserHistory(Context context, final BaseResponseInterface<List<UserHistory>> anInterface) {
+        Call<UserHistoryResponse> response = baseRequestInterface.getUserHistory(
+                UserSharedPref.getTokenWithHeader(context));
+        response.enqueue(new Callback<UserHistoryResponse>() {
+            @Override
+            public void onResponse(Call<UserHistoryResponse> call, Response<UserHistoryResponse> response) {
+                if (response.body() == null) {
+                    anInterface.onFailed(api_error);
+                    return;
+                }
+                checkValidResult(response.code(), response.body().getStatus()
+                        , response.body().getUserHistory(), response.body().getMessage(), anInterface);
+            }
+
+            @Override
+            public void onFailure(Call<UserHistoryResponse> call, Throwable t) {
                 anInterface.onFailed(Utils.getExceptionText(t));
             }
         });
