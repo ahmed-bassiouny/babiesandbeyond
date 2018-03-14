@@ -23,6 +23,7 @@ public class SharedPref {
     public final static String MIDWIFE = "midwife";
     public final static String IS_ACTIVE = "active";
     public final static String ACTIVATION_CODE = "code";
+    public final static String MIDWIFE_DETAILS = "midwife_details";
 
     public static SharedPreferences sharedPref;
 

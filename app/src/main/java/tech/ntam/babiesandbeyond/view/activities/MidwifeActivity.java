@@ -20,6 +20,7 @@ import java.util.List;
 
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
+import tech.ntam.babiesandbeyond.helper.ServiceSharedPref;
 import tech.ntam.babiesandbeyond.interfaces.ParseObject;
 import tech.ntam.babiesandbeyond.model.Midwife;
 import tech.ntam.babiesandbeyond.view.adapter.MidwifeItemAdapter;
@@ -69,10 +70,12 @@ public class MidwifeActivity extends MyToolbar implements ParseObject<Midwife> {
     public void getMyObject(Midwife midwife) {
         // For some strange reason it looks like the class loader isn't set up properly.
         // so i use bundle
-        Intent i = new Intent(this,MidewifeTimeslotsActivity.class);
-        Bundle b = new Bundle();
-        b.putParcelable(IntentDataKey.MIDWIFE, midwife);
-        i.putExtra(IntentDataKey.BUNDLE, b);
-        startActivity(i);
+        //Intent i = new Intent(this,MidewifeTimeslotsActivity.class);
+        //Bundle b = new Bundle();
+        //i.putExtra(IntentDataKey.MIDWIFE, midwife);
+        //i.putExtra(IntentDataKey.BUNDLE, b);
+
+        ServiceSharedPref.setMidwifeDetails(this,midwife);
+        startActivity(new Intent(this,MidewifeTimeslotsActivity.class));
     }
 }

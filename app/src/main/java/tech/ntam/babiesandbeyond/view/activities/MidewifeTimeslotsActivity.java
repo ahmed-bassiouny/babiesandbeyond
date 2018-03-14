@@ -14,6 +14,7 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import tech.ntam.babiesandbeyond.R;
+import tech.ntam.babiesandbeyond.helper.ServiceSharedPref;
 import tech.ntam.babiesandbeyond.model.AvailableTimeMidwife;
 import tech.ntam.babiesandbeyond.model.Midwife;
 import tech.ntam.babiesandbeyond.model.MidwifeRequestModel;
@@ -44,8 +45,9 @@ public class MidewifeTimeslotsActivity extends MyToolbar {
     }
 
     private void setData() {
-        Bundle b = getIntent().getBundleExtra(IntentDataKey.BUNDLE);
-        midwife = b.getParcelable(IntentDataKey.MIDWIFE);
+        //midwife = getIntent().getParcelableExtra(IntentDataKey.MIDWIFE);
+        //midwife = b.getParcelable(IntentDataKey.MIDWIFE);
+        midwife = ServiceSharedPref.getMidwifeDetails(this);
         if(midwife == null)
             finish();
         tvTitle.setText(midwife.getName());

@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 
+import tech.ntam.babiesandbeyond.model.Midwife;
 import tech.ntam.babiesandbeyond.model.MidwifeService;
 import tech.ntam.babiesandbeyond.model.Service;
 import tech.ntam.babiesandbeyond.model.Workshop;
@@ -47,6 +48,22 @@ public class ServiceSharedPref extends SharedPref {
         Gson gson = new Gson();
         String json = gson.toJson(workshop);
         editor.putString(WORKSHOP, json);
+        editor.apply();
+    }
+
+    public static Midwife getMidwifeDetails(Context context) {
+        getSharedPref(context);
+        Gson gson = new Gson();
+        String json = sharedPref.getString(MIDWIFE_DETAILS, "");
+        return gson.fromJson(json, Midwife.class);
+    }
+
+    public static void setMidwifeDetails(Context context, Midwife midwife) {
+        getSharedPref(context);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(midwife);
+        editor.putString(MIDWIFE_DETAILS, json);
         editor.apply();
     }
 
