@@ -12,7 +12,7 @@ public class UserSharedPref extends SharedPref {
     // shared pref belong to user
     public static void setUserInfo(Context context, String userToken, String userEmail,
                                    int id,String name,String photo,String phone,
-                                   boolean isStaff,String activationCode,boolean isActive) {
+                                   boolean isStaff,String activationCode,String password,boolean isActive) {
         getSharedPref(context);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(USER_TOKEN, userToken);
@@ -24,6 +24,7 @@ public class UserSharedPref extends SharedPref {
         editor.putBoolean(IS_STAFF, isStaff);
         editor.putString(ACTIVATION_CODE,activationCode);
         editor.putBoolean(IS_ACTIVE, isActive);
+        editor.putString(USER_PASSWORD, password);
         editor.apply();
     }
     // shared pref belong to nurse
@@ -95,6 +96,10 @@ public class UserSharedPref extends SharedPref {
     public static String getNotificationToken(Context context) {
         getSharedPref(context);
         return sharedPref.getString(NOTIFICATION_TOKEN,"");
+    }
+    public static String getPassword(Context context) {
+        getSharedPref(context);
+        return sharedPref.getString(USER_PASSWORD,"");
     }
     public static void clearShared(Context context){
         getSharedPref(context);

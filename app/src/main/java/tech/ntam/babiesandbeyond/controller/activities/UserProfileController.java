@@ -1,6 +1,8 @@
 package tech.ntam.babiesandbeyond.controller.activities;
 
 import android.app.Activity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -24,12 +26,15 @@ public class UserProfileController {
         this.activity = activity;
     }
 
-    public void getProfileData(final EditText etName, final EditText etPhone, final CircleImageView ivProfilePhoto) {
+    public void getProfileData(final EditText etName
+            , final EditText etPhone
+            , final CircleImageView ivProfilePhoto
+            , final Button btnChangePassword) {
         RequestAndResponse.getProfile(activity, new BaseResponseInterface<User>() {
             @Override
             public void onSuccess(User user) {
                 updateInfoShared(user.getName(), user.getPhoto(), user.getPhone());
-                getDataFromSharefPref(etName, etPhone, ivProfilePhoto);
+                getDataFromSharefPref(etName, etPhone, ivProfilePhoto,btnChangePassword);
             }
 
             @Override
@@ -71,12 +76,20 @@ public class UserProfileController {
         UserSharedPref.setUserInfo(activity, name, phone);
     }
 
-    public void getDataFromSharefPref(final EditText etName, final EditText etPhone, final CircleImageView ivProfilePhoto) {
+    public void getDataFromSharefPref(final EditText etName
+            , final EditText etPhone
+            , final CircleImageView ivProfilePhoto
+            , Button btnChangePassword) {
         etName.setText(UserSharedPref.getName(activity));
         etPhone.setText(UserSharedPref.getPhone(activity));
         String photo = UserSharedPref.getPhoto(activity);
         if (!photo.isEmpty())
             Utils.MyGlide(activity, ivProfilePhoto, photo);
+        if(UserSharedPref.getPassword(activity).isEmpty()){
+            btnChangePassword.setVisibility(View.GONE);
+        }else {
+            btnChangePassword.setVisibility(View.VISIBLE);
+        }
     }
 
     public interface UpdateSuccess {

@@ -30,7 +30,6 @@ import tech.ntam.babiesandbeyond.view.activities.SignIn_UpActivity;
 public class OptionsFragment extends Fragment {
 
     private static OptionsFragment optionsFragment;
-    private LinearLayout linearAbout, linearLogout;
 
     public OptionsFragment() {
         // Required empty public constructor
@@ -52,15 +51,25 @@ public class OptionsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        linearAbout = view.findViewById(R.id.linear_about);
-        linearLogout = view.findViewById(R.id.linear_logout);
-        linearAbout.setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.linear_about).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getContext(), AboutUsActivity.class));
             }
         });
-        linearLogout.setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.linear_contact_us).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        view.findViewById(R.id.linear_terms).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        view.findViewById(R.id.linear_logout).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder;

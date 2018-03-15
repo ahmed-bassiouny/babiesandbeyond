@@ -171,5 +171,7 @@
     <string name="resend_code">Resend Code</string>
     <string name="approve">Approve</string>
     <string name="feedback">Feedback</string>
-
+    <string name="contact_us">Contact Us</string>
+    <string name="terms_condition">Terms &amp; Conditions</string>
+    <string name="by_sign_up">By signing up ,I agree to Babies &amp;Beyond\'s Terms of Service &amp; Conditions</string>
 </resources>

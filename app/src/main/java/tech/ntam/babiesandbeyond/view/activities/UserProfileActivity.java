@@ -43,8 +43,8 @@ public class UserProfileActivity extends MyToolbar {
         onClick();
         setupToolbar(this, false, true, false);
         tvTitle.setText(R.string.profile);
-        getUserProfileController().getDataFromSharefPref(etName, etPhone, ivProfilePhoto);
-        getUserProfileController().getProfileData(etName, etPhone, ivProfilePhoto);
+        getUserProfileController().getDataFromSharefPref(etName, etPhone, ivProfilePhoto,btnChangePassword);
+        getUserProfileController().getProfileData(etName, etPhone, ivProfilePhoto,btnChangePassword);
     }
 
     private void onClick() {

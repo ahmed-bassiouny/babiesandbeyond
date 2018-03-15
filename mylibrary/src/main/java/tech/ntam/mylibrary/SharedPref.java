@@ -15,6 +15,7 @@ public class SharedPref {
     public final static String USER_NAME = "user_name";
     public final static String USER_PHOTO = "user_photo";
     public final static String USER_PHONE = "user_phone";
+    public final static String USER_PASSWORD = "user_password";
     public final static String IS_STAFF = "is_staff";
     public final static String NOTIFICATION_TOKEN = "notification_token";
     public final static String TOKEN_HEADER_KEY = "Bearer ";

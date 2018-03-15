@@ -25,7 +25,7 @@ public class MidwifeService implements Parcelable {
     private String midwifePhone;
     @SerializedName("photo")
     private String midwifePhoto;
-    @SerializedName("status")
+    @SerializedName("service_workshop_status_name")
     private String midwifeStatus;
     @SerializedName("time_slots")
     private List<MidwifeRequestModel> timeSlots;
