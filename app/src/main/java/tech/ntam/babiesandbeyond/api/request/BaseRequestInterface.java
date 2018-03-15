@@ -68,6 +68,7 @@ public interface BaseRequestInterface {
     String JOIN_GROUP = "join_group";
     String LEAVE_GROUP = "leave_group";
     String ABOUT = "about";
+    String CONTACT_US = "";
     String SEND_WORKSHOP_REQUEST = "send_workshop_request";
     String NOTIFICATION = "user_notifications";
     String LOGOUT = "logout";
@@ -220,6 +221,10 @@ public interface BaseRequestInterface {
 
     @POST(ABOUT)
     Call<AboutResponse> getAbout();
+
+
+    @POST(CONTACT_US)
+    Call<AboutResponse> getContactUs();
 
 
     @FormUrlEncoded

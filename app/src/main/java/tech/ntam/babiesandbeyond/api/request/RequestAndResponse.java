@@ -445,6 +445,25 @@ public class RequestAndResponse {
             }
         });
     }
+    public static void getContactUs(final BaseResponseInterface<String> anInterface) {
+        Call<AboutResponse> response = baseRequestInterface.getContactUs();
+        response.enqueue(new Callback<AboutResponse>() {
+            @Override
+            public void onResponse(Call<AboutResponse> call, Response<AboutResponse> response) {
+                if (response.body() == null) {
+                    anInterface.onFailed(api_error);
+                    return;
+                }
+                checkValidResult(response.code(), response.body().getStatus()
+                        , response.body().getAboutText(), response.body().getMessage(), anInterface);
+            }
+
+            @Override
+            public void onFailure(Call<AboutResponse> call, Throwable t) {
+                anInterface.onFailed(Utils.getExceptionText(t));
+            }
+        });
+    }
 
     public static void sendWorkshopRequest(Context context, int workshopId, final BaseResponseInterface<Workshop> anInterface) {
         Call<AddWorkshopResponse> response = baseRequestInterface.sendWorkshopRequest(
