@@ -174,4 +174,11 @@
     <string name="contact_us">Contact Us</string>
     <string name="terms_condition">Terms &amp; Conditions</string>
     <string name="by_sign_up">By signing up ,I agree to Babies &amp;Beyond\'s Terms of Service &amp; Conditions</string>
+    <string name="reason">Reason</string>
+    <string name="subject">Subject</string>
+    <array name="contact_reason">
+        <item>None</item>
+        <item>Complain</item>
+        <item>Suggestion</item>
+    </array>
 </resources>

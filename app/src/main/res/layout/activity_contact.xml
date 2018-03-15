@@ -1,43 +1,108 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="tech.ntam.babiesandbeyond.view.fragments.UserAboutUsFragment">
 
-    <include
-        android:id="@+id/my_toolbar"
-        layout="@layout/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <WebView
-        android:id="@+id/wv_contact"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fontFamily="@font/museosans"
-        android:textColor="@color/gray_bold"
-        android:textSize="18sp"
-        android:layout_below="@+id/my_toolbar"
-        android:visibility="gone"
-        android:textStyle="bold" />
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/no_internet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="gone"
-        android:text="@string/no_internet"
-        android:textColor="@color/gray_bold"
-        android:textSize="20sp" />
-    <Button
-        android:layout_width="100dp"
-        android:layout_height="45dp"
-        android:id="@+id/btn_no_internet"
-        android:text="@string/retry"
-        android:textSize="16sp"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/no_internet"
-        android:layout_centerInParent="true"
-        android:visibility="gone"/>
-</RelativeLayout>
+        <include
+            android:id="@+id/my_toolbar"
+            layout="@layout/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/museosans"
+            android:text="@string/email"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/et_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/museosans"
+            android:hint="@string/type_here" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/museosans"
+            android:text="@string/reason"
+            android:textSize="18sp" />
+
+        <Spinner
+            android:id="@+id/sp_reason"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/museosans"
+            android:backgroundTint="@color/gray_bold"
+            android:entries="@array/contact_reason" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/museosans"
+            android:text="@string/subject"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/et_subject"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/museosans"
+            android:hint="@string/type_here" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/museosans"
+            android:text="@string/message"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/et_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/museosans"
+            android:hint="@string/type_here" />
+
+        <Button
+            android:id="@+id/btn_send"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="40dp"
+            android:background="@color/colorButton"
+            android:fontFamily="@font/museosans"
+            android:text="@string/send"
+            android:textAllCaps="false" />
+    </LinearLayout>
+
+
+</ScrollView>

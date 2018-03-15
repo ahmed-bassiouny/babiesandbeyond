@@ -18,6 +18,8 @@ import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 
 import tech.ntam.babiesandbeyond.R;
+import tech.ntam.babiesandbeyond.view.activities.ContactActivity;
+import tech.ntam.babiesandbeyond.view.activities.TermsActivity;
 import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.mylibrary.UserSharedPref;
@@ -60,13 +62,13 @@ public class OptionsFragment extends Fragment {
         view.findViewById(R.id.linear_contact_us).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(getContext(), ContactActivity.class));
             }
         });
         view.findViewById(R.id.linear_terms).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(getContext(), TermsActivity.class));
             }
         });
         view.findViewById(R.id.linear_logout).setOnClickListener(new View.OnClickListener() {

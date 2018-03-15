@@ -445,8 +445,8 @@ public class RequestAndResponse {
             }
         });
     }
-    public static void getContactUs(final BaseResponseInterface<String> anInterface) {
-        Call<AboutResponse> response = baseRequestInterface.getContactUs();
+    public static void getTerms(Context context,final BaseResponseInterface<String> anInterface) {
+        Call<AboutResponse> response = baseRequestInterface.getTerms(UserSharedPref.getTokenWithHeader(context));
         response.enqueue(new Callback<AboutResponse>() {
             @Override
             public void onResponse(Call<AboutResponse> call, Response<AboutResponse> response) {
@@ -886,4 +886,28 @@ public class RequestAndResponse {
             }
         });
     }
+
+    public static void sendContactUs(Context context,String email,
+            String subject,String reason,String message,final BaseResponseInterface<String> anInterface){
+        Call<ParentResponse> response = baseRequestInterface.contactUs(
+                UserSharedPref.getTokenWithHeader(context),UserSharedPref.getName(context),
+                email,UserSharedPref.getPhone(context),subject,reason,message);
+        response.enqueue(new Callback<ParentResponse>() {
+            @Override
+            public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {
+                if (response.body() == null) {
+                    anInterface.onFailed(api_error);
+                    return;
+                }
+                checkValidResult(response.code(), response.body().getStatus()
+                        , response.body().getMessage(), response.body().getMessage(), anInterface);
+            }
+
+            @Override
+            public void onFailure(Call<ParentResponse> call, Throwable t) {
+                anInterface.onFailed(Utils.getExceptionText(t));
+            }
+        });
+    }
+
 }

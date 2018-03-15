@@ -45,13 +45,13 @@ public class SignInController {
         this.activity = activity;
     }
 
-    public void SignIn(String email, String password) {
+    public void SignIn(String email, final String password) {
         final MyDialog myDialog = new MyDialog();
         myDialog.showMyDialog(activity);
         RequestAndResponse.login(activity, email, password, new BaseResponseInterface<User>() {
             @Override
             public void onSuccess(User user) {
-                checkUserType(user);
+                checkUserType(user,password);
                 myDialog.dismissMyDialog();
             }
 
@@ -91,7 +91,7 @@ public class SignInController {
                                     RequestAndResponse.loginWithSocial(activity, user.getEmail(), user.getDisplayName(), new BaseResponseInterface<User>() {
                                         @Override
                                         public void onSuccess(User user) {
-                                            checkUserType(user);
+                                            checkUserType(user,"");
                                             myDialog.dismissMyDialog();
                                         }
 
@@ -111,10 +111,10 @@ public class SignInController {
                         }
                 );
     }
-    private void checkUserType(User user){
+    private void checkUserType(User user,String password){
         if (user.getUserTypeId().equals(User.USER)) {
             // save user information in sharedpref
-            UserSharedPref.setUserInfo(activity, user.getUser_token(), user.getEmail(), user.getId(), user.getName(), user.getPhoto(), user.getPhone(), false, user.getVerificationCode(), user.getIsActive());
+            UserSharedPref.setUserInfo(activity, user.getUser_token(), user.getEmail(), user.getId(), user.getName(), user.getPhoto(), user.getPhone(), false, user.getVerificationCode(),password, user.getIsActive());
             if (user.getIsActive())
                 activity.startActivity(new Intent(activity, UserHomeActivity.class));
             else
@@ -142,7 +142,7 @@ public class SignInController {
                             RequestAndResponse.loginWithSocial(activity, user.getEmail(), user.getDisplayName(), new BaseResponseInterface<User>() {
                                 @Override
                                 public void onSuccess(User user) {
-                                    checkUserType(user);
+                                    checkUserType(user,"");
                                     dialog.dismissMyDialog();
                                 }
 

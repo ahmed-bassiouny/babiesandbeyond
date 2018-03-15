@@ -68,7 +68,7 @@ public interface BaseRequestInterface {
     String JOIN_GROUP = "join_group";
     String LEAVE_GROUP = "leave_group";
     String ABOUT = "about";
-    String CONTACT_US = "";
+    String TERMS = "terms-and-conditions/get";
     String SEND_WORKSHOP_REQUEST = "send_workshop_request";
     String NOTIFICATION = "user_notifications";
     String LOGOUT = "logout";
@@ -89,8 +89,9 @@ public interface BaseRequestInterface {
     String LOGIN_WITH_SOCIAL = "social_login";
     String USER_SERVICE_RATE = "user_service_rate";
     String USER_HISTORY = "user/history";
-    String USER_MIDWIFE_RATE= "rate-service";
-    String USER_MIDWIFE_COMMENT= "comment-service";
+    String USER_MIDWIFE_RATE = "rate-service";
+    String USER_MIDWIFE_COMMENT = "comment-service";
+    String CONTACT_US = "contact-us/post-message";
 
     @FormUrlEncoded
     @POST(LOGIN)
@@ -102,8 +103,8 @@ public interface BaseRequestInterface {
     @FormUrlEncoded
     @POST(LOGIN_WITH_SOCIAL)
     Call<LoginResponse> loginWithSocial(@Field(LoginRequest.EMAIL) String email,
-                              @Field(LoginRequest.NAME) String name,
-                              @Field(LoginRequest.NOTIFICATION_TOKEN) String notificationToken);
+                                        @Field(LoginRequest.NAME) String name,
+                                        @Field(LoginRequest.NOTIFICATION_TOKEN) String notificationToken);
 
     @FormUrlEncoded
     @POST(REGISTER)
@@ -223,8 +224,9 @@ public interface BaseRequestInterface {
     Call<AboutResponse> getAbout();
 
 
-    @POST(CONTACT_US)
-    Call<AboutResponse> getContactUs();
+    @Headers(HEADER_KEY)
+    @GET(TERMS)
+    Call<AboutResponse> getTerms(@Header(AUTHORIZATION) String token);
 
 
     @FormUrlEncoded
@@ -256,17 +258,17 @@ public interface BaseRequestInterface {
     @Headers(HEADER_KEY)
     @POST(RATE)
     Call<ParentResponse> userCommentService(@Header(AUTHORIZATION) String token,
-                                  @Field(RateRequest.STAFF_ID) int userId,
-                                  @Field(RateRequest.SERVICE_ID) String taskId,
-                                  @Field(RateRequest.COMMENT) String comment);
+                                            @Field(RateRequest.STAFF_ID) int userId,
+                                            @Field(RateRequest.SERVICE_ID) String taskId,
+                                            @Field(RateRequest.COMMENT) String comment);
 
 
     @FormUrlEncoded
     @Headers(HEADER_KEY)
     @POST(USER_SERVICE_RATE)
     Call<ParentResponse> userRateService(@Header(AUTHORIZATION) String token,
-                                  @Field(RateRequest.SERVICE_ID) String serviceId,
-                                  @Field(RateRequest.RATE) float rate);
+                                         @Field(RateRequest.SERVICE_ID) String serviceId,
+                                         @Field(RateRequest.RATE) float rate);
 
 
     @FormUrlEncoded
@@ -280,8 +282,8 @@ public interface BaseRequestInterface {
     @Headers(HEADER_KEY)
     @POST(USER_MIDWIFE_COMMENT)
     Call<ParentResponse> userCommentMidwife(@Header(AUTHORIZATION) String token,
-                                         @Field(RateRequest.UNIQUE_KEY) String uniqueKey,
-                                         @Field(RateRequest.COMMENT) String comment);
+                                            @Field(RateRequest.UNIQUE_KEY) String uniqueKey,
+                                            @Field(RateRequest.COMMENT) String comment);
 
     @FormUrlEncoded
     @POST(FORGET_PASSWORD)
@@ -365,8 +367,20 @@ public interface BaseRequestInterface {
     @Headers(HEADER_KEY)
     @POST(MIDWIFE_PAYMENT)
     Call<ParentResponse> midwifePayment(@Header(AUTHORIZATION) String token,
-                                                  @Field("unique_key") String uniquekey,
-                                                  @Field("payment_method") int paymentMethod);
+                                        @Field("unique_key") String uniquekey,
+                                        @Field("payment_method") int paymentMethod);
+
+
+    @FormUrlEncoded
+    @Headers(HEADER_KEY)
+    @POST(CONTACT_US)
+    Call<ParentResponse> contactUs(@Header(AUTHORIZATION) String token,
+                                   @Field("name") String name,
+                                   @Field("email") String email,
+                                   @Field("phone") String phone,
+                                   @Field("subject") String subject,
+                                   @Field("reason") String reason,
+                                   @Field("message") String message);
 
 
 }

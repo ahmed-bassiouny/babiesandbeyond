@@ -26,7 +26,7 @@ public class SignUpController {
         this.activity = activity;
     }
 
-    public void SignUp(String email, String name, String phone, String password) {
+    public void SignUp(String email, String name, String phone, final String password) {
         final MyDialog myDialog =new MyDialog();
         myDialog.showMyDialog(activity);
         RequestAndResponse
@@ -35,7 +35,7 @@ public class SignUpController {
                     public void onSuccess(UserData userData) {
                         if (userData != null) {
                             User user = userData.getUser();
-                            UserSharedPref.setUserInfo(activity, user.getUser_token(), user.getEmail(),user.getId(),user.getName(),user.getPhoto(),user.getPhone(),false,userData.getVerificationCode(),false);
+                            UserSharedPref.setUserInfo(activity, user.getUser_token(), user.getEmail(),user.getId(),user.getName(),user.getPhoto(),user.getPhone(),false,userData.getVerificationCode(),password,false);
                             Toast.makeText(activity, activity.getString(R.string.register_successful), Toast.LENGTH_SHORT).show();
                             myDialog.dismissMyDialog();
                             activity.finish();
