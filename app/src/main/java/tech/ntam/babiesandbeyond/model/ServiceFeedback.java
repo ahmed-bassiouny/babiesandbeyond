@@ -28,13 +28,26 @@ public class ServiceFeedback implements Parcelable {
     @SerializedName("comment")
     private String comment;
 
+    public String getType() {
+        switch (type) {
+            case MIDWIFE:
+                return "Midwife";
+            case WORKSHOP:
+                return "Workshop";
+            case EVENT:
+                return "Event";
+            default:
+                return "Service";
+        }
+    }
+
     public String getId() {
         return Utils.getValueFromString(id);
     }
 
     public float getRate() {
         rate = Utils.getValueFromString(rate);
-        if(rate.isEmpty())
+        if (rate.isEmpty())
             return 0;
         return Float.parseFloat(rate);
     }
@@ -51,7 +64,7 @@ public class ServiceFeedback implements Parcelable {
         this.comment = comment;
     }
 
-    public boolean isMidwife(){
+    public boolean isMidwife() {
         return type == MIDWIFE;
     }
 

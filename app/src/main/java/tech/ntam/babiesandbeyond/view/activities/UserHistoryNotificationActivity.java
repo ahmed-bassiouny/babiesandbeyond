@@ -98,9 +98,12 @@ public class UserHistoryNotificationActivity extends MyToolbar implements ParseO
 
     @Override
     public void getMyObject(ServiceFeedback serviceFeedback, int position) {
-        Intent i = new Intent(UserHistoryNotificationActivity.this, RateUserDialogActivity.class);
+    /*    Intent i = new Intent(UserHistoryNotificationActivity.this, RateUserDialogActivity.class);
         i.putExtra(IntentDataKey.FEEDBACK,serviceFeedback);
         startActivityForResult(i,IntentDataKey.CHANGE_TASK_DATA_CODE);
-        currentPosition = position;
+        currentPosition = position;*/
+        Intent i = new Intent(UserHistoryNotificationActivity.this, HistoryDetailsActivity.class);
+        i.putExtra(IntentDataKey.FEEDBACK,serviceFeedback);
+        startActivity(i);
     }
 }

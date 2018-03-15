@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import tech.ntam.babiesandbeyond.model.Midwife;
 import tech.ntam.babiesandbeyond.model.MidwifeService;
 import tech.ntam.babiesandbeyond.model.Service;
+import tech.ntam.babiesandbeyond.model.ServiceFeedback;
 import tech.ntam.babiesandbeyond.model.Workshop;
 import tech.ntam.mylibrary.SharedPref;
 
@@ -39,7 +40,12 @@ public class ServiceSharedPref extends SharedPref {
         String json = sharedPref.getString(SERVICE, "");
         return gson.fromJson(json, Service.class);
     }
-
+    public static ServiceFeedback getServiceFeedback(Context context) {
+        getSharedPref(context);
+        Gson gson = new Gson();
+        String json = sharedPref.getString(HISTOYR_DETAILS, "");
+        return gson.fromJson(json, ServiceFeedback.class);
+    }
 
 
     public static void setMyWorkshop(Context context, Workshop workshop) {
@@ -48,6 +54,14 @@ public class ServiceSharedPref extends SharedPref {
         Gson gson = new Gson();
         String json = gson.toJson(workshop);
         editor.putString(WORKSHOP, json);
+        editor.apply();
+    }
+    public static void setServiceFeedback(Context context, ServiceFeedback serviceFeedback) {
+        getSharedPref(context);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(serviceFeedback);
+        editor.putString(HISTOYR_DETAILS, json);
         editor.apply();
     }
 
