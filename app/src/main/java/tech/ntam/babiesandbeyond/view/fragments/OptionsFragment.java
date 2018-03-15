@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 
 import tech.ntam.babiesandbeyond.R;
@@ -84,6 +85,7 @@ public class OptionsFragment extends Fragment {
                                 });
                                 UserSharedPref.clearShared(getContext());
                                 FirebaseAuth.getInstance().signOut();
+                                LoginManager.getInstance().logOut();
                                 getActivity().finish();
                                 startActivity(new Intent(getContext(), SignIn_UpActivity.class));
                             }

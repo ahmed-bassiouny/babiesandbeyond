@@ -81,6 +81,7 @@ public class SignInFragment extends Fragment {
         mCallbackManager = CallbackManager.Factory.create();
         loginButton = view.findViewById(R.id.login_button);
         loginButton.setReadPermissions("email", "public_profile");
+        loginButton.setFragment(this);
 
         onClick(view);
     }
@@ -120,8 +121,8 @@ public class SignInFragment extends Fragment {
         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                getController().handleFacebookAccessToken(loginResult.getAccessToken());
-                Log.e( "onError: ",loginResult.toString() );
+                loginButton.setVisibility(View.INVISIBLE);
+                getController().handleFacebookAccessToken(loginResult.getAccessToken(),loginButton);
             }
 
             @Override

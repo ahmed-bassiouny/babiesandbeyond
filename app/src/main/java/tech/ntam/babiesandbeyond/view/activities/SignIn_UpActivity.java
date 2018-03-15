@@ -26,7 +26,7 @@ public class SignIn_UpActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FacebookSdk.sdkInitialize(getApplicationContext());
+        FacebookSdk.sdkInitialize(this);
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_sign_in__up);
         findViewById();

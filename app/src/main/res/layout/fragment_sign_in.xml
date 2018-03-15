@@ -81,6 +81,4 @@
         android:fontFamily="@font/museosans"
         android:layout_marginTop="20dp"
         android:text="@string/forget_password" />
-
-
 </LinearLayout>

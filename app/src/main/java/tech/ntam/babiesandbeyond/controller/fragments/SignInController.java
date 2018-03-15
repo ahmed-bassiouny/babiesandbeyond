@@ -3,9 +3,12 @@ package tech.ntam.babiesandbeyond.controller.fragments;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.view.View;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
+import com.facebook.login.LoginManager;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -125,7 +128,9 @@ public class SignInController {
             Toast.makeText(activity, R.string.user_not_found, Toast.LENGTH_SHORT).show();
         }
     }
-    public void handleFacebookAccessToken(AccessToken token) {
+    public void handleFacebookAccessToken(AccessToken token, final LoginButton loginButton) {
+        final MyDialog dialog = new MyDialog();
+        dialog.showMyDialog(activity);
         final FirebaseAuth mAuth = FirebaseAuth.getInstance();
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         mAuth.signInWithCredential(credential)
@@ -134,8 +139,25 @@ public class SignInController {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(activity, user.getEmail(), Toast.LENGTH_SHORT).show();
+                            RequestAndResponse.loginWithSocial(activity, user.getEmail(), user.getDisplayName(), new BaseResponseInterface<User>() {
+                                @Override
+                                public void onSuccess(User user) {
+                                    checkUserType(user);
+                                    dialog.dismissMyDialog();
+                                }
+
+                                @Override
+                                public void onFailed(String errorMessage) {
+                                    LoginManager.getInstance().logOut();
+                                    loginButton.setVisibility(View.VISIBLE);
+                                    dialog.dismissMyDialog();
+                                    Toast.makeText(activity, errorMessage, Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         } else {
+                            LoginManager.getInstance().logOut();
+                            loginButton.setVisibility(View.VISIBLE);
+                            dialog.dismissMyDialog();
                             Toast.makeText(activity, "Authentication failed.", Toast.LENGTH_SHORT).show();
                         }
 
