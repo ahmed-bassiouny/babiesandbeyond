@@ -9,19 +9,45 @@
     tools:context="tech.ntam.babiesandbeyond.view.activities.LoginOptionsActivity">
 
     <ImageView
+        android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="100dp"
         android:layout_centerInParent="true"
         android:layout_margin="10dp"
-        android:id="@+id/logo"
-        android:src="@drawable/logo"/>
+        android:src="@drawable/logo" />
+
+    <ImageView
+        android:id="@+id/iv_facebook"
+        android:layout_width="300dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="50dp"
+        android:layout_below="@+id/logo"
+        android:src="@drawable/facebook" />
+
+    <ImageView
+        android:id="@+id/iv_gmail"
+        android:layout_width="300dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="50dp"
+        android:layout_below="@+id/iv_facebook"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/gmail" />
+
+    <ImageView
+        android:id="@+id/iv_email"
+        android:layout_width="300dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="50dp"
+        android:layout_below="@+id/iv_gmail"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/email" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/iv_email"
         android:text="@string/by_sign_up"
-        android:textColor="@color/white"
-        android:layout_margin="10dp"/>
-
+        android:textColor="@color/white" />
 </RelativeLayout>

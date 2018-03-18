@@ -2,6 +2,8 @@ package tech.ntam.babiesandbeyond.view.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RatingBar;
@@ -21,6 +23,8 @@ public class HistoryDetailsActivity extends MyToolbar {
     private TextView tvDateFrom,tvDateTo,tvLocation;
     private TextView tvDateFromText,tvDateToText;
     private Button btnSendRate;
+    private RecyclerView recycleView;
+    private TextView tvComment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,14 +43,17 @@ public class HistoryDetailsActivity extends MyToolbar {
         tvTitle.setText(history.getName());
         tvServiceType.setText(history.getType());
         tvLocation.setText(history.getLocation());
+        tvComment.setText(history.getComment());
         if(history.isMidwife()){
             tvDateFromText.setVisibility(View.GONE);
             tvDateFrom.setVisibility(View.GONE);
             tvDateToText.setVisibility(View.GONE);
             tvDateTo.setVisibility(View.GONE);
+
         }else {
             tvDateFrom.setText(history.getHistoryDates().get(0).getFullStartDate());
             tvDateTo.setText(history.getHistoryDates().get(0).getFullEndDate());
+            recycleView.setVisibility(View.GONE);
         }
     }
 
@@ -61,6 +68,9 @@ public class HistoryDetailsActivity extends MyToolbar {
         tvDateFromText = findViewById(R.id.tv_date_from_text);
         tvDateToText = findViewById(R.id.tv_date_to_text);
         tvLocation = findViewById(R.id.tv_location);
+        recycleView = findViewById(R.id.recycle_view);
+        tvComment = findViewById(R.id.tv_comment);
+        recycleView.setLayoutManager(new LinearLayoutManager(this));
         btnSendRate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

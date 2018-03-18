@@ -47,10 +47,6 @@ public class SignInFragment extends Fragment {
     private Button btnSignIn;
     private SignInController controller;
     private static SignInFragment signInFragment;
-    private int RC_SIGN_IN = 5;
-    private MyDialog myDialog;
-    private CallbackManager mCallbackManager;
-    private LoginButton loginButton;
 
     public static SignInFragment newInstance() {
         if (signInFragment == null) {
@@ -78,10 +74,6 @@ public class SignInFragment extends Fragment {
         etPassword = view.findViewById(R.id.et_password);
         btnSignIn = view.findViewById(R.id.btn_sign_in);
         tvForgetPassword = view.findViewById(R.id.tv_forget_password);
-        mCallbackManager = CallbackManager.Factory.create();
-        loginButton = view.findViewById(R.id.login_button);
-        loginButton.setReadPermissions("email", "public_profile");
-        loginButton.setFragment(this);
 
         onClick(view);
     }
@@ -108,33 +100,6 @@ public class SignInFragment extends Fragment {
                 startActivity(new Intent(getContext(), UserForgetPasswordActivity.class));
             }
         });
-
-        view.findViewById(R.id.iv_google).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                myDialog = new MyDialog();
-                myDialog.showMyDialog(getActivity());
-                Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(getController().getGoogleApiClient());
-                startActivityForResult(signInIntent, RC_SIGN_IN);
-            }
-        });
-        loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                loginButton.setVisibility(View.INVISIBLE);
-                getController().handleFacebookAccessToken(loginResult.getAccessToken(),loginButton);
-            }
-
-            @Override
-            public void onCancel() {
-                Log.e( "onError: ","Eror");
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                Log.e( "onError: ",error.toString() );
-            }
-        });
     }
 
     private SignInController getController() {
@@ -150,26 +115,6 @@ public class SignInFragment extends Fragment {
         if (getView() != null) {
             InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-        }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
-        if (requestCode == RC_SIGN_IN) {
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            if (result.isSuccess()) {
-                // Google Sign In was successful, authenticate with Firebase
-                GoogleSignInAccount account = result.getSignInAccount();
-                getController().firebaseAuthWithGoogle(account,myDialog);
-            }else {
-                myDialog.dismissMyDialog();
-
-            }
-        }else {
-            mCallbackManager.onActivityResult(requestCode, resultCode, data);
         }
     }
 

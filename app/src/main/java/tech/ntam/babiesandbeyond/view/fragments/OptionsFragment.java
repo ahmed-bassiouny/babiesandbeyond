@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.view.activities.ContactActivity;
+import tech.ntam.babiesandbeyond.view.activities.LoginOptionsActivity;
 import tech.ntam.babiesandbeyond.view.activities.TermsActivity;
 import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
@@ -98,7 +99,7 @@ public class OptionsFragment extends Fragment {
                                 FirebaseAuth.getInstance().signOut();
                                 LoginManager.getInstance().logOut();
                                 getActivity().finish();
-                                startActivity(new Intent(getContext(), SignIn_UpActivity.class));
+                                startActivity(new Intent(getContext(), LoginOptionsActivity.class));
                             }
                         })
                         .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {

@@ -257,15 +257,16 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
                                 allGroups.add(item);
                             }
                         }
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                groupItemAdapter = new GroupItemAdapter(allGroups, UserGroupsFragment.this, getActivity(),myId);
-                                recycleView.setAdapter(groupItemAdapter);
-                                progress.setVisibility(View.GONE);
-                                container.setVisibility(View.VISIBLE);
-                            }
-                        });
+                        if (getActivity() != null)
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    groupItemAdapter = new GroupItemAdapter(allGroups, UserGroupsFragment.this, getActivity(), myId);
+                                    recycleView.setAdapter(groupItemAdapter);
+                                    progress.setVisibility(View.GONE);
+                                    container.setVisibility(View.VISIBLE);
+                                }
+                            });
                     }
                 }).start();
             }
@@ -298,7 +299,7 @@ public class UserGroupsFragment extends Fragment implements GroupOption, ParseOb
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == IntentDataKey.ADD_GROUP_DATA_CODE && resultCode == Activity.RESULT_OK && data != null) {
             Group group = data.getParcelableExtra(IntentDataKey.ADD_GROUP_DATA_KEY);
-            if (groupItemAdapter !=null && group != null) {
+            if (groupItemAdapter != null && group != null) {
                 groupItemAdapter.addGroup(group);
             }
         }

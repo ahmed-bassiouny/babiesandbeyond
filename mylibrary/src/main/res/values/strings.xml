@@ -185,4 +185,5 @@
     <string name="finish_time">Finish Time</string>
     <string name="rate_service">Rate Service</string>
     <string name="service_rating">Service Rating</string>
+    <string name="comment">Comment</string>
 </resources>

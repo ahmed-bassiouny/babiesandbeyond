@@ -74,6 +74,7 @@ public class ServiceFeedback implements Parcelable {
         return type == MIDWIFE;
     }
 
+
     @Override
     public int describeContents() {
         return 0;
@@ -97,4 +98,15 @@ public class ServiceFeedback implements Parcelable {
         this.comment = in.readString();
     }
 
+    public static final Creator<ServiceFeedback> CREATOR = new Creator<ServiceFeedback>() {
+        @Override
+        public ServiceFeedback createFromParcel(Parcel source) {
+            return new ServiceFeedback(source);
+        }
+
+        @Override
+        public ServiceFeedback[] newArray(int size) {
+            return new ServiceFeedback[size];
+        }
+    };
 }
