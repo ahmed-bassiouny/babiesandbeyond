@@ -51,11 +51,21 @@ public class ServiceFeedback implements Parcelable {
         return Utils.getValueFromString(id);
     }
 
-    public float getRate() {
+    public int getRate() {
         rate = Utils.getValueFromString(rate);
         if (rate.isEmpty())
             return 0;
-        return Float.parseFloat(rate);
+        return (int)Float.parseFloat(rate);
+    }
+    public String getRateString() {
+        switch (getRate()){
+            case 1:return "Very Bad";
+            case 2:return "Bad";
+            case 3:return "Good";
+            case 4:return "Very Good";
+            case 5:return "Excellent";
+                default:return "";
+        }
     }
 
     public String getComment() {

@@ -268,7 +268,7 @@ public interface BaseRequestInterface {
     @POST(USER_SERVICE_RATE)
     Call<ParentResponse> userRateService(@Header(AUTHORIZATION) String token,
                                          @Field(RateRequest.SERVICE_ID) String serviceId,
-                                         @Field(RateRequest.RATE) float rate);
+                                         @Field(RateRequest.RATE) int rate);
 
 
     @FormUrlEncoded
@@ -276,7 +276,7 @@ public interface BaseRequestInterface {
     @POST(USER_MIDWIFE_RATE)
     Call<ParentResponse> userRateMidwife(@Header(AUTHORIZATION) String token,
                                          @Field(RateRequest.UNIQUE_KEY) String uniqueKey,
-                                         @Field(RateRequest.RATE) float rate);
+                                         @Field(RateRequest.RATE) int rate);
 
     @FormUrlEncoded
     @Headers(HEADER_KEY)

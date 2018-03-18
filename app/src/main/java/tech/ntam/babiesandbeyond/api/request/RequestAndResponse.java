@@ -582,7 +582,7 @@ public class RequestAndResponse {
             }
         });
     }
-    public static void userRateService(Context context,boolean isMidwife, String serviceId, float rate, final BaseResponseInterface<String> anInterface) {
+    public static void userRateService(Context context,boolean isMidwife, String serviceId, int rate, final BaseResponseInterface<String> anInterface) {
         // is midwife to detect url what will call
         Call<ParentResponse> response;
         if(isMidwife){

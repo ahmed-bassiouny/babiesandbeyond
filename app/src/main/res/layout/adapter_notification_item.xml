@@ -31,20 +31,6 @@
         android:fontFamily="@font/museosans"
         tools:text="time" />
 
-    <TextView
-        android:id="@+id/tv_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="5dp"
-        android:gravity="center"
-        android:layout_alignTop="@+id/tv_notification_title"
-        android:layout_alignBottom="@+id/tv_notification_date_time"
-        android:fontFamily="@font/museosans"
-        android:textColor="@color/gray_bold"
-        android:textStyle="bold"
-        tools:text="price" />
-
     <View
         android:layout_width="wrap_content"
         android:layout_height="1dp"

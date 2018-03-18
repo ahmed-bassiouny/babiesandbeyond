@@ -49,7 +49,7 @@ public class RateUserDialogActivity extends AppCompatActivity implements View.On
                     // send rate
                     final MyDialog myDialog = new MyDialog();
                     myDialog.showMyDialog(this);
-                    RequestAndResponse.userRateService(this, userHistory.isMidwife(), userHistory.getId(), ratingBar.getRating(), new BaseResponseInterface<String>() {
+                    RequestAndResponse.userRateService(this, userHistory.isMidwife(), userHistory.getId(), (int)ratingBar.getRating(), new BaseResponseInterface<String>() {
                         @Override
                         public void onSuccess(String s) {
                             Toast.makeText(RateUserDialogActivity.this, s, Toast.LENGTH_SHORT).show();

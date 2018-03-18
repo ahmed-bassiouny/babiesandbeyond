@@ -59,7 +59,7 @@ public class UserRequestMidwifeActivity extends MyToolbar {
         midwifeService = getIntent().getParcelableExtra(IntentDataKey.MIDWIFE);
         if(midwifeService == null)
             finish();
-        tvName.setText(midwifeService.getMidwifeName()+"\n"+midwifeService.getBio());
+        tvName.setText(midwifeService.getMidwifeName()+"\n"+midwifeService.getMidwifeStatus());
         if (!midwifeService.getMidwifePhoto().isEmpty())
             Utils.MyGlide(this, ivProfilePhoto, midwifeService.getMidwifePhoto());
         sectionOrRowMidwives = new ArrayList<>();
@@ -75,7 +75,7 @@ public class UserRequestMidwifeActivity extends MyToolbar {
             calTotalCost(item.getDateTimeFrom(),item.getDateTimeTo());
         }
         // set total cost
-        tvTotal.setText(" ( "+ totalPrice +" ) ");
+        tvTotal.setText(" (cost "+ totalPrice +") ");
         MidwifeTimeSlots adapter = new MidwifeTimeSlots(this, sectionOrRowMidwives);
         recycleView.setAdapter(adapter);
         if (midwifeService.getMidwifeStatus().equals(Constant.PENDING)) {

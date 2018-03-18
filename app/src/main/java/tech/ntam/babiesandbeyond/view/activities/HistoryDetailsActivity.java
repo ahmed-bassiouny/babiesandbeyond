@@ -18,10 +18,9 @@ import tech.ntam.mylibrary.IntentDataKey;
 
 public class HistoryDetailsActivity extends MyToolbar {
     private UserHistory history;
-    private RatingBar ratingBar;
-    private TextView tvServiceRating,tvServiceType;
-    private TextView tvDateFrom,tvDateTo,tvLocation;
-    private TextView tvDateFromText,tvDateToText;
+    private TextView tvServiceRating,tvServiceRatingText, tvServiceType;
+    private TextView tvDateFrom, tvDateTo, tvLocation;
+    private TextView tvDateFromText, tvDateToText;
     private Button btnSendRate;
     private RecyclerView recycleView;
     private TextView tvComment;
@@ -32,8 +31,9 @@ public class HistoryDetailsActivity extends MyToolbar {
         setContentView(R.layout.activity_history_details);
         findView();
         // get object from intent
-        history = getIntent().getParcelableExtra(IntentDataKey.FEEDBACK);
-        if(history == null)
+        Bundle bundle = getIntent().getBundleExtra(IntentDataKey.BUNDLE);
+        history = bundle.getParcelable(IntentDataKey.FEEDBACK);
+        if (history == null)
             finish();
         setData();
         setRating(history);
@@ -43,14 +43,18 @@ public class HistoryDetailsActivity extends MyToolbar {
         tvTitle.setText(history.getName());
         tvServiceType.setText(history.getType());
         tvLocation.setText(history.getLocation());
-        tvComment.setText(history.getComment());
-        if(history.isMidwife()){
+        if (history.getComment().isEmpty()) {
+            tvComment.setText("None");
+        } else {
+            tvComment.setText(history.getComment());
+        }
+        if (history.isMidwife()) {
             tvDateFromText.setVisibility(View.GONE);
             tvDateFrom.setVisibility(View.GONE);
             tvDateToText.setVisibility(View.GONE);
             tvDateTo.setVisibility(View.GONE);
 
-        }else {
+        } else {
             tvDateFrom.setText(history.getHistoryDates().get(0).getFullStartDate());
             tvDateTo.setText(history.getHistoryDates().get(0).getFullEndDate());
             recycleView.setVisibility(View.GONE);
@@ -58,9 +62,9 @@ public class HistoryDetailsActivity extends MyToolbar {
     }
 
     private void findView() {
-        setupToolbar(this,false,true,false);
-        ratingBar = findViewById(R.id.rating_bar);
+        setupToolbar(this, false, true, false);
         tvServiceRating = findViewById(R.id.tv_service_rating);
+        tvServiceRatingText = findViewById(R.id.tv_service_rating_text);
         btnSendRate = findViewById(R.id.btn_send_rate);
         tvServiceType = findViewById(R.id.tv_service_type);
         tvDateFrom = findViewById(R.id.tv_date_from);
@@ -85,20 +89,20 @@ public class HistoryDetailsActivity extends MyToolbar {
     protected void onResume() {
         super.onResume();
         UserHistory history = ServiceSharedPref.getUserHistory(this);
-        if(history != null){
+        if (history != null) {
             setRating(history);
         }
     }
 
     private void setRating(UserHistory history) {
-        if(history.getRate()>0){
-            ratingBar.setRating(history.getRate());
-            ratingBar.setVisibility(View.VISIBLE);
+        if (history.getRate() > 0) {
+            tvServiceRating.setText(history.getRateString());
             tvServiceRating.setVisibility(View.VISIBLE);
+            tvServiceRatingText.setVisibility(View.VISIBLE);
             btnSendRate.setVisibility(View.GONE);
-        }else {
-            ratingBar.setVisibility(View.GONE);
+        } else {
             tvServiceRating.setVisibility(View.GONE);
+            tvServiceRatingText.setVisibility(View.GONE);
             btnSendRate.setVisibility(View.VISIBLE);
         }
     }

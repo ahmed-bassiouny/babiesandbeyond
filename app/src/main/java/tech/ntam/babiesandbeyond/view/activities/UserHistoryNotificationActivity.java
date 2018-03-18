@@ -95,8 +95,10 @@ public class UserHistoryNotificationActivity extends MyToolbar implements ParseO
 
     @Override
     public void getMyObject(UserHistory userHistory) {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(IntentDataKey.FEEDBACK,userHistory);
         Intent i = new Intent(UserHistoryNotificationActivity.this, HistoryDetailsActivity.class);
-        i.putExtra(IntentDataKey.FEEDBACK,userHistory);
+        i.putExtra(IntentDataKey.BUNDLE,bundle);
         startActivity(i);
     }
 }

@@ -28,13 +28,11 @@ public class NotificationItemAdapter extends RecyclerView.Adapter<NotificationIt
 
         private TextView tvNotificationTitle;
         private TextView tvNotificationDateTime;
-        private TextView tvPrice;
 
         public MyViewHolder(View view) {
             super(view);
             tvNotificationTitle = view.findViewById(R.id.tv_notification_title);
             tvNotificationDateTime = view.findViewById(R.id.tv_notification_date_time);
-            tvPrice = view.findViewById(R.id.tv_price);
         }
     }
 
@@ -50,13 +48,6 @@ public class NotificationItemAdapter extends RecyclerView.Adapter<NotificationIt
         Notification notification = notifications.get(position);
         holder.tvNotificationTitle.setText(notification.getNotification());
         holder.tvNotificationDateTime.setText(notification.getNotificationTime());
-        if (notification.getPrice().isEmpty()) {
-            holder.tvPrice.setVisibility(View.INVISIBLE);
-
-        } else {
-            holder.tvPrice.setVisibility(View.VISIBLE);
-            holder.tvPrice.setText(notification.getPrice()+"$");
-        }
     }
 
     @Override
