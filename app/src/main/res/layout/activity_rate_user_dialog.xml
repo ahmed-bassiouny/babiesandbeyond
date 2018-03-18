@@ -42,6 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="@string/write_note"
+            android:id="@+id/tv_write_note"
             android:textSize="15sp" />
 
         <EditText

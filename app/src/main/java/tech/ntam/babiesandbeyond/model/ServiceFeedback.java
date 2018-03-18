@@ -16,8 +16,10 @@ public class ServiceFeedback implements Parcelable {
 
     private final static int EVENT = 0;
     private final static int WORKSHOP = 1;
-    private final static int SERVICE = 2;
     private final static int MIDWIFE = 3;
+    private final static int NURSE = 4;
+    private final static int BABYSITTER = 5;
+
 
     @SerializedName("type")
     private int type;
@@ -36,8 +38,12 @@ public class ServiceFeedback implements Parcelable {
                 return "Workshop";
             case EVENT:
                 return "Event";
+            case NURSE:
+                return "nurse";
+            case BABYSITTER:
+                return "babysitter";
             default:
-                return "Service";
+                return "";
         }
     }
 
@@ -56,8 +62,8 @@ public class ServiceFeedback implements Parcelable {
         return Utils.getValueFromString(comment);
     }
 
-    public void setRate(String rate) {
-        this.rate = rate;
+    public void setRate(float rate) {
+        this.rate = String.valueOf(rate);
     }
 
     public void setComment(String comment) {

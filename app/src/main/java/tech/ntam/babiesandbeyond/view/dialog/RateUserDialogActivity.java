@@ -7,9 +7,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import tech.ntam.babiesandbeyond.R;
+import tech.ntam.babiesandbeyond.helper.ServiceSharedPref;
 import tech.ntam.babiesandbeyond.model.ServiceFeedback;
 import tech.ntam.mylibrary.UserSharedPref;
 import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
@@ -20,6 +22,7 @@ import tech.ntam.mylibrary.MyDialog;
 public class RateUserDialogActivity extends AppCompatActivity implements View.OnClickListener {
     private RatingBar ratingBar;
     private EditText etComment;
+    private TextView tvWriteNote;
     private ServiceFeedback feedback;
 
     @Override
@@ -28,15 +31,9 @@ public class RateUserDialogActivity extends AppCompatActivity implements View.On
         setContentView(R.layout.activity_rate_user_dialog);
         ratingBar = findViewById(R.id.rating_bar);
         etComment = findViewById(R.id.et_comment);
+        tvWriteNote = findViewById(R.id.tv_write_note);
         findViewById(R.id.btn_submit).setOnClickListener(this);
         findViewById(R.id.btn_cancel).setOnClickListener(this);
-      /*  ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                if (rating < 1)
-                    ratingBar.setRating(1);
-            }
-        });*/
         getData();
     }
 
@@ -57,9 +54,8 @@ public class RateUserDialogActivity extends AppCompatActivity implements View.On
                         public void onSuccess(String s) {
                             Toast.makeText(RateUserDialogActivity.this, s, Toast.LENGTH_SHORT).show();
                             myDialog.dismissMyDialog();
-                            Intent resultIntent = new Intent();
-                            resultIntent.putExtra(IntentDataKey.RATE, String.valueOf(ratingBar.getRating()));
-                            setResult(Activity.RESULT_OK, resultIntent);
+                            feedback.setRate(ratingBar.getRating());
+                            ServiceSharedPref.setServiceFeedback(RateUserDialogActivity.this,feedback);
                             finish();
                         }
 
@@ -98,15 +94,15 @@ public class RateUserDialogActivity extends AppCompatActivity implements View.On
         }
     }
     private void getData(){
-        feedback = getIntent().getParcelableExtra(IntentDataKey.FEEDBACK);
-        if (feedback  == null)
-            finish();
+        feedback = ServiceSharedPref.getServiceFeedback(this);
         if(UserSharedPref.isStaff(this)){
-            ratingBar.setEnabled(false);
-            etComment.setEnabled(true);
+            ratingBar.setVisibility(View.GONE);
+            etComment.setVisibility(View.VISIBLE);
+            tvWriteNote.setVisibility(View.VISIBLE);
         }else {
-            ratingBar.setEnabled(true);
-            etComment.setEnabled(false);
+            ratingBar.setVisibility(View.VISIBLE);
+            etComment.setVisibility(View.GONE);
+            tvWriteNote.setVisibility(View.GONE);
         }
         ratingBar.setRating(feedback.getRate());
         etComment.setText(feedback.getComment());

@@ -9,6 +9,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import tech.ntam.babiesandbeyond.R;
+import tech.ntam.babiesandbeyond.helper.ServiceSharedPref;
 import tech.ntam.babiesandbeyond.interfaces.ParseObject;
 import tech.ntam.babiesandbeyond.interfaces.ParseObjectWithPosition;
 import tech.ntam.babiesandbeyond.model.ServiceFeedback;
@@ -27,7 +28,6 @@ import tech.ntam.mylibrary.MyDialog;
 public class UserHistoryNotificationActivity extends MyToolbar implements ParseObjectWithPosition<ServiceFeedback> {
 
     private RecyclerView recycleView;
-    private int currentPosition;
     private HistoryItemAdapter historyItemAdapter;
 
     @Override
@@ -48,6 +48,7 @@ public class UserHistoryNotificationActivity extends MyToolbar implements ParseO
     }
 
     private void loadHistory() {
+        ServiceSharedPref.clearServiceFeedback(this);
         final MyDialog myDialog = new MyDialog();
         myDialog.showMyDialog(this);
         RequestAndResponse.getUserHistory(this, new BaseResponseInterface<List<UserHistory>>() {
@@ -88,22 +89,19 @@ public class UserHistoryNotificationActivity extends MyToolbar implements ParseO
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK && requestCode == IntentDataKey.CHANGE_TASK_DATA_CODE){
-            String rate = data.getStringExtra(IntentDataKey.RATE);
-            historyItemAdapter.updateRate(rate,currentPosition);
-        }
-    }
-
-    @Override
     public void getMyObject(ServiceFeedback serviceFeedback, int position) {
-    /*    Intent i = new Intent(UserHistoryNotificationActivity.this, RateUserDialogActivity.class);
-        i.putExtra(IntentDataKey.FEEDBACK,serviceFeedback);
-        startActivityForResult(i,IntentDataKey.CHANGE_TASK_DATA_CODE);
-        currentPosition = position;*/
         Intent i = new Intent(UserHistoryNotificationActivity.this, HistoryDetailsActivity.class);
         i.putExtra(IntentDataKey.FEEDBACK,serviceFeedback);
         startActivity(i);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ServiceFeedback feedback = ServiceSharedPref.getServiceFeedback(this);
+        if(feedback != null) {
+            historyItemAdapter.updateFeed(feedback);
+            ServiceSharedPref.clearServiceFeedback(this);
+        }
     }
 }

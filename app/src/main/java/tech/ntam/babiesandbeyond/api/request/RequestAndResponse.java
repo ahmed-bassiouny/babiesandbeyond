@@ -554,6 +554,7 @@ public class RequestAndResponse {
     }
 
     public static void userCommentService(Context context,boolean isMidwife, String taskId, String comment, final BaseResponseInterface<String> anInterface) {
+        // is midwife to detect url what will call
         Call<ParentResponse> response;
         if(isMidwife){
             response = baseRequestInterface.userCommentMidwife(
@@ -582,6 +583,7 @@ public class RequestAndResponse {
         });
     }
     public static void userRateService(Context context,boolean isMidwife, String serviceId, float rate, final BaseResponseInterface<String> anInterface) {
+        // is midwife to detect url what will call
         Call<ParentResponse> response;
         if(isMidwife){
             response = baseRequestInterface.userRateMidwife(

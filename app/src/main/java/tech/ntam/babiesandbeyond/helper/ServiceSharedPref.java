@@ -33,6 +33,12 @@ public class ServiceSharedPref extends SharedPref {
         editor.putString(SERVICE, "");
         editor.apply();
     }
+    public static void clearServiceFeedback(Context context) {
+        getSharedPref(context);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(HISTOYR_DETAILS, "");
+        editor.apply();
+    }
 
     public static Service getMyService(Context context) {
         getSharedPref(context);

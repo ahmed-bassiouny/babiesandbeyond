@@ -13,6 +13,7 @@ import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.interfaces.ParseObject;
 import tech.ntam.babiesandbeyond.interfaces.ParseObjectWithPosition;
 import tech.ntam.babiesandbeyond.model.History;
+import tech.ntam.babiesandbeyond.model.ServiceFeedback;
 import tech.ntam.babiesandbeyond.model.UserHistory;
 
 /**
@@ -23,9 +24,11 @@ public class HistoryItemAdapter extends RecyclerView.Adapter<HistoryItemAdapter.
 
     private List<UserHistory> historyList;
     private ParseObjectWithPosition parseObject;
+    private Activity activity;
     public HistoryItemAdapter(Activity activity, List<UserHistory> historyList) {
         this.historyList = historyList;
         this.parseObject = (ParseObjectWithPosition) activity;
+        this.activity = activity;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -71,16 +74,29 @@ public class HistoryItemAdapter extends RecyclerView.Adapter<HistoryItemAdapter.
         return historyList.size();
     }
 
-    public void updateRate(String rate,int position){
-        UserHistory item = historyList.get(position);
-        item.setRate(rate);
-        historyList.set(position,item);
-        notifyItemChanged(position);
-    }
-    public void updateComment(String comment,int position){
-        UserHistory item = historyList.get(position);
-        item.setComment(comment);
-        historyList.set(position,item);
-        notifyItemChanged(position);
+    public void updateFeed(final ServiceFeedback feedback){
+        // get array list size
+        final int size = historyList.size();
+        // start thread to compare item id with history list
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for(int i=0;i<size;i++){
+                    if(historyList.get(i).getId().equals(feedback.getId())){
+                        final int currentPosition = i;
+                        UserHistory item = historyList.get(i);
+                        item.setRate(feedback.getRate());
+                        historyList.set(currentPosition,item);
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                notifyItemChanged(currentPosition);
+                            }
+                        });
+                        break;
+                    }
+                }
+            }
+        }).start();
     }
 }
