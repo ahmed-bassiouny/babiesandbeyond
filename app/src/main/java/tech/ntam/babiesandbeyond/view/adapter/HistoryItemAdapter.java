@@ -13,7 +13,6 @@ import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.interfaces.ParseObject;
 import tech.ntam.babiesandbeyond.interfaces.ParseObjectWithPosition;
 import tech.ntam.babiesandbeyond.model.History;
-import tech.ntam.babiesandbeyond.model.ServiceFeedback;
 import tech.ntam.babiesandbeyond.model.UserHistory;
 
 /**
@@ -23,11 +22,11 @@ import tech.ntam.babiesandbeyond.model.UserHistory;
 public class HistoryItemAdapter extends RecyclerView.Adapter<HistoryItemAdapter.MyViewHolder> {
 
     private List<UserHistory> historyList;
-    private ParseObjectWithPosition parseObject;
+    private ParseObject parseObject;
     private Activity activity;
     public HistoryItemAdapter(Activity activity, List<UserHistory> historyList) {
         this.historyList = historyList;
-        this.parseObject = (ParseObjectWithPosition) activity;
+        this.parseObject = (ParseObject) activity;
         this.activity = activity;
     }
 
@@ -46,7 +45,7 @@ public class HistoryItemAdapter extends RecyclerView.Adapter<HistoryItemAdapter.
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    parseObject.getMyObject(historyList.get(getAdapterPosition()),getAdapterPosition());
+                    parseObject.getMyObject(historyList.get(getAdapterPosition()));
                 }
             });
         }
@@ -74,7 +73,7 @@ public class HistoryItemAdapter extends RecyclerView.Adapter<HistoryItemAdapter.
         return historyList.size();
     }
 
-    public void updateFeed(final ServiceFeedback feedback){
+    public void updateFeed(final UserHistory userHistory){
         // get array list size
         final int size = historyList.size();
         // start thread to compare item id with history list
@@ -82,10 +81,10 @@ public class HistoryItemAdapter extends RecyclerView.Adapter<HistoryItemAdapter.
             @Override
             public void run() {
                 for(int i=0;i<size;i++){
-                    if(historyList.get(i).getId().equals(feedback.getId())){
+                    if(historyList.get(i).getId().equals(userHistory.getId())){
                         final int currentPosition = i;
                         UserHistory item = historyList.get(i);
-                        item.setRate(feedback.getRate());
+                        item.setRate(userHistory.getRate());
                         historyList.set(currentPosition,item);
                         activity.runOnUiThread(new Runnable() {
                             @Override

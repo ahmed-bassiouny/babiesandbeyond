@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.helper.ServiceSharedPref;
-import tech.ntam.babiesandbeyond.model.ServiceFeedback;
+import tech.ntam.babiesandbeyond.model.UserHistory;
 import tech.ntam.mylibrary.UserSharedPref;
 import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
@@ -23,7 +23,7 @@ public class RateUserDialogActivity extends AppCompatActivity implements View.On
     private RatingBar ratingBar;
     private EditText etComment;
     private TextView tvWriteNote;
-    private ServiceFeedback feedback;
+    private UserHistory userHistory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +49,13 @@ public class RateUserDialogActivity extends AppCompatActivity implements View.On
                     // send rate
                     final MyDialog myDialog = new MyDialog();
                     myDialog.showMyDialog(this);
-                    RequestAndResponse.userRateService(this,feedback.isMidwife(), feedback.getId(), ratingBar.getRating(), new BaseResponseInterface<String>() {
+                    RequestAndResponse.userRateService(this, userHistory.isMidwife(), userHistory.getId(), ratingBar.getRating(), new BaseResponseInterface<String>() {
                         @Override
                         public void onSuccess(String s) {
                             Toast.makeText(RateUserDialogActivity.this, s, Toast.LENGTH_SHORT).show();
                             myDialog.dismissMyDialog();
-                            feedback.setRate(ratingBar.getRating());
-                            ServiceSharedPref.setServiceFeedback(RateUserDialogActivity.this,feedback);
+                            userHistory.setRate(ratingBar.getRating());
+                            ServiceSharedPref.setUserHistory(RateUserDialogActivity.this, userHistory);
                             finish();
                         }
 
@@ -69,7 +69,7 @@ public class RateUserDialogActivity extends AppCompatActivity implements View.On
                     // send comment
                     final MyDialog myDialog = new MyDialog();
                     myDialog.showMyDialog(this);
-                    RequestAndResponse.userCommentService(this,feedback.isMidwife(),feedback.getId(), etComment.getText().toString(), new BaseResponseInterface<String>() {
+                    RequestAndResponse.userCommentService(this, userHistory.isMidwife(), userHistory.getId(), etComment.getText().toString(), new BaseResponseInterface<String>() {
                         @Override
                         public void onSuccess(String s) {
                             Toast.makeText(RateUserDialogActivity.this, s, Toast.LENGTH_SHORT).show();
@@ -94,7 +94,7 @@ public class RateUserDialogActivity extends AppCompatActivity implements View.On
         }
     }
     private void getData(){
-        feedback = ServiceSharedPref.getServiceFeedback(this);
+        userHistory = ServiceSharedPref.getUserHistory(this);
         if(UserSharedPref.isStaff(this)){
             ratingBar.setVisibility(View.GONE);
             etComment.setVisibility(View.VISIBLE);
@@ -104,7 +104,7 @@ public class RateUserDialogActivity extends AppCompatActivity implements View.On
             etComment.setVisibility(View.GONE);
             tvWriteNote.setVisibility(View.GONE);
         }
-        ratingBar.setRating(feedback.getRate());
-        etComment.setText(feedback.getComment());
+        ratingBar.setRating(userHistory.getRate());
+        etComment.setText(userHistory.getComment());
     }
 }

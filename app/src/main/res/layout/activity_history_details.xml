@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
-            android:text="Nurse"
+            android:id="@+id/tv_service_type"
             android:textColor="@color/gray_bold" />
 
         <TextView
@@ -36,14 +36,15 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:text="@string/finish_date" />
+            android:id="@+id/tv_date_from_text"
+            android:text="@string/date_from" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
-            android:text="02 Dec 2017"
+            android:id="@+id/tv_date_from"
             android:textColor="@color/gray_bold" />
 
         <TextView
@@ -51,14 +52,15 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:text="@string/finish_time" />
+            android:id="@+id/tv_date_to_text"
+            android:text="@string/date_to" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
-            android:text="02:15 PM"
+            android:id="@+id/tv_date_to"
             android:textColor="@color/gray_bold" />
 
 
@@ -74,24 +76,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
-            android:text="245 street , city"
+            android:id="@+id/tv_location"
             android:textColor="@color/gray_bold" />
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/status" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:text="Confirmation Without Payment"
-            android:textColor="@color/gray_bold" />
 
 
         <TextView

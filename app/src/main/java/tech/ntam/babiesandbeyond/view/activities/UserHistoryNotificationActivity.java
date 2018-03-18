@@ -11,13 +11,9 @@ import java.util.List;
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.helper.ServiceSharedPref;
 import tech.ntam.babiesandbeyond.interfaces.ParseObject;
-import tech.ntam.babiesandbeyond.interfaces.ParseObjectWithPosition;
-import tech.ntam.babiesandbeyond.model.ServiceFeedback;
 import tech.ntam.babiesandbeyond.model.UserHistory;
-import tech.ntam.babiesandbeyond.view.dialog.RateUserDialogActivity;
 import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
-import tech.ntam.babiesandbeyond.model.History;
 import tech.ntam.babiesandbeyond.model.Notification;
 import tech.ntam.babiesandbeyond.view.adapter.HistoryItemAdapter;
 import tech.ntam.babiesandbeyond.view.adapter.NotificationItemAdapter;
@@ -25,7 +21,7 @@ import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 import tech.ntam.mylibrary.IntentDataKey;
 import tech.ntam.mylibrary.MyDialog;
 
-public class UserHistoryNotificationActivity extends MyToolbar implements ParseObjectWithPosition<ServiceFeedback> {
+public class UserHistoryNotificationActivity extends MyToolbar implements ParseObject<UserHistory> {
 
     private RecyclerView recycleView;
     private HistoryItemAdapter historyItemAdapter;
@@ -48,7 +44,7 @@ public class UserHistoryNotificationActivity extends MyToolbar implements ParseO
     }
 
     private void loadHistory() {
-        ServiceSharedPref.clearServiceFeedback(this);
+        ServiceSharedPref.clearUserHistory(this);
         final MyDialog myDialog = new MyDialog();
         myDialog.showMyDialog(this);
         RequestAndResponse.getUserHistory(this, new BaseResponseInterface<List<UserHistory>>() {
@@ -87,21 +83,20 @@ public class UserHistoryNotificationActivity extends MyToolbar implements ParseO
             }
         });
     }
-
-    @Override
-    public void getMyObject(ServiceFeedback serviceFeedback, int position) {
-        Intent i = new Intent(UserHistoryNotificationActivity.this, HistoryDetailsActivity.class);
-        i.putExtra(IntentDataKey.FEEDBACK,serviceFeedback);
-        startActivity(i);
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
-        ServiceFeedback feedback = ServiceSharedPref.getServiceFeedback(this);
-        if(feedback != null) {
-            historyItemAdapter.updateFeed(feedback);
-            ServiceSharedPref.clearServiceFeedback(this);
+        UserHistory userHistory= ServiceSharedPref.getUserHistory(this);
+        if(userHistory != null) {
+            historyItemAdapter.updateFeed(userHistory);
+            ServiceSharedPref.clearUserHistory(this);
         }
+    }
+
+    @Override
+    public void getMyObject(UserHistory userHistory) {
+        Intent i = new Intent(UserHistoryNotificationActivity.this, HistoryDetailsActivity.class);
+        i.putExtra(IntentDataKey.FEEDBACK,userHistory);
+        startActivity(i);
     }
 }

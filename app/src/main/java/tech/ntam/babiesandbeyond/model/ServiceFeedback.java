@@ -39,9 +39,9 @@ public class ServiceFeedback implements Parcelable {
             case EVENT:
                 return "Event";
             case NURSE:
-                return "nurse";
+                return "Nurse";
             case BABYSITTER:
-                return "babysitter";
+                return "Babysitter";
             default:
                 return "";
         }
@@ -97,15 +97,4 @@ public class ServiceFeedback implements Parcelable {
         this.comment = in.readString();
     }
 
-    public static final Creator<ServiceFeedback> CREATOR = new Creator<ServiceFeedback>() {
-        @Override
-        public ServiceFeedback createFromParcel(Parcel source) {
-            return new ServiceFeedback(source);
-        }
-
-        @Override
-        public ServiceFeedback[] newArray(int size) {
-            return new ServiceFeedback[size];
-        }
-    };
 }
