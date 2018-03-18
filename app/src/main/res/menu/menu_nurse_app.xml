@@ -1,0 +1,27 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="tech.ntam.babiesandbeyond.view.activities.UserHomeActivity">
+    <item
+        android:id="@+id/schedule"
+        android:title="@string/schedule"
+        app:showAsAction="always"
+        android:enabled="true"
+        android:icon="@drawable/services">
+    </item>
+    <item
+        android:id="@+id/schmessagesedule"
+        android:title="message"
+        app:showAsAction="always"
+        android:enabled="true"
+        android:icon="@drawable/messages">
+    </item>
+    <item
+        android:id="@+id/profile"
+        android:title="@string/profile"
+        app:showAsAction="always"
+        android:enabled="true"
+        android:icon="@drawable/profile">
+    </item>
+
+</menu>

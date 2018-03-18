@@ -31,6 +31,7 @@
     <string name="about_us">About Us</string>
     <string name="confirmation_without_payment">Ask For Pay</string>
     <string name="confirmation_with_payment">Done</string>
+    <string name="done">Done</string>
     <string name="pending">Pending</string>
     <string name="group_pending">group is pending</string>
 

@@ -4,12 +4,19 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +24,13 @@ import android.widget.Toast;
 import java.util.List;
 
 import tech.ntam.babiesandbeyond.R;
+import tech.ntam.babiesandbeyond.view.fragments.NurseScheduleFragment;
+import tech.ntam.babiesandbeyond.view.fragments.OptionsFragment;
+import tech.ntam.babiesandbeyond.view.fragments.UserEventListFragment;
+import tech.ntam.babiesandbeyond.view.fragments.UserGroupsFragment;
+import tech.ntam.babiesandbeyond.view.fragments.UserServiceListFragment;
+import tech.ntam.babiesandbeyond.view.fragments.UserWorkshopListFragment;
+import tech.ntam.mylibrary.BottomNavigationViewHelper;
 import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.babiesandbeyond.model.Task;
@@ -26,101 +40,90 @@ import tech.ntam.mylibrary.IntentDataKey;
 import tech.ntam.mylibrary.MyDialog;
 
 public class NurseTasksHomeActivity extends AppCompatActivity {
-    private RecyclerView recyclerView;
-    private TaskItemAdapter adapter;
-    protected TextView tvTitle;
-    private SwipeRefreshLayout swipeRefreshLayout;
+    private NurseTasksHomeActivity.SectionsPagerAdapter mSectionsPagerAdapter;
+    private BottomNavigationView bottomNavigation;
+    private ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nurse_tasks_home);
-        tvTitle = findViewById(R.id.toolbar_title);
-        recyclerView = findViewById(R.id.recycle_view);
-        swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
+        findViewById();
+        onClick();
+        initObject();
+        // ay habl
+        Bundle bundle = getIntent().getExtras();
+    }
 
-        tvTitle.setText(R.string.schedule);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        final MyDialog dialog = new MyDialog();
-        dialog.showMyDialog(this);
-        RequestAndResponse.getTasks(this, new BaseResponseInterface<List<Task>>() {
-            @Override
-            public void onSuccess(List<Task> tasks) {
-                adapter = new TaskItemAdapter(NurseTasksHomeActivity.this,tasks);
-                recyclerView.setAdapter(adapter);
-                swipeRefreshLayout.setEnabled(true);
-                dialog.dismissMyDialog();
-            }
+    private void initObject() {
+        mSectionsPagerAdapter = new NurseTasksHomeActivity.SectionsPagerAdapter(getSupportFragmentManager());
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setOffscreenPageLimit(0);
+        BottomNavigationViewHelper.disableShiftMode(bottomNavigation);
+    }
 
+    private void onClick() {
+        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onFailed(String errorMessage) {
-                Toast.makeText(NurseTasksHomeActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
-                swipeRefreshLayout.setEnabled(false);
-                dialog.dismissMyDialog();
-            }
-        });
-        findViewById(R.id.iv_logout).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    builder = new AlertDialog.Builder(NurseTasksHomeActivity.this, android.R.style.Theme_DeviceDefault_Light_Dialog_NoActionBar);
-                } else {
-                    builder = new AlertDialog.Builder(NurseTasksHomeActivity.this);
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                switch (id) {
+                    case R.id.schedule:
+                        mViewPager.setCurrentItem(0);
+                        break;
                 }
-                builder.setMessage("Are you sure you want to Logout?")
-                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                RequestAndResponse.logout(NurseTasksHomeActivity.this, new BaseResponseInterface<String>() {
-                                    @Override
-                                    public void onSuccess(String s) {
-                                    }
-
-                                    @Override
-                                    public void onFailed(String errorMessage) {
-                                    }
-                                });
-                                UserSharedPref.clearShared(NurseTasksHomeActivity.this);
-                                startActivity(new Intent(NurseTasksHomeActivity.this, SignIn_UpActivity.class));
-                                finish();
-                            }
-                        })
-                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // do nothing
-                            }
-                        })
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
+                return true;
             }
         });
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                RequestAndResponse.getTasks(NurseTasksHomeActivity.this, new BaseResponseInterface<List<Task>>() {
-                    @Override
-                    public void onSuccess(List<Task> tasks) {
-                        adapter.updateTask(tasks);
-                        swipeRefreshLayout.setRefreshing(false);
-                    }
 
-                    @Override
-                    public void onFailed(String errorMessage) {
-                        Toast.makeText(NurseTasksHomeActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
-                        swipeRefreshLayout.setRefreshing(false);
-                    }
-                });
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                bottomNavigation.getMenu().getItem(position).setChecked(true);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
             }
         });
     }
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == IntentDataKey.CHANGE_TASK_DATA_CODE && resultCode == Activity.RESULT_OK && data != null) {
-            int taskId = data.getIntExtra(IntentDataKey.MY_TASK,0);
-            if (taskId!= 0) {
-                adapter.setRateToTask(taskId);
+
+    private void findViewById() {
+        mViewPager = findViewById(R.id.container);
+        bottomNavigation = findViewById(R.id.bottom_navigation);
+    }
+
+
+    /**
+     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
+     * one of the sections/tabs/pages.
+     */
+    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+
+        public SectionsPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            // getItem is called to instantiate the fragment for the given page.
+            // Return a PlaceholderFragment (defined as a static inner class below).
+            switch (position) {
+                case 0:
+                    return NurseScheduleFragment.newInstance();
+                default:
+                    return null;
             }
+        }
+
+        @Override
+        public int getCount() {
+            return 1;
         }
     }
 }
