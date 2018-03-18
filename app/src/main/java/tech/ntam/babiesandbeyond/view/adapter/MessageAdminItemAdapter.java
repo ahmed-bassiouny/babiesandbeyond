@@ -28,10 +28,13 @@ public class MessageAdminItemAdapter extends RecyclerView.Adapter<MessageAdminIt
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView tvMessage;
+        private TextView tvDate;
 
         public MyViewHolder(View view) {
             super(view);
             tvMessage = view.findViewById(R.id.tv_message);
+            tvDate = view.findViewById(R.id.tv_date);
+
         }
     }
 
@@ -46,6 +49,7 @@ public class MessageAdminItemAdapter extends RecyclerView.Adapter<MessageAdminIt
     public void onBindViewHolder(MyViewHolder holder, int position) {
         MessageAdmin item = messageAdmins.get(position);
         holder.tvMessage.setText(item.getMessage());
+        holder.tvDate.setText(item.getDate());
     }
 
     @Override

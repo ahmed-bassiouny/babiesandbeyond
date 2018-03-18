@@ -21,6 +21,8 @@ public class MessageAdmin implements Parcelable {
     private String toId;
     @SerializedName("message")
     private String message;
+    @SerializedName("created_at")
+    private String date;
 
     public String getFromId() {
         return Utils.getValueFromString(fromId);
@@ -30,6 +32,9 @@ public class MessageAdmin implements Parcelable {
         return Utils.getValueFromString(message);
     }
 
+    public String getDate() {
+        return Utils.getValueFromString(date);
+    }
 
     @Override
     public int describeContents() {
@@ -42,6 +47,7 @@ public class MessageAdmin implements Parcelable {
         dest.writeString(this.fromId);
         dest.writeString(this.toId);
         dest.writeString(this.message);
+        dest.writeString(this.date);
     }
 
     public MessageAdmin() {
@@ -52,9 +58,10 @@ public class MessageAdmin implements Parcelable {
         this.fromId = in.readString();
         this.toId = in.readString();
         this.message = in.readString();
+        this.date = in.readString();
     }
 
-    public static final Parcelable.Creator<MessageAdmin> CREATOR = new Parcelable.Creator<MessageAdmin>() {
+    public static final Creator<MessageAdmin> CREATOR = new Creator<MessageAdmin>() {
         @Override
         public MessageAdmin createFromParcel(Parcel source) {
             return new MessageAdmin(source);

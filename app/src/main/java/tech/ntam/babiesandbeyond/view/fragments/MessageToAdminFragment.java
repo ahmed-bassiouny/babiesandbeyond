@@ -65,7 +65,6 @@ public class MessageToAdminFragment extends Fragment {
         recycleView.setLayoutManager(new LinearLayoutManager(getContext()));
         toolbarTitle = view.findViewById(R.id.toolbar_title);
         toolbarTitle.setText(R.string.message);
-        loadMessage();
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -79,6 +78,7 @@ public class MessageToAdminFragment extends Fragment {
                 startActivityForResult(intent,NEW_MESSAGE);
             }
         });
+        loadMessage();
     }
 
     private void loadMessage() {
