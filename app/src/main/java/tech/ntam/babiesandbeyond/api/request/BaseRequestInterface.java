@@ -1,7 +1,5 @@
 package tech.ntam.babiesandbeyond.api.request;
 
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -31,6 +29,8 @@ import tech.ntam.babiesandbeyond.api.api_model.response.EventsResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.GroupResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.HistoryResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.LoginResponse;
+import tech.ntam.babiesandbeyond.api.api_model.response.MessageAdminResponse;
+import tech.ntam.babiesandbeyond.api.api_model.response.MessageListAdminResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.MidwifeResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.MyServiceResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.NotificationResponse;
@@ -42,7 +42,6 @@ import tech.ntam.babiesandbeyond.api.api_model.response.ReserveMidwifeResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.StaffTasksResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.UserHistoryResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.WorkshopResponse;
-import tech.ntam.babiesandbeyond.model.MidwifeRequestModel;
 
 /**
  * Created by bassiouny on 31/12/17.
@@ -92,6 +91,8 @@ public interface BaseRequestInterface {
     String USER_MIDWIFE_RATE = "rate-service";
     String USER_MIDWIFE_COMMENT = "comment-service";
     String CONTACT_US = "contact-us/post-message";
+    String MESSAGES = "staff/messages";
+    String SEND_MESSAGE = "staff/send-inbox-message";
 
     @FormUrlEncoded
     @POST(LOGIN)
@@ -382,5 +383,15 @@ public interface BaseRequestInterface {
                                    @Field("reason") String reason,
                                    @Field("message") String message);
 
+
+    @Headers(HEADER_KEY)
+    @GET(MESSAGES)
+    Call<MessageListAdminResponse> getMessageAdmin(@Header(AUTHORIZATION) String token);
+
+    @FormUrlEncoded
+    @Headers(HEADER_KEY)
+    @POST(SEND_MESSAGE)
+    Call<MessageAdminResponse> sendMessageToAdmin(@Header(AUTHORIZATION) String token,
+                                                  @Field("message") String message);
 
 }

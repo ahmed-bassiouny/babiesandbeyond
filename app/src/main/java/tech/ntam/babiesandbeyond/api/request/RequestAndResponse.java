@@ -17,6 +17,8 @@ import tech.ntam.babiesandbeyond.api.api_model.response.EventsResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.GroupResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.HistoryResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.LoginResponse;
+import tech.ntam.babiesandbeyond.api.api_model.response.MessageAdminResponse;
+import tech.ntam.babiesandbeyond.api.api_model.response.MessageListAdminResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.MidwifeResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.MyServiceResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.NotificationResponse;
@@ -31,6 +33,7 @@ import tech.ntam.babiesandbeyond.api.api_model.response.WorkshopResponse;
 import tech.ntam.babiesandbeyond.model.Event;
 import tech.ntam.babiesandbeyond.model.Group;
 import tech.ntam.babiesandbeyond.model.History;
+import tech.ntam.babiesandbeyond.model.MessageAdmin;
 import tech.ntam.babiesandbeyond.model.Midwife;
 import tech.ntam.babiesandbeyond.model.MidwifeRequestModel;
 import tech.ntam.babiesandbeyond.model.MidwifeService;
@@ -907,6 +910,47 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<ParentResponse> call, Throwable t) {
+                anInterface.onFailed(Utils.getExceptionText(t));
+            }
+        });
+    }
+
+    public static void getMessageAdmin(Context context, final BaseResponseInterface<List<MessageAdmin>> anInterface) {
+        Call<MessageListAdminResponse> response = baseRequestInterface.getMessageAdmin(
+                UserSharedPref.getTokenWithHeader(context));
+        response.enqueue(new Callback<MessageListAdminResponse>() {
+            @Override
+            public void onResponse(Call<MessageListAdminResponse> call, Response<MessageListAdminResponse> response) {
+                if (response.body() == null) {
+                    anInterface.onFailed(api_error);
+                    return;
+                }
+                checkValidResult(response.code(), response.body().getStatus()
+                        , response.body().getMessageAdmins(), response.body().getMessage(), anInterface);
+            }
+
+            @Override
+            public void onFailure(Call<MessageListAdminResponse> call, Throwable t) {
+                anInterface.onFailed(Utils.getExceptionText(t));
+            }
+        });
+    }
+    public static void sendMessageToAdmin(Context context,String message, final BaseResponseInterface<MessageAdmin> anInterface) {
+        Call<MessageAdminResponse> response = baseRequestInterface.sendMessageToAdmin(
+                UserSharedPref.getTokenWithHeader(context),message);
+        response.enqueue(new Callback<MessageAdminResponse>() {
+            @Override
+            public void onResponse(Call<MessageAdminResponse> call, Response<MessageAdminResponse> response) {
+                if (response.body() == null) {
+                    anInterface.onFailed(api_error);
+                    return;
+                }
+                checkValidResult(response.code(), response.body().getStatus()
+                        , response.body().getMessageAdmin(), response.body().getMessage(), anInterface);
+            }
+
+            @Override
+            public void onFailure(Call<MessageAdminResponse> call, Throwable t) {
                 anInterface.onFailed(Utils.getExceptionText(t));
             }
         });

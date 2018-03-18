@@ -20,6 +20,7 @@ public class IntentDataKey {
     public static final String COMMENT = "comment";
     public static final String USER_TYPE = "user_type";
     public static final String FEEDBACK = "feedback";
+    public static final String MESSAGE = "message";
 
     public static final String CHANGE_EVENT_DATA_KEY = "change_event_value";
     public static final String CHANGE_WORKSHOP_DATA_KEY = "change_workshop_value";

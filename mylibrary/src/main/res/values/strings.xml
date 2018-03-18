@@ -187,4 +187,5 @@
     <string name="rate_service">Rate Service</string>
     <string name="service_rating">Service Rating</string>
     <string name="comment">Comment</string>
+    <string name="new_message">New Message</string>
 </resources>

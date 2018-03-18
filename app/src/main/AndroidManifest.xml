@@ -28,8 +28,8 @@
         <activity
             android:name=".view.activities.SignIn_UpActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".view.activities.UserForgetPasswordActivity"
             android:screenOrientation="portrait"
@@ -183,9 +183,14 @@
             android:name=".view.activities.LoginOptionsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".view.activities.HistoryDetailsActivity"
+        <activity
+            android:name=".view.activities.HistoryDetailsActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".view.dialog.NewMessageToAdminActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeDialog" />
     </application>
 
 </manifest>

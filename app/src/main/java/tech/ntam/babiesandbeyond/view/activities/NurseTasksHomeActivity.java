@@ -24,6 +24,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import tech.ntam.babiesandbeyond.R;
+import tech.ntam.babiesandbeyond.view.fragments.MessageToAdminFragment;
 import tech.ntam.babiesandbeyond.view.fragments.NurseScheduleFragment;
 import tech.ntam.babiesandbeyond.view.fragments.OptionsFragment;
 import tech.ntam.babiesandbeyond.view.fragments.UserEventListFragment;
@@ -71,6 +72,9 @@ public class NurseTasksHomeActivity extends AppCompatActivity {
                     case R.id.schedule:
                         mViewPager.setCurrentItem(0);
                         break;
+                    case R.id.message:
+                        mViewPager.setCurrentItem(1);
+                        break;
                 }
                 return true;
             }
@@ -116,6 +120,8 @@ public class NurseTasksHomeActivity extends AppCompatActivity {
             switch (position) {
                 case 0:
                     return NurseScheduleFragment.newInstance();
+                case 1:
+                    return MessageToAdminFragment.newInstance();
                 default:
                     return null;
             }
@@ -123,7 +129,7 @@ public class NurseTasksHomeActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 1;
+            return 2;
         }
     }
 }
