@@ -3,6 +3,7 @@ package tech.ntam.babiesandbeyond.controller.fragments;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.content.IntentCompat;
 import android.view.View;
 import android.widget.Toast;
 
@@ -113,12 +114,17 @@ public class SignInController {
     }
     private void checkUserType(User user,String password){
         if (user.getUserTypeId().equals(User.USER)) {
+            Intent intent;
             // save user information in sharedpref
             UserSharedPref.setUserInfo(activity, user.getUser_token(), user.getEmail(), user.getId(), user.getName(), user.getPhoto(), user.getPhone(), false, user.getVerificationCode(),password, user.getIsActive());
             if (user.getIsActive())
-                activity.startActivity(new Intent(activity, UserHomeActivity.class));
+                intent = new Intent(activity, UserHomeActivity.class);
             else
-                activity.startActivity(new Intent(activity, ActiveAccountActivity.class));
+                intent = new Intent(activity, ActiveAccountActivity.class);
+
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            activity.startActivity(intent);
             activity.finish();
         } else if (user.getUserTypeId().equals(User.NURSE) || user.getUserTypeId().equals(User.MIDWIFE) || user.getUserTypeId().equals(User.BABYSITTER)) {
             UserSharedPref.setUserInfo(activity, user.getUser_token(), user.getEmail(), user.getId(), user.getName(), user.getPhoto(), user.getPhone(), true);

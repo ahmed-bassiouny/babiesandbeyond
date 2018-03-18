@@ -190,8 +190,10 @@ public class UserServiceListFragment extends Fragment implements ParseService {
                     break;
                 case "2": // update midwife ask for payment
                     midwifeServiceItemAdapter.updateService(serviceId);
+                    break;
                 case "3": // delete midwife ask for payment
                     midwifeServiceItemAdapter.deleteService(serviceId);
+                    break;
             }
 
         }

@@ -18,7 +18,6 @@ import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 
 public class ContactActivity extends MyToolbar {
 
-    private EditText etEmail;
     private Spinner spReason;
     private EditText etSubject;
     private EditText etMessage;
@@ -34,7 +33,6 @@ public class ContactActivity extends MyToolbar {
     }
 
     private void findView() {
-        etEmail = findViewById(R.id.et_email);
         spReason = findViewById(R.id.sp_reason);
         etSubject = findViewById(R.id.et_subject);
         etMessage = findViewById(R.id.et_message);
@@ -42,9 +40,7 @@ public class ContactActivity extends MyToolbar {
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(etEmail.getText().toString().trim().isEmpty()){
-                    etEmail.setError(getString(R.string.invalid_email));
-                }else if(spReason.getSelectedItemPosition()==0){
+                if(spReason.getSelectedItemPosition()==0){
                     Toast.makeText(ContactActivity.this, "Please Select Reason", Toast.LENGTH_SHORT).show();
                 }else if(etSubject.getText().toString().trim().isEmpty()){
                     etSubject.setError("Please Enter Subject");
@@ -60,7 +56,7 @@ public class ContactActivity extends MyToolbar {
     private void sendContactUs(){
         final MyDialog myDialog = new MyDialog();
         myDialog.showMyDialog(this);
-        RequestAndResponse.sendContactUs(this, etEmail.getText().toString(),
+        RequestAndResponse.sendContactUs(this,
                 etSubject.getText().toString(), spReason.getSelectedItem().toString(),
                 etMessage.getText().toString(), new BaseResponseInterface<String>() {
                     @Override

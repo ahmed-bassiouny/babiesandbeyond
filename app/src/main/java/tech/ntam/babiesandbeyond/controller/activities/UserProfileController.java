@@ -81,7 +81,10 @@ public class UserProfileController {
             , final CircleImageView ivProfilePhoto
             , Button btnChangePassword) {
         etName.setText(UserSharedPref.getName(activity));
-        etPhone.setText(UserSharedPref.getPhone(activity));
+        if(UserSharedPref.getPhone(activity).isEmpty())
+            etPhone.setHint("None");
+        else
+            etPhone.setText(UserSharedPref.getPhone(activity));
         String photo = UserSharedPref.getPhoto(activity);
         if (!photo.isEmpty())
             Utils.MyGlide(activity, ivProfilePhoto, photo);

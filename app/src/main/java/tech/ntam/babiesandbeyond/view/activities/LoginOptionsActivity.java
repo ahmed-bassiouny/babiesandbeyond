@@ -34,6 +34,7 @@ public class LoginOptionsActivity extends AppCompatActivity implements View.OnCl
         findViewById(R.id.iv_facebook).setOnClickListener(this);
         findViewById(R.id.iv_gmail).setOnClickListener(this);
         findViewById(R.id.iv_email).setOnClickListener(this);
+        findViewById(R.id.tv_terms).setOnClickListener(this);
         initObject();
     }
 
@@ -74,8 +75,9 @@ public class LoginOptionsActivity extends AppCompatActivity implements View.OnCl
                 break;
             case R.id.iv_email:
                 startActivity(new Intent(LoginOptionsActivity.this, SignIn_UpActivity.class));
-                finish();
                 break;
+            case R.id.tv_terms:
+                startActivity(new Intent(LoginOptionsActivity.this,TermsActivity.class));
         }
     }
     private SignInController getController() {

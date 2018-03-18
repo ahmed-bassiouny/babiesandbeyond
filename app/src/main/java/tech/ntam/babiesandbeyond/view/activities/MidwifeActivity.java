@@ -30,7 +30,8 @@ import tech.ntam.mylibrary.MyDialog;
 import tech.ntam.mylibrary.SimpleDividerItemDecoration;
 import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 
-public class MidwifeActivity extends MyToolbar implements ParseObject<Midwife> {
+public class
+MidwifeActivity extends MyToolbar implements ParseObject<Midwife> {
 
     private RecyclerView recyclerView;
 
@@ -68,13 +69,6 @@ public class MidwifeActivity extends MyToolbar implements ParseObject<Midwife> {
 
     @Override
     public void getMyObject(Midwife midwife) {
-        // For some strange reason it looks like the class loader isn't set up properly.
-        // so i use bundle
-        //Intent i = new Intent(this,MidewifeTimeslotsActivity.class);
-        //Bundle b = new Bundle();
-        //i.putExtra(IntentDataKey.MIDWIFE, midwife);
-        //i.putExtra(IntentDataKey.BUNDLE, b);
-
         ServiceSharedPref.setMidwifeDetails(this,midwife);
         startActivity(new Intent(this,MidewifeTimeslotsActivity.class));
     }

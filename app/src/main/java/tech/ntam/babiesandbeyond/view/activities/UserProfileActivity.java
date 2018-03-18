@@ -98,39 +98,6 @@ public class UserProfileActivity extends MyToolbar {
         });
     }
 
-    /*
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        EasyImage.handleActivityResult(requestCode, resultCode, data, this, new DefaultCallback() {
-            @Override
-            public void onImagePickerError(Exception e, EasyImage.ImageSource source, int type) {
-                //Some error handling
-            }
-
-            @Override
-            public void onImagePicked(File imageFile, EasyImage.ImageSource source, int type) {
-                final MyDialog dialog = new MyDialog();
-                dialog.showMyDialog(UserProfileActivity.this);
-                try {
-                    Bitmap myBitmap = ImageFactor.getBitmapImageFromFilePathAfterResize(imageFile);
-                    ivProfilePhoto.setImageBitmap(myBitmap);
-                    Utils.convertImageFromBitmapToStringBase64(myBitmap, new ProcessInterface() {
-                        @Override
-                        public void completed(String item) {
-                            photo = item;
-                            dialog.dismissMyDialog();
-                        }
-                    });
-                } catch (FileNotFoundException e) {
-                    Toast.makeText(UserProfileActivity.this, R.string.photo_large, Toast.LENGTH_SHORT).show();
-                    dialog.dismissMyDialog();
-                }
-            }
-        });
-    }
-*/
-
     private void findViewById() {
         ivProfilePhoto = findViewById(R.id.iv_profile_photo);
         tvUploadPhoto = findViewById(R.id.tv_upload_photo);

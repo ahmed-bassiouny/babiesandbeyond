@@ -1,6 +1,10 @@
 package tech.ntam.babiesandbeyond.view.activities;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -35,7 +39,7 @@ import tech.ntam.mylibrary.interfaces.Constant;
 public class UserRequestMidwifeActivity extends MyToolbar {
 
     private CircleImageView ivProfilePhoto;
-    private TextView tvName,tvTotal;
+    private TextView tvName, tvTotal;
     private RecyclerView recycleView;
     private Button btnCancel;
     private LinearLayout btnPay;
@@ -48,7 +52,7 @@ public class UserRequestMidwifeActivity extends MyToolbar {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_request_midwife);
-        setupToolbar(this,false,true,false);
+        setupToolbar(this, false, true, false);
         tvTitle.setText(R.string.midwife_service);
         findViewById();
         onClick();
@@ -57,9 +61,9 @@ public class UserRequestMidwifeActivity extends MyToolbar {
 
     private void setData() {
         midwifeService = getIntent().getParcelableExtra(IntentDataKey.MIDWIFE);
-        if(midwifeService == null)
+        if (midwifeService == null)
             finish();
-        tvName.setText(midwifeService.getMidwifeName()+"\n"+midwifeService.getMidwifeStatus());
+        tvName.setText(midwifeService.getMidwifeName() + "\n" + midwifeService.getMidwifeStatus());
         if (!midwifeService.getMidwifePhoto().isEmpty())
             Utils.MyGlide(this, ivProfilePhoto, midwifeService.getMidwifePhoto());
         sectionOrRowMidwives = new ArrayList<>();
@@ -72,10 +76,10 @@ public class UserRequestMidwifeActivity extends MyToolbar {
             }
             // add row
             sectionOrRowMidwives.add(new SectionOrRowMidwife(new AvailableTimeMidwife(item.getTimeFrom24H(), item.getTimeTo24H())));
-            calTotalCost(item.getDateTimeFrom(),item.getDateTimeTo());
+            calTotalCost(item.getDateTimeFrom(), item.getDateTimeTo());
         }
         // set total cost
-        tvTotal.setText(" (cost "+ totalPrice +") ");
+        tvTotal.setText(" (cost " + totalPrice + ") ");
         MidwifeTimeSlots adapter = new MidwifeTimeSlots(this, sectionOrRowMidwives);
         recycleView.setAdapter(adapter);
         if (midwifeService.getMidwifeStatus().equals(Constant.PENDING)) {
@@ -101,7 +105,7 @@ public class UserRequestMidwifeActivity extends MyToolbar {
                     public void onSuccess(Object o) {
                         dialog.dismissMyDialog();
                         midwifeService.setMidwifeStatus(Constant.CANCEL);
-                        ServiceSharedPref.setMyMidwife(UserRequestMidwifeActivity.this,midwifeService);
+                        ServiceSharedPref.setMyMidwife(UserRequestMidwifeActivity.this, midwifeService);
                         finish();
                     }
 
@@ -116,8 +120,8 @@ public class UserRequestMidwifeActivity extends MyToolbar {
         btnPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(UserRequestMidwifeActivity.this,PaymentMethodActivity.class);
-                intent.putExtra(IntentDataKey.MIDWIFE,midwifeService);
+                Intent intent = new Intent(UserRequestMidwifeActivity.this, PaymentMethodActivity.class);
+                intent.putExtra(IntentDataKey.MIDWIFE, midwifeService);
                 startActivity(intent);
             }
         });
@@ -132,12 +136,46 @@ public class UserRequestMidwifeActivity extends MyToolbar {
         tvTotal = findViewById(R.id.tv_total);
         recycleView.setLayoutManager(new LinearLayoutManager(this));
     }
-    private void calTotalCost(Date startHour , Date endHour ){
+
+    private void calTotalCost(Date startHour, Date endHour) {
         // this method calculate total cost depend on hours
 
         // get number of hour between times
-        int numberOfHour = (int)MyDateTimeFactor.getHourBetweenTwoDate(endHour, startHour);
-        totalPrice = totalPrice + (midwifeService.getPricePerHour()*numberOfHour);
+        int numberOfHour = (int) MyDateTimeFactor.getHourBetweenTwoDate(endHour, startHour);
+        totalPrice = totalPrice + (midwifeService.getPricePerHour() * numberOfHour);
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        LocalBroadcastManager.getInstance(this).registerReceiver((mMessageReceiver),
+                new IntentFilter(IntentDataKey.NOTIFICATION_SERVICE));
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
+    }
+
+
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getStringExtra(IntentDataKey.NOTIFICATION_ACTION);
+            switch (action) {
+                case "2": // update midwife ask for payment
+                    btnPay.setVisibility(View.VISIBLE);
+                    btnCancel.setVisibility(View.VISIBLE);
+                    midwifeService.setMidwifeStatus(Constant.ASK_FOR_PAY);
+                    break;
+                case "3": // delete midwife ask for payment
+                    Toast.makeText(context, "Your Request Deleted", Toast.LENGTH_SHORT).show();
+                    finish();
+                    break;
+            }
+
+        }
+    };
 
 }

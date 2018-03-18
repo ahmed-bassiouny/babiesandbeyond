@@ -48,6 +48,7 @@
         android:layout_alignParentBottom="true"
         android:layout_margin="10dp"
         android:layout_below="@+id/iv_email"
+        android:id="@+id/tv_terms"
         android:text="@string/by_sign_up"
         android:textColor="@color/white" />
 </RelativeLayout>

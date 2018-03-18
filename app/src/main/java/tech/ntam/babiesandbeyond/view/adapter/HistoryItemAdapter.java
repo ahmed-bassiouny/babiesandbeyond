@@ -33,14 +33,12 @@ public class HistoryItemAdapter extends RecyclerView.Adapter<HistoryItemAdapter.
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView ivServiceName;
         private TextView tvServiceLocation;
-        private TextView tvServiceDateTime;
         private TextView tvType;
 
         public MyViewHolder(View view) {
             super(view);
             ivServiceName = view.findViewById(R.id.tv_service_name);
             tvServiceLocation = view.findViewById(R.id.tv_location);
-            tvServiceDateTime = view.findViewById(R.id.tv_date_time);
             tvType = view.findViewById(R.id.tv_type);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -63,7 +61,6 @@ public class HistoryItemAdapter extends RecyclerView.Adapter<HistoryItemAdapter.
         UserHistory history = historyList.get(position);
         holder.tvType.setText(history.getType());
         holder.ivServiceName.setText(history.getName());
-        holder.tvServiceDateTime.setText(history.getHistoryDates().get(0).getFrom());
         holder.tvServiceLocation.setText(history.getComment());
         holder.tvServiceLocation.setText(history.getLocation());
     }

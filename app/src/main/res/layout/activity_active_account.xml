@@ -68,7 +68,7 @@
         android:textColor="@color/white"
         android:id="@+id/btn_send"
         android:background="@color/colorButton"
-        android:text="@string/send" />
+        android:text="@string/submit" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

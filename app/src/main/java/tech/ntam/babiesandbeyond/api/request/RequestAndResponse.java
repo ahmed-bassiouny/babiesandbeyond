@@ -889,11 +889,11 @@ public class RequestAndResponse {
         });
     }
 
-    public static void sendContactUs(Context context,String email,
+    public static void sendContactUs(Context context,
             String subject,String reason,String message,final BaseResponseInterface<String> anInterface){
         Call<ParentResponse> response = baseRequestInterface.contactUs(
                 UserSharedPref.getTokenWithHeader(context),UserSharedPref.getName(context),
-                email,UserSharedPref.getPhone(context),subject,reason,message);
+                UserSharedPref.getEmail(context),UserSharedPref.getPhone(context),subject,reason,message);
         response.enqueue(new Callback<ParentResponse>() {
             @Override
             public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {
