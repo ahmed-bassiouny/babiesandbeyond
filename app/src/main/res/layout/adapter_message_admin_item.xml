@@ -14,16 +14,14 @@
         android:textColor="@color/gray_bold"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:text="fldsfls"
         android:textSize="18sp"
         android:textStyle="bold" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="12sp"
-        android:text="gklfdgdfkl"
         android:layout_marginTop="5dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="15dp"
         android:id="@+id/tv_date"/>
 
     <View

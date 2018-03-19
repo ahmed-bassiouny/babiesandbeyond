@@ -11,5 +11,8 @@
     <color name="off_white">#e7e7e7</color>
     <color name="background_row">#eaeaea</color>
     <color name="blue">#42a3c3</color>
+    <color name="yellow">#ffa200</color>
+    <color name="yellow_light">#f7c773</color>
+
 
 </resources>

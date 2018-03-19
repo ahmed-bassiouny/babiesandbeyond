@@ -1,6 +1,7 @@
 package tech.ntam.babiesandbeyond.view.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -20,8 +21,11 @@ import java.util.List;
 
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
+import tech.ntam.babiesandbeyond.helper.ServiceSharedPref;
+import tech.ntam.babiesandbeyond.interfaces.ParseObject;
 import tech.ntam.babiesandbeyond.model.Task;
 import tech.ntam.babiesandbeyond.view.activities.NurseTasksHomeActivity;
+import tech.ntam.babiesandbeyond.view.activities.showTaskDetailsActivity;
 import tech.ntam.babiesandbeyond.view.adapter.TaskItemAdapter;
 import tech.ntam.mylibrary.MyDialog;
 import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
@@ -29,7 +33,7 @@ import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NurseScheduleFragment extends Fragment {
+public class NurseScheduleFragment extends Fragment implements ParseObject<Task>{
 
 
     private static NurseScheduleFragment nurseScheduleFragment;
@@ -40,6 +44,7 @@ public class NurseScheduleFragment extends Fragment {
     private RadioButton btnDone;
     private List<Task> completedTask;
     private List<Task> scheduleTask;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     public NurseScheduleFragment() {
         // Required empty public constructor
@@ -81,6 +86,12 @@ public class NurseScheduleFragment extends Fragment {
                     recyclerView.setAdapter(doneAdapter);
             }
         });
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+            }
+        });
     }
 
     private void loadDataNurse() {
@@ -96,7 +107,7 @@ public class NurseScheduleFragment extends Fragment {
                     public void run() {
 
                         for (Task item : tasks) {
-                            if (item.getIsCompleted()) {
+                            if (item.isCompleted()) {
                                 completedTask.add(item);
                             } else {
                                 scheduleTask.add(item);
@@ -106,8 +117,8 @@ public class NurseScheduleFragment extends Fragment {
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    doneAdapter = new TaskItemAdapter(getActivity(), completedTask);
-                                    scheduleAdapter = new TaskItemAdapter(getActivity(), scheduleTask);
+                                    doneAdapter = new TaskItemAdapter(NurseScheduleFragment.this, completedTask);
+                                    scheduleAdapter = new TaskItemAdapter(NurseScheduleFragment.this, scheduleTask);
                                     recyclerView.setAdapter(scheduleAdapter);
                                     dialog.dismissMyDialog();
                                 }
@@ -129,6 +140,60 @@ public class NurseScheduleFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recycle_view);
         btnSchedule = view.findViewById(R.id.btn_schedule);
         btnDone = view.findViewById(R.id.btn_done);
+        swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
+
+    @Override
+    public void getMyObject(Task task) {
+        ServiceSharedPref.setTask(getContext(),task);
+        startActivity(new Intent(getContext(), showTaskDetailsActivity.class));
+    }
+/*
+    private void refreshDataNurse() {
+        swipeRefreshLayout.setRefreshing(true);
+        RequestAndResponse.getTasks(getActivity(), new BaseResponseInterface<List<Task>>() {
+            @Override
+            public void onSuccess(final List<Task> tasks) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        for (Task item : tasks) {
+                            if (item.getIsCompleted()) {
+                                completedTask.add(item);
+                            } else {
+                                scheduleTask.add(item);
+                            }
+                        }
+                        if (getActivity() != null)
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if(doneAdapter == null || scheduleAdapter == null){
+                                        doneAdapter = new TaskItemAdapter(NurseScheduleFragment.this, completedTask);
+                                        scheduleAdapter = new TaskItemAdapter(NurseScheduleFragment.this, scheduleTask);
+                                        recyclerView.setAdapter(scheduleAdapter);
+                                        btnSchedule.setChecked(true);
+                                    }else {
+
+                                    }
+                                    doneAdapter = new TaskItemAdapter(NurseScheduleFragment.this, completedTask);
+                                    scheduleAdapter = new TaskItemAdapter(NurseScheduleFragment.this, scheduleTask);
+                                    recyclerView.setAdapter(scheduleAdapter);
+                                    dialog.dismissMyDialog();
+                                }
+                            });
+                    }
+                }).start();
+
+            }
+
+            @Override
+            public void onFailed(String errorMessage) {
+                Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+    }*/
 }

@@ -5,6 +5,9 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.text.ParseException;
+
+import tech.ntam.mylibrary.MyDateTimeFactor;
 import tech.ntam.mylibrary.Utils;
 
 /**
@@ -33,7 +36,12 @@ public class MessageAdmin implements Parcelable {
     }
 
     public String getDate() {
-        return Utils.getValueFromString(date);
+        date =  Utils.getValueFromString(date);
+        try {
+            return MyDateTimeFactor.changeDateFormatFromNumberToText(date);
+        } catch (ParseException e) {
+            return "";
+        }
     }
 
     @Override

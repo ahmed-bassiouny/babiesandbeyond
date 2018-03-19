@@ -71,7 +71,7 @@ public interface BaseRequestInterface {
     String SEND_WORKSHOP_REQUEST = "send_workshop_request";
     String NOTIFICATION = "user_notifications";
     String LOGOUT = "logout";
-    String STAFF_TASK = "staff_schedule_and_tasks";
+    String STAFF_TASK = "staff/paid-services";
     String RATE = "staff_rate_and_comment";
     String FORGET_PASSWORD = "forget_password";
     String CANCEL_SERVICE = "cancel_service";

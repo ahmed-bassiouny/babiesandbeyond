@@ -556,10 +556,10 @@ public class RequestAndResponse {
         });
     }
 
-    public static void userCommentService(Context context,boolean isMidwife, String taskId, String comment, final BaseResponseInterface<String> anInterface) {
+    public static void userCommentService(Context context, String taskId, String comment, final BaseResponseInterface<String> anInterface) {
         // is midwife to detect url what will call
         Call<ParentResponse> response;
-        if(isMidwife){
+        if(UserSharedPref.getIamMidwife(context)){
             response = baseRequestInterface.userCommentMidwife(
                     UserSharedPref.getTokenWithHeader(context),
                     taskId, comment);

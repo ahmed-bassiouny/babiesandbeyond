@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import tech.ntam.babiesandbeyond.model.Midwife;
 import tech.ntam.babiesandbeyond.model.MidwifeService;
 import tech.ntam.babiesandbeyond.model.Service;
+import tech.ntam.babiesandbeyond.model.Task;
 import tech.ntam.babiesandbeyond.model.UserHistory;
 import tech.ntam.babiesandbeyond.model.Workshop;
 import tech.ntam.mylibrary.SharedPref;
@@ -33,6 +34,14 @@ public class ServiceSharedPref extends SharedPref {
         editor.putString(SERVICE, "");
         editor.apply();
     }
+
+    public static void clearTask(Context context) {
+        getSharedPref(context);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(TASK, "");
+        editor.apply();
+    }
+
     public static void clearUserHistory(Context context) {
         getSharedPref(context);
         SharedPreferences.Editor editor = sharedPref.edit();
@@ -46,6 +55,14 @@ public class ServiceSharedPref extends SharedPref {
         String json = sharedPref.getString(SERVICE, "");
         return gson.fromJson(json, Service.class);
     }
+
+    public static Task getMyTask(Context context) {
+        getSharedPref(context);
+        Gson gson = new Gson();
+        String json = sharedPref.getString(TASK, "");
+        return gson.fromJson(json, Task.class);
+    }
+
     public static UserHistory getUserHistory(Context context) {
         getSharedPref(context);
         Gson gson = new Gson();
@@ -62,6 +79,16 @@ public class ServiceSharedPref extends SharedPref {
         editor.putString(WORKSHOP, json);
         editor.apply();
     }
+
+    public static void setTask(Context context, Task task) {
+        getSharedPref(context);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(task);
+        editor.putString(TASK, json);
+        editor.apply();
+    }
+
     public static void setUserHistory(Context context, UserHistory userHistory) {
         getSharedPref(context);
         SharedPreferences.Editor editor = sharedPref.edit();

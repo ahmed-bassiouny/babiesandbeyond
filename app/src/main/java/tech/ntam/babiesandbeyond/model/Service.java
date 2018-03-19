@@ -1,5 +1,6 @@
 package tech.ntam.babiesandbeyond.model;
 
+import android.content.Intent;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -16,7 +17,7 @@ import tech.ntam.mylibrary.interfaces.Constant;
 
 public class Service implements Parcelable {
     @SerializedName("id")
-    private int id;
+    private String id;
     @SerializedName("user_id")
     private int userId;
     @SerializedName("start_date")
@@ -37,9 +38,20 @@ public class Service implements Parcelable {
     private String serviceTypeName;
     @SerializedName("staff_name")
     private String staffName;
+    @SerializedName("latitude")
+    private String latitude;
+    @SerializedName("longitude")
+    private String longitude;
+    @SerializedName("user_name")
+    private String userName;
+    @SerializedName("user_photo")
+    private String userPhoto;
 
     public int getId() {
-        return id;
+        return Integer.parseInt(Utils.getValueFromString(id));
+    }
+    public String getIdString() {
+        return Utils.getValueFromString(id);
     }
 
     public int getUserId() {
@@ -124,6 +136,24 @@ public class Service implements Parcelable {
         }
     }
 
+    public double getLatitude() {
+        latitude = Utils.getValueFromString(latitude);
+        return Double.parseDouble(latitude);
+    }
+
+    public double getLongitude() {
+        longitude = Utils.getValueFromString(longitude);
+        return Double.parseDouble(longitude);
+    }
+
+    public String getUserName() {
+        return Utils.getValueFromString(userName);
+    }
+
+    public String getUserPhoto() {
+        return Utils.getValueFromString(userPhoto);
+    }
+
     public void updateServiceStatusName() {
         this.serviceStatusName = Constant.CONFIRMATION_WITHOUT_PAYMENT;
     }
@@ -136,6 +166,7 @@ public class Service implements Parcelable {
         this.staffName = staffName;
     }
 
+
     @Override
     public int describeContents() {
         return 0;
@@ -143,7 +174,7 @@ public class Service implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.id);
+        dest.writeString(this.id);
         dest.writeInt(this.userId);
         dest.writeString(this.startDate);
         dest.writeString(this.endDate);
@@ -154,13 +185,17 @@ public class Service implements Parcelable {
         dest.writeString(this.serviceStatusName);
         dest.writeString(this.serviceTypeName);
         dest.writeString(this.staffName);
+        dest.writeString(this.latitude);
+        dest.writeString(this.longitude);
+        dest.writeString(this.userName);
+        dest.writeString(this.userPhoto);
     }
 
     public Service() {
     }
 
     protected Service(Parcel in) {
-        this.id = in.readInt();
+        this.id = in.readString();
         this.userId = in.readInt();
         this.startDate = in.readString();
         this.endDate = in.readString();
@@ -171,9 +206,13 @@ public class Service implements Parcelable {
         this.serviceStatusName = in.readString();
         this.serviceTypeName = in.readString();
         this.staffName = in.readString();
+        this.latitude = in.readString();
+        this.longitude = in.readString();
+        this.userName = in.readString();
+        this.userPhoto = in.readString();
     }
 
-    public static final Parcelable.Creator<Service> CREATOR = new Parcelable.Creator<Service>() {
+    public static final Creator<Service> CREATOR = new Creator<Service>() {
         @Override
         public Service createFromParcel(Parcel source) {
             return new Service(source);

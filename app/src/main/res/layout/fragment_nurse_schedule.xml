@@ -41,10 +41,17 @@
             android:text="@string/done" />
     </info.hoang8f.android.segmented.SegmentedGroup>
 
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:enabled="false"
+        android:id="@+id/swipe_refresh_layout">
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycle_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

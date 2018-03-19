@@ -8,13 +8,11 @@ import java.util.List;
 import tech.ntam.mylibrary.Utils;
 
 /**
- * Created by bassiouny on 22/01/18.
+ * Created by bassiouny on 19/03/18.
  */
 
-public class Task {
+public class TaskService {
 
-    @SerializedName("id")
-    private String id;
     @SerializedName("location")
     private String location;
     @SerializedName("longitude")
@@ -37,6 +35,8 @@ public class Task {
     private Boolean isCompleted;
     @SerializedName("dates")
     private List<HistoryDate> dates;
+    @SerializedName("id")
+    private String id;
 
     public String getLocation() {
         return Utils.getValueFromString(location);
@@ -88,26 +88,7 @@ public class Task {
         return dates;
     }
 
-    public String getRateString() {
-        switch (getRate()){
-            case 1:return "Very Bad";
-            case 2:return "Bad";
-            case 3:return "Good";
-            case 4:return "Very Good";
-            case 5:return "Excellent";
-            default:return "";
-        }
-    }
-
     public String getId() {
         return id;
-    }
-
-    public void setRate(String rate) {
-        this.rate = Integer.parseInt(rate);
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
     }
 }

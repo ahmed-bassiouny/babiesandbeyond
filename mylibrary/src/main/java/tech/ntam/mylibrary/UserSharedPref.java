@@ -130,4 +130,14 @@ public class UserSharedPref extends SharedPref {
         editor.putBoolean(IS_ACTIVE,true);
         editor.apply();
     }
+    public static void setIamMidwife(Context context) {
+        getSharedPref(context);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putBoolean(IM_MIDWIFE,true);
+        editor.apply();
+    }
+    public static boolean getIamMidwife(Context context) {
+        getSharedPref(context);
+        return sharedPref.getBoolean(IM_MIDWIFE, false);
+    }
 }

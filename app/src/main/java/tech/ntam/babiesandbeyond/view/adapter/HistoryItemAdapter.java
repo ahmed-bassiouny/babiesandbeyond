@@ -95,4 +95,10 @@ public class HistoryItemAdapter extends RecyclerView.Adapter<HistoryItemAdapter.
             }
         }).start();
     }
+
+    public void updateList(List<UserHistory> historyList) {
+        this.historyList = historyList;
+        notifyDataSetChanged();
+    }
+
 }

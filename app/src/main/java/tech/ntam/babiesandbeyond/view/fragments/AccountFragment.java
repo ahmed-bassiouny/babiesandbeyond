@@ -88,9 +88,13 @@ public class AccountFragment extends Fragment {
 
     private void setData() {
         etName.setText(UserSharedPref.getName(getContext()));
-        etPhone.setText(UserSharedPref.getPhone(getContext()));
+        if(UserSharedPref.getPhone(getContext()).isEmpty())
+            etPhone.setText("None");
+        else
+            etPhone.setText(UserSharedPref.getPhone(getContext()));
         etEmail.setText(UserSharedPref.getEmail(getContext()));
-        Utils.MyGlide(getActivity(),ivProfilePhoto,UserSharedPref.getPhoto(getContext()));
+        if(!UserSharedPref.getPhoto(getContext()).isEmpty())
+            Utils.MyGlide(getActivity(),ivProfilePhoto,UserSharedPref.getPhoto(getContext()));
     }
 
     private void findViewById(View view) {
