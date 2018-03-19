@@ -52,7 +52,7 @@ public class SignInController {
         RequestAndResponse.login(activity, email, password, new BaseResponseInterface<User>() {
             @Override
             public void onSuccess(User user) {
-                checkUserType(user,password);
+                checkUserType(user, password);
                 myDialog.dismissMyDialog();
             }
 
@@ -92,7 +92,7 @@ public class SignInController {
                                     RequestAndResponse.loginWithSocial(activity, user.getEmail(), user.getDisplayName(), new BaseResponseInterface<User>() {
                                         @Override
                                         public void onSuccess(User user) {
-                                            checkUserType(user,"");
+                                            checkUserType(user, "");
                                             myDialog.dismissMyDialog();
                                         }
 
@@ -112,11 +112,12 @@ public class SignInController {
                         }
                 );
     }
-    private void checkUserType(User user,String password){
+
+    private void checkUserType(User user, String password) {
         if (user.getUserTypeId().equals(User.USER)) {
             Intent intent;
             // save user information in sharedpref
-            UserSharedPref.setUserInfo(activity, user.getUser_token(), user.getEmail(), user.getId(), user.getName(), user.getPhoto(), user.getPhone(), false, user.getVerificationCode(),password, user.getIsActive());
+            UserSharedPref.setUserInfo(activity, user.getUser_token(), user.getEmail(), user.getId(), user.getName(), user.getPhoto(), user.getPhone(), false, user.getVerificationCode(), password, user.getIsActive());
             if (user.getIsActive())
                 intent = new Intent(activity, UserHomeActivity.class);
             else
@@ -130,10 +131,14 @@ public class SignInController {
             UserSharedPref.setUserInfo(activity, user.getUser_token(), user.getEmail(), user.getId(), user.getName(), user.getPhoto(), user.getPhone(), true);
             activity.startActivity(new Intent(activity, NurseTasksHomeActivity.class));
             activity.finish();
+            if (user.getUserTypeId().equals(User.MIDWIFE)) {
+                UserSharedPref.setIamMidwife(activity);
+            }
         } else {
             Toast.makeText(activity, R.string.user_not_found, Toast.LENGTH_SHORT).show();
         }
     }
+
     public void handleFacebookAccessToken(AccessToken token, final LoginButton loginButton) {
         final MyDialog dialog = new MyDialog();
         dialog.showMyDialog(activity);
@@ -148,7 +153,7 @@ public class SignInController {
                             RequestAndResponse.loginWithSocial(activity, user.getEmail(), user.getDisplayName(), new BaseResponseInterface<User>() {
                                 @Override
                                 public void onSuccess(User user) {
-                                    checkUserType(user,"");
+                                    checkUserType(user, "");
                                     dialog.dismissMyDialog();
                                 }
 

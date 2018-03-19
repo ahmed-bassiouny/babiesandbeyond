@@ -89,7 +89,7 @@ public interface BaseRequestInterface {
     String USER_SERVICE_RATE = "user_service_rate";
     String USER_HISTORY = "user/history";
     String USER_MIDWIFE_RATE = "rate-service";
-    String USER_MIDWIFE_COMMENT = "comment-service";
+    String USER_MIDWIFE_COMMENT = "midwife/comment-service";
     String CONTACT_US = "contact-us/post-message";
     String MESSAGES = "staff/messages";
     String SEND_MESSAGE = "staff/send-inbox-message";

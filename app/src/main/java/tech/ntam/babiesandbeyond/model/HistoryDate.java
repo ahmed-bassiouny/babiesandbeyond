@@ -49,6 +49,12 @@ public class HistoryDate implements Parcelable {
             return "";
         }
     }
+    public String getFromTime(){
+        return MyDateTimeFactor.getTimeFromDateTime(Utils.getValueFromString(from));
+    }
+    public String getToTime(){
+        return MyDateTimeFactor.getTimeFromDateTime(Utils.getValueFromString(to));
+    }
     @Override
     public int describeContents() {
         return 0;

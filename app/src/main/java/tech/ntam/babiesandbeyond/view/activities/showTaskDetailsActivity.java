@@ -3,16 +3,21 @@ package tech.ntam.babiesandbeyond.view.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.helper.ServiceSharedPref;
 import tech.ntam.babiesandbeyond.model.Task;
+import tech.ntam.babiesandbeyond.view.adapter.TaskTimeSlotsAdapter;
 import tech.ntam.babiesandbeyond.view.dialog.RateUserDialogActivity;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
+import tech.ntam.mylibrary.MyDateTimeFactor;
 import tech.ntam.mylibrary.Utils;
 
 public class showTaskDetailsActivity extends MyToolbar {
@@ -26,8 +31,10 @@ public class showTaskDetailsActivity extends MyToolbar {
     private TextView tvCommentText;
     private TextView tvComment;
     private Button btnSendComment;
-    Task task;
-
+    private RecyclerView recyclerView;
+    private Task task;
+    private RelativeLayout dateContain;
+    private TextView date,day;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +54,10 @@ public class showTaskDetailsActivity extends MyToolbar {
         tvCommentText = findViewById(R.id.tv_comment_text);
         tvComment = findViewById(R.id.tv_comment);
         btnSendComment = findViewById(R.id.btn_send_comment);
+        recyclerView = findViewById(R.id.recycler);
+        dateContain = findViewById(R.id.date_contain);
+        date = findViewById(R.id.tv_day_date);
+        day = findViewById(R.id.tv_day_name);
         btnSendComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,7 +79,10 @@ public class showTaskDetailsActivity extends MyToolbar {
         if(task == null)
             finish();
         tvUserName.setText(task.getUserName());
-        tvUserLocation.setText(task.getLocation());
+        if(task.getLocation().isEmpty())
+            tvUserLocation.setText("None");
+        else
+            tvUserLocation.setText(task.getLocation());
         tvUserPhone.setText(task.getUserPhone());
         if(task.getComment().isEmpty()) {
             tvComment.setText("None");
@@ -86,5 +100,17 @@ public class showTaskDetailsActivity extends MyToolbar {
         }
         if(!task.getUserPhoto().isEmpty())
             Utils.MyGlide(this,ivProfilePhoto,task.getUserPhoto());
+        if(task.getDates().size()==0){
+            dateContain.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.GONE);
+        }else {
+            dateContain.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.VISIBLE);
+            date.setText(task.getDates().get(0).getDate());
+            day.setText(MyDateTimeFactor.convertDateStringToDayOfWeek(task.getDates().get(0).getDate()));
+            TaskTimeSlotsAdapter adapter = new TaskTimeSlotsAdapter(task.getDates());
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerView.setAdapter(adapter);
+        }
     }
 }
