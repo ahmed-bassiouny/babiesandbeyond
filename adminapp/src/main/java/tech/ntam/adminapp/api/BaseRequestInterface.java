@@ -28,7 +28,7 @@ public interface BaseRequestInterface {
     String ALL_MIDWIFE = "midwife/all";
     String MIDWIFE_REQUESTS = "midwife/get-reservations";
     String APPROVE_MIDWIFE_REQUEST = "midwife/confirm-without-payment";
-
+    String CLIENTS = "user/all-clients";
 
 
     @FormUrlEncoded
@@ -107,4 +107,11 @@ public interface BaseRequestInterface {
     Call<ParentResponse> approveMidwifeRequest(@Header(AUTHORIZATION) String token,
                                                      @Field("admin_id") int adminId,
                                                      @Field("unique_key") String uniqueKey);
+
+
+    @FormUrlEncoded
+    @Headers(HEADER_KEY)
+    @POST(CLIENTS)
+    Call<ClientsResponse> getClients(@Header(AUTHORIZATION) String token,
+                                               @Field("page") int page);
 }

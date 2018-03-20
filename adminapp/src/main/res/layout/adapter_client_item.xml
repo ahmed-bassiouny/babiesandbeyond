@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_margin="5dp"
+    android:layout_height="wrap_content">
+
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/iv_user_image"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/person"
+        android:layout_alignParentStart="true"
+        app:civ_border_color="@color/gray_bold"
+        app:civ_border_width="0dp"
+        android:layout_centerVertical="true" />
+
+
+    <TextView
+        android:id="@+id/tv_client_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:textColor="@color/gray_bold"
+        android:layout_toStartOf="@+id/btn_view_details"
+        android:layout_toEndOf="@+id/iv_user_image"
+        android:layout_centerVertical="true"
+        android:textSize="16sp"
+        tools:text="name" />
+
+    <Button
+        android:id="@+id/btn_view_details"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginEnd="5dp"
+        android:textAllCaps="false"
+        android:textSize="12sp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:textStyle="bold"
+        android:textColor="@color/gray_bold"
+        android:text="@string/view_details"
+        android:background="@color/colorButton" />
+
+</RelativeLayout>

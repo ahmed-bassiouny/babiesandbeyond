@@ -7,6 +7,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import tech.ntam.adminapp.model.Client;
 import tech.ntam.adminapp.model.Midwife;
 import tech.ntam.adminapp.model.MidwifeService;
 import tech.ntam.adminapp.model.Service;
@@ -261,6 +262,28 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<ParentResponse> call, Throwable t) {
+                anInterface.onFailed(Utils.getExceptionText(t));
+            }
+        });
+    }
+
+    public static void getClients(Context context,int page, final BaseResponseInterface<List<Client>> anInterface) {
+        Call<ClientsResponse> response = baseRequestInterface.getClients(
+                UserSharedPref.getTokenWithHeader(context),
+                page);
+        response.enqueue(new Callback<ClientsResponse>() {
+            @Override
+            public void onResponse(Call<ClientsResponse> call, Response<ClientsResponse> response) {
+                if (response.body() == null) {
+                    anInterface.onFailed(api_error);
+                    return;
+                }
+                checkValidResult(response.code(), response.body().getStatus()
+                        , response.body().getClients(), response.body().getMessage(), anInterface);
+            }
+
+            @Override
+            public void onFailure(Call<ClientsResponse> call, Throwable t) {
                 anInterface.onFailed(Utils.getExceptionText(t));
             }
         });

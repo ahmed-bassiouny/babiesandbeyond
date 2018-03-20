@@ -11,9 +11,9 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import tech.ntam.adminapp.R;
-import tech.ntam.adminapp.view.fragments.AccountFragment;
 import tech.ntam.adminapp.view.fragments.BabysitterFragment;
 import tech.ntam.adminapp.view.fragments.MidwifeFragment;
+import tech.ntam.adminapp.view.fragments.MoreFragment;
 import tech.ntam.adminapp.view.fragments.NurseFragment;
 import tech.ntam.adminapp.view.fragments.WorkshopFragment;
 import tech.ntam.mylibrary.BottomNavigationViewHelper;
@@ -59,7 +59,7 @@ public class HomeActivity extends AppCompatActivity {
                     case R.id.workshop:
                         mViewPager.setCurrentItem(3);
                         break;
-                    case R.id.account:
+                    case R.id.more:
                         mViewPager.setCurrentItem(4);
                         break;
                 }
@@ -116,7 +116,7 @@ public class HomeActivity extends AppCompatActivity {
                 case 3:
                     return WorkshopFragment.newInstance();
                 case 4:
-                    return AccountFragment.newInstance();
+                    return MoreFragment.newInstance();
                 default:
                     return null;
             }
