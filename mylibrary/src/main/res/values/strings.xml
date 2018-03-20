@@ -188,4 +188,5 @@
     <string name="service_rating">Service Rating</string>
     <string name="comment">Comment</string>
     <string name="new_message">New Message</string>
+    <string name="view_map">(View Map)</string>
 </resources>

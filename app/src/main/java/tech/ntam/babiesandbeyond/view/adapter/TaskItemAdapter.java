@@ -51,9 +51,7 @@ public class TaskItemAdapter extends RecyclerView.Adapter<TaskItemAdapter.MyView
                 @Override
                 public void onClick(View v) {
                     Task task = tasks.get(getAdapterPosition());
-                    if(task.isCompleted()){
-                        parseObject.getMyObject(task);
-                    }
+                    parseObject.getMyObject(task);
                 }
             });
         }

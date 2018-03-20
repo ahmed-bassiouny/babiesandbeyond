@@ -33,7 +33,7 @@ import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NurseScheduleFragment extends Fragment implements ParseObject<Task>{
+public class NurseScheduleFragment extends Fragment implements ParseObject<Task> {
 
 
     private static NurseScheduleFragment nurseScheduleFragment;
@@ -89,12 +89,14 @@ public class NurseScheduleFragment extends Fragment implements ParseObject<Task>
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-
+                refreshDataNurse();
             }
         });
     }
 
     private void loadDataNurse() {
+        if (scheduleAdapter != null && doneAdapter != null)
+            return;
         completedTask = new ArrayList<>();
         scheduleTask = new ArrayList<>();
         final MyDialog dialog = new MyDialog();
@@ -146,10 +148,10 @@ public class NurseScheduleFragment extends Fragment implements ParseObject<Task>
 
     @Override
     public void getMyObject(Task task) {
-        ServiceSharedPref.setTask(getContext(),task);
+        ServiceSharedPref.setTask(getContext(), task);
         startActivity(new Intent(getContext(), showTaskDetailsActivity.class));
     }
-/*
+
     private void refreshDataNurse() {
         swipeRefreshLayout.setRefreshing(true);
         RequestAndResponse.getTasks(getActivity(), new BaseResponseInterface<List<Task>>() {
@@ -158,9 +160,10 @@ public class NurseScheduleFragment extends Fragment implements ParseObject<Task>
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-
+                        completedTask = new ArrayList<>();
+                        scheduleTask = new ArrayList<>();
                         for (Task item : tasks) {
-                            if (item.getIsCompleted()) {
+                            if (item.isCompleted()) {
                                 completedTask.add(item);
                             } else {
                                 scheduleTask.add(item);
@@ -173,15 +176,13 @@ public class NurseScheduleFragment extends Fragment implements ParseObject<Task>
                                     if(doneAdapter == null || scheduleAdapter == null){
                                         doneAdapter = new TaskItemAdapter(NurseScheduleFragment.this, completedTask);
                                         scheduleAdapter = new TaskItemAdapter(NurseScheduleFragment.this, scheduleTask);
-                                        recyclerView.setAdapter(scheduleAdapter);
-                                        btnSchedule.setChecked(true);
                                     }else {
-
+                                        doneAdapter.updateTask(completedTask);
+                                        scheduleAdapter.updateTask(scheduleTask);
                                     }
-                                    doneAdapter = new TaskItemAdapter(NurseScheduleFragment.this, completedTask);
-                                    scheduleAdapter = new TaskItemAdapter(NurseScheduleFragment.this, scheduleTask);
                                     recyclerView.setAdapter(scheduleAdapter);
-                                    dialog.dismissMyDialog();
+                                    btnSchedule.setChecked(true);
+                                    swipeRefreshLayout.setRefreshing(false);
                                 }
                             });
                     }
@@ -195,5 +196,5 @@ public class NurseScheduleFragment extends Fragment implements ParseObject<Task>
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
-    }*/
+    }
 }

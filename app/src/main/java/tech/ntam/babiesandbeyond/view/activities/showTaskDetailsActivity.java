@@ -1,6 +1,7 @@
 package tech.ntam.babiesandbeyond.view.activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,8 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.Locale;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.helper.ServiceSharedPref;
@@ -18,6 +21,7 @@ import tech.ntam.babiesandbeyond.view.adapter.TaskTimeSlotsAdapter;
 import tech.ntam.babiesandbeyond.view.dialog.RateUserDialogActivity;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 import tech.ntam.mylibrary.MyDateTimeFactor;
+import tech.ntam.mylibrary.UserSharedPref;
 import tech.ntam.mylibrary.Utils;
 
 public class showTaskDetailsActivity extends MyToolbar {
@@ -25,7 +29,7 @@ public class showTaskDetailsActivity extends MyToolbar {
     private CircleImageView ivProfilePhoto;
     private TextView tvUserName;
     private TextView tvUserPhone;
-    private TextView tvUserLocation;
+    private TextView tvUserLocation,tvViewUserLocation;
     private TextView tvUserRateText;
     private TextView tvUserRate;
     private TextView tvCommentText;
@@ -58,12 +62,21 @@ public class showTaskDetailsActivity extends MyToolbar {
         dateContain = findViewById(R.id.date_contain);
         date = findViewById(R.id.tv_day_date);
         day = findViewById(R.id.tv_day_name);
+        tvViewUserLocation = findViewById(R.id.tv_view_user_location);
         btnSendComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ServiceSharedPref.setTask(showTaskDetailsActivity.this,task);
                 startActivity(new Intent(showTaskDetailsActivity.this, RateUserDialogActivity.class));
                 finish();
+            }
+        });
+        tvViewUserLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String uri = String.format(Locale.ENGLISH, "geo:%f,%f", task.getLatitude(), task.getLongitude());
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                startActivity(intent);
             }
         });
     }
@@ -84,7 +97,7 @@ public class showTaskDetailsActivity extends MyToolbar {
         else
             tvUserLocation.setText(task.getLocation());
         tvUserPhone.setText(task.getUserPhone());
-        if(task.getComment().isEmpty()) {
+        if(task.getComment().isEmpty()&&task.isCompleted()) {
             tvComment.setText("None");
             btnSendComment.setVisibility(View.VISIBLE);
         }
@@ -100,10 +113,12 @@ public class showTaskDetailsActivity extends MyToolbar {
         }
         if(!task.getUserPhoto().isEmpty())
             Utils.MyGlide(this,ivProfilePhoto,task.getUserPhoto());
-        if(task.getDates().size()==0){
+        // if user nurse or babysitter
+        if(!UserSharedPref.getIamMidwife(this)){
             dateContain.setVisibility(View.GONE);
             recyclerView.setVisibility(View.GONE);
         }else {
+            // user is midwife
             dateContain.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.VISIBLE);
             date.setText(task.getDates().get(0).getDate());
@@ -111,6 +126,9 @@ public class showTaskDetailsActivity extends MyToolbar {
             TaskTimeSlotsAdapter adapter = new TaskTimeSlotsAdapter(task.getDates());
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
             recyclerView.setAdapter(adapter);
+        }
+        if(!task.getLatitude().isEmpty() && !task.getLongitude().isEmpty()){
+            tvViewUserLocation.setVisibility(View.VISIBLE);
         }
     }
 }
