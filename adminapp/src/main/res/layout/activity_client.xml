@@ -1,6 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/linear_logout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -11,13 +10,13 @@
         android:background="@color/gray_bold"
         android:gravity="center"
         android:padding="15dp"
-        android:text="@string/account"
+        android:text="Client Info"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
 
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_profile_photo"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -26,7 +25,6 @@
         android:src="@drawable/person"
         app:civ_border_color="@color/gray_bold"
         app:civ_border_width="2dp" />
-
 
     <TextView
         android:layout_width="wrap_content"
@@ -86,16 +84,23 @@
         android:inputType="textEmailAddress"
         android:textSize="18sp" />
 
-    <Button
-        android:id="@+id/btn_logout"
-        android:layout_width="300dp"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
-        android:background="@color/colorButton"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="4dp"
         android:fontFamily="@font/museosans"
-        android:text="@string/logout"
-        android:textAllCaps="false" />
+        android:text="@string/birthday" />
+
+    <EditText
+        android:id="@+id/et_birthday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:enabled="false"
+        android:fontFamily="@font/museosans"
+        android:textSize="18sp" />
+
 
 </LinearLayout>

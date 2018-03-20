@@ -1,5 +1,6 @@
 package tech.ntam.adminapp.view.activities;
 
+import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import tech.ntam.adminapp.api.RequestAndResponse;
 import tech.ntam.adminapp.interfaces.ParseObject;
 import tech.ntam.adminapp.model.Client;
 import tech.ntam.adminapp.view.adapter.ClientItemAdapter;
+import tech.ntam.mylibrary.IntentDataKey;
 import tech.ntam.mylibrary.MyDialog;
 import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 
@@ -86,6 +88,8 @@ public class ClientsActivity extends AppCompatActivity implements ParseObject<Cl
 
     @Override
     public void view(Client client) {
-
+        Intent intent = new Intent(this,ClientActivity.class);
+        intent.putExtra(IntentDataKey.CLIENT,client);
+        startActivity(intent);
     }
 }

@@ -1,5 +1,8 @@
 package tech.ntam.adminapp.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 import tech.ntam.mylibrary.MyDateTimeFactor;
@@ -9,7 +12,7 @@ import tech.ntam.mylibrary.Utils;
  * Created by bassiouny on 20/03/18.
  */
 
-public class Client {
+public class Client implements Parcelable {
 
     @SerializedName("name")
     private String name;
@@ -42,4 +45,41 @@ public class Client {
         birthday =  Utils.getValueFromString(birthday);
         return MyDateTimeFactor.getDateFromDateTime(birthday);
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.name);
+        dest.writeString(this.email);
+        dest.writeString(this.phone);
+        dest.writeString(this.photo);
+        dest.writeString(this.birthday);
+    }
+
+    public Client() {
+    }
+
+    protected Client(Parcel in) {
+        this.name = in.readString();
+        this.email = in.readString();
+        this.phone = in.readString();
+        this.photo = in.readString();
+        this.birthday = in.readString();
+    }
+
+    public static final Parcelable.Creator<Client> CREATOR = new Parcelable.Creator<Client>() {
+        @Override
+        public Client createFromParcel(Parcel source) {
+            return new Client(source);
+        }
+
+        @Override
+        public Client[] newArray(int size) {
+            return new Client[size];
+        }
+    };
 }
