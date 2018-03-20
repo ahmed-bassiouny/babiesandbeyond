@@ -7,14 +7,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.helper.ServiceSharedPref;
 import tech.ntam.babiesandbeyond.model.UserHistory;
+import tech.ntam.babiesandbeyond.view.adapter.TaskTimeSlotsAdapter;
 import tech.ntam.babiesandbeyond.view.dialog.RateUserDialogActivity;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 import tech.ntam.mylibrary.IntentDataKey;
+import tech.ntam.mylibrary.MyDateTimeFactor;
 
 public class HistoryDetailsActivity extends MyToolbar {
     private UserHistory history;
@@ -24,6 +27,8 @@ public class HistoryDetailsActivity extends MyToolbar {
     private Button btnSendRate;
     private RecyclerView recycleView;
     private TextView tvComment;
+    private RelativeLayout dateContain;
+    private TextView date,day;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +58,12 @@ public class HistoryDetailsActivity extends MyToolbar {
             tvDateFrom.setVisibility(View.GONE);
             tvDateToText.setVisibility(View.GONE);
             tvDateTo.setVisibility(View.GONE);
+            dateContain.setVisibility(View.VISIBLE);
+            recycleView.setVisibility(View.VISIBLE);
+            date.setText(history.getHistoryDates().get(0).getDate());
+            day.setText(MyDateTimeFactor.convertDateStringToDayOfWeek(history.getHistoryDates().get(0).getDate()));
+            TaskTimeSlotsAdapter adapter = new TaskTimeSlotsAdapter(history.getHistoryDates());
+            recycleView.setAdapter(adapter);
 
         } else {
             tvDateFrom.setText(history.getHistoryDates().get(0).getFullStartDate());
@@ -74,6 +85,9 @@ public class HistoryDetailsActivity extends MyToolbar {
         tvLocation = findViewById(R.id.tv_location);
         recycleView = findViewById(R.id.recycle_view);
         tvComment = findViewById(R.id.tv_comment);
+        dateContain = findViewById(R.id.date_contain);
+        date = findViewById(R.id.tv_day_date);
+        day = findViewById(R.id.tv_day_name);
         recycleView.setLayoutManager(new LinearLayoutManager(this));
         btnSendRate.setOnClickListener(new View.OnClickListener() {
             @Override

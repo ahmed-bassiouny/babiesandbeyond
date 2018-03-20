@@ -56,11 +56,16 @@ public class UserRequestMidwifeActivity extends MyToolbar {
         tvTitle.setText(R.string.midwife_service);
         findViewById();
         onClick();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         setData();
     }
 
     private void setData() {
-        midwifeService = getIntent().getParcelableExtra(IntentDataKey.MIDWIFE);
+        midwifeService = ServiceSharedPref.getMyMidwife(this);
         if (midwifeService == null)
             finish();
         tvName.setText(midwifeService.getMidwifeName() + "\n" + midwifeService.getMidwifeStatus());
