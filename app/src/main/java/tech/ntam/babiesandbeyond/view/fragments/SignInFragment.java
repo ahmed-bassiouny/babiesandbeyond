@@ -74,11 +74,10 @@ public class SignInFragment extends Fragment {
         etPassword = view.findViewById(R.id.et_password);
         btnSignIn = view.findViewById(R.id.btn_sign_in);
         tvForgetPassword = view.findViewById(R.id.tv_forget_password);
-
-        onClick(view);
+        onClick();
     }
 
-    private void onClick(View view) {
+    private void onClick() {
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import info.hoang8f.android.segmented.SegmentedGroup;
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.babiesandbeyond.helper.ServiceSharedPref;
@@ -45,6 +47,8 @@ public class NurseScheduleFragment extends Fragment implements ParseObject<Task>
     private List<Task> completedTask;
     private List<Task> scheduleTask;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private boolean isViewShown = false;
+
 
     public NurseScheduleFragment() {
         // Required empty public constructor
@@ -68,6 +72,11 @@ public class NurseScheduleFragment extends Fragment implements ParseObject<Task>
         super.onViewCreated(view, savedInstanceState);
         findView(view);
         onClick();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         loadDataNurse();
     }
 
@@ -95,8 +104,15 @@ public class NurseScheduleFragment extends Fragment implements ParseObject<Task>
     }
 
     private void loadDataNurse() {
-        if (scheduleAdapter != null && doneAdapter != null)
+        if (scheduleAdapter != null && doneAdapter != null) {
+            if (btnSchedule.isChecked()) {
+                recyclerView.setAdapter(scheduleAdapter);
+            } else {
+                recyclerView.setAdapter(doneAdapter);
+            }
             return;
+        }
+
         completedTask = new ArrayList<>();
         scheduleTask = new ArrayList<>();
         final MyDialog dialog = new MyDialog();
@@ -173,10 +189,10 @@ public class NurseScheduleFragment extends Fragment implements ParseObject<Task>
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    if(doneAdapter == null || scheduleAdapter == null){
+                                    if (doneAdapter == null || scheduleAdapter == null) {
                                         doneAdapter = new TaskItemAdapter(NurseScheduleFragment.this, completedTask);
                                         scheduleAdapter = new TaskItemAdapter(NurseScheduleFragment.this, scheduleTask);
-                                    }else {
+                                    } else {
                                         doneAdapter.updateTask(completedTask);
                                         scheduleAdapter.updateTask(scheduleTask);
                                     }

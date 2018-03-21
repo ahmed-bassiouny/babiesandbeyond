@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,16 +13,58 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <TextView
+        android:id="@+id/tv_location_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/my_toolbar"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/museosans"
+        android:text="@string/location"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/et_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_location_text"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:fontFamily="@font/museosans"
+        android:hint="@string/type_here" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:id="@+id/my_view"
+        android:layout_below="@+id/et_location"
+        android:background="@color/off_white"/>
+    <TextView
+        android:id="@+id/tv_appointment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/my_view"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/museosans"
+        android:text="Appointment"
+        android:textSize="18sp" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycle_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/my_toolbar"
+        android:layout_above="@+id/container"
+        android:layout_below="@+id/tv_appointment"
         android:layout_marginBottom="15dp"
         android:layout_marginTop="15dp" />
 
 
     <LinearLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -49,9 +91,9 @@
             android:background="@color/colorButton"
             android:fontFamily="@font/museosans"
             android:gravity="center"
-            android:visibility="gone"
             android:orientation="horizontal"
-            android:textAllCaps="false">
+            android:textAllCaps="false"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -62,10 +104,10 @@
                 android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/tv_total"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/museosans"
-                android:id="@+id/tv_total"
                 android:textColor="@color/gray_bold"
                 android:textSize="14sp" />
         </LinearLayout>

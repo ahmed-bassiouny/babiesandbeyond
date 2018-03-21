@@ -69,6 +69,7 @@ public class HistoryDetailsActivity extends MyToolbar {
             tvDateFrom.setText(history.getHistoryDates().get(0).getFullStartDate());
             tvDateTo.setText(history.getHistoryDates().get(0).getFullEndDate());
             recycleView.setVisibility(View.GONE);
+            dateContain.setVisibility(View.GONE);
         }
     }
 

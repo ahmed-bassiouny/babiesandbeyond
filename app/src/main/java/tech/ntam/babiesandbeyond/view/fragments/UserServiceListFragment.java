@@ -164,6 +164,8 @@ public class UserServiceListFragment extends Fragment implements ParseService {
         super.onAttach(context);
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver((mMessageReceiver),
                 new IntentFilter(IntentDataKey.NOTIFICATION_SERVICE));
+        midwifeServiceItemAdapter = null;
+        serviceItemAdapter = null;
     }
 
     @Override
@@ -195,7 +197,6 @@ public class UserServiceListFragment extends Fragment implements ParseService {
                     midwifeServiceItemAdapter.deleteService(serviceId);
                     break;
             }
-
         }
     };
 
@@ -304,7 +305,7 @@ public class UserServiceListFragment extends Fragment implements ParseService {
 
     @Override
     public void getMidwife(MidwifeService midwifeService) {
-        ServiceSharedPref.setMyMidwife(getContext(),midwifeService);
+        ServiceSharedPref.setMyMidwife(getContext(), midwifeService);
         startActivity(new Intent(getContext(), UserRequestMidwifeActivity.class));
 
     }
