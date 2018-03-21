@@ -26,5 +26,8 @@ public class Constant {
 
     public static final String NOT_SET = "not determined";
 
+    public static final String ADMIN = "From Admin";
+    public static final String ME = "From Me";
+
 
 }

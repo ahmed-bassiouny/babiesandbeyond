@@ -23,13 +23,14 @@ import tech.ntam.adminapp.model.MidwifeRequestModel;
 import tech.ntam.adminapp.model.MidwifeService;
 import tech.ntam.adminapp.model.SectionOrRowMidwife;
 import tech.ntam.adminapp.view.adapter.MidwifeTimeSlots;
+import tech.ntam.adminapp.view.toolbar.MyToolbar;
 import tech.ntam.mylibrary.IntentDataKey;
 import tech.ntam.mylibrary.MyDateTimeFactor;
 import tech.ntam.mylibrary.MyDialog;
 import tech.ntam.mylibrary.Utils;
 import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 
-public class MidwifeRequestAndDetailsActivity extends AppCompatActivity {
+public class MidwifeRequestAndDetailsActivity extends MyToolbar {
 
     private CircleImageView ivProfilePhoto;
     private TextView tvName,tvNotAvailable;
@@ -45,6 +46,7 @@ public class MidwifeRequestAndDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_midwife_request_and_details);
+        setupToolbar(getString(R.string.midwife));
 
         ivProfilePhoto = findViewById(R.id.iv_profile_photo);
         tvName = findViewById(R.id.tv_name);

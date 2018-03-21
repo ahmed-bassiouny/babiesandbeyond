@@ -12,12 +12,13 @@ import android.widget.Toast;
 import tech.ntam.adminapp.R;
 import tech.ntam.adminapp.api.RequestAndResponse;
 import tech.ntam.adminapp.model.Workshop;
+import tech.ntam.adminapp.view.toolbar.MyToolbar;
 import tech.ntam.mylibrary.IntentDataKey;
 import tech.ntam.mylibrary.MyDialog;
 import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 import tech.ntam.mylibrary.interfaces.Constant;
 
-public class WorkshopDetailsActivity extends AppCompatActivity {
+public class WorkshopDetailsActivity extends MyToolbar {
 
     private TextView tvWorkshopName;
     private TextView tvDateFrom;
@@ -37,6 +38,7 @@ public class WorkshopDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workshop_details);
+        setupToolbar(getString(R.string.workshop_information));
         findViewById();
         setData();
     }

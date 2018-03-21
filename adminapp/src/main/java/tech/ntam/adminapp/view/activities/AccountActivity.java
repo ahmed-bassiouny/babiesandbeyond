@@ -11,10 +11,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import tech.ntam.adminapp.R;
+import tech.ntam.adminapp.view.toolbar.MyToolbar;
 import tech.ntam.mylibrary.UserSharedPref;
 import tech.ntam.mylibrary.Utils;
 
-public class AccountActivity extends AppCompatActivity {
+public class AccountActivity extends MyToolbar {
 
     private EditText etName;
     private EditText etPhone;
@@ -24,6 +25,7 @@ public class AccountActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
+        setupToolbar(getString(R.string.account));
         findViewById();
         setData();
         findViewById(R.id.btn_logout).setOnClickListener(new View.OnClickListener() {

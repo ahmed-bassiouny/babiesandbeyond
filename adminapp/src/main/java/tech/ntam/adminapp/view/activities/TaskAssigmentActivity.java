@@ -20,14 +20,14 @@ import tech.ntam.adminapp.R;
 import tech.ntam.adminapp.api.RequestAndResponse;
 import tech.ntam.adminapp.model.Request;
 import tech.ntam.adminapp.model.Service;
+import tech.ntam.adminapp.view.toolbar.MyToolbar;
 import tech.ntam.mylibrary.IntentDataKey;
 import tech.ntam.mylibrary.MyDialog;
 import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 
-public class TaskAssigmentActivity extends AppCompatActivity {
+public class TaskAssigmentActivity extends MyToolbar {
 
 
-    private TextView tvTitle;
     private TextView tvClientName;
     private TextView tvLocation;
     private TextView tvDateTimeFrom;
@@ -92,7 +92,7 @@ public class TaskAssigmentActivity extends AppCompatActivity {
     }
 
     private void setDataRequest() {
-        tvTitle.setText(request.getServiceTypeName()+" Assignment");
+        setupToolbar(request.getServiceTypeName()+" Assignment");
         tvClientName.setText(request.getUserName());
         tvLocation.setText(request.getLocation());
         tvDateTimeFrom.setText(request.getStartDateTime());
@@ -143,7 +143,6 @@ public class TaskAssigmentActivity extends AppCompatActivity {
     }
 
     private void findViewById() {
-        tvTitle = findViewById(R.id.tv_title);
         tvClientName = findViewById(R.id.tv_client_name);
         tvLocation = findViewById(R.id.tv_location);
         tvDateTimeFrom = findViewById(R.id.tv_date_time_from);

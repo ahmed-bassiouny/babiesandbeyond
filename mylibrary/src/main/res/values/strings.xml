@@ -190,4 +190,5 @@
     <string name="new_message">New Message</string>
     <string name="view_map">(View Map)</string>
     <string name="clients">Clients</string>
+    <string name="client_info">Client Info</string>
 </resources>

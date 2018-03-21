@@ -7,22 +7,32 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/tv_message"
+        android:id="@+id/tv_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/museosans"
         android:textColor="@color/gray_bold"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/museosans"
+        android:textColor="@color/light_gray"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:textSize="12sp" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="12sp"
+        android:textSize="16sp"
         android:layout_marginTop="5dp"
-        android:layout_marginStart="15dp"
-        android:id="@+id/tv_date"/>
+        android:layout_marginStart="10dp"
+        android:id="@+id/tv_message"/>
 
     <View
         android:layout_width="match_parent"

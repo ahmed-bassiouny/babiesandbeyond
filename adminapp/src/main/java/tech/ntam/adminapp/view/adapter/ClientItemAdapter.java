@@ -80,4 +80,8 @@ public class ClientItemAdapter extends RecyclerView.Adapter<ClientItemAdapter.My
         this.clients = clients;
         notifyDataSetChanged();
     }
+    public void addMoreClients(List<Client> clients) {
+        this.clients.addAll(clients);
+        notifyDataSetChanged();
+    }
 }

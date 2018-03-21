@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,22 +8,16 @@
     tools:context="tech.ntam.adminapp.view.activities.ClientsActivity">
 
 
-    <TextView
-        android:id="@+id/tv_title"
+    <include
+        android:id="@+id/my_toolbar"
+        layout="@layout/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:background="@color/gray_bold"
-        android:fontFamily="@font/museosans"
-        android:gravity="center"
-        android:padding="15dp"
-        android:text="Clients"
-        android:textColor="@color/white"
-        android:textSize="20sp" />
+        android:layout_height="wrap_content" />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/my_toolbar"
         android:id="@+id/swpie_refresh_layout">
 
         <android.support.v7.widget.RecyclerView
@@ -31,5 +25,12 @@
             android:layout_height="match_parent"
             android:id="@+id/recycle_view"/>
     </android.support.v4.widget.SwipeRefreshLayout>
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/progress"
+        android:visibility="invisible" />
 
-</LinearLayout>
+</RelativeLayout>

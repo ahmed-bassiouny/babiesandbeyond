@@ -13,6 +13,7 @@ import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.interfaces.ParseObject;
 import tech.ntam.babiesandbeyond.model.MessageAdmin;
 import tech.ntam.babiesandbeyond.model.UserHistory;
+import tech.ntam.mylibrary.interfaces.Constant;
 
 /**
  * Created by bassiouny on 22/12/17.
@@ -21,19 +22,23 @@ import tech.ntam.babiesandbeyond.model.UserHistory;
 public class MessageAdminItemAdapter extends RecyclerView.Adapter<MessageAdminItemAdapter.MyViewHolder> {
 
     private List<MessageAdmin> messageAdmins;
+    private String userId;
 
-    public MessageAdminItemAdapter(List<MessageAdmin> messageAdmins) {
+    public MessageAdminItemAdapter(List<MessageAdmin> messageAdmins, String userId) {
         this.messageAdmins = messageAdmins;
+        this.userId = userId;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView tvMessage;
         private TextView tvDate;
+        private TextView tvName;
 
         public MyViewHolder(View view) {
             super(view);
             tvMessage = view.findViewById(R.id.tv_message);
             tvDate = view.findViewById(R.id.tv_date);
+            tvName = view.findViewById(R.id.tv_name);
 
         }
     }
@@ -50,6 +55,11 @@ public class MessageAdminItemAdapter extends RecyclerView.Adapter<MessageAdminIt
         MessageAdmin item = messageAdmins.get(position);
         holder.tvMessage.setText(item.getMessage());
         holder.tvDate.setText(item.getDate());
+        if (item.getFromId().equals(userId))
+            holder.tvName.setText(Constant.ME);
+        else
+            holder.tvName.setText(Constant.ADMIN);
+
     }
 
     @Override
@@ -57,12 +67,13 @@ public class MessageAdminItemAdapter extends RecyclerView.Adapter<MessageAdminIt
         return messageAdmins.size();
     }
 
-    public void updateList(List<MessageAdmin> messageAdmins){
+    public void updateList(List<MessageAdmin> messageAdmins) {
         this.messageAdmins = messageAdmins;
         notifyDataSetChanged();
     }
-    public void addMessage(MessageAdmin item){
-        this.messageAdmins.add(0,item);
+
+    public void addMessage(MessageAdmin item) {
+        this.messageAdmins.add(0, item);
         notifyItemInserted(0);
     }
 }

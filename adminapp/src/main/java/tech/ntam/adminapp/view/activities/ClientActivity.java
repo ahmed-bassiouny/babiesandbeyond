@@ -7,10 +7,11 @@ import android.widget.EditText;
 import de.hdodenhof.circleimageview.CircleImageView;
 import tech.ntam.adminapp.R;
 import tech.ntam.adminapp.model.Client;
+import tech.ntam.adminapp.view.toolbar.MyToolbar;
 import tech.ntam.mylibrary.IntentDataKey;
 import tech.ntam.mylibrary.Utils;
 
-public class ClientActivity extends AppCompatActivity {
+public class ClientActivity extends MyToolbar {
 
     private CircleImageView ivProfilePhoto;
     private EditText etName;
@@ -23,6 +24,7 @@ public class ClientActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client);
+        setupToolbar(getString(R.string.client_info));
         findView();
         setData();
     }

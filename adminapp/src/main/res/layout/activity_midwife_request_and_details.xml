@@ -8,25 +8,19 @@
     tools:context=".view.activities.MidwifeRequestAndDetailsActivity">
 
 
-    <TextView
-        android:id="@+id/tv_title"
+
+    <include
+        android:id="@+id/my_toolbar"
+        layout="@layout/toolbar"
         android:layout_width="match_parent"
-        android:background="@color/gray_bold"
-        android:padding="15dp"
-        android:textColor="@color/white"
-        android:gravity="center"
-        android:text="@string/midwife"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:fontFamily="@font/museosans"
-        android:textSize="20sp" />
+        android:layout_height="wrap_content" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_profile_photo"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginStart="10dp"
-        android:layout_below="@+id/tv_title"
+        android:layout_below="@+id/my_toolbar"
         android:layout_marginTop="20dp"
         android:src="@drawable/person"
         app:civ_border_width="0dp" />

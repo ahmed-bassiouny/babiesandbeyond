@@ -24,6 +24,7 @@ import tech.ntam.babiesandbeyond.model.MessageAdmin;
 import tech.ntam.babiesandbeyond.view.adapter.MessageAdminItemAdapter;
 import tech.ntam.babiesandbeyond.view.dialog.NewMessageToAdminActivity;
 import tech.ntam.mylibrary.IntentDataKey;
+import tech.ntam.mylibrary.UserSharedPref;
 import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 
 /**
@@ -87,7 +88,7 @@ public class MessageToAdminFragment extends Fragment {
             @Override
             public void onSuccess(List<MessageAdmin> messageAdmins) {
                 if (messageAdminItemAdapter == null) {
-                    messageAdminItemAdapter = new MessageAdminItemAdapter(messageAdmins);
+                    messageAdminItemAdapter = new MessageAdminItemAdapter(messageAdmins, String.valueOf(UserSharedPref.getId(getContext())));
                     recycleView.setAdapter(messageAdminItemAdapter);
                 } else {
                     messageAdminItemAdapter.updateList(messageAdmins);
