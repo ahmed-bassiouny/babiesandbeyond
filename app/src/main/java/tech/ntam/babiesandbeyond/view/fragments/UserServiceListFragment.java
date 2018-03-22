@@ -305,8 +305,11 @@ public class UserServiceListFragment extends Fragment implements ParseService {
 
     @Override
     public void getMidwife(MidwifeService midwifeService) {
-        ServiceSharedPref.setMyMidwife(getContext(), midwifeService);
-        startActivity(new Intent(getContext(), UserRequestMidwifeActivity.class));
+        /*ServiceSharedPref.setMyMidwife(getContext(), midwifeService);
+        startActivity(new Intent(getContext(), UserRequestMidwifeActivity.class));*/
+        Intent intent = new Intent(getContext(), UserRequestMidwifeActivity.class);
+        intent.putExtra(IntentDataKey.MY_SERVICE, midwifeService);
+        startActivity(intent);
 
     }
 }

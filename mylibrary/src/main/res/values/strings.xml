@@ -133,7 +133,7 @@
 
     <string name="join_group">Join Group</string>
     <string name="leave_group">Leave Group</string>
-    <string name="notification">Notification</string>
+    <string name="notification">Notifications</string>
     <string name="photo_large">this photo is too large</string>
     <string name="request">Request</string>
     <string name="add_request">Add Request</string>
@@ -179,8 +179,10 @@
     <string name="subject">Subject</string>
     <array name="contact_reason">
         <item>None</item>
-        <item>Complain</item>
+        <item>Inquiry</item>
         <item>Suggestion</item>
+        <item>Complaint</item>
+        <item>General</item>
     </array>
     <string name="finish_date">Finish Date</string>
     <string name="finish_time">Finish Time</string>
@@ -191,4 +193,6 @@
     <string name="view_map">(View Map)</string>
     <string name="clients">Clients</string>
     <string name="client_info">Client Info</string>
+    <string name="none">None</string>
+    <string name="bio">Bio</string>
 </resources>

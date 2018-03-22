@@ -149,6 +149,9 @@ public class ShowServiceInfoActivity extends MyToolbar {
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+            String serviceId = intent.getStringExtra(IntentDataKey.NOTIFICATION_ID);
+            if(!serviceId.equals(service.getIdString()))
+                return;
             String action = intent.getStringExtra(IntentDataKey.NOTIFICATION_ACTION);
             String price = intent.getStringExtra(IntentDataKey.NOTIFICATION_SERVICE_PRICE);
             String staffName = intent.getStringExtra(IntentDataKey.NOTIFICATION_STAFF_NAME);

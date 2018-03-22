@@ -173,6 +173,9 @@ public class ShowWorkshopInfoActivity extends MyToolbar {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getStringExtra(IntentDataKey.NOTIFICATION_ACTION);
+            String serviceId = intent.getStringExtra(IntentDataKey.NOTIFICATION_ID);
+            if(!serviceId.equals(workshop.getWorkshopId()))
+                return;
             switch (action) {
                 case "0":
                     Toast.makeText(context, "Your Request Deleted", Toast.LENGTH_SHORT).show();

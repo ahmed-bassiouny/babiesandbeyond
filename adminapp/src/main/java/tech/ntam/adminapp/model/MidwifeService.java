@@ -29,7 +29,7 @@ public class MidwifeService implements Parcelable {
     private String midwifeStatus;
     @SerializedName("time_slots")
     private List<MidwifeRequestModel> timeSlots;
-    @SerializedName("unique_key")
+    @SerializedName("id")
     private String uniqueKey;
     @SerializedName("user_name")
     private String userName;

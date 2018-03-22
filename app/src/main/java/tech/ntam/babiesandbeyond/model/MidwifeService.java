@@ -35,6 +35,8 @@ public class MidwifeService implements Parcelable {
     private String pricePerHour;
     @SerializedName("bio")
     private String bio;
+    @SerializedName("location")
+    private String location;
 
 
     public String getMidwifeName() {
@@ -85,6 +87,11 @@ public class MidwifeService implements Parcelable {
                 return R.color.white;
         }
     }
+
+    public String getLocation() {
+        return Utils.getValueFromString(location);
+    }
+
     public String getMidwifeStatus() {
         midwifeStatus = Utils.getValueFromString(midwifeStatus);
         if (midwifeStatus.equals(Constant.PENDING)) {
@@ -117,6 +124,7 @@ public class MidwifeService implements Parcelable {
         dest.writeString(this.uniqueKey);
         dest.writeString(this.pricePerHour);
         dest.writeString(this.bio);
+        dest.writeString(this.location);
     }
 
     public MidwifeService() {
@@ -131,6 +139,7 @@ public class MidwifeService implements Parcelable {
         this.timeSlots = in.createTypedArrayList(MidwifeRequestModel.CREATOR);
         this.uniqueKey = in.readString();
         this.pricePerHour = in.readString();
+        this.location = in.readString();
         this.bio = in.readString();
     }
 

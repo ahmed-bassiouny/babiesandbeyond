@@ -18,28 +18,28 @@
         android:textStyle="bold" />
 
     <LinearLayout
-        android:id="@+id/linear_account"
+        android:id="@+id/linear_clients"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:padding="10dp"
-            android:tint="@color/gray_bold"
-            android:src="@drawable/ic_account_circle_black_24dp" />
+            android:src="@drawable/ic_people_black_24dp"/>
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:fontFamily="@font/museosans"
-            android:gravity="center"
-            android:text="@string/account"
+            android:layout_gravity="center"
+            android:text="@string/clients"
             android:textColor="@color/gray_bold"
             android:textSize="16sp" />
     </LinearLayout>
+
 
     <View
         android:layout_width="match_parent"
@@ -47,26 +47,26 @@
         android:layout_margin="5dp"
         android:background="@color/off_white" />
 
-
     <LinearLayout
-        android:id="@+id/linear_clients"
+        android:id="@+id/linear_account"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:padding="10dp"
-            android:src="@drawable/ic_people_black_24dp"/>
+            android:tint="@color/gray_bold"
+            android:src="@drawable/ic_account_circle_black_24dp" />
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:fontFamily="@font/museosans"
-            android:gravity="center"
-            android:text="@string/clients"
+            android:text="@string/account"
+            android:layout_gravity="center"
             android:textColor="@color/gray_bold"
             android:textSize="16sp" />
     </LinearLayout>

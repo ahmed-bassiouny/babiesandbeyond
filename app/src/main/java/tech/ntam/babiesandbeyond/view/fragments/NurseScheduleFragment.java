@@ -1,6 +1,7 @@
 package tech.ntam.babiesandbeyond.view.fragments;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -47,7 +48,6 @@ public class NurseScheduleFragment extends Fragment implements ParseObject<Task>
     private List<Task> completedTask;
     private List<Task> scheduleTask;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private boolean isViewShown = false;
 
 
     public NurseScheduleFragment() {
@@ -72,6 +72,13 @@ public class NurseScheduleFragment extends Fragment implements ParseObject<Task>
         super.onViewCreated(view, savedInstanceState);
         findView(view);
         onClick();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        scheduleAdapter = null;
+        doneAdapter = null ;
     }
 
     @Override

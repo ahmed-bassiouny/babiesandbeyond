@@ -39,7 +39,7 @@ import tech.ntam.mylibrary.interfaces.Constant;
 public class UserRequestMidwifeActivity extends MyToolbar {
 
     private CircleImageView ivProfilePhoto;
-    private TextView tvName, tvTotal;
+    private TextView tvName, tvTotal,tvStatus,tvLocation,tvFees,tvBio;
     private RecyclerView recycleView;
     private Button btnCancel;
     private LinearLayout btnPay;
@@ -56,19 +56,23 @@ public class UserRequestMidwifeActivity extends MyToolbar {
         tvTitle.setText(R.string.midwife_service);
         findViewById();
         onClick();
+        setData();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        setData();
+        checkServiceStatus();
     }
 
     private void setData() {
-        midwifeService = ServiceSharedPref.getMyMidwife(this);
+        midwifeService = getIntent().getParcelableExtra(IntentDataKey.MY_SERVICE);//ServiceSharedPref.getMyMidwife(this);
         if (midwifeService == null)
             finish();
-        tvName.setText(midwifeService.getMidwifeName() + "\n" + midwifeService.getMidwifeStatus());
+        tvName.append(" : "+midwifeService.getMidwifeName());
+        tvStatus.append(" : "+midwifeService.getMidwifeStatus());
+        tvLocation.setText(midwifeService.getLocation());
+        tvBio.setText(midwifeService.getBio());
         if (!midwifeService.getMidwifePhoto().isEmpty())
             Utils.MyGlide(this, ivProfilePhoto, midwifeService.getMidwifePhoto());
         sectionOrRowMidwives = new ArrayList<>();
@@ -87,6 +91,10 @@ public class UserRequestMidwifeActivity extends MyToolbar {
         tvTotal.setText(" (cost " + totalPrice + ") ");
         MidwifeTimeSlots adapter = new MidwifeTimeSlots(this, sectionOrRowMidwives);
         recycleView.setAdapter(adapter);
+        tvFees.append(" : "+String.valueOf(totalPrice)+" $");
+
+    }
+    private void checkServiceStatus(){
         if (midwifeService.getMidwifeStatus().equals(Constant.PENDING)) {
             btnPay.setVisibility(View.GONE);
             btnCancel.setVisibility(View.VISIBLE);
@@ -139,6 +147,10 @@ public class UserRequestMidwifeActivity extends MyToolbar {
         btnCancel = findViewById(R.id.btn_cancel);
         btnPay = findViewById(R.id.btn_pay);
         tvTotal = findViewById(R.id.tv_total);
+        tvStatus = findViewById(R.id.tv_status);
+        tvLocation = findViewById(R.id.tv_location);
+        tvFees = findViewById(R.id.tv_fees);
+        tvBio = findViewById(R.id.tv_bio);
         recycleView.setLayoutManager(new LinearLayoutManager(this));
     }
 
