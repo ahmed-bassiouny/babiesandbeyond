@@ -35,6 +35,12 @@ public class MidwifeService implements Parcelable {
     private String userName;
     @SerializedName("user_photo")
     private String userPhoto;
+    @SerializedName("bio")
+    private String bio;
+    @SerializedName("location")
+    private String location;
+    @SerializedName("price_per_hour")
+    private String pricePerHour;
 
     public String getMidwifeName() {
         return Utils.getValueFromString(midwifeName);
@@ -77,12 +83,26 @@ public class MidwifeService implements Parcelable {
         }
     }
 
+    public String getBio() {
+        return Utils.getValueFromString(bio);
+    }
+
+    public String getLocation() {
+        return Utils.getValueFromString(location);
+    }
+
     public String getUserName() {
         return Utils.getValueFromString(userName);
     }
 
     public String getUserPhoto() {
         return Utils.getValueFromString(userPhoto);
+    }
+
+    public String getPricePerHour() {
+        if(pricePerHour == null)
+            return "0";
+        return pricePerHour;
     }
 
     public String getMidwifeStatus() {
@@ -117,6 +137,9 @@ public class MidwifeService implements Parcelable {
         dest.writeString(this.uniqueKey);
         dest.writeString(this.userName);
         dest.writeString(this.userPhoto);
+        dest.writeString(this.bio);
+        dest.writeString(this.location);
+        dest.writeString(this.pricePerHour);
     }
 
     public MidwifeService() {
@@ -132,6 +155,9 @@ public class MidwifeService implements Parcelable {
         this.uniqueKey = in.readString();
         this.userName = in.readString();
         this.userPhoto = in.readString();
+        this.bio = in.readString();
+        this.location = in.readString();
+        this.pricePerHour = in.readString();
     }
 
     public static final Creator<MidwifeService> CREATOR = new Creator<MidwifeService>() {

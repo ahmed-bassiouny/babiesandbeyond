@@ -139,8 +139,8 @@ public class MidwifeService implements Parcelable {
         this.timeSlots = in.createTypedArrayList(MidwifeRequestModel.CREATOR);
         this.uniqueKey = in.readString();
         this.pricePerHour = in.readString();
-        this.location = in.readString();
         this.bio = in.readString();
+        this.location = in.readString();
     }
 
     public static final Creator<MidwifeService> CREATOR = new Creator<MidwifeService>() {

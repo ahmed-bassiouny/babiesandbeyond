@@ -39,6 +39,7 @@ import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 public class NurseScheduleFragment extends Fragment implements ParseObject<Task> {
 
 
+    private final int REQUEST_CODE = 25;
     private static NurseScheduleFragment nurseScheduleFragment;
     private RecyclerView recyclerView;
     private TaskItemAdapter scheduleAdapter;
@@ -78,7 +79,7 @@ public class NurseScheduleFragment extends Fragment implements ParseObject<Task>
     public void onAttach(Context context) {
         super.onAttach(context);
         scheduleAdapter = null;
-        doneAdapter = null ;
+        doneAdapter = null;
     }
 
     @Override
@@ -172,7 +173,7 @@ public class NurseScheduleFragment extends Fragment implements ParseObject<Task>
     @Override
     public void getMyObject(Task task) {
         ServiceSharedPref.setTask(getContext(), task);
-        startActivity(new Intent(getContext(), showTaskDetailsActivity.class));
+        startActivityForResult(new Intent(getContext(), showTaskDetailsActivity.class), REQUEST_CODE);
     }
 
     private void refreshDataNurse() {
@@ -219,5 +220,21 @@ public class NurseScheduleFragment extends Fragment implements ParseObject<Task>
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE) {
+            Task item = ServiceSharedPref.getMyTask(getContext());
+            if (item != null) {
+                if (item.isCompleted()) {
+                    doneAdapter.updateTaskComment(item.getId(), item.getComment());
+                } else {
+                    scheduleAdapter.updateTaskComment(item.getId(), item.getComment());
+                }
+            }
+            ServiceSharedPref.clearTask(getContext());
+        }
     }
 }

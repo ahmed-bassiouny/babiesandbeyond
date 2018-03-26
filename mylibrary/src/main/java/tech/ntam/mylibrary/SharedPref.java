@@ -21,6 +21,7 @@ public class SharedPref {
     public final static String TOKEN_HEADER_KEY = "Bearer ";
     public final static String SERVICE = "service";
     public final static String TASK = "task";
+    public final static String CLIENT = "client";
     public final static String WORKSHOP = "workshop";
     public final static String MIDWIFE = "midwife";
     public final static String IM_MIDWIFE = "im_midwife";

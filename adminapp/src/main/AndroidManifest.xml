@@ -9,7 +9,7 @@
         android:icon="@drawable/appicon"
         android:label="@string/app_name"
         android:roundIcon="@drawable/appicon"
-        android:supportsRtl="false"
+        android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".view.activities.SignInActivity"
@@ -71,6 +71,10 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.activities.ClientActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".view.activities.AddClientActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>

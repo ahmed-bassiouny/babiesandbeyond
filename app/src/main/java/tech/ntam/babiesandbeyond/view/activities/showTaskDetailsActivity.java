@@ -127,7 +127,7 @@ public class showTaskDetailsActivity extends MyToolbar {
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
             recyclerView.setAdapter(adapter);
         }
-        if (!task.getLatitude().isEmpty() && !task.getLongitude().isEmpty()) {
+        if (task.getLatitudeDouble()!=0 && task.getLongitudeDouble()!=0) {
             tvViewUserLocation.setVisibility(View.VISIBLE);
         }
     }

@@ -24,6 +24,7 @@ import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.babiesandbeyond.helper.ServiceSharedPref;
 import tech.ntam.babiesandbeyond.model.AvailableTimeMidwife;
+import tech.ntam.babiesandbeyond.model.Midwife;
 import tech.ntam.babiesandbeyond.model.MidwifeRequestModel;
 import tech.ntam.babiesandbeyond.model.MidwifeService;
 import tech.ntam.babiesandbeyond.model.SectionOrRowMidwife;
@@ -39,7 +40,7 @@ import tech.ntam.mylibrary.interfaces.Constant;
 public class UserRequestMidwifeActivity extends MyToolbar {
 
     private CircleImageView ivProfilePhoto;
-    private TextView tvName, tvTotal,tvStatus,tvLocation,tvFees,tvBio;
+    private TextView tvName, tvTotal, tvStatus, tvLocation, tvFees, tvBio;
     private RecyclerView recycleView;
     private Button btnCancel;
     private LinearLayout btnPay;
@@ -62,15 +63,19 @@ public class UserRequestMidwifeActivity extends MyToolbar {
     @Override
     protected void onResume() {
         super.onResume();
-        checkServiceStatus();
+        MidwifeService item = ServiceSharedPref.getMyMidwife(this);
+        if (item != null) {
+            midwifeService = item;
+            checkServiceStatus();
+            ServiceSharedPref.clearMyMidwife(this);
+        }
     }
 
     private void setData() {
         midwifeService = getIntent().getParcelableExtra(IntentDataKey.MY_SERVICE);//ServiceSharedPref.getMyMidwife(this);
         if (midwifeService == null)
             finish();
-        tvName.append(" : "+midwifeService.getMidwifeName());
-        tvStatus.append(" : "+midwifeService.getMidwifeStatus());
+        tvName.append(" : " + midwifeService.getMidwifeName());
         tvLocation.setText(midwifeService.getLocation());
         tvBio.setText(midwifeService.getBio());
         if (!midwifeService.getMidwifePhoto().isEmpty())
@@ -91,10 +96,13 @@ public class UserRequestMidwifeActivity extends MyToolbar {
         tvTotal.setText(" (cost " + totalPrice + ") ");
         MidwifeTimeSlots adapter = new MidwifeTimeSlots(this, sectionOrRowMidwives);
         recycleView.setAdapter(adapter);
-        tvFees.append(" : "+String.valueOf(totalPrice)+" $");
+        tvFees.append(" : " + String.valueOf(totalPrice) + " $");
+        checkServiceStatus();
 
     }
-    private void checkServiceStatus(){
+
+    private void checkServiceStatus() {
+        tvStatus.setText(getString(R.string.status) + " : " + midwifeService.getMidwifeStatus());
         if (midwifeService.getMidwifeStatus().equals(Constant.PENDING)) {
             btnPay.setVisibility(View.GONE);
             btnCancel.setVisibility(View.VISIBLE);

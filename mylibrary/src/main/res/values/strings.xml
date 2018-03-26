@@ -27,7 +27,7 @@
     <string name="services">Services</string>
     <string name="events">Events</string>
     <string name="Workshops">Workshops</string>
-    <string name="message">Messages</string>
+    <string name="message">Message</string>
     <string name="about_us">About Us</string>
     <string name="confirmation_without_payment">Ask For Pay</string>
     <string name="confirmation_with_payment">Done</string>
@@ -183,6 +183,7 @@
         <item>Suggestion</item>
         <item>Complaint</item>
         <item>General</item>
+        <item>Ask Midwife</item>
     </array>
     <string name="finish_date">Finish Date</string>
     <string name="finish_time">Finish Time</string>
@@ -192,7 +193,9 @@
     <string name="new_message">New Message</string>
     <string name="view_map">(View Map)</string>
     <string name="clients">Clients</string>
+    <string name="add_client">Add Client</string>
     <string name="client_info">Client Info</string>
     <string name="none">None</string>
     <string name="bio">Bio</string>
+
 </resources>

@@ -35,4 +35,9 @@ public class MyToolbar extends AppCompatActivity {
         });
         setSupportActionBar(toolbar);
     }
+    protected void addButton(View.OnClickListener onClickListener){
+        ImageView ivAdd = findViewById(R.id.add);
+        ivAdd.setVisibility(View.VISIBLE);
+        ivAdd.setOnClickListener(onClickListener);
+    }
 }

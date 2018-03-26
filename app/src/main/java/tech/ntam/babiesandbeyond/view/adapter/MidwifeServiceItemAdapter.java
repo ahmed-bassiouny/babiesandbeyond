@@ -149,7 +149,7 @@ public class MidwifeServiceItemAdapter extends RecyclerView.Adapter<MidwifeServi
 
     public void insertService(final MidwifeService midwifeService) {
         services.add(midwifeService);
-        notifyItemChanged(services.size()-1);
+        notifyItemChanged(0);
     }
     public void updateMidwifeServices(List<MidwifeService> midwifeServices) {
         this.services = midwifeServices;

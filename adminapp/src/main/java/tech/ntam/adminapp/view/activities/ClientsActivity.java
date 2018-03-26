@@ -37,6 +37,12 @@ public class ClientsActivity extends MyToolbar implements ParseObject<Client> {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clients);
         setupToolbar(getString(R.string.clients));
+        addButton(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(new Intent(ClientsActivity.this,AddClientActivity.class),COUNT_ITEMS_PER_REQUEST);
+            }
+        });
         findView();
         loadClients();
     }
@@ -140,4 +146,14 @@ public class ClientsActivity extends MyToolbar implements ParseObject<Client> {
         startActivity(intent);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(data != null && resultCode == RESULT_OK && requestCode == COUNT_ITEMS_PER_REQUEST){
+            Client item = data.getParcelableExtra(IntentDataKey.CLIENT);
+            if(adapter == null)
+                return;
+            adapter.addClient(item);
+        }
+    }
 }

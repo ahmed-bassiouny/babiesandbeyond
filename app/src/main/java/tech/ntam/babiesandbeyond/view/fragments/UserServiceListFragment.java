@@ -15,6 +15,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -307,6 +308,7 @@ public class UserServiceListFragment extends Fragment implements ParseService {
     public void getMidwife(MidwifeService midwifeService) {
         /*ServiceSharedPref.setMyMidwife(getContext(), midwifeService);
         startActivity(new Intent(getContext(), UserRequestMidwifeActivity.class));*/
+        Log.e( "getMidwife: ",midwifeService.getBio() );
         Intent intent = new Intent(getContext(), UserRequestMidwifeActivity.class);
         intent.putExtra(IntentDataKey.MY_SERVICE, midwifeService);
         startActivity(intent);

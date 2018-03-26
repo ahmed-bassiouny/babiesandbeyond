@@ -25,19 +25,90 @@
         android:src="@drawable/person"
         app:civ_border_width="0dp" />
 
-    <TextView
-        android:id="@+id/tv_name"
+    <LinearLayout
+        android:id="@+id/linear_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/iv_profile_photo"
         android:layout_alignTop="@+id/iv_profile_photo"
+        android:layout_below="@+id/my_toolbar"
         android:layout_marginEnd="10dp"
-        android:layout_below="@+id/tv_title"
         android:layout_marginStart="10dp"
         android:layout_toEndOf="@+id/iv_profile_photo"
-        android:gravity="center_vertical"
-        android:textColor="@color/gray_bold"
-        android:textSize="16sp" />
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="@string/name"
+            android:textColor="@color/gray_bold"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="@string/status"
+            android:textColor="@color/gray_bold"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="Location :"
+                android:textColor="@color/gray_bold"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:textColor="@color/gray_bold"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tv_fees"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="@string/fee"
+            android:textColor="@color/gray_bold"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bio : "
+                android:textColor="@color/gray_bold"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_bio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:textColor="@color/gray_bold"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </LinearLayout>
+
 
 
     <android.support.v7.widget.RecyclerView
@@ -45,7 +116,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/btn_approve"
-        android:layout_below="@+id/iv_profile_photo"
+        android:layout_below="@+id/linear_container"
         android:layout_marginTop="10dp" />
 
     <Button

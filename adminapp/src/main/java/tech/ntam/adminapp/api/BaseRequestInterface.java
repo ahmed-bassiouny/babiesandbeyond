@@ -29,6 +29,7 @@ public interface BaseRequestInterface {
     String MIDWIFE_REQUESTS = "midwife/get-reservations";
     String APPROVE_MIDWIFE_REQUEST = "midwife/confirm-without-payment";
     String CLIENTS = "user/all-clients";
+    String ADD_USER = "add_user";
 
 
     @FormUrlEncoded
@@ -56,7 +57,7 @@ public interface BaseRequestInterface {
     @Headers(HEADER_KEY)
     @POST(WORKSHOP_REQUESTS)
     Call<WorkshopListResponse> getWorkshopLRequest(@Header(AUTHORIZATION) String token,
-                                                @Field("admin_id") int adminId);
+                                                   @Field("admin_id") int adminId);
 
     @FormUrlEncoded
     @POST(FORGET_PASSWORD)
@@ -76,20 +77,20 @@ public interface BaseRequestInterface {
     @Headers(HEADER_KEY)
     @POST(ASSIGN_TASK)
     Call<ParentResponse> assignStaff(@Header(AUTHORIZATION) String token,
-                                                   @Field("admin_id") int adminId,
-                                                   @Field("staff_id") int staffId,
-                                                   @Field("service_id") int requestId,
-                                                   @Field("service_type_name") String serviceTypeName,
-                                                   @Field("user_id") int userId);
+                                     @Field("admin_id") int adminId,
+                                     @Field("staff_id") int staffId,
+                                     @Field("service_id") int requestId,
+                                     @Field("service_type_name") String serviceTypeName,
+                                     @Field("user_id") int userId);
 
 
     @FormUrlEncoded
     @Headers(HEADER_KEY)
     @POST(WORKSHOP_INVOICE)
     Call<ParentResponse> createWorkshopInvoice(@Header(AUTHORIZATION) String token,
-                                     @Field("admin_id") int adminId,
-                                     @Field("user_id") String userId,
-                                     @Field("user_workshop_id") int userWorkshopId);
+                                               @Field("admin_id") int adminId,
+                                               @Field("user_id") String userId,
+                                               @Field("user_workshop_id") int userWorkshopId);
 
 
     @Headers(HEADER_KEY)
@@ -105,13 +106,24 @@ public interface BaseRequestInterface {
     @Headers(HEADER_KEY)
     @POST(APPROVE_MIDWIFE_REQUEST)
     Call<ParentResponse> approveMidwifeRequest(@Header(AUTHORIZATION) String token,
-                                                     @Field("admin_id") int adminId,
-                                                     @Field("unique_key") String uniqueKey);
+                                               @Field("admin_id") int adminId,
+                                               @Field("unique_key") String uniqueKey);
 
 
     @FormUrlEncoded
     @Headers(HEADER_KEY)
     @POST(CLIENTS)
     Call<ClientsResponse> getClients(@Header(AUTHORIZATION) String token,
-                                               @Field("page") int page);
+                                     @Field("page") int page);
+
+    @FormUrlEncoded
+    @Headers(HEADER_KEY)
+    @POST(ADD_USER)
+    Call<AddClientResponse> addClient(@Header(AUTHORIZATION) String token,
+                                    @Field("name") String name,
+                                    @Field("email") String email,
+                                    @Field("phone") String phone,
+                                    @Field("photo") String photo,
+                                    @Field("birthday") String birthday,
+                                    @Field("password") String password);
 }

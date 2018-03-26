@@ -82,9 +82,15 @@ public class CreateGroupActivity extends MyToolbar {
                                         }
 
                                         @Override
-                                        public void onFailed(String errorMessage) {
-                                            Toast.makeText(CreateGroupActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
-                                            myDialog.dismissMyDialog();
+                                        public void onFailed(final String errorMessage) {
+                                            final String error = errorMessage;
+                                            runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    Toast.makeText(CreateGroupActivity.this, error, Toast.LENGTH_SHORT).show();
+                                                    myDialog.dismissMyDialog();
+                                                }
+                                            });
                                         }
                                     });
                         }

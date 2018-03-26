@@ -23,6 +23,8 @@ public class MyDateTimeFactor {
     public static final String TIME_FORMAT_WITHOUT_SECOND = "hh:mm";
     public static final String TIME_FORMAT_WITHOUT_SECOND_LARGE = "HH:mm";
     public static final String DATE_TIME_FORMAT_NUMBER_WITHOUT_SECOND = "yyyy-MM-dd HH:mm a";
+    public static final String DATE_TIME_FORMAT_NUMBER_WITHOUT_SECOND_12 = "yyyy-MM-dd hh:mm a";
+
 
     public static String changeDateFormatFromNumberToText(String dateStr) throws ParseException {
         DateFormat originalFormat = new SimpleDateFormat(DATE_TIME_FORMAT_NUMBER, Locale.ENGLISH);
@@ -33,7 +35,7 @@ public class MyDateTimeFactor {
 
     public static String changeFullDateTimeTODateTimeWithoutSecond(String dateStr) {
         DateFormat originalFormat = new SimpleDateFormat(DATE_TIME_FORMAT_NUMBER, Locale.ENGLISH);
-        DateFormat targetFormat = new SimpleDateFormat(DATE_TIME_FORMAT_NUMBER_WITHOUT_SECOND, Locale.ENGLISH);
+        DateFormat targetFormat = new SimpleDateFormat(DATE_TIME_FORMAT_NUMBER_WITHOUT_SECOND_12, Locale.ENGLISH);
         Date date;
         try {
             date = originalFormat.parse(dateStr);
@@ -44,7 +46,7 @@ public class MyDateTimeFactor {
 
     }
     public static String changeDateTimeWithoutSecondToFullDateTime(String dateStr) {
-        DateFormat originalFormat = new SimpleDateFormat(DATE_TIME_FORMAT_NUMBER_WITHOUT_SECOND, Locale.ENGLISH);
+        DateFormat originalFormat = new SimpleDateFormat(DATE_TIME_FORMAT_NUMBER_WITHOUT_SECOND_12, Locale.ENGLISH);
         DateFormat targetFormat = new SimpleDateFormat(DATE_TIME_FORMAT_NUMBER, Locale.ENGLISH);
         Date date ;
         try {
@@ -68,7 +70,7 @@ public class MyDateTimeFactor {
     }
     public static Date convertStringToDateWithoutSecond(String date) {
 
-        DateFormat format = new SimpleDateFormat(DATE_TIME_FORMAT_NUMBER_WITHOUT_SECOND, Locale.ENGLISH);
+        DateFormat format = new SimpleDateFormat(DATE_TIME_FORMAT_NUMBER_WITHOUT_SECOND_12, Locale.ENGLISH);
         try {
             return format.parse(date);
         } catch (ParseException e) {

@@ -288,5 +288,28 @@ public class RequestAndResponse {
             }
         });
     }
+    public static void addClient(Context context,String name,
+                                  String email,String phone, String photo,
+                                  String birthday,String password, final BaseResponseInterface<Client> anInterface) {
+        Call<AddClientResponse> response = baseRequestInterface.addClient(
+                UserSharedPref.getTokenWithHeader(context),
+                name,email,phone,photo,birthday,password);
+        response.enqueue(new Callback<AddClientResponse>() {
+            @Override
+            public void onResponse(Call<AddClientResponse> call, Response<AddClientResponse> response) {
+                if (response.body() == null) {
+                    anInterface.onFailed(api_error);
+                    return;
+                }
+                checkValidResult(response.code(), response.body().getStatus()
+                        , response.body().getClient(), response.body().getMessage(), anInterface);
+            }
+
+            @Override
+            public void onFailure(Call<AddClientResponse> call, Throwable t) {
+                anInterface.onFailed(Utils.getExceptionText(t));
+            }
+        });
+    }
 
 }

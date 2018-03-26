@@ -49,6 +49,20 @@ public class Task {
     public String getLatitude() {
         return Utils.getValueFromString(latitude);
     }
+    public double getLatitudeDouble() {
+        try{
+            return Double.parseDouble(Utils.getValueFromString(latitude));
+        }catch (Exception e){
+            return 0;
+        }
+    }
+    public double getLongitudeDouble() {
+        try{
+            return Double.parseDouble(Utils.getValueFromString(longitude));
+        }catch (Exception e){
+            return 0;
+        }
+    }
 
     public int getRate() {
         if(rate == null)

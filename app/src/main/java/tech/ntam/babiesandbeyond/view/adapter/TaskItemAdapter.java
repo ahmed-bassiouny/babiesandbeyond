@@ -95,4 +95,28 @@ public class TaskItemAdapter extends RecyclerView.Adapter<TaskItemAdapter.MyView
         notifyDataSetChanged();
     }
 
+    public void updateTaskComment(final String taskId, final String taskComment) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int taskSize = tasks.size();
+                for (int i = 0; i < taskSize; i++) {
+                    if (tasks.get(i).getId().equals(taskId)) {
+                        Task item = tasks.get(i);
+                        item.setComment(taskComment);
+                        tasks.set(i, item);
+                        final int position = i;
+                        fragment.getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                notifyItemChanged(position);
+                            }
+                        });
+                        break;
+                    }
+                }
+            }
+        }).start();
+    }
+
 }

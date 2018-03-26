@@ -33,7 +33,9 @@ import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 public class MidwifeRequestAndDetailsActivity extends MyToolbar {
 
     private CircleImageView ivProfilePhoto;
-    private TextView tvName,tvNotAvailable;
+    private TextView tvNotAvailable;
+    private TextView tvName, tvStatus, tvLocation, tvFees, tvBio;
+
     private RecyclerView recycleView;
     private Button btnApprove;
     private Midwife midwife;
@@ -50,6 +52,10 @@ public class MidwifeRequestAndDetailsActivity extends MyToolbar {
 
         ivProfilePhoto = findViewById(R.id.iv_profile_photo);
         tvName = findViewById(R.id.tv_name);
+        tvStatus = findViewById(R.id.tv_status);
+        tvLocation = findViewById(R.id.tv_location);
+        tvFees = findViewById(R.id.tv_fees);
+        tvBio = findViewById(R.id.tv_bio);
         recycleView = findViewById(R.id.recycle_view);
         recycleView.setLayoutManager(new LinearLayoutManager(this));
         btnApprove = findViewById(R.id.btn_approve);
@@ -97,6 +103,10 @@ public class MidwifeRequestAndDetailsActivity extends MyToolbar {
     }
     private void setMidwifeService(){
         tvName.setText(midwifeService.getMidwifeName());
+        tvStatus.setText(getString(R.string.status) + " : " + midwifeService.getMidwifeStatus());
+        tvLocation.setText(midwifeService.getLocation());
+        tvBio.setText(midwifeService.getBio());
+        tvFees.setText(getString(R.string.fee)+" "+midwifeService.getPricePerHour()+" $");
         if(!midwifeService.getMidwifePhoto().isEmpty())
             Utils.MyGlide(this,ivProfilePhoto,midwifeService.getMidwifePhoto());
 
