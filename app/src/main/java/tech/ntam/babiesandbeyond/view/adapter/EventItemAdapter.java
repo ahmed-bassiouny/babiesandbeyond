@@ -20,7 +20,7 @@ import tech.ntam.babiesandbeyond.model.Group;
 import tech.ntam.mylibrary.Utils;
 
 /**
- * Created by bassiouny on 22/12/17.
+ * Created by Developer on 22/12/17.
  */
 
 public class EventItemAdapter extends RecyclerView.Adapter<EventItemAdapter.MyViewHolder> {

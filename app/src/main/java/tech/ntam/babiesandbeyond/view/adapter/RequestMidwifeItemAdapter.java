@@ -20,7 +20,7 @@ import tech.ntam.babiesandbeyond.view.activities.RequestMidwifeActivity;
 import tech.ntam.mylibrary.IntentDataKey;
 
 /**
- * Created by bassiouny on 22/12/17.
+ * Created by Developer on 22/12/17.
  */
 
 public class RequestMidwifeItemAdapter extends RecyclerView.Adapter<RequestMidwifeItemAdapter.MyViewHolder> {

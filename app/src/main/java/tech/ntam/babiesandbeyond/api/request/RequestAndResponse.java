@@ -51,9 +51,8 @@ import tech.ntam.mylibrary.apiCongif.ApiConfig;
 import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 
 /**
- * Created by bassiouny on 31/12/17.
+ * Created by Developer on 31/12/17.
  */
-
 public class RequestAndResponse {
 
     private static String api_error = "Server is not responding";
@@ -75,6 +74,14 @@ public class RequestAndResponse {
         }
     }
 
+    /**
+     * Login.
+     *
+     * @param context     the context
+     * @param email       the email
+     * @param password    the password
+     * @param anInterface the an interface
+     */
     public static void login(Context context, String email, String password, final BaseResponseInterface<User> anInterface) {
         Call<LoginResponse> response = baseRequestInterface.login(email, password, UserSharedPref.getNotificationToken(context));
         response.enqueue(new Callback<LoginResponse>() {
@@ -95,6 +102,14 @@ public class RequestAndResponse {
         });
     }
 
+    /**
+     * Login with social.
+     *
+     * @param context     the context
+     * @param email       the email
+     * @param name        the name
+     * @param anInterface the an interface
+     */
     public static void loginWithSocial(Context context, String email, String name, final BaseResponseInterface<User> anInterface) {
         Call<LoginResponse> response = baseRequestInterface.loginWithSocial(email, name, UserSharedPref.getNotificationToken(context));
         response.enqueue(new Callback<LoginResponse>() {
@@ -115,6 +130,16 @@ public class RequestAndResponse {
         });
     }
 
+    /**
+     * Register.
+     *
+     * @param context     the context
+     * @param email       the email
+     * @param password    the password
+     * @param name        the name
+     * @param phone       the phone
+     * @param anInterface the an interface
+     */
     public static void register(final Context context, String email, String password, String name, String phone, final BaseResponseInterface<UserData> anInterface) {
         Call<RegisterResponse> response = baseRequestInterface.register(name, email, password, phone, UserSharedPref.getNotificationToken(context));
         response.enqueue(new Callback<RegisterResponse>() {
@@ -135,6 +160,12 @@ public class RequestAndResponse {
         });
     }
 
+    /**
+     * Gets events.
+     *
+     * @param context     the context
+     * @param anInterface the an interface
+     */
     public static void getEvents(Context context, final BaseResponseInterface<List<Event>> anInterface) {
         Call<EventsResponse> response = baseRequestInterface.getEvents(UserSharedPref.getTokenWithHeader(context), UserSharedPref.getEmail(context));
         response.enqueue(new Callback<EventsResponse>() {
@@ -155,6 +186,18 @@ public class RequestAndResponse {
         });
     }
 
+    /**
+     * Request service.
+     *
+     * @param context       the context
+     * @param serviceTypeId the service type id
+     * @param startDate     the start date
+     * @param endDate       the end date
+     * @param location      the location
+     * @param lat           the lat
+     * @param lng           the lng
+     * @param anInterface   the an interface
+     */
     public static void requestService(Context context, int serviceTypeId, String startDate,
                                       String endDate, String location,
                                       double lat,double lng,
@@ -181,6 +224,12 @@ public class RequestAndResponse {
         });
     }
 
+    /**
+     * Gets my service.
+     *
+     * @param context     the context
+     * @param anInterface the an interface
+     */
     public static void getMyService(Context context, final BaseResponseInterface<UserService> anInterface) {
         Call<MyServiceResponse> response = baseRequestInterface.getMyService(
                 UserSharedPref.getTokenWithHeader(context),
@@ -203,6 +252,14 @@ public class RequestAndResponse {
         });
     }
 
+    /**
+     * Send status event.
+     *
+     * @param context     the context
+     * @param eventId     the event id
+     * @param isComing    the is coming
+     * @param anInterface the an interface
+     */
     public static void sendStatusEvent(Context context, int eventId, boolean isComing, final BaseResponseInterface<String> anInterface) {
         int coming = 0;
         if (isComing) coming = 1;
@@ -228,6 +285,12 @@ public class RequestAndResponse {
         });
     }
 
+    /**
+     * Gets groups.
+     *
+     * @param context     the context
+     * @param anInterface the an interface
+     */
     public static void getGroups(Context context, final BaseResponseInterface<List<Group>> anInterface) {
         Call<GroupResponse> response = baseRequestInterface.getGroups(
                 UserSharedPref.getTokenWithHeader(context),
@@ -250,6 +313,12 @@ public class RequestAndResponse {
         });
     }
 
+    /**
+     * Gets profile.
+     *
+     * @param context     the context
+     * @param anInterface the an interface
+     */
     public static void getProfile(Context context, final BaseResponseInterface<User> anInterface) {
         Call<ProfileResponse> response = baseRequestInterface.getProfile(
                 UserSharedPref.getTokenWithHeader(context),
@@ -272,6 +341,14 @@ public class RequestAndResponse {
         });
     }
 
+    /**
+     * Update password.
+     *
+     * @param context     the context
+     * @param password    the password
+     * @param oldPassword the old password
+     * @param anInterface the an interface
+     */
     public static void updatePassword(Context context, String password, String oldPassword, final BaseResponseInterface<String> anInterface) {
         Call<ParentResponse> response = baseRequestInterface.updatePassword(
                 UserSharedPref.getTokenWithHeader(context),
@@ -295,6 +372,12 @@ public class RequestAndResponse {
         });
     }
 
+    /**
+     * Gets history.
+     *
+     * @param context     the context
+     * @param anInterface the an interface
+     */
     public static void getHistory(Context context, final BaseResponseInterface<List<History>> anInterface) {
         Call<HistoryResponse> response = baseRequestInterface.getHistory(
                 UserSharedPref.getTokenWithHeader(context),
@@ -317,6 +400,15 @@ public class RequestAndResponse {
         });
     }
 
+    /**
+     * Update profile.
+     *
+     * @param context     the context
+     * @param name        the name
+     * @param phone       the phone
+     * @param photo       the photo
+     * @param anInterface the an interface
+     */
     public static void updateProfile(Context context, String name, String phone, String photo, final BaseResponseInterface<String> anInterface) {
         Call<ParentResponse> response = baseRequestInterface.updateProfile(
                 UserSharedPref.getTokenWithHeader(context),
@@ -340,6 +432,15 @@ public class RequestAndResponse {
         });
     }
 
+    /**
+     * Create group.
+     *
+     * @param context     the context
+     * @param name        the name
+     * @param description the description
+     * @param photo       the photo
+     * @param anInterface the an interface
+     */
     public static void createGroup(Context context, String name, String description, String photo, final BaseResponseInterface<Group> anInterface) {
         Call<CreateGroupResponse> response = baseRequestInterface.createGroup(
                 UserSharedPref.getTokenWithHeader(context),
@@ -363,6 +464,12 @@ public class RequestAndResponse {
         });
     }
 
+    /**
+     * Gets workshops.
+     *
+     * @param context     the context
+     * @param anInterface the an interface
+     */
     public static void getWorkshops(Context context, final BaseResponseInterface<List<Workshop>> anInterface) {
         Call<WorkshopResponse> response = baseRequestInterface.getWorkshops(
                 UserSharedPref.getTokenWithHeader(context),
@@ -385,6 +492,13 @@ public class RequestAndResponse {
         });
     }
 
+    /**
+     * Join group.
+     *
+     * @param context     the context
+     * @param groupId     the group id
+     * @param anInterface the an interface
+     */
     public static void joinGroup(Context context, int groupId, final BaseResponseInterface<String> anInterface) {
         Call<ParentResponse> response = baseRequestInterface.joinGroup(
                 UserSharedPref.getTokenWithHeader(context),
@@ -407,6 +521,13 @@ public class RequestAndResponse {
         });
     }
 
+    /**
+     * Leave group.
+     *
+     * @param context     the context
+     * @param groupId     the group id
+     * @param anInterface the an interface
+     */
     public static void leaveGroup(Context context, int groupId, final BaseResponseInterface<String> anInterface) {
         Call<ParentResponse> response = baseRequestInterface.leaveGroup(
                 UserSharedPref.getTokenWithHeader(context),
@@ -429,6 +550,11 @@ public class RequestAndResponse {
         });
     }
 
+    /**
+     * Gets about.
+     *
+     * @param anInterface the an interface
+     */
     public static void getAbout(final BaseResponseInterface<String> anInterface) {
         Call<AboutResponse> response = baseRequestInterface.getAbout();
         response.enqueue(new Callback<AboutResponse>() {
@@ -448,6 +574,13 @@ public class RequestAndResponse {
             }
         });
     }
+
+    /**
+     * Gets terms.
+     *
+     * @param context     the context
+     * @param anInterface the an interface
+     */
     public static void getTerms(Context context,final BaseResponseInterface<String> anInterface) {
         Call<AboutResponse> response = baseRequestInterface.getTerms(UserSharedPref.getTokenWithHeader(context));
         response.enqueue(new Callback<AboutResponse>() {
@@ -468,6 +601,13 @@ public class RequestAndResponse {
         });
     }
 
+    /**
+     * Send workshop request.
+     *
+     * @param context     the context
+     * @param workshopId  the workshop id
+     * @param anInterface the an interface
+     */
     public static void sendWorkshopRequest(Context context, int workshopId, final BaseResponseInterface<Workshop> anInterface) {
         Call<AddWorkshopResponse> response = baseRequestInterface.sendWorkshopRequest(
                 UserSharedPref.getTokenWithHeader(context),
@@ -491,6 +631,12 @@ public class RequestAndResponse {
     }
 
 
+    /**
+     * Gets notification.
+     *
+     * @param context     the context
+     * @param anInterface the an interface
+     */
     public static void getNotification(Context context, final BaseResponseInterface<List<Notification>> anInterface) {
         Call<NotificationResponse> response = baseRequestInterface.getNotification(
                 UserSharedPref.getTokenWithHeader(context),
@@ -513,6 +659,12 @@ public class RequestAndResponse {
         });
     }
 
+    /**
+     * Logout.
+     *
+     * @param context     the context
+     * @param anInterface the an interface
+     */
     public static void logout(Context context, final BaseResponseInterface<String> anInterface) {
         Call<ParentResponse> response = baseRequestInterface.logout(
                 UserSharedPref.getId(context));
@@ -534,6 +686,12 @@ public class RequestAndResponse {
         });
     }
 
+    /**
+     * Gets tasks.
+     *
+     * @param context     the context
+     * @param anInterface the an interface
+     */
     public static void getTasks(Context context, final BaseResponseInterface<List<Task>> anInterface) {
         Call<StaffTasksResponse> response = baseRequestInterface.getTasks(
                 UserSharedPref.getTokenWithHeader(context),
@@ -556,6 +714,14 @@ public class RequestAndResponse {
         });
     }
 
+    /**
+     * User comment service.
+     *
+     * @param context     the context
+     * @param taskId      the task id
+     * @param comment     the comment
+     * @param anInterface the an interface
+     */
     public static void userCommentService(Context context, String taskId, String comment, final BaseResponseInterface<String> anInterface) {
         // is midwife to detect url what will call
         Call<ParentResponse> response;
@@ -585,6 +751,16 @@ public class RequestAndResponse {
             }
         });
     }
+
+    /**
+     * User rate service.
+     *
+     * @param context     the context
+     * @param isMidwife   the is midwife
+     * @param serviceId   the service id
+     * @param rate        the rate
+     * @param anInterface the an interface
+     */
     public static void userRateService(Context context,boolean isMidwife, String serviceId, int rate, final BaseResponseInterface<String> anInterface) {
         // is midwife to detect url what will call
         Call<ParentResponse> response;
@@ -616,6 +792,12 @@ public class RequestAndResponse {
         });
     }
 
+    /**
+     * Forget password.
+     *
+     * @param email       the email
+     * @param anInterface the an interface
+     */
     public static void forgetPassword(String email, final BaseResponseInterface<String> anInterface) {
         Call<ParentResponse> response = baseRequestInterface.forgetPassword(email);
         response.enqueue(new Callback<ParentResponse>() {
@@ -636,6 +818,13 @@ public class RequestAndResponse {
         });
     }
 
+    /**
+     * Cancel service.
+     *
+     * @param context     the context
+     * @param serviceId   the service id
+     * @param anInterface the an interface
+     */
     public static void cancelService(Context context, int serviceId, final BaseResponseInterface<String> anInterface) {
         Call<ParentResponse> response = baseRequestInterface.cancelService(
                 UserSharedPref.getTokenWithHeader(context),
@@ -657,6 +846,14 @@ public class RequestAndResponse {
             }
         });
     }
+
+    /**
+     * Cancel workshop.
+     *
+     * @param context     the context
+     * @param workshopId  the workshop id
+     * @param anInterface the an interface
+     */
     public static void cancelWorkshop(Context context, int workshopId, final BaseResponseInterface<String> anInterface) {
         Call<ParentResponse> response = baseRequestInterface.cancelWorkshop(
                 UserSharedPref.getTokenWithHeader(context),
@@ -679,6 +876,13 @@ public class RequestAndResponse {
         });
     }
 
+    /**
+     * Workshop payment.
+     *
+     * @param context     the context
+     * @param workshopId  the workshop id
+     * @param anInterface the an interface
+     */
     public static void workshopPayment(Context context, int workshopId, final BaseResponseInterface<String> anInterface) {
         Call<ParentResponse> response = baseRequestInterface.workshopPayment(
                 UserSharedPref.getTokenWithHeader(context),
@@ -700,6 +904,14 @@ public class RequestAndResponse {
             }
         });
     }
+
+    /**
+     * Service payment.
+     *
+     * @param context     the context
+     * @param serviceId   the service id
+     * @param anInterface the an interface
+     */
     public static void servicePayment(Context context, int serviceId, final BaseResponseInterface<String> anInterface) {
         Call<ParentResponse> response = baseRequestInterface.servicePayment(
                 UserSharedPref.getTokenWithHeader(context),
@@ -722,6 +934,12 @@ public class RequestAndResponse {
         });
     }
 
+    /**
+     * Gets all midwife.
+     *
+     * @param context     the context
+     * @param anInterface the an interface
+     */
     public static void getAllMidwife(Context context, final BaseResponseInterface<List<Midwife>> anInterface) {
         Call<MidwifeResponse> response = baseRequestInterface.getAllMidwife(
                 UserSharedPref.getTokenWithHeader(context));
@@ -743,6 +961,16 @@ public class RequestAndResponse {
         });
     }
 
+    /**
+     * Check midwife.
+     *
+     * @param context     the context
+     * @param midwifeId   the midwife id
+     * @param timeFrom    the time from
+     * @param timeTo      the time to
+     * @param date        the date
+     * @param anInterface the an interface
+     */
     public static void checkMidwife(Context context,int midwifeId
             ,String timeFrom,String timeTo,String date
             , final BaseResponseInterface<String> anInterface) {
@@ -766,6 +994,17 @@ public class RequestAndResponse {
         });
     }
 
+    /**
+     * Reserve midwife.
+     *
+     * @param context              the context
+     * @param midwifeId            the midwife id
+     * @param location             the location
+     * @param lng                  the lng
+     * @param lat                  the lat
+     * @param midwifeRequestModels the midwife request models
+     * @param anInterface          the an interface
+     */
     public static void reserveMidwife(Context context, int midwifeId,String location, double lng, double lat
             , List<MidwifeRequestModel> midwifeRequestModels, final BaseResponseInterface<MidwifeService> anInterface) {
         MidwifeRequestRequest request = new MidwifeRequestRequest(midwifeId,location,lng,lat, midwifeRequestModels);
@@ -788,6 +1027,13 @@ public class RequestAndResponse {
             }
         });
     }
+
+    /**
+     * Active account.
+     *
+     * @param context     the context
+     * @param anInterface the an interface
+     */
     public static void activeAccount(Context context,final BaseResponseInterface anInterface){
         Call<ParentResponse> response = baseRequestInterface.activeAccount(UserSharedPref.getEmail(context));
         response.enqueue(new Callback<ParentResponse>() {
@@ -808,6 +1054,12 @@ public class RequestAndResponse {
         });
     }
 
+    /**
+     * Resend code.
+     *
+     * @param context     the context
+     * @param anInterface the an interface
+     */
     public static void resendCode(Context context,final BaseResponseInterface<String> anInterface){
         Call<ResendCodeResponse> response = baseRequestInterface.resendActiveCode(UserSharedPref.getEmail(context));
         response.enqueue(new Callback<ResendCodeResponse>() {
@@ -828,6 +1080,13 @@ public class RequestAndResponse {
         });
     }
 
+    /**
+     * Cancel resercation midwife.
+     *
+     * @param context     the context
+     * @param uniqueKey   the unique key
+     * @param anInterface the an interface
+     */
     public static void cancelResercationMidwife(Context context,String uniqueKey,final BaseResponseInterface anInterface){
         Call<ParentResponse> response = baseRequestInterface.cancelReservationMidwife(
                 UserSharedPref.getTokenWithHeader(context),uniqueKey);
@@ -849,6 +1108,13 @@ public class RequestAndResponse {
         });
     }
 
+    /**
+     * Midwife payment.
+     *
+     * @param context     the context
+     * @param uniqueKey   the unique key
+     * @param anInterface the an interface
+     */
     public static void midwifePayment(Context context, String uniqueKey, final BaseResponseInterface<String> anInterface) {
         Call<ParentResponse> response = baseRequestInterface.midwifePayment(
                 UserSharedPref.getTokenWithHeader(context),
@@ -871,6 +1137,12 @@ public class RequestAndResponse {
         });
     }
 
+    /**
+     * Gets user history.
+     *
+     * @param context     the context
+     * @param anInterface the an interface
+     */
     public static void getUserHistory(Context context, final BaseResponseInterface<List<UserHistory>> anInterface) {
         Call<UserHistoryResponse> response = baseRequestInterface.getUserHistory(
                 UserSharedPref.getTokenWithHeader(context));
@@ -892,6 +1164,15 @@ public class RequestAndResponse {
         });
     }
 
+    /**
+     * Send contact us.
+     *
+     * @param context     the context
+     * @param subject     the subject
+     * @param reason      the reason
+     * @param message     the message
+     * @param anInterface the an interface
+     */
     public static void sendContactUs(Context context,
             String subject,String reason,String message,final BaseResponseInterface<String> anInterface){
         Call<ParentResponse> response = baseRequestInterface.contactUs(
@@ -915,6 +1196,12 @@ public class RequestAndResponse {
         });
     }
 
+    /**
+     * Gets message admin.
+     *
+     * @param context     the context
+     * @param anInterface the an interface
+     */
     public static void getMessageAdmin(Context context, final BaseResponseInterface<List<MessageAdmin>> anInterface) {
         Call<MessageListAdminResponse> response = baseRequestInterface.getMessageAdmin(
                 UserSharedPref.getTokenWithHeader(context));
@@ -935,6 +1222,14 @@ public class RequestAndResponse {
             }
         });
     }
+
+    /**
+     * Send message to admin.
+     *
+     * @param context     the context
+     * @param message     the message
+     * @param anInterface the an interface
+     */
     public static void sendMessageToAdmin(Context context,String message, final BaseResponseInterface<MessageAdmin> anInterface) {
         Call<MessageAdminResponse> response = baseRequestInterface.sendMessageToAdmin(
                 UserSharedPref.getTokenWithHeader(context),message);

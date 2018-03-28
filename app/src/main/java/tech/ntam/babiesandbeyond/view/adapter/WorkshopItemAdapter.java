@@ -19,7 +19,7 @@ import tech.ntam.babiesandbeyond.model.Service;
 import tech.ntam.babiesandbeyond.model.Workshop;
 
 /**
- * Created by bassiouny on 22/12/17.
+ * Created by Developer on 22/12/17.
  */
 
 public class WorkshopItemAdapter extends RecyclerView.Adapter<WorkshopItemAdapter.MyViewHolder> {

@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 
 /**
- * Created by bassiouny on 01/01/18.
+ * Created by Developer on 01/01/18.
  */
 
 public class LoginResponse extends ParentResponse {

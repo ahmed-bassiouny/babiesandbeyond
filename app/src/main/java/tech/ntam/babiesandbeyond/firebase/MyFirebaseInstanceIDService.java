@@ -8,9 +8,8 @@ import com.google.firebase.iid.FirebaseInstanceIdService;
 import tech.ntam.mylibrary.UserSharedPref;
 
 /**
- * Created by bassiouny on 21/01/18.
+ * Created by Developer on 21/01/18.
  */
-
 public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService{
     @Override
     public void onTokenRefresh() {

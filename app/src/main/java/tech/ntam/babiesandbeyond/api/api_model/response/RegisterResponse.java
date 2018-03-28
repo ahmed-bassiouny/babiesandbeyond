@@ -6,7 +6,7 @@ import tech.ntam.babiesandbeyond.model.User;
 import tech.ntam.babiesandbeyond.model.UserData;
 
 /**
- * Created by bassiouny on 02/01/18.
+ * Created by Developer on 02/01/18.
  */
 
 public class RegisterResponse extends ParentResponse {

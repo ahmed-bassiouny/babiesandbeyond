@@ -8,7 +8,7 @@ import java.util.List;
 import tech.ntam.babiesandbeyond.model.Workshop;
 
 /**
- * Created by bassiouny on 08/01/18.
+ * Created by Developer on 08/01/18.
  */
 
 public class WorkshopResponse extends ParentResponse {

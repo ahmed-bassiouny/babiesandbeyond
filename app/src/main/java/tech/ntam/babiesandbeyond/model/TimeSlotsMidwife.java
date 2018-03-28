@@ -11,7 +11,7 @@ import java.util.List;
 import tech.ntam.mylibrary.Utils;
 
 /**
- * Created by bassiouny on 24/02/18.
+ * Created by Developer on 24/02/18.
  */
 
 public class TimeSlotsMidwife implements Parcelable {

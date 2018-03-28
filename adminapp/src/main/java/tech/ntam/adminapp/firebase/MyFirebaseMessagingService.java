@@ -20,7 +20,7 @@ import tech.ntam.mylibrary.IntentDataKey;
 import tech.ntam.mylibrary.MyNotification;
 
 /**
- * Created by bassiouny on 21/01/18.
+ * Created by Developer on 21/01/18.
  */
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {

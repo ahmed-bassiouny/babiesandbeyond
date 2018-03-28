@@ -142,7 +142,7 @@
             android:layout_marginTop="10dp"
             android:background="@color/colorButton"
             android:fontFamily="@font/museosans"
-            android:text="@string/create_group"
+            android:text="@string/add_client"
             android:textAllCaps="false" />
     </LinearLayout>
 </ScrollView>

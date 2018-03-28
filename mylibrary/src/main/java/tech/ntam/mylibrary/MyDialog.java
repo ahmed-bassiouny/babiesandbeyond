@@ -6,7 +6,7 @@ import android.app.AlertDialog;
 import dmax.dialog.SpotsDialog;
 
 /**
- * Created by bassiouny on 02/01/18.
+ * Created by Developer on 02/01/18.
  */
 
 public class MyDialog {

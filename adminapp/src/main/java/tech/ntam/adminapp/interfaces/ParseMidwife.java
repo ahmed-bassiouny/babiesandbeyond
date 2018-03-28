@@ -4,7 +4,7 @@ import tech.ntam.adminapp.model.Midwife;
 import tech.ntam.adminapp.model.MidwifeService;
 
 /**
- * Created by bassiouny on 28/02/18.
+ * Created by Developer on 28/02/18.
  */
 
 public interface ParseMidwife {

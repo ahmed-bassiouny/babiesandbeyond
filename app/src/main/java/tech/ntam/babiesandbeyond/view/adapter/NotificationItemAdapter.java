@@ -13,7 +13,7 @@ import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.model.Notification;
 
 /**
- * Created by bassiouny on 22/12/17.
+ * Created by Developer on 22/12/17.
  */
 
 public class NotificationItemAdapter extends RecyclerView.Adapter<NotificationItemAdapter.MyViewHolder> {

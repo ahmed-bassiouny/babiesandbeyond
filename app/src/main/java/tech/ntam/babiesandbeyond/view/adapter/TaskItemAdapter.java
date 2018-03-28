@@ -20,7 +20,7 @@ import tech.ntam.mylibrary.IntentDataKey;
 import tech.ntam.mylibrary.Utils;
 
 /**
- * Created by bassiouny on 24/12/17.
+ * Created by Developer on 24/12/17.
  */
 
 public class TaskItemAdapter extends RecyclerView.Adapter<TaskItemAdapter.MyViewHolder> {

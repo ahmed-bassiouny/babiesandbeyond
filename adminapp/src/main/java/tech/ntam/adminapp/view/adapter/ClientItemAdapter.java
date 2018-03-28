@@ -20,7 +20,7 @@ import tech.ntam.adminapp.model.Service;
 import tech.ntam.mylibrary.Utils;
 
 /**
- * Created by bassiouny on 22/12/17.
+ * Created by Developer on 22/12/17.
  */
 
 public class ClientItemAdapter extends RecyclerView.Adapter<ClientItemAdapter.MyViewHolder> {

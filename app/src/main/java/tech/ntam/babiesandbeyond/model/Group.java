@@ -9,9 +9,8 @@ import tech.ntam.mylibrary.MyDateTimeFactor;
 import tech.ntam.mylibrary.Utils;
 
 /**
- * Created by bassiouny on 05/01/18.
+ * Created by Developer on 05/01/18.
  */
-
 public class Group implements Parcelable {
 
     @SerializedName("id")
@@ -37,62 +36,131 @@ public class Group implements Parcelable {
     @SerializedName("is_member")
     private boolean isMember;
 
+    /**
+     * Gets name.
+     *
+     * @return the name
+     */
     public String getName() {
         return Utils.getValueFromString(name);
     }
 
+    /**
+     * Gets description.
+     *
+     * @return the description
+     */
     public String getDescription() {
         return Utils.getValueFromString(description);
     }
 
+    /**
+     * Gets photo.
+     *
+     * @return the photo
+     */
     public String getPhoto() {
         return Utils.getValueFromString(photo);
     }
 
+    /**
+     * Gets status string.
+     *
+     * @return the status string
+     */
     public String getStatusString() {
         status = Utils.getValueFromString(status);
         if(status.equals("1")) return "Approved";
         else return "Pending";
     }
+
+    /**
+     * Gets status.
+     *
+     * @return the status
+     */
     public boolean getStatus() {
         status = Utils.getValueFromString(status);
         if(status.equals("1")) return true;
         else return false;
     }
 
+    /**
+     * Sets status approved.
+     */
     public void setStatusApproved() {
         this.status = "1";
     }
 
+    /**
+     * Sets user status.
+     *
+     * @param userStatus the user status
+     */
     public void setUserStatus(String userStatus) {
         this.userStatus = userStatus;
     }
 
+    /**
+     * Gets created by.
+     *
+     * @return the created by
+     */
     public int getCreatedBy() {
         return createdBy;
     }
 
+    /**
+     * Gets created by name.
+     *
+     * @return the created by name
+     */
     public String getCreatedByName() {
         return Utils.getValueFromString(createdByName);
     }
 
+    /**
+     * Gets date.
+     *
+     * @return the date
+     */
     public String getDate() {
         date = Utils.getValueFromString(date);
         return MyDateTimeFactor.getDayMonthFromDateTime(date);
     }
 
+    /**
+     * Is member boolean.
+     *
+     * @return the boolean
+     */
     public boolean isMember() {
         return isMember;
     }
 
+    /**
+     * Sets member.
+     *
+     * @param member the member
+     */
     public void setMember(boolean member) {
         isMember = member;
     }
 
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Gets user status.
+     *
+     * @return the user status
+     */
     public String getUserStatus() {
         return Utils.getValueFromString(userStatus);
     }
@@ -117,9 +185,17 @@ public class Group implements Parcelable {
         dest.writeByte(this.isMember ? (byte) 1 : (byte) 0);
     }
 
+    /**
+     * Instantiates a new Group.
+     */
     public Group() {
     }
 
+    /**
+     * Instantiates a new Group.
+     *
+     * @param in the in
+     */
     protected Group(Parcel in) {
         this.id = in.readInt();
         this.name = in.readString();
@@ -134,6 +210,9 @@ public class Group implements Parcelable {
         this.isMember = in.readByte() != 0;
     }
 
+    /**
+     * The constant CREATOR.
+     */
     public static final Parcelable.Creator<Group> CREATOR = new Parcelable.Creator<Group>() {
         @Override
         public Group createFromParcel(Parcel source) {

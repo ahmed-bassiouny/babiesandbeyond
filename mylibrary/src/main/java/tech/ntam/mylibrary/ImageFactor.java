@@ -8,7 +8,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 /**
- * Created by bassiouny on 10/01/18.
+ * Created by Developer on 10/01/18.
  */
 
 public class ImageFactor {

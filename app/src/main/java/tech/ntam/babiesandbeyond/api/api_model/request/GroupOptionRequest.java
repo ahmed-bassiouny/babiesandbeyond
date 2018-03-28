@@ -1,7 +1,7 @@
 package tech.ntam.babiesandbeyond.api.api_model.request;
 
 /**
- * Created by bassiouny on 09/01/18.
+ * Created by Developer on 09/01/18.
  */
 
 public class GroupOptionRequest extends ParentRequest {

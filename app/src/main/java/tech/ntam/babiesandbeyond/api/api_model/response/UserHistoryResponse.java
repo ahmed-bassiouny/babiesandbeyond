@@ -8,7 +8,7 @@ import java.util.List;
 import tech.ntam.babiesandbeyond.model.UserHistory;
 
 /**
- * Created by bassiouny on 13/03/18.
+ * Created by Developer on 13/03/18.
  */
 
 public class UserHistoryResponse extends ParentResponse{

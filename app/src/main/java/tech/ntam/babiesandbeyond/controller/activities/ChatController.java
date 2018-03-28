@@ -15,20 +15,30 @@ import tech.ntam.babiesandbeyond.view.activities.ChatActivity;
 import tech.ntam.mylibrary.MyDateTimeFactor;
 
 /**
- * Created by bassiouny on 16/01/18.
+ * Created by Developer on 16/01/18.
  */
-
 public class ChatController {
 
     private Context context;
     private int groupId;
     private FirebaseUser firebaseUser;
 
+    /**
+     * Instantiates a new Chat controller.
+     *
+     * @param context the context
+     * @param groupId the group id
+     */
     public ChatController(Context context, int groupId) {
         this.context = context;
         this.groupId = groupId;
     }
 
+    /**
+     * Create text message.
+     *
+     * @param txtMessage the txt message
+     */
     public void createTextMessage(String txtMessage) {
         String key = getGroupReference().push().getKey();
         HashMap<String,Object> hashMap = new HashMap<>();
@@ -38,6 +48,14 @@ public class ChatController {
         getGroupReference().child(key).updateChildren(hashMap);
         setUser();
     }
+
+    /**
+     * Create image message.
+     *
+     * @param imageUrl the image url
+     * @param width    the width
+     * @param height   the height
+     */
     public void createImageMessage(String imageUrl,int width,int height) {
         String key = getGroupReference().push().getKey();
         HashMap<String,Object> hashMap = new HashMap<>();
@@ -59,6 +77,11 @@ public class ChatController {
         }
     }
 
+    /**
+     * Gets group reference.
+     *
+     * @return the group reference
+     */
     public DatabaseReference getGroupReference() {
         return FirebaseDatabase.getInstance().getReference().child(FirebaseRoot.GROUP).child(String.valueOf(groupId));
     }

@@ -20,7 +20,7 @@ import tech.ntam.babiesandbeyond.model.Service;
 import tech.ntam.babiesandbeyond.model.ServiceTypeList;
 
 /**
- * Created by bassiouny on 22/12/17.
+ * Created by Developer on 22/12/17.
  */
 
 public class ServiceItemAdapter extends RecyclerView.Adapter<ServiceItemAdapter.MyViewHolder> {

@@ -8,7 +8,7 @@ import java.util.List;
 import tech.ntam.babiesandbeyond.model.Task;
 
 /**
- * Created by bassiouny on 22/01/18.
+ * Created by Developer on 22/01/18.
  */
 
 public class StaffTasksResponse extends ParentResponse {

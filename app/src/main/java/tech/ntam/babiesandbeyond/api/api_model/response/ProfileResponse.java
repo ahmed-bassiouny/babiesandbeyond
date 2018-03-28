@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import tech.ntam.babiesandbeyond.model.User;
 
 /**
- * Created by bassiouny on 06/01/18.
+ * Created by Developer on 06/01/18.
  */
 
 public class ProfileResponse extends ParentResponse {

@@ -16,16 +16,28 @@ import tech.ntam.mylibrary.Utils;
 import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 
 /**
- * Created by bassiouny on 06/01/18.
+ * Created by Developer on 06/01/18.
  */
-
 public class UserProfileController {
     private Activity activity;
 
+    /**
+     * Instantiates a new User profile controller.
+     *
+     * @param activity the activity
+     */
     public UserProfileController(Activity activity) {
         this.activity = activity;
     }
 
+    /**
+     * Gets profile data.
+     *
+     * @param etName            the et name
+     * @param etPhone           the et phone
+     * @param ivProfilePhoto    the iv profile photo
+     * @param btnChangePassword the btn change password
+     */
     public void getProfileData(final EditText etName
             , final EditText etPhone
             , final CircleImageView ivProfilePhoto
@@ -43,6 +55,14 @@ public class UserProfileController {
         });
     }
 
+    /**
+     * Update profile.
+     *
+     * @param photo         the photo
+     * @param etName        the et name
+     * @param etPhone       the et phone
+     * @param updateSuccess the update success
+     */
     public void updateProfile(final String photo, final EditText etName, final EditText etPhone, final UpdateSuccess updateSuccess) {
         final MyDialog myDialog = new MyDialog();
         myDialog.showMyDialog(activity);
@@ -76,6 +96,14 @@ public class UserProfileController {
         UserSharedPref.setUserInfo(activity, name, phone);
     }
 
+    /**
+     * Gets data from sharef pref.
+     *
+     * @param etName            the et name
+     * @param etPhone           the et phone
+     * @param ivProfilePhoto    the iv profile photo
+     * @param btnChangePassword the btn change password
+     */
     public void getDataFromSharefPref(final EditText etName
             , final EditText etPhone
             , final CircleImageView ivProfilePhoto
@@ -95,7 +123,13 @@ public class UserProfileController {
         }
     }
 
+    /**
+     * The interface Update success.
+     */
     public interface UpdateSuccess {
+        /**
+         * Updated.
+         */
         void updated();
     }
 }

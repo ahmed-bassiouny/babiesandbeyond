@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import tech.ntam.babiesandbeyond.model.UserService;
 
 /**
- * Created by bassiouny on 03/01/18.
+ * Created by Developer on 03/01/18.
  */
 
 public class MyServiceResponse extends ParentResponse {

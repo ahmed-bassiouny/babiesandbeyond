@@ -3,7 +3,7 @@ package tech.ntam.babiesandbeyond.model;
 import android.text.Html;
 
 /**
- * Created by bassiouny on 28/01/18.
+ * Created by Developer on 28/01/18.
  */
 
 public class AboutUs {

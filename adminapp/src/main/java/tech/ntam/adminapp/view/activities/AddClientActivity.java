@@ -70,9 +70,7 @@ public class AddClientActivity extends MyToolbar {
         btnCreateUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (photo.isEmpty()) {
-                    Toast.makeText(AddClientActivity.this, "Please Select Photo", Toast.LENGTH_SHORT).show();
-                } else if (etName.getText().toString().trim().isEmpty()) {
+                if (etName.getText().toString().trim().isEmpty()) {
                     etName.setError(getString(R.string.invalid_name));
                 } else if (etPhone.getText().toString().trim().isEmpty()) {
                     etPhone.setError(getString(R.string.invalid_phone));

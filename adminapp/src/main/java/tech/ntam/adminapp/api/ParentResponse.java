@@ -3,7 +3,7 @@ package tech.ntam.adminapp.api;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by bassiouny on 31/12/17.
+ * Created by Developer on 31/12/17.
  */
 
 public class ParentResponse {

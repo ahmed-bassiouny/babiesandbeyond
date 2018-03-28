@@ -8,7 +8,7 @@ import java.util.List;
 import tech.ntam.adminapp.model.Client;
 
 /**
- * Created by bassiouny on 20/03/18.
+ * Created by Developer on 20/03/18.
  */
 
 public class ClientsResponse extends ParentResponse {

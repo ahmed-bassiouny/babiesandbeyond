@@ -16,7 +16,7 @@ import tech.ntam.babiesandbeyond.model.History;
 import tech.ntam.babiesandbeyond.model.UserHistory;
 
 /**
- * Created by bassiouny on 22/12/17.
+ * Created by Developer on 22/12/17.
  */
 
 public class HistoryItemAdapter extends RecyclerView.Adapter<HistoryItemAdapter.MyViewHolder> {

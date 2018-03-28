@@ -5,7 +5,7 @@ import tech.ntam.adminapp.model.Service;
 import tech.ntam.adminapp.model.Workshop;
 
 /**
- * Created by bassiouny on 11/01/18.
+ * Created by Developer on 11/01/18.
  */
 
 public interface ParseWorkshop {

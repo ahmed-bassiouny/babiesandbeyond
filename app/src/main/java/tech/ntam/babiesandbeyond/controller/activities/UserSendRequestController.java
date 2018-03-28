@@ -28,19 +28,29 @@ import tech.ntam.mylibrary.MyDialog;
 import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 
 /**
- * Created by bassiouny on 19/12/17.
+ * Created by Developer on 19/12/17.
  */
-
 public class UserSendRequestController {
 
     private Activity activity;
     private Calendar now;
 
+    /**
+     * Instantiates a new User send request controller.
+     *
+     * @param activity the activity
+     */
     public UserSendRequestController(Activity activity) {
         this.activity = activity;
         now = Calendar.getInstance();
     }
 
+    /**
+     * Show date time.
+     *
+     * @param fragmentManager the fragment manager
+     * @param editText        the edit text
+     */
     public void showDateTime(final FragmentManager fragmentManager, final EditText editText) {
         DatePickerDialog dpd = DatePickerDialog.newInstance(
                 new DatePickerDialog.OnDateSetListener() {
@@ -62,6 +72,15 @@ public class UserSendRequestController {
         dpd.show(fragmentManager, "Datepickerdialog");
     }
 
+    /**
+     * Show date time.
+     *
+     * @param fragmentManager the fragment manager
+     * @param editText        the edit text
+     * @param year            the year
+     * @param monthOfYear     the month of year
+     * @param dayOfMonth      the day of month
+     */
     public void showDateTime(FragmentManager fragmentManager, final EditText editText, final int year, final int monthOfYear, final int dayOfMonth) {
         TimePickerDialog timePickerDialog;
         timePickerDialog = TimePickerDialog.newInstance(new TimePickerDialog.OnTimeSetListener() {
@@ -78,6 +97,14 @@ public class UserSendRequestController {
                 .getColor(R.color.colorPrimary));
         timePickerDialog.show(fragmentManager, "Timepickerdialog");
     }
+
+    /**
+     * Show time.
+     *
+     * @param fragmentManager the fragment manager
+     * @param textView        the text view
+     * @param h               the h
+     */
     public void showTime(FragmentManager fragmentManager, final TextView textView,int h) {
         TimePickerDialog timePickerDialog;
         timePickerDialog = TimePickerDialog.newInstance(new TimePickerDialog.OnTimeSetListener() {
@@ -96,6 +123,16 @@ public class UserSendRequestController {
         timePickerDialog.show(fragmentManager, "Timepickerdialog");
     }
 
+    /**
+     * Save data.
+     *
+     * @param serviceTypeId the service type id
+     * @param startDate     the start date
+     * @param endDate       the end date
+     * @param location      the location
+     * @param lat           the lat
+     * @param lng           the lng
+     */
     public void saveData(int serviceTypeId, String startDate, String endDate, String location,double lat,double lng) {
         final MyDialog myDialog =new MyDialog();
         myDialog.showMyDialog(activity);

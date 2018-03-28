@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import tech.ntam.adminapp.model.Client;
 
 /**
- * Created by bassiouny on 26/03/18.
+ * Created by Developer on 26/03/18.
  */
 
 public class AddClientResponse extends ParentResponse {

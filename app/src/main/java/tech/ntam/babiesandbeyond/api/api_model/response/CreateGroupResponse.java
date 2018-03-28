@@ -8,7 +8,7 @@ import java.util.List;
 import tech.ntam.babiesandbeyond.model.Group;
 
 /**
- * Created by bassiouny on 05/01/18.
+ * Created by Developer on 05/01/18.
  */
 
 public class CreateGroupResponse extends ParentResponse {

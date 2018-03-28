@@ -3,7 +3,7 @@ package tech.ntam.babiesandbeyond.model;
 import tech.ntam.mylibrary.Utils;
 
 /**
- * Created by bassiouny on 08/02/18.
+ * Created by Developer on 08/02/18.
  */
 
 public class UserMessage {

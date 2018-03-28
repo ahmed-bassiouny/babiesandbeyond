@@ -1,7 +1,7 @@
 package tech.ntam.adminapp.model;
 
 /**
- * Created by bassiouny on 22/02/18.
+ * Created by Developer on 22/02/18.
  */
 
 public class SectionOrRowMidwife {

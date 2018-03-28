@@ -1,7 +1,7 @@
 package tech.ntam.babiesandbeyond.model;
 
 /**
- * Created by bassiouny on 16/01/18.
+ * Created by Developer on 16/01/18.
  */
 
 public class FirebaseRoot {

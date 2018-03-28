@@ -1,7 +1,7 @@
 package tech.ntam.babiesandbeyond.model;
 
 /**
- * Created by bassiouny on 17/01/18.
+ * Created by Developer on 17/01/18.
  */
 
 public class FirebaseUser {

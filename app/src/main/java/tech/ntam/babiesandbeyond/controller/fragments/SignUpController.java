@@ -15,7 +15,7 @@ import tech.ntam.babiesandbeyond.view.activities.UserHomeActivity;
 import tech.ntam.mylibrary.MyDialog;
 
 /**
- * Created by bassiouny on 17/12/17.
+ * Created by Developer on 17/12/17.
  */
 
 public class SignUpController {

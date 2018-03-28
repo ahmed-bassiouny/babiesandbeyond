@@ -20,7 +20,7 @@ import tech.ntam.mylibrary.apiCongif.ApiConfig;
 import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 
 /**
- * Created by bassiouny on 31/12/17.
+ * Created by Developer on 31/12/17.
  */
 
 public class RequestAndResponse {

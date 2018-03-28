@@ -27,7 +27,7 @@ import tech.ntam.mylibrary.Utils;
 import tech.ntam.mylibrary.interfaces.Constant;
 
 /**
- * Created by bassiouny on 22/12/17.
+ * Created by Developer on 22/12/17.
  */
 
 public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.MyViewHolder> {

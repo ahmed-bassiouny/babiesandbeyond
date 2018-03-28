@@ -1,7 +1,7 @@
 package tech.ntam.mylibrary.interfaces;
 
 /**
- * Created by bassiouny on 23/01/18.
+ * Created by Developer on 23/01/18.
  */
 
 public class Constant {

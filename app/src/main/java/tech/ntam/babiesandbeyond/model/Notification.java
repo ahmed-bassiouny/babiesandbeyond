@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import tech.ntam.mylibrary.Utils;
 
 /**
- * Created by bassiouny on 10/01/18.
+ * Created by Developer on 10/01/18.
  */
 
 public class Notification {

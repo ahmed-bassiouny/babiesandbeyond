@@ -14,7 +14,7 @@ import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.model.SectionOrRowMidwife;
 
 /**
- * Created by bassiouny on 24/02/18.
+ * Created by Developer on 24/02/18.
  */
 
 public class MidwifeTimeSlots extends RecyclerView.Adapter<RecyclerView.ViewHolder> {

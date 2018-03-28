@@ -6,7 +6,7 @@ import tech.ntam.babiesandbeyond.model.Service;
 import tech.ntam.babiesandbeyond.model.Workshop;
 
 /**
- * Created by bassiouny on 15/01/18.
+ * Created by Developer on 15/01/18.
  */
 
 public class AddWorkshopResponse extends ParentResponse {

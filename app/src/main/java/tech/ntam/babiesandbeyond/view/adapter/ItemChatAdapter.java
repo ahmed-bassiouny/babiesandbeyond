@@ -27,7 +27,7 @@ import tech.ntam.babiesandbeyond.view.activities.ViewImageActivity;
 import tech.ntam.mylibrary.Utils;
 
 /**
- * Created by bassiouny on 15/01/18.
+ * Created by Developer on 15/01/18.
  */
 
 public class ItemChatAdapter extends RecyclerView.Adapter<ItemChatAdapter.CutomViewHolder> {

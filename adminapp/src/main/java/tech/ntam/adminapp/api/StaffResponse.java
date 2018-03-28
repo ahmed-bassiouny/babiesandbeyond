@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import tech.ntam.adminapp.model.Staff;
 
 /**
- * Created by bassiouny on 04/02/18.
+ * Created by Developer on 04/02/18.
  */
 
 public class StaffResponse extends ParentResponse {

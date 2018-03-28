@@ -8,7 +8,7 @@ import java.util.List;
 import tech.ntam.adminapp.model.Workshop;
 
 /**
- * Created by bassiouny on 05/02/18.
+ * Created by Developer on 05/02/18.
  */
 
 public class WorkshopListResponse extends ParentResponse {

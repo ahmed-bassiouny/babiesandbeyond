@@ -21,7 +21,7 @@ import tech.ntam.babiesandbeyond.model.ServiceTypeList;
 import tech.ntam.mylibrary.Utils;
 
 /**
- * Created by bassiouny on 22/12/17.
+ * Created by Developer on 22/12/17.
  */
 
 public class MidwifeItemAdapter extends RecyclerView.Adapter<MidwifeItemAdapter.MyViewHolder> {

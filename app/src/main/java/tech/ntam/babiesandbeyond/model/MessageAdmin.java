@@ -11,7 +11,7 @@ import tech.ntam.mylibrary.MyDateTimeFactor;
 import tech.ntam.mylibrary.Utils;
 
 /**
- * Created by bassiouny on 18/03/18.
+ * Created by Developer on 18/03/18.
  */
 
 public class MessageAdmin implements Parcelable {

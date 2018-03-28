@@ -7,7 +7,7 @@ import java.util.List;
 import tech.ntam.adminapp.model.Service;
 
 /**
- * Created by bassiouny on 13/02/18.
+ * Created by Developer on 13/02/18.
  */
 
 public class AvailableStaffResponse extends ParentResponse{

@@ -6,7 +6,7 @@ import android.content.Context;
 import android.support.v4.app.NotificationCompat;
 
 /**
- * Created by bassiouny on 29/01/18.
+ * Created by Developer on 29/01/18.
  */
 
 public class MyNotification {
