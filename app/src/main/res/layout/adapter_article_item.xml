@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_article_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="3dp"
+        android:layout_toStartOf="@+id/tv_price"
+        android:fontFamily="@font/museosans"
+        android:textColor="@color/gray_bold"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        tools:text="request name" />
+
+    <TextView
+        android:id="@+id/tv_article_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_article_name"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_toStartOf="@+id/tv_price"
+        android:fontFamily="@font/museosans"
+        android:textSize="10sp"
+        tools:text="location" />
+
+    <ImageView
+        android:id="@+id/tv_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/ic_chevron_right_24dp"
+        android:layout_marginTop="0dp"
+        android:fontFamily="@font/museosans"
+        android:textColor="@color/gray_bold"
+        android:textStyle="bold"
+        tools:text="price" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/tv_article_date"
+        android:layout_marginTop="8dp"
+        android:background="@color/off_white" />
+</RelativeLayout>

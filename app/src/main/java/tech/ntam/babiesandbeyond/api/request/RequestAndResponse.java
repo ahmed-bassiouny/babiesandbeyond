@@ -12,6 +12,7 @@ import tech.ntam.babiesandbeyond.api.api_model.request.MidwifeRequestRequest;
 import tech.ntam.babiesandbeyond.api.api_model.response.AboutResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.AddServiceResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.AddWorkshopResponse;
+import tech.ntam.babiesandbeyond.api.api_model.response.ArticleResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.CreateGroupResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.EventsResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.GroupResponse;
@@ -30,6 +31,7 @@ import tech.ntam.babiesandbeyond.api.api_model.response.ReserveMidwifeResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.StaffTasksResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.UserHistoryResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.WorkshopResponse;
+import tech.ntam.babiesandbeyond.model.Article;
 import tech.ntam.babiesandbeyond.model.Event;
 import tech.ntam.babiesandbeyond.model.Group;
 import tech.ntam.babiesandbeyond.model.History;
@@ -1246,6 +1248,26 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<MessageAdminResponse> call, Throwable t) {
+                anInterface.onFailed(Utils.getExceptionText(t));
+            }
+        });
+    }
+
+    public static void getArticles(final BaseResponseInterface<List<Article>> anInterface) {
+        Call<ArticleResponse> response = baseRequestInterface.getArticles();
+        response.enqueue(new Callback<ArticleResponse>() {
+            @Override
+            public void onResponse(Call<ArticleResponse> call, Response<ArticleResponse> response) {
+                if (response.body() == null) {
+                    anInterface.onFailed(api_error);
+                    return;
+                }
+                checkValidResult(response.code(), response.body().getStatus()
+                        , response.body().getArticles(), response.body().getMessage(), anInterface);
+            }
+
+            @Override
+            public void onFailure(Call<ArticleResponse> call, Throwable t) {
                 anInterface.onFailed(Utils.getExceptionText(t));
             }
         });

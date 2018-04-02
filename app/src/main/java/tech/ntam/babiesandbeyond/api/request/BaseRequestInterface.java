@@ -24,6 +24,7 @@ import tech.ntam.babiesandbeyond.api.api_model.request.UpdateProfileRequest;
 import tech.ntam.babiesandbeyond.api.api_model.response.AboutResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.AddServiceResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.AddWorkshopResponse;
+import tech.ntam.babiesandbeyond.api.api_model.response.ArticleResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.CreateGroupResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.EventsResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.GroupResponse;
@@ -224,6 +225,7 @@ public interface BaseRequestInterface {
      * The constant SEND_MESSAGE.
      */
     String SEND_MESSAGE = "staff/send-inbox-message";
+    String GET_ARTICLES ="all_articles";
 
     /**
      * Login call.
@@ -852,5 +854,9 @@ public interface BaseRequestInterface {
     @POST(SEND_MESSAGE)
     Call<MessageAdminResponse> sendMessageToAdmin(@Header(AUTHORIZATION) String token,
                                                   @Field("message") String message);
+
+    @POST(GET_ARTICLES)
+    Call<ArticleResponse> getArticles();
+
 
 }

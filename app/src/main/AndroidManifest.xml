@@ -191,9 +191,18 @@
             android:name=".view.dialog.NewMessageToAdminActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeDialog" />
-        <activity android:name=".view.activities.showTaskDetailsActivity"
+        <activity
+            android:name=".view.activities.showTaskDetailsActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".view.activities.ArticleListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".view.activities.ArticleActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

@@ -18,6 +18,7 @@ import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 
 import tech.ntam.babiesandbeyond.R;
+import tech.ntam.babiesandbeyond.view.activities.ArticleListActivity;
 import tech.ntam.babiesandbeyond.view.activities.ContactActivity;
 import tech.ntam.babiesandbeyond.view.activities.LoginOptionsActivity;
 import tech.ntam.babiesandbeyond.view.activities.TermsActivity;
@@ -70,6 +71,12 @@ public class OptionsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getContext(), TermsActivity.class));
+            }
+        });
+        view.findViewById(R.id.linear_articles).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), ArticleListActivity.class));
             }
         });
         view.findViewById(R.id.linear_logout).setOnClickListener(new View.OnClickListener() {

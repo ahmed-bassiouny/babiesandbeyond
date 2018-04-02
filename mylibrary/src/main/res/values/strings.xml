@@ -197,5 +197,8 @@
     <string name="client_info">Client Info</string>
     <string name="none">None</string>
     <string name="bio">Bio</string>
+    <string name="article_name">Article Name</string>
+    <string name="article_date">Article Date</string>
+    <string name="articles">Articles</string>
 
 </resources>
