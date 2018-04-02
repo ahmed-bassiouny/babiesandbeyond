@@ -31,7 +31,7 @@ public interface BaseRequestInterface {
     String CLIENTS = "user/all-clients";
     String ADD_USER = "add_user";
     String AVAILABLE_NURSES = "calendar/available-nurses";
-
+    String OCCUPIED_NURSES = "calendar/occupied-nurses";
 
     @FormUrlEncoded
     @POST(LOGIN)
@@ -133,4 +133,10 @@ public interface BaseRequestInterface {
     Call<NursesResponse> getAvailableNurse(@Header(AUTHORIZATION) String token,
                                                @Field("start_date") String startDate,
                                                @Field("end_date") String endDate);
+
+
+    @FormUrlEncoded
+    @POST(OCCUPIED_NURSES)
+    Call<NursesResponse> getOccupiedNurses(@Header(AUTHORIZATION) String token,
+                                           @Field("date") String date);
 }

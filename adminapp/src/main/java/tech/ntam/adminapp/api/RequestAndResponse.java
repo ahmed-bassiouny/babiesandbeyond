@@ -334,5 +334,26 @@ public class RequestAndResponse {
             }
         });
     }
+    public static void getOccupiedNurses(Context context,String date, final BaseResponseInterface<List<Service>> anInterface) {
+        Call<NursesResponse> response = baseRequestInterface.getOccupiedNurses(
+                UserSharedPref.getTokenWithHeader(context), date);
+        response.enqueue(new Callback<NursesResponse>() {
+            @Override
+            public void onResponse(Call<NursesResponse> call, Response<NursesResponse> response) {
+                if (response.body() == null) {
+                    anInterface.onFailed(api_error);
+                    return;
+                }
+                checkValidResult(response.code(), response.body().getStatus()
+                        , response.body().getNurses(), response.body().getMessage(), anInterface);
+            }
+
+            @Override
+            public void onFailure(Call<NursesResponse> call, Throwable t) {
+                anInterface.onFailed(Utils.getExceptionText(t));
+            }
+        });
+    }
+
 
 }
