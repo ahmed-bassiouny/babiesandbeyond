@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import tech.ntam.adminapp.R;
 import tech.ntam.adminapp.view.activities.AccountActivity;
 import tech.ntam.adminapp.view.activities.ClientsActivity;
+import tech.ntam.adminapp.view.activities.SearchAvailableNurseActivity;
 import tech.ntam.mylibrary.Utils;
 
 /**
@@ -52,6 +53,12 @@ public class MoreFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getContext(), AccountActivity.class));
+            }
+        });
+        view.findViewById(R.id.linear_available_nurse).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), SearchAvailableNurseActivity.class));
             }
         });
     }

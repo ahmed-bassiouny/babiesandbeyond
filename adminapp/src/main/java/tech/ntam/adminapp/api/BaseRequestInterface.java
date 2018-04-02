@@ -30,6 +30,7 @@ public interface BaseRequestInterface {
     String APPROVE_MIDWIFE_REQUEST = "midwife/confirm-without-payment";
     String CLIENTS = "user/all-clients";
     String ADD_USER = "add_user";
+    String AVAILABLE_NURSES = "calendar/available-nurses";
 
 
     @FormUrlEncoded
@@ -126,4 +127,10 @@ public interface BaseRequestInterface {
                                     @Field("photo") String photo,
                                     @Field("birthday") String birthday,
                                     @Field("password") String password);
+
+    @FormUrlEncoded
+    @POST(AVAILABLE_NURSES)
+    Call<NursesResponse> getAvailableNurse(@Header(AUTHORIZATION) String token,
+                                               @Field("start_date") String startDate,
+                                               @Field("end_date") String endDate);
 }
