@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:fontFamily="@font/museosans"
-            android:text="@string/choose_date_from"
+            android:text="@string/choose_date_to"
             android:textSize="18sp" />
 
         <EditText

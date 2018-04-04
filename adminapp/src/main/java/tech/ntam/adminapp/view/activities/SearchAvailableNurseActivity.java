@@ -77,7 +77,10 @@ public class SearchAvailableNurseActivity extends MyToolbar {
                     etChooseDateFrom.setError(getString(R.string.invalid_Date));
                 } else if (etChooseDateTo.getText().toString().trim().isEmpty()) {
                     etChooseDateTo.setError(getString(R.string.invalid_Date));
+                    etChooseDateFrom.setError(null);
                 } else {
+                    etChooseDateFrom.setError(null);
+                    etChooseDateTo.setError(null);
                     loadData();
                 }
             }
