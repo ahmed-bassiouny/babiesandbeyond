@@ -184,6 +184,7 @@
         <item>Complaint</item>
         <item>General</item>
         <item>Ask Midwife</item>
+        <item>Call me back</item>
     </array>
     <string name="finish_date">Finish Date</string>
     <string name="finish_time">Finish Time</string>

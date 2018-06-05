@@ -152,4 +152,27 @@
         android:layout_height="1dp"
         android:layout_margin="5dp"
         android:background="@color/off_white" />
+
+    <LinearLayout
+        android:id="@+id/linear_call_us"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="10dp"
+            android:src="@drawable/ic_call_black_24dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/museosans"
+            android:gravity="center"
+            android:text="Call Us"
+            android:textColor="@color/gray_bold"
+            android:textSize="16sp" />
+    </LinearLayout>
 </LinearLayout>

@@ -79,6 +79,12 @@ public class OptionsFragment extends Fragment {
                 startActivity(new Intent(getContext(), ArticleListActivity.class));
             }
         });
+        view.findViewById(R.id.linear_call_us).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         view.findViewById(R.id.linear_logout).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -6,5 +6,8 @@
 
     <string name="facebook_app_id">222634284961606</string>
     <string name="fb_login_protocol_scheme">fb222634284961606</string>
+    <array name="service">
+        <item>Newborn Care</item>
+    </array>
 
 </resources>
