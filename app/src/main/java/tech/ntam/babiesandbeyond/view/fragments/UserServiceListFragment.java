@@ -24,7 +24,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.w9jds.FloatingActionMenu;
 import com.w9jds.floatingactionmenu.OnMenuItemClickListener;
 
@@ -34,6 +33,7 @@ import tech.ntam.babiesandbeyond.interfaces.ParseService;
 import tech.ntam.babiesandbeyond.model.MidwifeService;
 import tech.ntam.babiesandbeyond.view.activities.UserRequestMidwifeActivity;
 import tech.ntam.babiesandbeyond.view.adapter.MidwifeServiceItemAdapter;
+import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
 import tech.ntam.babiesandbeyond.api.request.RequestAndResponse;
 import tech.ntam.babiesandbeyond.model.Service;
@@ -44,6 +44,9 @@ import tech.ntam.babiesandbeyond.view.activities.UserRequestNurseAndBabysitterAc
 import tech.ntam.babiesandbeyond.view.adapter.ServiceItemAdapter;
 import tech.ntam.mylibrary.IntentDataKey;
 import tech.ntam.mylibrary.interfaces.Constant;
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
+import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
 
 /**
  * A simple {@link Fragment} subclass.

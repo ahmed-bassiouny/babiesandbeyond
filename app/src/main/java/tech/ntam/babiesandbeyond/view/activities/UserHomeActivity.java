@@ -19,6 +19,8 @@ import tech.ntam.babiesandbeyond.view.fragments.UserServiceListFragment;
 import tech.ntam.babiesandbeyond.view.fragments.UserWorkshopListFragment;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 import tech.ntam.mylibrary.BottomNavigationViewHelper;
+import uk.co.deanwild.materialshowcaseview.IShowcaseListener;
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
 
 public class UserHomeActivity extends MyToolbar {
 
@@ -44,6 +46,24 @@ public class UserHomeActivity extends MyToolbar {
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setOffscreenPageLimit(0);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigation);
+
+        setTutorial(new IShowcaseListener() {
+            @Override
+            public void onShowcaseDisplayed(MaterialShowcaseView materialShowcaseView) {
+
+            }
+
+            @Override
+            public void onShowcaseDismissed(MaterialShowcaseView materialShowcaseView) {
+                new MaterialShowcaseView.Builder(UserHomeActivity.this) // instantiate the material showcase view using Builder
+                        .setTarget(bottomNavigation) // set what view will be pointed or highlighted
+                        .setTitleText("Single") // set the title of the tutorial
+                        .setDismissText("GOT IT") // set the dismiss text
+                        .setContentText("This is the choose option button") // set the content or detail text
+                        .setDelay(500) // set delay in milliseconds to show the tutor
+                        .show();
+            }
+        });
     }
 
     private void onClick() {

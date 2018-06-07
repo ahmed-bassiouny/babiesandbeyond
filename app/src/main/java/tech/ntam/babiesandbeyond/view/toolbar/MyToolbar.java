@@ -12,6 +12,10 @@ import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.view.activities.UserHistoryNotificationActivity;
 import tech.ntam.babiesandbeyond.view.activities.UserProfileActivity;
 import tech.ntam.mylibrary.IntentDataKey;
+import uk.co.deanwild.materialshowcaseview.IShowcaseListener;
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
+import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
 
 /**
  * Created by Developer on 26/12/17.
@@ -67,5 +71,36 @@ public class MyToolbar extends AppCompatActivity {
             }
         });
         setSupportActionBar(toolbar);
+    }
+
+    public void setTutorial(final IShowcaseListener iShowcaseListener){
+
+
+        new MaterialShowcaseView.Builder(this) // instantiate the material showcase view using Builder
+                .setTarget(ivNotification) // set what view will be pointed or highlighted
+                .setTitleText("Single") // set the title of the tutorial
+                .setDismissText("GOT IT") // set the dismiss text
+                .setContentText("This is the choose option button") // set the content or detail text
+                .setDelay(500) // set delay in milliseconds to show the tutor
+                // set the single use so it is shown only once using our create SHOWCASE_ID constant
+                .setListener(new IShowcaseListener() {
+                    @Override
+                    public void onShowcaseDisplayed(MaterialShowcaseView materialShowcaseView) {
+
+                    }
+
+                    @Override
+                    public void onShowcaseDismissed(MaterialShowcaseView materialShowcaseView) {
+                        new MaterialShowcaseView.Builder(MyToolbar.this) // instantiate the material showcase view using Builder
+                                .setTarget(ivProfile) // set what view will be pointed or highlighted
+                                .setTitleText("Single") // set the title of the tutorial
+                                .setDismissText("GOT IT") // set the dismiss text
+                                .setContentText("This is the choose option button") // set the content or detail text
+                                .setDelay(500) // set delay in milliseconds to show the tutor
+                                .setListener(iShowcaseListener)
+                                .show();
+                    }
+                })
+                .show();
     }
 }
