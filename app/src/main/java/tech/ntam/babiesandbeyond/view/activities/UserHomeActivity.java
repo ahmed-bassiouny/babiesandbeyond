@@ -61,6 +61,7 @@ public class UserHomeActivity extends MyToolbar {
                         .setDismissText("GOT IT") // set the dismiss text
                         .setContentText("This is the choose option button") // set the content or detail text
                         .setDelay(500) // set delay in milliseconds to show the tutor
+                        .singleUse("3")
                         .show();
             }
         });

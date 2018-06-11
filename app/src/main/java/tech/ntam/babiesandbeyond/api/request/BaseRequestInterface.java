@@ -859,4 +859,16 @@ public interface BaseRequestInterface {
     Call<ArticleResponse> getArticles();
 
 
+    @FormUrlEncoded
+    @Headers(HEADER_KEY)
+    @POST("get_service_quotation")
+    Call<ParentResponse> getServiceQuotation(@Header(AUTHORIZATION) String token,
+                                   @Field("user_id") int userId,
+                                   @Field("service_name") String service_name,
+                                   @Field("no_of_days_required_per_month") String noOfDaysRequiredPerMonth,
+                                   @Field("no_of_hours_aday") String noOfHoursAday,
+                                   @Field("specific_request") String specificRequest,
+                                   @Field("location") String location);
+
+
 }

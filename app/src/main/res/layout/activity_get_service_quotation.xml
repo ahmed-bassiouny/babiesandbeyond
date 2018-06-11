@@ -29,6 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:fontFamily="@font/museosans"
+        android:id="@+id/sp_service_name"
         android:entries="@array/service" />
 
 
@@ -48,6 +49,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
+        android:id="@+id/et_no_of_day"
         android:fontFamily="@font/museosans"/>
 
 
@@ -65,6 +67,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        android:id="@+id/et_no_of_hour"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:fontFamily="@font/museosans"/>
@@ -86,6 +89,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
+        android:id="@+id/et_location"
         android:fontFamily="@font/museosans"/>
 
     <TextView
@@ -103,6 +107,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_marginStart="10dp"
+        android:id="@+id/et_special_request"
         android:layout_marginEnd="10dp"
         android:fontFamily="@font/museosans"/>
 
@@ -115,6 +120,7 @@
         android:background="@color/colorButton"
         android:fontFamily="@font/museosans"
         android:textStyle="bold"
+        android:id="@+id/btn_submit"
         android:text="@string/submit"
         android:layout_marginBottom="20dp"
         android:textAllCaps="false" />

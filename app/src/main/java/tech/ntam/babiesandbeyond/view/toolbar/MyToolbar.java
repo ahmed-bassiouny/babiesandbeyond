@@ -82,6 +82,7 @@ public class MyToolbar extends AppCompatActivity {
                 .setDismissText("GOT IT") // set the dismiss text
                 .setContentText("This is the choose option button") // set the content or detail text
                 .setDelay(500) // set delay in milliseconds to show the tutor
+                .singleUse("1")
                 // set the single use so it is shown only once using our create SHOWCASE_ID constant
                 .setListener(new IShowcaseListener() {
                     @Override
@@ -97,6 +98,7 @@ public class MyToolbar extends AppCompatActivity {
                                 .setDismissText("GOT IT") // set the dismiss text
                                 .setContentText("This is the choose option button") // set the content or detail text
                                 .setDelay(500) // set delay in milliseconds to show the tutor
+                                .singleUse("2")
                                 .setListener(iShowcaseListener)
                                 .show();
                     }

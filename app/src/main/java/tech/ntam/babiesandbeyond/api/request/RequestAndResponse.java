@@ -8,6 +8,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.Field;
 import tech.ntam.babiesandbeyond.api.api_model.request.MidwifeRequestRequest;
 import tech.ntam.babiesandbeyond.api.api_model.response.AboutResponse;
 import tech.ntam.babiesandbeyond.api.api_model.response.AddServiceResponse;
@@ -1268,6 +1269,33 @@ public class RequestAndResponse {
 
             @Override
             public void onFailure(Call<ArticleResponse> call, Throwable t) {
+                anInterface.onFailed(Utils.getExceptionText(t));
+            }
+        });
+    }
+
+    public static void getServiceQuotation(Context context,
+                                   String serviceName,
+                                   String noOfDaysRequiredPerMonth,
+                                   String noOfHoursAday,
+                                   String specificRequest,
+                                   String location,
+                                   final BaseResponseInterface<String> anInterface) {
+        Call<ParentResponse> response = baseRequestInterface.getServiceQuotation(UserSharedPref.getTokenWithHeader(context)
+        ,UserSharedPref.getId(context),serviceName,noOfDaysRequiredPerMonth,noOfHoursAday,specificRequest,location);
+        response.enqueue(new Callback<ParentResponse>() {
+            @Override
+            public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {
+                if (response.body() == null) {
+                    anInterface.onFailed(api_error);
+                    return;
+                }
+                checkValidResult(response.code(), response.body().getStatus()
+                        , response.body().getMessage(), response.body().getMessage(), anInterface);
+            }
+
+            @Override
+            public void onFailure(Call<ParentResponse> call, Throwable t) {
                 anInterface.onFailed(Utils.getExceptionText(t));
             }
         });

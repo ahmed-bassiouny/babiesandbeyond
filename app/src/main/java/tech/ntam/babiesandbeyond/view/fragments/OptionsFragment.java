@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.view.activities.ArticleListActivity;
 import tech.ntam.babiesandbeyond.view.activities.ContactActivity;
+import tech.ntam.babiesandbeyond.view.activities.GetServiceQuotationActivity;
 import tech.ntam.babiesandbeyond.view.activities.LoginOptionsActivity;
 import tech.ntam.babiesandbeyond.view.activities.TermsActivity;
 import tech.ntam.mylibrary.apiCongif.BaseResponseInterface;
@@ -83,6 +84,12 @@ public class OptionsFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+            }
+        });
+        view.findViewById(R.id.linear_get_service_quotation).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), GetServiceQuotationActivity.class));
             }
         });
         view.findViewById(R.id.linear_logout).setOnClickListener(new View.OnClickListener() {
