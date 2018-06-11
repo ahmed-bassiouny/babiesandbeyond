@@ -31,6 +31,7 @@ import tech.ntam.babiesandbeyond.R;
 import tech.ntam.babiesandbeyond.helper.ServiceSharedPref;
 import tech.ntam.babiesandbeyond.interfaces.ParseService;
 import tech.ntam.babiesandbeyond.model.MidwifeService;
+import tech.ntam.babiesandbeyond.view.activities.RequestOnlyNurseActivity;
 import tech.ntam.babiesandbeyond.view.activities.UserRequestMidwifeActivity;
 import tech.ntam.babiesandbeyond.view.adapter.MidwifeServiceItemAdapter;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
@@ -109,8 +110,7 @@ public class UserServiceListFragment extends Fragment implements ParseService {
                 switch (i) {
                     // request nurse
                     case 0:
-                        intent = new Intent(getContext(), UserRequestNurseAndBabysitterActivity.class);
-                        intent.putExtra(IntentDataKey.SERVICE, IntentDataKey.NURSE_SERVICE);
+                        intent = new Intent(getContext(), RequestOnlyNurseActivity.class);
                         startActivityForResult(intent, IntentDataKey.ADD_SERVICE_DATA_CODE);
                         break;
                     // request midwife

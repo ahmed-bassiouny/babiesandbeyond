@@ -203,12 +203,15 @@ public class RequestAndResponse {
      */
     public static void requestService(Context context, int serviceTypeId, String startDate,
                                       String endDate, String location,
-                                      double lat,double lng,
+                                      double lat,double lng,String noOfChildren,
+                                      String birthDate, String additionalInfo,
+                                      int isComplex, String nurseType,
                                       final BaseResponseInterface<Service> anInterface) {
         Call<AddServiceResponse> response = baseRequestInterface.requestService(
                 UserSharedPref.getTokenWithHeader(context),
                 UserSharedPref.getId(context),
-                serviceTypeId, startDate, endDate, location,lat,lng);
+                serviceTypeId, startDate, endDate, location,lat,lng,
+                noOfChildren,birthDate,additionalInfo,isComplex,nurseType);
         response.enqueue(new Callback<AddServiceResponse>() {
             @Override
             public void onResponse(Call<AddServiceResponse> call, Response<AddServiceResponse> response) {

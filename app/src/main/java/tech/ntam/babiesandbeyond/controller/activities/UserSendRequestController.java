@@ -72,6 +72,26 @@ public class UserSendRequestController {
         dpd.show(fragmentManager, "Datepickerdialog");
     }
 
+    public void showDate(final FragmentManager fragmentManager, final EditText editText) {
+        DatePickerDialog dpd = DatePickerDialog.newInstance(
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+                        String date = year + "-" + getValueDateDigit(monthOfYear + 1) + "-" + getValueDateDigit(dayOfMonth);
+                        editText.setText(date);
+                    }
+                },
+                now.get(Calendar.YEAR),
+                now.get(Calendar.MONTH),
+                now.get(Calendar.DAY_OF_MONTH)
+        );
+        dpd.setVersion(DatePickerDialog.Version.VERSION_2);
+        dpd.setThemeDark(true);
+        dpd.setAccentColor(activity.getResources()
+                .getColor(R.color.colorPrimary));
+        dpd.show(fragmentManager, "Datepickerdialog");
+    }
+
     /**
      * Show date time.
      *
@@ -138,7 +158,7 @@ public class UserSendRequestController {
         myDialog.showMyDialog(activity);
         // send new request to service to save it
         RequestAndResponse.requestService(activity, serviceTypeId, startDate, endDate, location
-                ,lat,lng, new BaseResponseInterface<Service>() {
+                ,lat,lng,"0","","",0,"", new BaseResponseInterface<Service>() {
             @Override
             public void onSuccess(Service service) {
                 Intent resultIntent = new Intent();

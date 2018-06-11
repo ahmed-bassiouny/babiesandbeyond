@@ -322,7 +322,12 @@ public interface BaseRequestInterface {
                                             @Field(AskServiceRequest.END_DATE) String endDate,
                                             @Field(AskServiceRequest.LOCATION) String location,
                                             @Field(AskServiceRequest.LATITUDE) double latitude,
-                                            @Field(AskServiceRequest.LONGITUDE) double longitude);
+                                            @Field(AskServiceRequest.LONGITUDE) double longitude,
+                                            @Field("no_of_children") String noOfChildren,
+                                            @Field("birth_date") String birthDate,
+                                            @Field("additional_info") String additionalInfo,
+                                            @Field("is_complex") int isComplex,
+                                            @Field("nurse_type") String nurseType);
 
 
     /**

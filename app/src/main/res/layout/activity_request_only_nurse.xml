@@ -52,6 +52,7 @@ first few months of their baby's life. whether you are first-timers or old-timer
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:fontFamily="@font/museosans"
+            android:id="@+id/sp_nurse_type"
             android:entries="@array/service" />
 
         <TextView
@@ -68,8 +69,11 @@ first few months of their baby's life. whether you are first-timers or old-timer
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
+            android:digits="0123456789"
+            android:inputType="number"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
+            android:id="@+id/et_number_of_children"
             android:fontFamily="@font/museosans"/>
 
         <TextView
@@ -87,6 +91,9 @@ first few months of their baby's life. whether you are first-timers or old-timer
             android:layout_height="wrap_content"
             android:fontFamily="@font/museosans"
             android:layout_marginTop="5dp"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:id="@+id/et_date_of_birth"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"/>
 
@@ -106,7 +113,10 @@ first few months of their baby's life. whether you are first-timers or old-timer
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginStart="10dp"
+            android:id="@+id/et_number_of_hours"
             android:layout_marginEnd="10dp"
+            android:digits="0123456789"
+            android:inputType="number"
             android:fontFamily="@font/museosans"/>
 
 
@@ -126,6 +136,9 @@ first few months of their baby's life. whether you are first-timers or old-timer
             android:layout_marginTop="5dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:id="@+id/et_date_from"
             android:fontFamily="@font/museosans"/>
 
 
@@ -143,7 +156,10 @@ first few months of their baby's life. whether you are first-timers or old-timer
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/museosans"
+            android:id="@+id/et_location"
             android:layout_marginTop="5dp"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"/>
 
@@ -164,6 +180,7 @@ first few months of their baby's life. whether you are first-timers or old-timer
             android:fontFamily="@font/museosans"
             android:layout_marginTop="5dp"
             android:layout_marginStart="10dp"
+            android:id="@+id/et_info"
             android:layout_marginEnd="10dp"/>
 
         <CheckBox
@@ -172,6 +189,7 @@ first few months of their baby's life. whether you are first-timers or old-timer
             android:layout_marginStart="5dp"
             android:textStyle="bold"
             android:layout_marginTop="5dp"
+            android:id="@+id/ch_is_complex"
             android:text="My request is complex please contact me"/>
 
 
@@ -183,6 +201,7 @@ first few months of their baby's life. whether you are first-timers or old-timer
             android:background="@color/colorButton"
             android:fontFamily="@font/museosans"
             android:textStyle="bold"
+            android:id="@+id/btn_submit"
             android:text="@string/submit"
             android:layout_marginBottom="20dp"
             android:textAllCaps="false" />
