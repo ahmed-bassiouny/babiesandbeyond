@@ -1,13 +1,18 @@
 package tech.ntam.babiesandbeyond.view.fragments;
 
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +39,7 @@ import tech.ntam.babiesandbeyond.view.activities.SignIn_UpActivity;
  */
 public class OptionsFragment extends Fragment {
 
+    private static final int REQUEST_PHONE_CALL = 2;
     private static OptionsFragment optionsFragment;
 
     public OptionsFragment() {
@@ -83,7 +89,12 @@ public class OptionsFragment extends Fragment {
         view.findViewById(R.id.linear_call_us).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    requestPermissions(new String[]{Manifest.permission.CALL_PHONE}, REQUEST_PHONE_CALL);
+                } else {
+                    Intent in = new Intent(Intent.ACTION_CALL);
+                    in.setData(Uri.parse("tel:" + "+971044308900"));
+                    getContext().startActivity(in);                }
             }
         });
         view.findViewById(R.id.linear_get_service_quotation).setOnClickListener(new View.OnClickListener() {
