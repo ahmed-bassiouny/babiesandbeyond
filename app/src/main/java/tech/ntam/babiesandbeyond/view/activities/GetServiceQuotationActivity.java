@@ -33,6 +33,10 @@ public class GetServiceQuotationActivity extends MyToolbar {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(Integer.parseInt(etNoOfHour.getText().toString()) >24){
+                    Toast.makeText(GetServiceQuotationActivity.this, "maximum hours per day 24 hour", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 final MyDialog myDialog = new MyDialog();
                 myDialog.showMyDialog(GetServiceQuotationActivity.this);
                 RequestAndResponse.getServiceQuotation(GetServiceQuotationActivity.this,

@@ -44,9 +44,9 @@ public class RequestOnlyNurseActivity extends MyToolbar {
     private CheckBox chIsComplex;
     private Button btnSubmit;
     private int PLACE_PICKER_REQUEST = 1;
-    private double lat,lng;
+    private double lat, lng;
+    private int isComplex = 0;
     private UserSendRequestController userSendRequestController;
-
 
 
     @Override
@@ -70,6 +70,7 @@ public class RequestOnlyNurseActivity extends MyToolbar {
         chIsComplex = findViewById(R.id.ch_is_complex);
         btnSubmit = findViewById(R.id.btn_submit);
     }
+
     private void onClick() {
         etDateFrom.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,7 +87,7 @@ public class RequestOnlyNurseActivity extends MyToolbar {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 sendRequest();
+                sendRequest();
             }
         });
         etLocation.setOnClickListener(new View.OnClickListener() {
@@ -103,46 +104,29 @@ public class RequestOnlyNurseActivity extends MyToolbar {
     }
 
     private void sendRequest() {
-
-        if(chIsComplex.isChecked()){
-            final MyDialog myDialog = new MyDialog();
-            myDialog.showMyDialog(RequestOnlyNurseActivity.this);
-            RequestAndResponse.requestService(RequestOnlyNurseActivity.this,
-                    IntentDataKey.NURSE_SERVICE, "",
-                    "", "",
-                    0, 0, "", "",
-                    "", 0, "",
-                    new BaseResponseInterface<Service>() {
-                        @Override
-                        public void onSuccess(Service service) {
-                            myDialog.dismissMyDialog();
-                            finish();
-                        }
-
-                        @Override
-                        public void onFailed(String errorMessage) {
-                            Toast.makeText(RequestOnlyNurseActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
-                            myDialog.dismissMyDialog();
-                        }
-                    });
-        } else if (etDateFrom.getText().toString().trim().isEmpty()) {
+        if (chIsComplex.isChecked()) {
+            isComplex = 1;
+        } else {
+            isComplex = 0;
+        }
+        if (etDateFrom.getText().toString().trim().isEmpty()) {
             etDateFrom.setError(getString(R.string.select_date));
-        }else if (etLocation.getText().toString().trim().length() < 10) {
+        } else if (etLocation.getText().toString().trim().length() < 10) {
             etLocation.setError(getString(R.string.enter_location));
         } else if (MyDateTimeFactor.convertStringToDateWithoutSecond(etDateFrom.getText().toString()).before(MyDateTimeFactor.getDateTimeAfter24Hour().getTime())) {
             Toast.makeText(this, "date from must be after 24 hours", Toast.LENGTH_LONG).show();
-        }else if(etDateOfBirth.getText().toString().trim().isEmpty()){
+        } else if (etDateOfBirth.getText().toString().trim().isEmpty()) {
             etDateOfBirth.setError("Enter date of birth");
-        }else if(etNumberOfHours.getText().toString().trim().isEmpty()){
+        } else if (etNumberOfHours.getText().toString().trim().isEmpty()) {
             etNumberOfHours.setError("Enter number of hour");
-        }else {
+        } else {
             final MyDialog myDialog = new MyDialog();
             myDialog.showMyDialog(RequestOnlyNurseActivity.this);
             Calendar cal = Calendar.getInstance();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm a", Locale.ENGLISH);
             try {
                 cal.setTime(sdf.parse(etDateFrom.getText().toString()));
-                cal.add(Calendar.HOUR_OF_DAY,Integer.parseInt(etNumberOfHours.getText().toString()));
+                cal.add(Calendar.HOUR_OF_DAY, Integer.parseInt(etNumberOfHours.getText().toString()));
                 sdf.format(cal.getTime());
                 RequestAndResponse.requestService(RequestOnlyNurseActivity.this,
                         IntentDataKey.NURSE_SERVICE,
@@ -150,7 +134,7 @@ public class RequestOnlyNurseActivity extends MyToolbar {
                         MyDateTimeFactor.changeDateTimeWithoutSecondToFullDateTime(sdf.format(cal.getTime())),
                         etLocation.getText().toString(),
                         lat, lng, etNumberOfChildren.getText().toString(), etDateOfBirth.getText().toString(),
-                        etInfo.getText().toString(), 0, spNurseType.getSelectedItem().toString(), new BaseResponseInterface<Service>() {
+                        etInfo.getText().toString(), isComplex, spNurseType.getSelectedItem().toString(), new BaseResponseInterface<Service>() {
                             @Override
                             public void onSuccess(Service service) {
                                 Intent resultIntent = new Intent();
@@ -172,12 +156,15 @@ public class RequestOnlyNurseActivity extends MyToolbar {
         }
     }
 
+
+
     private UserSendRequestController getController() {
         if (userSendRequestController == null) {
             userSendRequestController = new UserSendRequestController(this);
         }
         return userSendRequestController;
     }
+
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PLACE_PICKER_REQUEST) {
             if (resultCode == RESULT_OK) {

@@ -78,9 +78,9 @@ public class MyToolbar extends AppCompatActivity {
 
         new MaterialShowcaseView.Builder(this) // instantiate the material showcase view using Builder
                 .setTarget(ivNotification) // set what view will be pointed or highlighted
-                .setTitleText("Single") // set the title of the tutorial
+                .setTitleText("Notification") // set the title of the tutorial
                 .setDismissText("GOT IT") // set the dismiss text
-                .setContentText("This is the choose option button") // set the content or detail text
+                .setContentText("Tap Here to Show Notification") // set the content or detail text
                 .setDelay(500) // set delay in milliseconds to show the tutor
                 .singleUse("1")
                 // set the single use so it is shown only once using our create SHOWCASE_ID constant
@@ -94,9 +94,9 @@ public class MyToolbar extends AppCompatActivity {
                     public void onShowcaseDismissed(MaterialShowcaseView materialShowcaseView) {
                         new MaterialShowcaseView.Builder(MyToolbar.this) // instantiate the material showcase view using Builder
                                 .setTarget(ivProfile) // set what view will be pointed or highlighted
-                                .setTitleText("Single") // set the title of the tutorial
+                                .setTitleText("Profile") // set the title of the tutorial
                                 .setDismissText("GOT IT") // set the dismiss text
-                                .setContentText("This is the choose option button") // set the content or detail text
+                                .setContentText("Tap Here to Show Your Profile") // set the content or detail text
                                 .setDelay(500) // set delay in milliseconds to show the tutor
                                 .singleUse("2")
                                 .setListener(iShowcaseListener)

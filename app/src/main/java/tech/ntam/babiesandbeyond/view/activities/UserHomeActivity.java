@@ -57,9 +57,9 @@ public class UserHomeActivity extends MyToolbar {
             public void onShowcaseDismissed(MaterialShowcaseView materialShowcaseView) {
                 new MaterialShowcaseView.Builder(UserHomeActivity.this) // instantiate the material showcase view using Builder
                         .setTarget(bottomNavigation) // set what view will be pointed or highlighted
-                        .setTitleText("Single") // set the title of the tutorial
+                        .setTitleText("Menu") // set the title of the tutorial
                         .setDismissText("GOT IT") // set the dismiss text
-                        .setContentText("This is the choose option button") // set the content or detail text
+                        .setContentText("Here, you can show events, workshops, groups and alot of features") // set the content or detail text
                         .setDelay(500) // set delay in milliseconds to show the tutor
                         .singleUse("3")
                         .show();

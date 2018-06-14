@@ -1,13 +1,14 @@
 <resources>
     <string name="app_name">BabiesAndBeyond</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
     <string name="facebook_app_id">222634284961606</string>
     <string name="fb_login_protocol_scheme">fb222634284961606</string>
     <array name="service">
         <item>Newborn Care</item>
+        <item>Child Development</item>
+        <item>Professional Babysitting</item>
+        <item>Breastfeeding and postnatal</item>
+        <item>Sleep Support</item>
+        <item>Nanny Training</item>
     </array>
 
 </resources>
