@@ -158,7 +158,7 @@ public class UserSendRequestController {
         myDialog.showMyDialog(activity);
         // send new request to service to save it
         RequestAndResponse.requestService(activity, serviceTypeId, startDate, endDate, location
-                ,lat,lng,"0","","",0,"", new BaseResponseInterface<Service>() {
+                ,lat,lng,"0","1990-01-01","",0,"", new BaseResponseInterface<Service>() {
             @Override
             public void onSuccess(Service service) {
                 Intent resultIntent = new Intent();
