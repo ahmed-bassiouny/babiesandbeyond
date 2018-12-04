@@ -33,31 +33,40 @@ public class GetServiceQuotationActivity extends MyToolbar {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Integer.parseInt(etNoOfHour.getText().toString()) >24){
+                if (etNoOfDay.getText().toString().trim().isEmpty()) {
+                    etNoOfDay.setError("please fill field");
+                } else if (etNoOfHour.getText().toString().trim().isEmpty()) {
+                    etNoOfHour.setError("please fill field");
+                } else if (etLocation.getText().toString().trim().isEmpty()) {
+                    etLocation.setError("please fill field");
+                } else if (etSpecialRequest.getText().toString().trim().isEmpty()) {
+                    etSpecialRequest.setError("please fill field");
+                } else if (Integer.parseInt(etNoOfHour.getText().toString()) > 24) {
                     Toast.makeText(GetServiceQuotationActivity.this, "maximum hours per day 24 hour", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                final MyDialog myDialog = new MyDialog();
-                myDialog.showMyDialog(GetServiceQuotationActivity.this);
-                RequestAndResponse.getServiceQuotation(GetServiceQuotationActivity.this,
-                        spServiceName.getSelectedItem().toString(), etNoOfDay.getText().toString(),
-                        etNoOfHour.getText().toString(), etSpecialRequest.getText().toString(),
-                        etLocation.getText().toString(), new BaseResponseInterface<String>() {
-                            @Override
-                            public void onSuccess(String s) {
-                                myDialog.dismissMyDialog();
-                                Toast.makeText(GetServiceQuotationActivity.this, s, Toast.LENGTH_SHORT).show();
-                                finish();
-                            }
+                } else {
+                    final MyDialog myDialog = new MyDialog();
+                    myDialog.showMyDialog(GetServiceQuotationActivity.this);
+                    RequestAndResponse.getServiceQuotation(GetServiceQuotationActivity.this,
+                            spServiceName.getSelectedItem().toString(), etNoOfDay.getText().toString(),
+                            etNoOfHour.getText().toString(), etSpecialRequest.getText().toString(),
+                            etLocation.getText().toString(), new BaseResponseInterface<String>() {
+                                @Override
+                                public void onSuccess(String s) {
+                                    myDialog.dismissMyDialog();
+                                    Toast.makeText(GetServiceQuotationActivity.this, s, Toast.LENGTH_SHORT).show();
+                                    finish();
+                                }
 
-                            @Override
-                            public void onFailed(String errorMessage) {
-                                myDialog.dismissMyDialog();
-                                Toast.makeText(GetServiceQuotationActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                                @Override
+                                public void onFailed(String errorMessage) {
+                                    myDialog.dismissMyDialog();
+                                    Toast.makeText(GetServiceQuotationActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                }
             }
         });
+
     }
 
     public void findView() {
