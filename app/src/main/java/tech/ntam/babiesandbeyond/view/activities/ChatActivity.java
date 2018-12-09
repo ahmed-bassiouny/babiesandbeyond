@@ -1,13 +1,17 @@
 package tech.ntam.babiesandbeyond.view.activities;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -162,7 +166,7 @@ public class ChatActivity extends MyToolbar implements ParseObject<String> {
         ivChooseAttachment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ImagePicker.pickImage(ChatActivity.this, "Select your image:");
+                checkStoragePermissionGranted();
 
             }
         });
@@ -269,4 +273,26 @@ public class ChatActivity extends MyToolbar implements ParseObject<String> {
         }
     };
 
+    public void checkStoragePermissionGranted() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED) {
+
+                ImagePicker.pickImage(ChatActivity.this, "Select your image:");
+            } else {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+            }
+        } else {
+            //permission is automatically granted on sdk<23 upon installation
+            ImagePicker.pickImage(ChatActivity.this, "Select your image:");
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            ImagePicker.pickImage(ChatActivity.this, "Select your image:");
+        }
+    }
 }

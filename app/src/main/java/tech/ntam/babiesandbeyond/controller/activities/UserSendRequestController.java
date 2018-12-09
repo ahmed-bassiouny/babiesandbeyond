@@ -87,6 +87,7 @@ public class UserSendRequestController {
         );
         dpd.setVersion(DatePickerDialog.Version.VERSION_2);
         dpd.setThemeDark(true);
+        dpd.setMaxDate(Calendar.getInstance());
         dpd.setAccentColor(activity.getResources()
                 .getColor(R.color.colorPrimary));
         dpd.show(fragmentManager, "Datepickerdialog");

@@ -1,8 +1,12 @@
 package tech.ntam.babiesandbeyond.view.activities;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -43,8 +47,8 @@ public class UserProfileActivity extends MyToolbar {
         onClick();
         setupToolbar(this, false, true, false);
         tvTitle.setText(R.string.profile);
-        getUserProfileController().getDataFromSharefPref(etName, etPhone, ivProfilePhoto,btnChangePassword);
-        getUserProfileController().getProfileData(etName, etPhone, ivProfilePhoto,btnChangePassword);
+        getUserProfileController().getDataFromSharefPref(etName, etPhone, ivProfilePhoto, btnChangePassword);
+        getUserProfileController().getProfileData(etName, etPhone, ivProfilePhoto, btnChangePassword);
     }
 
     private void onClick() {
@@ -74,16 +78,16 @@ public class UserProfileActivity extends MyToolbar {
             public void onClick(View v) {
                 if (!editable)
                     return;
-                ImagePicker.pickImage(UserProfileActivity.this, "Select your image:");
-
+                checkStoragePermissionGranted();
             }
         });
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         final Bitmap bitmap = ImagePicker.getImageFromResult(this, requestCode, resultCode, data);
-        if(bitmap == null)
+        if (bitmap == null)
             return;
         ivProfilePhoto.setImageResource(0);
         ivProfilePhoto.setImageBitmap(bitmap);
@@ -120,11 +124,11 @@ public class UserProfileActivity extends MyToolbar {
         if (item.getItemId() == R.id.edit) {
             if (editable) {
                 // here i will save new data
-                if(etName.getText().toString().trim().isEmpty()){
+                if (etName.getText().toString().trim().isEmpty()) {
                     etName.setError(getString(R.string.invalid_name));
-                }else if(etPhone.getText().toString().isEmpty()){
+                } else if (etPhone.getText().toString().isEmpty()) {
                     etPhone.setError(getString(R.string.invalid_phone));
-                }else {
+                } else {
                     getUserProfileController().updateProfile(photo, etName, etPhone, new UserProfileController.UpdateSuccess() {
                         @Override
                         public void updated() {
@@ -152,4 +156,26 @@ public class UserProfileActivity extends MyToolbar {
         return userProfileController;
     }
 
+    public void checkStoragePermissionGranted() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED) {
+
+                ImagePicker.pickImage(UserProfileActivity.this, "Select your image:");
+            } else {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+            }
+        } else {
+            //permission is automatically granted on sdk<23 upon installation
+            ImagePicker.pickImage(UserProfileActivity.this, "Select your image:");
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            ImagePicker.pickImage(UserProfileActivity.this, "Select your image:");
+        }
+    }
 }

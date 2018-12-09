@@ -189,6 +189,7 @@ first few months of their baby's life. whether you are first-timers or old-timer
             android:layout_marginStart="5dp"
             android:textStyle="bold"
             android:layout_marginTop="5dp"
+            android:buttonTint="@color/colorPrimaryDark"
             android:id="@+id/ch_is_complex"
             android:text="My request is complex please contact me"/>
 
