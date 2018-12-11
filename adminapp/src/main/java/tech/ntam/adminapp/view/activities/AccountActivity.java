@@ -41,8 +41,10 @@ public class AccountActivity extends MyToolbar {
                         .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 UserSharedPref.clearShared(AccountActivity.this);
+                                Intent intent = new Intent(AccountActivity.this, SignInActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
                                 finish();
-                                startActivity(new Intent(AccountActivity.this, SignInActivity.class));
                             }
                         })
                         .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
