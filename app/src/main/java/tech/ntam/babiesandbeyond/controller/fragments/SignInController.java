@@ -67,7 +67,6 @@ public class SignInController {
     private GoogleSignInOptions getGoogleSignInOptions() {
         if (gso == null)
             gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                    .requestIdToken(activity.getString(R.string.default_web_client_id))
                     .requestEmail()
                     .build();
         return gso;
@@ -79,8 +78,8 @@ public class SignInController {
                 .build();
     }
 
-    public void firebaseAuthWithGoogle(GoogleSignInAccount acct, final MyDialog myDialog) {
-        final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    public void firebaseAuthWithGoogle(GoogleSignInAccount account, final MyDialog myDialog) {
+     /*   final FirebaseAuth mAuth = FirebaseAuth.getInstance();
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
@@ -110,7 +109,21 @@ public class SignInController {
                                 }
                             }
                         }
-                );
+                );*/
+        RequestAndResponse.loginWithSocial(activity, account.getEmail(), account.getDisplayName(), new BaseResponseInterface<User>() {
+            @Override
+            public void onSuccess(User user) {
+                checkUserType(user, "");
+                myDialog.dismissMyDialog();
+            }
+
+            @Override
+            public void onFailed(String errorMessage) {
+                Toast.makeText(activity, errorMessage, Toast.LENGTH_SHORT).show();
+                FirebaseAuth.getInstance().signOut();
+                myDialog.dismissMyDialog();
+            }
+        });
     }
 
     private void checkUserType(User user, String password) {
