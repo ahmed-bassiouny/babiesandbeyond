@@ -49,7 +49,7 @@ public class CreateGroupActivity extends MyToolbar {
         tvUploadPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ImagePicker.pickImage(CreateGroupActivity.this, "Select your image:");
+                checkStoragePermissionGranted();
 
             }
         });
