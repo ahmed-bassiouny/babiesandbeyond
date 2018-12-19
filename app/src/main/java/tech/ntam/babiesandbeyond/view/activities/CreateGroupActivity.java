@@ -43,6 +43,9 @@ public class CreateGroupActivity extends MyToolbar {
         tvTitle.setText(R.string.new_group);
         findViewById();
         onCLick();
+
+        // create group
+        //fortCallback =FortCallback.Factory.create();
     }
 
     private void onCLick() {
@@ -50,7 +53,6 @@ public class CreateGroupActivity extends MyToolbar {
             @Override
             public void onClick(View v) {
                 checkStoragePermissionGranted();
-
             }
         });
         ivProfilePhoto.setOnClickListener(new View.OnClickListener() {

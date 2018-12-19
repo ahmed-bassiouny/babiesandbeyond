@@ -1,1 +1,1 @@
-include ':app', ':adminapp', ':mylibrary'
+include ':app', ':adminapp', ':mylibrary', ':FORTSDKv1.4.4'
