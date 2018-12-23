@@ -2,6 +2,11 @@
     <string name="app_name">BabiesAndBeyond</string>
     <string name="facebook_app_id">222634284961606</string>
     <string name="fb_login_protocol_scheme">fb222634284961606</string>
+    <string name="payment">Payment</string>
+    <string name="card_number">Card Number</string>
+    <string name="expiration_date">Expiration Date</string>
+    <string name="cvv">CVV</string>
+    <string name="country">Country</string>
     <array name="service">
         <item>Newborn Care</item>
         <item>Child Development</item>
