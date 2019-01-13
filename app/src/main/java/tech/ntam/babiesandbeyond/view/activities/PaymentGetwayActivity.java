@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.payfort.fort.android.sdk.base.FortSdk;
 import com.payfort.fort.android.sdk.base.callbacks.FortCallBackManager;
@@ -15,11 +16,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 import tech.ntam.babiesandbeyond.R;
+import tech.ntam.babiesandbeyond.payment.IPaymentRequestCallBack;
+import tech.ntam.babiesandbeyond.payment.PayFortData;
+import tech.ntam.babiesandbeyond.payment.PayFortPayment;
 import tech.ntam.babiesandbeyond.view.toolbar.MyToolbar;
 
-public class PaymentGetwayActivity extends MyToolbar {
+public class PaymentGetwayActivity extends MyToolbar implements IPaymentRequestCallBack {
 
     private FortCallBackManager fortCallback;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,12 +32,61 @@ public class PaymentGetwayActivity extends MyToolbar {
         setupToolbar(this, false, true, false);
         tvTitle.setText(R.string.payment);
         findViewById();
+        fortCallback = FortCallback.Factory.create();
+
+        requestForPayfortPayment();
+
     }
 
     public void findViewById() {
 
 
     }
+
+    @Override
+    public void onPaymentRequestResponse(int responseType, PayFortData responseData) {
+
+        if (responseType == PayFortPayment.RESPONSE_GET_TOKEN) {
+            Toast.makeText(this, "Token not generated", Toast.LENGTH_SHORT).show();
+            Log.e("onPaymentResponse", "Token not generated");
+        } else if (responseType == PayFortPayment.RESPONSE_PURCHASE_CANCEL) {
+            Toast.makeText(this, "Payment cancelled", Toast.LENGTH_SHORT).show();
+            Log.e("onPaymentResponse", "Payment cancelled");
+        } else if (responseType == PayFortPayment.RESPONSE_PURCHASE_FAILURE) {
+            Toast.makeText(this, "Payment failed", Toast.LENGTH_SHORT).show();
+            Log.e("onPaymentResponse", "Payment failed");
+        } else {
+            Toast.makeText(this, "Payment successful", Toast.LENGTH_SHORT).show();
+            Log.e("onPaymentResponse", "Payment successful");
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PayFortPayment.RESPONSE_PURCHASE) {
+            fortCallback.onActivityResult(requestCode, resultCode, data);
+        }
+
+    }
+
+    private void requestForPayfortPayment(){
+        PayFortData payFortData = new PayFortData();
+        if (/*!TextUtils.isEmpty(etAmount.getText().toString())*/true) {
+            payFortData.amount = String.valueOf((int) (Float.parseFloat("0") * 100));// Multiplying with 100, bcz amount should not be in decimal format
+            payFortData.command = PayFortPayment.PURCHASE;
+            payFortData.currency = PayFortPayment.CURRENCY_TYPE;
+            payFortData.customerEmail = "readyandroid@gmail.com";
+            payFortData.language = PayFortPayment.LANGUAGE_TYPE;
+            payFortData.merchantReference = String.valueOf(System.currentTimeMillis());
+
+            PayFortPayment payFortPayment = new PayFortPayment(this, this.fortCallback, this);
+            payFortPayment.requestForPayment(payFortData);
+        }
+    }
+}
+
+    /*
 
 
     private void payfor(){
@@ -95,5 +149,5 @@ public class PaymentGetwayActivity extends MyToolbar {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         fortCallback.onActivityResult(requestCode, resultCode, data);
-    }
-}
+    }*/
+

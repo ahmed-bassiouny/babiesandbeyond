@@ -876,4 +876,14 @@ public interface BaseRequestInterface {
                                    @Field("location") String location);
 
 
+    @FormUrlEncoded
+    @POST("https://sbpaymentservices.payfort.com/FortAPI/paymentApi")
+    Call<ParentResponse> getPayFortSDKToken(@Field("service_command") String serviceCommand,
+                                             @Field("access_code") String accessCode,
+                                             @Field("merchant_identifier") String merchantIdentifier,
+                                             @Field("language") String language,
+                                             @Field("device_id") String deviceId,
+                                             @Field("signature") String signature);
+
+
 }
