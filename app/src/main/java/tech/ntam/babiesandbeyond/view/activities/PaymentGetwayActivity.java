@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.payfort.fort.android.sdk.base.FortSdk;
@@ -34,9 +35,16 @@ public class PaymentGetwayActivity extends MyToolbar implements IPaymentRequestC
         findViewById();
         fortCallback = FortCallback.Factory.create();
 
-        requestForPayfortPayment();
+        findViewById(R.id.test).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                requestForPayfortPayment();
+            }
+        });
+
 
     }
+
 
     public void findViewById() {
 

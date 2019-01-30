@@ -146,7 +146,7 @@ public class PayFortPayment {
                                     parameters.put("customer_email",payFortData.customerEmail);
                                             parameters.put("language",payFortData.language);
                                                     parameters.put("merchant_reference",payFortData.merchantReference);
-                                                            parameters.put("payment_option", "MASTERCARD");
+                                                           // parameters.put("payment_option", "MASTERCARD");
                                                             parameters.put("sdk_token",sdkToken);
 
                                                                     fortRequest.setRequestMap(parameters);
