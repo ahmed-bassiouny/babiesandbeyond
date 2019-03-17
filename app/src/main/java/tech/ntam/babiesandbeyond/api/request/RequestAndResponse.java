@@ -917,11 +917,12 @@ public class RequestAndResponse {
      * @param context     the context
      * @param serviceId   the service id
      * @param anInterface the an interface
+     * payment method 1-> cash 2-> online payment
      */
-    public static void servicePayment(Context context, int serviceId, final BaseResponseInterface<String> anInterface) {
+    public static void servicePayment(Context context, int serviceId,int paymentMethod, final BaseResponseInterface<String> anInterface) {
         Call<ParentResponse> response = baseRequestInterface.servicePayment(
                 UserSharedPref.getTokenWithHeader(context),
-                UserSharedPref.getId(context), serviceId,1);
+                UserSharedPref.getId(context), serviceId,paymentMethod);
         response.enqueue(new Callback<ParentResponse>() {
             @Override
             public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {

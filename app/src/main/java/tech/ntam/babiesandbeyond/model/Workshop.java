@@ -109,6 +109,11 @@ public class Workshop implements Parcelable {
         return price+" $";
     }
 
+    public String getPurePrice() {
+        return Utils.getValueFromString(price);
+
+    }
+
     public void setComing(boolean coming) {
         this.coming = coming;
     }

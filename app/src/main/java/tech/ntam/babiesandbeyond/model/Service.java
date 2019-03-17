@@ -105,6 +105,10 @@ public class Service implements Parcelable {
         return price + "$";
     }
 
+    public String getPurePrice() {
+        return  Utils.getValueFromString(price);
+    }
+
     public String getServiceStatusString() {
         serviceStatusName = Utils.getValueFromString(serviceStatusName);
         if (serviceStatusName.equals(Constant.PENDING)) {
@@ -128,6 +132,7 @@ public class Service implements Parcelable {
                 return R.color.colorButton;
             case Constant.CONFIRMATION_WITH_PAYMENT:
             case Constant.CASH:
+            case Constant.PaymentOnline:
                 return R.color.gray_bold;
             case Constant.CONFIRMATION_WITHOUT_PAYMENT:
                 return R.color.gray;

@@ -13,6 +13,7 @@ public class Constant {
     public static final String DONE  = "Done";
     public static final String CASH = "Cash On Delivery";
     public static final String CANCEL = "Cancel";
+    public static final String PaymentOnline = "Payment Online";
     // this status about user not in group , pending , in group
     public static final String USER_PENDING_GROUP = "Pending";
     public static final String USER_IN_GROUP = "In Group";

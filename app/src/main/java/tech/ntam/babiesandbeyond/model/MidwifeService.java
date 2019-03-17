@@ -80,6 +80,7 @@ public class MidwifeService implements Parcelable {
                 return R.color.colorButton;
             case Constant.CONFIRMATION_WITH_PAYMENT:
             case Constant.CASH:
+            case Constant.PaymentOnline:
                 return R.color.gray_bold;
             case Constant.CONFIRMATION_WITHOUT_PAYMENT:
                 return R.color.gray;

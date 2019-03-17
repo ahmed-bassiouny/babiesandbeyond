@@ -78,7 +78,7 @@ public class ShowWorkshopInfoActivity extends MyToolbar {
             btnPay.setText(R.string.pay);
             btnPay.setVisibility(View.VISIBLE);
             btnCancel.setVisibility(View.VISIBLE);
-        } else if (workshop.getWorkshopStatusName().equals(Constant.CASH)) {
+        } else if (workshop.getWorkshopStatusName().equals(Constant.CASH)||workshop.getWorkshopStatusName().equals(Constant.PaymentOnline)) {
             btnPay.setVisibility(View.INVISIBLE);
             btnCancel.setVisibility(View.INVISIBLE);
         } else {
@@ -107,6 +107,7 @@ public class ShowWorkshopInfoActivity extends MyToolbar {
                 if (workshop.getWorkshopStatusName().equals(Constant.ASK_FOR_PAY)) {
                     Intent intent = new Intent(ShowWorkshopInfoActivity.this, PaymentMethodActivity.class);
                     intent.putExtra(IntentDataKey.MY_WORKSHOP, workshop);
+                    intent.putExtra(IntentDataKey.AMOUNT,workshop.getPurePrice());
                     startActivityForResult(intent, IntentDataKey.CHANGE_WORKSHOP_DATA_CODE);
                 } else {
                     final MyDialog myDialog = new MyDialog();

@@ -39,23 +39,12 @@
         android:text="Cash on delivery"
         android:textSize="18sp" />
 
-    <RadioButton
-        android:id="@+id/rd_cash"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/tv_title"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="5dp"
-        android:backgroundTint="@color/gray_bold"
-        android:buttonTint="@color/gray_bold"
-        android:checked="true" />
+
 
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@+id/rd_cash"
         android:background="#e2e2e2" />
 
     <ImageView
@@ -63,7 +52,7 @@
         android:layout_height="30dp"
         android:id="@+id/iv_card"
         android:src="@drawable/card"
-        android:layout_below="@+id/view"
+        android:layout_below="@+id/tv_cash"
         android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"/>
     <TextView
@@ -80,21 +69,41 @@
         android:text="Credit Card"
         android:textSize="18sp" />
 
-    <RadioButton
-        android:id="@+id/rd_cart"
+
+    <RadioGroup
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/view"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tv_title"
         android:layout_marginEnd="20dp"
-        android:layout_marginTop="10dp"
-        android:enabled="false" />
+        android:id="@+id/rgroup"
+        android:layout_marginTop="5dp"
+        android:checkedButton="@id/rd_cash"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBottom="@+id/tv_card">
+
+        <RadioButton
+            android:id="@+id/rd_cash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/gray_bold"
+            android:buttonTint="@color/gray_bold" />
+        <RadioButton
+            android:id="@+id/rd_cart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/view"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/gray_bold"
+            android:buttonTint="@color/gray_bold"/>
+    </RadioGroup>
 
     <Button
         android:id="@+id/tv_pay"
         android:layout_width="200dp"
         android:layout_height="40dp"
-        android:layout_below="@+id/rd_cart"
+        android:layout_below="@+id/rgroup"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
         android:layout_marginTop="40dp"

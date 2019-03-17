@@ -65,4 +65,5 @@ public class IntentDataKey {
     public static final String ADD_REQUEST = "3";
     public static final String CANCEL_REQUEST = "0";
 
+    public static final String AMOUNT = "amount";
 }

@@ -109,7 +109,7 @@ public class UserRequestMidwifeActivity extends MyToolbar {
         } else if (midwifeService.getMidwifeStatus().equals(Constant.ASK_FOR_PAY)) {
             btnPay.setVisibility(View.VISIBLE);
             btnCancel.setVisibility(View.VISIBLE);
-        } else if (midwifeService.getMidwifeStatus().equals(Constant.CASH)) {
+        } else if (midwifeService.getMidwifeStatus().equals(Constant.CASH)||midwifeService.getMidwifeStatus().equals(Constant.PaymentOnline)) {
             btnPay.setVisibility(View.INVISIBLE);
             btnCancel.setVisibility(View.INVISIBLE);
         }
@@ -143,6 +143,7 @@ public class UserRequestMidwifeActivity extends MyToolbar {
             public void onClick(View v) {
                 Intent intent = new Intent(UserRequestMidwifeActivity.this, PaymentMethodActivity.class);
                 intent.putExtra(IntentDataKey.MIDWIFE, midwifeService);
+                intent.putExtra(IntentDataKey.AMOUNT,totalPrice);
                 startActivity(intent);
             }
         });

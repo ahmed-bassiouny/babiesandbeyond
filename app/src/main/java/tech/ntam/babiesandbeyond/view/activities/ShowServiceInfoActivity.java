@@ -82,7 +82,7 @@ public class ShowServiceInfoActivity extends MyToolbar {
         } else if (service.getServiceStatusString().equals(Constant.ASK_FOR_PAY)) {
             btnPay.setVisibility(View.VISIBLE);
             btnCancel.setVisibility(View.VISIBLE);
-        } else if (service.getServiceStatusString().equals(Constant.CASH)) {
+        } else if (service.getServiceStatusString().equals(Constant.CASH)||service.getServiceStatusString().equals(Constant.PaymentOnline)) {
             btnPay.setVisibility(View.INVISIBLE);
             btnCancel.setVisibility(View.INVISIBLE);
         }
@@ -106,6 +106,7 @@ public class ShowServiceInfoActivity extends MyToolbar {
             public void onClick(View v) {
                 Intent intent = new Intent(ShowServiceInfoActivity.this, PaymentMethodActivity.class);
                 intent.putExtra(IntentDataKey.MY_SERVICE, service);
+                intent.putExtra(IntentDataKey.AMOUNT,service.getPurePrice());
                 startActivity(intent);
             }
         });
